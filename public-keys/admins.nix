@@ -1,0 +1,9 @@
+{
+  axeman-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMNeQYLFauAbzDyIbKC86NUh9yZfiyBm/BtIdkcpZnSU axeman@tuxnix";
+  b12f-1 = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHx4A8rLYmFgTOp1fDGbbONN8SOT0l5wWrUSYFUcVzMPTyfdT23ZVIdVD5yZCySgi/7PSh5mVmyLIZVIXlNrZJg= @b12f Yubi Main";
+  b12f-2 = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEST9eyAY3nzGYNnqDYfWHu+89LZsOjyKHMqCFvtP7vrgB7F7JbbECjdjAXEOfPDSCVwtMMpq8JJXeRMjpsD0rw= @b12f Yubi Backup";
+  hensoko-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEbaQdxp7Flz6ttELe63rn+Nt9g43qJOLih6VCMP4gPb";
+  hensoko-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAqkqMYgncrnczcW/0PY+Z+FmNXXpgw6D9JWTTwiainy";
+  teutat3s-1 = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFro/k4Mgqyh8yV/7Zwjc0dv60ZM7bROBU9JNd99P/4co6fxPt1pJiU/pEz2Dax/HODxgcO+jFZfvPEuLMCeAl0= YubiKey #10593996 PIV Slot 9a";
+
+}
