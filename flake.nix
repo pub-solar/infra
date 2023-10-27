@@ -11,6 +11,8 @@
     nixos-flake.url = "github:srid/nixos-flake";
 
     terranix.url = "github:terranix/terranix";
+
+    deploy-rs.url = "github:serokell/deploy-rs";
   };
 
   outputs = inputs@{ self, terranix, ... }:
@@ -19,78 +21,62 @@
 
       imports = [
         inputs.nixos-flake.flakeModule
-        ./terraform.nix
+        # ./terraform.nix
+        ./public-keys
+        ./lib
       ];
 
       perSystem = { config, ... }: { };
 
       flake =
         let
-          # TODO: Change username
-          myUserName = "john";
+          username = "barkeeper";
           system = "x86_64-linux";
-        in
-        {
-          # Configurations for Linux (NixOS) machines
+        in {
           nixosConfigurations = {
-            # TODO: Change hostname from "example1" to something else.
-            example1 = self.nixos-flake.lib.mkLinuxSystem "x86_64-linux" {
+            nachtigall = self.nixos-flake.lib.mkLinuxSystem system {
               imports = [
-                self.nixosModules.common # See below for "nixosModules"!
-                self.nixosModules.linux
-                ./hosts/example1/default.nix
+                self.nixosModules.common
+                ./hosts/nachtigall
+                self.pub-solar.lib.linux.unlockZFSOnBoot
                 self.nixosModules.home-manager
+                self.nixosModules.linux
                 {
-                  home-manager.users.${myUserName} = {
+                  home-manager.users.${username} = {
                     imports = [
-                      self.homeModules.common # See below for "homeModules"!
-                      self.homeModules.linux
+                      self.homeModules.common
                     ];
-                    home.stateVersion = "22.11";
+                    home.stateVersion = "23.05";
                   };
                 }
               ];
             };
           };
 
-          # Configurations for macOS machines
-          darwinConfigurations = {
-            # TODO: Change hostname from "example1" to something else.
-            example1 = self.nixos-flake.lib.mkMacosSystem "aarch64-darwin" {
-              imports = [
-                self.nixosModules.common # See below for "nixosModules"!
-                self.nixosModules.darwin
-                ./hosts/example1/default.nix
-                self.darwinModules.home-manager
-                {
-                  home-manager.users.${myUserName} = {
-                    imports = [
-                      self.homeModules.common # See below for "homeModules"!
-                      self.homeModules.darwin
-                    ];
-                    home.stateVersion = "22.11";
-                  };
-                }
-              ];
-            };
-          };
-
-          # All nixos/nix-darwin configurations are kept here.
           nixosModules = {
             # Common nixos/nix-darwin configuration shared between Linux and macOS.
             common = { pkgs, ... }: {
-              environment.systemPackages = with pkgs; [
-                hello
-              ];
+              virtualisation.docker.enable = true;
+              services.openssh.enable = true;
+              services.openssh.settings.PermitRootLogin = "prohibit-password";
             };
+
             # NixOS specific configuration
             linux = { pkgs, ... }: {
-              users.users.${myUserName}.isNormalUser = true;
-              services.netdata.enable = true;
-            };
-            # nix-darwin specific configuration
-            darwin = { pkgs, ... }: {
-              security.pam.enableSudoTouchIdAuth = true;
+              users.users.${username} = {
+                name = username;
+                group = username;
+                extraGroups = ["wheel"];
+                isNormalUser = true;
+                openssh.authorizedKeys.keys = self.publicKeys.allAdmins;
+              };
+              users.groups.${username} = {};
+
+              security.sudo.wheelNeedsPassword = false;
+              nix.settings.trusted-users = [ "root" username ];
+
+              # TODO: Remove when we stop locking ourselves out.
+              users.users.root.openssh.authorizedKeys.keys = self.publicKeys.allAdmins;
             };
           };
 
@@ -101,14 +87,22 @@
               programs.git.enable = true;
               programs.starship.enable = true;
               programs.bash.enable = true;
+              programs.neovim = {
+                enable = true;
+                vimAlias = true;
+                viAlias = true;
+                defaultEditor = true;
+                # configure = {
+                #   packages.myVimPackages = with pkgs.vimPlugins; {
+                #     start = [vim-nix vim-surrund rainbow];
+                #   };
+                # };
+              };
             };
-            # home-manager config specific to NixOS
-            linux = {
-              xsession.enable = true;
-            };
-            # home-manager config specifi to Darwin
-            darwin = {
-              targets.darwin.search = "Bing";
+          };
+          deploy.nodes = self.pub-solar.lib.deploy.mkDeployNodes self.nixosConfigurations {
+            nachtigall = {
+              sshUser = username;
             };
           };
         };
