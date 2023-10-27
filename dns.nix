@@ -150,6 +150,16 @@
         address = "list.pub.solar";
         mx_pref = "0";
       }
+      {
+        hostname = "nachtigall";
+        type = "A";
+        address = "138.201.80.102";
+      }
+      {
+        hostname = "nachtigall";
+        type = "AAAA";
+        address = "2a01:4f8:172:1c25::1";
+      }
       # SRV records can only be changed via NameCheap Web UI
       # add comment
     ];
