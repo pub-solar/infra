@@ -53,7 +53,6 @@
   time.timeZone = "Etc/UTC";
 
   environment = {
-    enableDebugInfo = true;
     # just a couple of packages to make our lives easier
     systemPackages = with pkgs; [ vim ];
   };
