@@ -7,7 +7,6 @@ let
   teutat3s-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHcU6KPy4b1MQXd6EJhcYwbJu7E+0IrBZF/IP6T7gbMf teutat3s@dumpyourvms";
 
   nachtigall-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7G0ufi+MNvaAZLDgpieHrABPGN7e/kD5kMFwSk4ABj root@nachtigall";
-  #nachtigall-user = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBDuXuPPDXTyJgy4JRwbKcPbawvVB1Il2neyRWb4O5sJ root@nixos";
 
   baseKeys = [
     axeman-1
@@ -19,7 +18,6 @@ let
 
   nachtigallKeys = [
     nachtigall-host
-    #nachtigall-user
   ];
 in {
 
