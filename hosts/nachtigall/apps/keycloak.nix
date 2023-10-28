@@ -12,17 +12,22 @@
     #owner = "keycloak";
   };
 
-  services.nginx.virtualHosts."auth.pub.solar".locations = {
-    "= /" = {
-      extraConfig = ''
-        return 302 /realms/pub.solar/account;
-      '';
-    };
+  services.nginx.virtualHosts."auth.pub.solar" = {
+    enableACME = true;
+    forceSSL = true;
 
-    "/" = {
-      extraConfig = ''
-        proxy_pass http://localhost:8080;
-      '';
+    locations = {
+      "= /" = {
+        extraConfig = ''
+          return 302 /realms/pub.solar/account;
+        '';
+      };
+
+      "/" = {
+        extraConfig = ''
+          proxy_pass http://localhost:8080;
+        '';
+      };
     };
   };
 
