@@ -26,7 +26,7 @@ in
             }
 
             resolver 8.8.8.8;
-            proxy_set_header Host $host;
+            proxy_set_header Host ${objStorHost};
             proxy_set_header Connection \'\';
             proxy_set_header Authorization \'\';
             proxy_hide_header Set-Cookie;
@@ -42,8 +42,10 @@ in
             proxy_ignore_headers Set-Cookie;
             proxy_pass https://${objStorHost}/${objStorBucket}$request_uri?download;
             proxy_intercept_errors off;
+            proxy_ssl_protocols TLSv1.2 TLSv1.3;
+            proxy_ssl_server_name on;
 
-            proxy_cache mastodon_files;
+            proxy_cache cache;
             proxy_cache_valid 200 48h;
             proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
             proxy_cache_lock on;

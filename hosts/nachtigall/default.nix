@@ -10,6 +10,7 @@
       ./nix.nix
       ./apps/nginx.nix
 
+      ./apps/nginx-mastodon.nix
       ./apps/nginx-mastodon-files.nix
       ./apps/nginx-website.nix
       ./apps/mastodon.nix

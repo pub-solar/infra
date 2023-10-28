@@ -36,7 +36,6 @@
     enable = true;
     # Different from WEB_DOMAIN in our case
     localDomain = "pub.solar";
-    configureNginx = true;
     enableUnixSocket = true;
     # Processes used by the mastodon-streaming service. Defaults to the number
     # of CPU cores minus one
