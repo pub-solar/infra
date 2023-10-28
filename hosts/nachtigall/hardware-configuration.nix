@@ -18,6 +18,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/var/lib" =
+    { device = "root_pool/data";
+      fsType = "zfs";
+    };
+
   fileSystems."/var/lib/postgresql" =
     { device = "root_pool/data/postgresql";
       fsType = "zfs";
