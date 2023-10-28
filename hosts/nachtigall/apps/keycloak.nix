@@ -2,7 +2,6 @@
   flake,
   config,
   lib,
-  inputs,
   pkgs,
   ...
 }: {
@@ -43,7 +42,7 @@
       features = "declarative-user-profile";
     };
     themes = {
-      "pub.solar" = inputs.keycloak-theme-pub-solar.legacyPackages.${pkgs.system}.keycloak-theme-pub-solar;
+      "pub.solar" = flake.inputs.keycloak-theme-pub-solar.legacyPackages.${pkgs.system}.keycloak-theme-pub-solar;
     };
   };
 }
