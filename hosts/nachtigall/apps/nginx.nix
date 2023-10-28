@@ -12,7 +12,13 @@ in {
     enable = true;
     group = webserverGroup;
     enableReload = true;
+    proxyCachePath.cache = {
+      enable = true;
+    };
+    recommendedProxySettings = true;
   };
+  # Nginx user needs access to mastodon unix sockets
+  users.users.nginx.extraGroups = [ "mastodon" ];
   
   security.acme = {
     acceptTerms = true;
