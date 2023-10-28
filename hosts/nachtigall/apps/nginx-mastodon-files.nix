@@ -43,7 +43,7 @@ in
             proxy_pass https://${objStorHost}/${objStorBucket}$request_uri?download;
             proxy_intercept_errors off;
 
-            proxy_cache mastodon_files;
+            proxy_cache cache;
             proxy_cache_valid 200 48h;
             proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
             proxy_cache_lock on;

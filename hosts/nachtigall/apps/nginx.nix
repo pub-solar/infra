@@ -12,6 +12,9 @@ in {
     enable = true;
     group = webserverGroup;
     enableReload = true;
+    proxyCachePath.cache = {
+      enable = true;
+    };
   };
   
   security.acme = {
