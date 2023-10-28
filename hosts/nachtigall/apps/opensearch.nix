@@ -1,0 +1,5 @@
+{ ... }:
+
+{
+  services.opensearch.enable = true;
+}

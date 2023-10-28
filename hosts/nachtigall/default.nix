@@ -11,5 +11,8 @@
       ./apps/nginx.nix
 
       ./apps/nginx-website.nix
+      ./apps/mastodon.nix
+      ./apps/opensearch.nix
+      ./apps/postgresql.nix
     ];
 }

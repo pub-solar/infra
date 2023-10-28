@@ -150,6 +150,22 @@
         "type": "github"
       }
     },
+    "mastodon-fork": {
+      "locked": {
+        "lastModified": 1698490885,
+        "narHash": "sha256-Ic2YgJ7vlAoiihho4pJgHewIubIZQpv1L8ePRB1wfG4=",
+        "owner": "teutat3s",
+        "repo": "nixpkgs",
+        "rev": "534d90c65614f05e543fd11b3f4acd748704a625",
+        "type": "github"
+      },
+      "original": {
+        "owner": "teutat3s",
+        "ref": "mastodon-4.2.1",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -226,6 +242,7 @@
         "deploy-rs": "deploy-rs",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
+        "mastodon-fork": "mastodon-fork",
         "nix-darwin": "nix-darwin",
         "nixos-flake": "nixos-flake",
         "nixpkgs": "nixpkgs",
