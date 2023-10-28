@@ -6,6 +6,11 @@
     owner = config.services.mastodon.user;
   };
 
+  services.nginx.virtualHosts."cloud.pub.solar" = {
+    enableACME = true;
+    forceSSL = true;
+  };
+
   services.nextcloud = {
     hostName = "cloud.pub.solar";
     home = "/var/lib/nextcloud";
