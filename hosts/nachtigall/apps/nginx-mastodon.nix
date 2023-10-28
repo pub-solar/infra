@@ -16,6 +16,18 @@ in
         tryFiles = "$uri @proxy";
       };
 
+      locations."/auth/sign_up".extraConfig = ''
+        return 302 /auth/sign_in;
+      '';
+
+      locations."/auth/confirmation/new".extraConfig = ''
+        return 302 https://auth.pub.solar/realms/pub.solar/login-actions/reset-credentials?client_id=mastodon;
+      '';
+
+      locations."/auth/password/new".extraConfig = ''
+        return 302 https://auth.pub.solar/realms/pub.solar/login-actions/reset-credentials?client_id=mastodon;
+      '';
+
       locations."@proxy" = {
         proxyPass = (if cfg.enableUnixSocket then "http://unix:/run/mastodon-web/web.socket" else "http://127.0.0.1:${toString(cfg.webPort)}");
         proxyWebsockets = true;
