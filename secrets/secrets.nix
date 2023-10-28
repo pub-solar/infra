@@ -34,4 +34,8 @@ in {
   "mastodon-extra-env-secrets.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "keycloak-database-password.age".publicKeys = nachtigallKeys ++ baseKeys;
+
+  "forgejo-database-password.age".publicKeys = nachtigallKeys ++ baseKeys;
+
+  "forgejo-mailer-password.age".publicKeys = nachtigallKeys ++ baseKeys;
 }
