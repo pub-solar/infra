@@ -20,8 +20,4 @@ in {
   };
 
   networking.firewall.allowedTCPPorts = [80 443];
-
-  systemd.tmpfiles.rules = [
-    "d '/srv/www/pub.solar' 0750 hakkonaut hakkonaut - -"
-  ];
 }

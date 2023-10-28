@@ -1,12 +1,25 @@
 { ... }:
 
 {
+  systemd.tmpfiles.rules = [
+    "d '/srv/www/pub.solar' 0750 hakkonaut hakkonaut - -"
+  ];
+
   services.nginx.virtualHosts = {
-    "www.pub.solar".locations."/".extraConfig = "return 301 https://pub.solar$request_uri";
+    "www.pub.solar" = {
+      enableACME = true;
+      addSSL = true;
+      locations."/" = {
+        extraConfig = ''
+          return 301 https://pub.solar$request_uri;
+        '';
+      };
+    };
 
     "pub.solar" = {
       default = true;
       enableACME = true;
+      forceSSL = true;
 
       locations = {
 # serve base domain pub.solar for mastodon.pub.solar
@@ -21,7 +34,7 @@
         "/.well-known/webfinger" = {
 # Redirect requests that match /.well-known/webfinger?resource=* to Mastodon
           extraConfig = ''
-            if ($arg_resource) = {
+            if ($arg_resource) {
               return 301 https://mastodon.pub.solar$request_uri;
             }
 
@@ -32,14 +45,14 @@
 
         "/satzung" = {
           extraConfig = ''
-            return 302 /satzung https://cloud.pub.solar/s/2tRCP9aZFCiWxQy;
+            return 302 https://cloud.pub.solar/s/2tRCP9aZFCiWxQy;
           '';
         };
 
         "/" = {
           root = "/srv/www/pub.solar";
           index = "index.html";
-          tryFiles = "$uri $uri/";
+          tryFiles = "$uri $uri/ =404";
         };
       };
     };
