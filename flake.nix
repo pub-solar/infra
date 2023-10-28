@@ -13,6 +13,8 @@
     terranix.url = "github:terranix/terranix";
 
     deploy-rs.url = "github:serokell/deploy-rs";
+
+    agenix.url = "github:ryantm/agenix";
   };
 
   outputs = inputs@{ self, terranix, ... }:
@@ -26,7 +28,35 @@
         ./lib
       ];
 
-      perSystem = { config, ... }: { };
+      perSystem = { system, pkgs, config, ... }: {
+        _module.args = {
+          inherit inputs;
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [
+              inputs.agenix.overlays.default
+            ];
+          };
+          unstable = import inputs.unstable { inherit system; };
+          master = import inputs.master { inherit system; };
+        };
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            deploy-rs
+            nixpkgs-fmt
+            agenix
+            cachix
+            editorconfig-checker
+            nix
+            nodePackages.prettier
+            nvfetcher
+            shellcheck
+            shfmt
+            treefmt
+            nixos-generators
+          ];
+        };
+      };
 
       flake =
         let
