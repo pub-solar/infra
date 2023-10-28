@@ -9,12 +9,6 @@
       enableACME = true;
 
       locations = {
-# PubSolarOS images
-        "/os/download" = {
-          root = "/data/srv/www";
-          extraConfig = "autoindex on;";
-        };
-
 # serve base domain pub.solar for mastodon.pub.solar
 # https://masto.host/mastodon-usernames-different-from-the-domain-used-for-installation/
         "/.well-known/host-meta" = {
