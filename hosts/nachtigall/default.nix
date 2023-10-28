@@ -10,6 +10,7 @@
       ./nix.nix
       ./apps/nginx.nix
 
+      ./apps/collabora.nix
       ./apps/forgejo.nix
       ./apps/keycloak.nix
       ./apps/mailman.nix
