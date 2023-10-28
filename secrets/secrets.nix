@@ -20,17 +20,11 @@ let
     nachtigall-host
   ];
 in {
-
   "mastodon-secret-key-base.age".publicKeys = nachtigallKeys ++ baseKeys;
-
   "mastodon-otp-secret.age".publicKeys = nachtigallKeys ++ baseKeys;
-
   "mastodon-vapid-private-key.age".publicKeys = nachtigallKeys ++ baseKeys;
-
   "mastodon-vapid-public-key.age".publicKeys = nachtigallKeys ++ baseKeys;
-
   "mastodon-smtp-password.age".publicKeys = nachtigallKeys ++ baseKeys;
-
   "mastodon-extra-env-secrets.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "keycloak-database-password.age".publicKeys = nachtigallKeys ++ baseKeys;
