@@ -32,4 +32,6 @@ in {
   "mastodon-smtp-password.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "mastodon-extra-env-secrets.age".publicKeys = nachtigallKeys ++ baseKeys;
+
+  "keycloak-database-password.age".publicKeys = nachtigallKeys ++ baseKeys;
 }

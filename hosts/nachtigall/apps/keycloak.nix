@@ -12,14 +12,18 @@
     #owner = "keycloak";
   };
 
-  services.caddy.virtualHosts."auth.pub.solar" = {
-    # logFormat = lib.mkForce ''
-    #   output discard
-    # '';
-    extraConfig = ''
-      redir / /realms/pub.solar/account temporary
-      reverse_proxy :8080
-    '';
+  services.nginx.virtualHosts."auth.pub.solar".locations = {
+    "= /" = {
+      extraConfig = ''
+        return 302 /realms/pub.solar/account;
+      '';
+    };
+
+    "/" = {
+      extraConfig = ''
+        proxy_pass http://localhost:8080;
+      '';
+    };
   };
 
   # keycloak
