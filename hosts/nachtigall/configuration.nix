@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 {
   # Use GRUB2 as the boot loader.
   # We don't use systemd-boot because Hetzner uses BIOS legacy boot.
@@ -32,18 +31,6 @@
 
   boot.initrd.availableKernelModules = [ "igb" ];
 
-  networking.hostName = "nachtigall";
-  networking.domain = "pub.solar";
-  networking.hostId = "00000001";
-
-  # enable flakes by default
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
-
   # Set your time zone.
   time.timeZone = "Etc/UTC";
 
@@ -52,32 +39,19 @@
     systemPackages = with pkgs; [ vim ];
   };
 
-  # Network (Hetzner uses static IP assignments, and we don't use DHCP here)
-  networking.useDHCP = false;
-  networking.interfaces."enp35s0".ipv4.addresses = [
-    {
-      address = "138.201.80.102";
-      prefixLength = 26;
-    }
-  ];
-  networking.interfaces."enp35s0".ipv6.addresses = [
-    {
-      address = "2a01:4f8:172:1c25::1";
-      prefixLength = 64;
-    }
-  ];
-  networking.defaultGateway = "138.201.80.65";
-  networking.defaultGateway6 = { address = "fe80::1"; interface = "enp35s0"; };
-
-  services.resolved = {
-    enable = true;
-    extraConfig = ''
-      DNS=9.9.9.9#dns.quad9.net 149.112.112.112#dns.quad9.net 2620:fe::fe#dns.quad9.net 2620:fe::9#dns.quad9.net 193.110.81.0#dns0.eu 185.253.5.0#dns0.eu 2a0f:fc80::#dns0.eu 2a0f:fc81::#dns0.eu
-      FallbackDNS=5.1.66.255#dot.ffmuc.net 185.150.99.255#dot.ffmuc.net 2001:678:e68:f000::#dot.ffmuc.net 2001:678:ed0:f000::#dot.ffmuc.net
-      Domains=~.
-      DNSOverTLS=yes
-    '';
+  users.users.hakkonaut = {
+    description = "CI and automation user";
+    home = "/var/nix/iso-cache";
+    useDefaultShell = true;
+    uid = 998;
+    group = "hakkonaut";
+    isSystemUser = true;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGP5MvCwNRtCcP1pSDrn0XZTNlpOqYnjHDm9/OI4hECW hakkonaut@flora-6"
+    ];
   };
+
+  users.groups.hakkonaut = {};
 
   users.users.root.initialHashedPassword = "$y$j9T$bIN6GjQkmPMllOcQsq52K0$q0Z5B5.KW/uxXK9fItB8H6HO79RYAcI/ZZdB0Djke32";
 
