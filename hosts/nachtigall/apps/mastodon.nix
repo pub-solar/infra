@@ -1,4 +1,4 @@
-{ config, pkgs, flake, ... }:
+{ config, pkgs, flake, inputs, ... }:
 
 {
   age.secrets."mastodon-secret-key-base" = {

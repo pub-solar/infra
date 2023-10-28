@@ -3,6 +3,7 @@
     # Track channels with commits tested and built by hydra
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    mastodon-fork.url = "github:teutat3s/nixpkgs/mastodon-4.2.1";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +35,7 @@
         # ./terraform.nix
         ./public-keys
         ./lib
+        ./overlays
       ];
 
       perSystem = { system, pkgs, config, ... }: {
@@ -79,6 +81,7 @@
                 self.pub-solar.lib.linux.unlockZFSOnBoot
                 self.nixosModules.home-manager
                 self.nixosModules.linux
+                self.nixosModules.overlays
                 inputs.agenix.nixosModules.default
                 {
                   home-manager.users.${username} = {
