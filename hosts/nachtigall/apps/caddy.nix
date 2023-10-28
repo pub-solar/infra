@@ -48,7 +48,6 @@ in {
     enable = lib.mkForce true;
     group = "hakkonaut";
     email = "admins@pub.solar";
-    enableReload = true;
     globalConfig = lib.mkForce ''
       grace_period 60s
     '';
