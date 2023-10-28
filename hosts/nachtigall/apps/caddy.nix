@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  self,
+  flake,
   ...
 }: let
   maintenanceMode = {
@@ -40,6 +40,14 @@
     '';
   };
 in {
+  disabledModules = [
+    "services/web-servers/caddy/default.nix"
+  ];
+
+  imports = [
+    "${flake.inputs.unstable}/nixos/modules/services/web-servers/caddy/default.nix"
+  ];
+
   systemd.tmpfiles.rules = [
     "d '/data/srv/www/os/download/' 0750 hakkonaut hakkonaut - -"
   ];
