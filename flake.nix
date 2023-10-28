@@ -1,9 +1,11 @@
 {
   inputs = {
-    # Principle inputs (updated by `nix run .#update`)
+    # Track channels with commits tested and built by hydra
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -11,8 +13,15 @@
     nixos-flake.url = "github:srid/nixos-flake";
 
     terranix.url = "github:terranix/terranix";
+    terranix.inputs.nixpkgs.follows = "nixpkgs";
 
     deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
+
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.inputs.darwin.follows = "nix-darwin";
+    agenix.inputs.home-manager.follows = "home-manager";
   };
 
   outputs = inputs@{ self, terranix, ... }:
@@ -26,7 +35,35 @@
         ./lib
       ];
 
-      perSystem = { config, ... }: { };
+      perSystem = { system, pkgs, config, ... }: {
+        _module.args = {
+          inherit inputs;
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [
+              inputs.agenix.overlays.default
+            ];
+          };
+          unstable = import inputs.unstable { inherit system; };
+          master = import inputs.master { inherit system; };
+        };
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            deploy-rs
+            nixpkgs-fmt
+            agenix
+            cachix
+            editorconfig-checker
+            nix
+            nodePackages.prettier
+            nvfetcher
+            shellcheck
+            shfmt
+            treefmt
+            nixos-generators
+          ];
+        };
+      };
 
       flake =
         let
@@ -41,6 +78,7 @@
                 self.pub-solar.lib.linux.unlockZFSOnBoot
                 self.nixosModules.home-manager
                 self.nixosModules.linux
+                inputs.agenix.nixosModules.default
                 {
                   home-manager.users.${username} = {
                     imports = [
