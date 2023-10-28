@@ -1,12 +1,18 @@
 { config, pkgs, ... }:
 {
+  age.secrets."nextcloud-secrets" = {
+    file = "${flake.self}/secrets/nextcloud-secrets.age";
+    mode = "400";
+    owner = config.services.mastodon.user;
+  };
+
   services.nextcloud = {
     hostName = "cloud.pub.solar";
     home = "/var/lib/nextcloud";
 
     enable = true;
     https = true;
-    secretFile = ""; # secret
+    secretFile = config.age.secrets."nextcloud-secrets".path; # secret
 
     configureRedis = true;
 
