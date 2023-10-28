@@ -46,7 +46,9 @@
     #sidekiqPort = 55002;
     # Processes used by the mastodon-streaming service. Defaults to the number
     # of CPU cores minus one
-    streamingProcesses = 5;
+    # This is without affect until this comment is addressed
+    # https://github.com/NixOS/nixpkgs/pull/251950#issuecomment-1732568492
+    #streamingProcesses = 5;
     # Processes used by the mastodon-web service
     webProcesses = 2;
     # Threads per process used by the mastodon-web service
