@@ -8,6 +8,6 @@
 
       ./networking.nix
       ./nix.nix
-      ./apps/caddy.nix
+      ./apps/nginx.nix
     ];
 }
