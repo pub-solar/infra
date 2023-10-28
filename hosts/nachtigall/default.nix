@@ -18,5 +18,8 @@
       ./apps/opensearch.nix
       ./apps/postgresql.nix
       ./apps/forgejo.nix
+
+      ./apps/matrix.nix
+      ./apps/mautrix-telegram.nix
     ];
 }

@@ -30,6 +30,9 @@ in {
   "keycloak-database-password.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "forgejo-database-password.age".publicKeys = nachtigallKeys ++ baseKeys;
-
   "forgejo-mailer-password.age".publicKeys = nachtigallKeys ++ baseKeys;
+
+  "matrix-mautrix-telegram-env-file.age".publicKeys = nachtigallKeys ++ baseKeys;
+  "matrix-synapse-signing-key.age".publicKeys = nachtigallKeys ++ baseKeys;
+  "matrix-synapse-secret-config.yaml.age".publicKeys = nachtigallKeys ++ baseKeys;
 }
