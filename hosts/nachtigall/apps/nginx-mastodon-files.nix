@@ -7,8 +7,8 @@ in
 {
   services.nginx.virtualHosts = {
     "files.pub.solar" = {
-      default = true;
       enableACME = true;
+      forceSSL = true;
 
       locations = {
         "= /" = {
