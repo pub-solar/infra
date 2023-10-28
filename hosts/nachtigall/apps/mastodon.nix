@@ -39,7 +39,7 @@
     # Different from WEB_DOMAIN in our case
     localDomain = "pub.solar";
     # We use caddy, see caddy.nix
-    configureNginx = false;
+    configureNginx = true;
     enableUnixSocket = true;
     #streamingSocket = "/run/mastodon-streaming/streaming.socket";
     #webSocket = "/run/mastodon-web/web.socket";
