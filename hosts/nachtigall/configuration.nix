@@ -51,6 +51,9 @@
     ];
   };
 
+  # https://nixos.wiki/wiki/ZFS#declarative_mounting_of_ZFS_datasets
+  systemd.services.zfs-mount.enable = false;
+
   users.groups.hakkonaut = {};
 
   users.users.root.initialHashedPassword = "$y$j9T$bIN6GjQkmPMllOcQsq52K0$q0Z5B5.KW/uxXK9fItB8H6HO79RYAcI/ZZdB0Djke32";
