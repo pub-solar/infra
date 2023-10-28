@@ -24,6 +24,9 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.darwin.follows = "nix-darwin";
     agenix.inputs.home-manager.follows = "home-manager";
+
+    keycloak-theme-pub-solar.url = "git+https://git.pub.solar/pub-solar/keycloak-theme?ref=main";
+    keycloak-theme-pub-solar.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{ self, terranix, ... }:
