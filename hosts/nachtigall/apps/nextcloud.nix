@@ -1,0 +1,81 @@
+{ config, pkgs, ... }:
+{
+  services.nextcloud = {
+    hostName = "cloud.pub.solar";
+    home = "/var/lib/nextcloud";
+
+    enable = true;
+    https = true;
+    secretFile = ""; # secret
+
+    configureRedis = true;
+
+    notify_push = {
+      enable = true;
+    };
+
+    config = {
+      adminuser = "admin";
+      dbuser = "nextcloud";
+      dbtype = "pgsql";
+      dbname = "nextcloud";
+      dbtableprefix = "oc_";
+      overwriteProtocol = "https";
+    };
+
+    extraOptions = {
+      overwrite.cli.url = "http://cloud.pub.solar";
+
+      installed = true;
+      default_phone_region = "+49";
+      mail_sendmailmode = "smtp";
+      mail_from_address = "nextcloud";
+      mail_smtpmode = "smtp";
+      mail_smtpauthtype = "PLAIN";
+      mail_domain = "pub.solar";
+      mail_smtpname = "admins@pub.solar";
+      mail_smtpsecure = "tls";
+      mail_smtpauth = 1;
+      mail_smtphost = "mx2.greenbaum.cloud";
+      mail_smtpport = "587";
+
+      enable_previews = true;
+      enabledPreviewProviders = [
+        "OC\\Preview\\PNG"
+        "OC\\Preview\\JPEG"
+        "OC\\Preview\\GIF"
+        "OC\\Preview\\BMP"
+        "OC\\Preview\\XBitmap"
+        "OC\\Preview\\Movie"
+        "OC\\Preview\\PDF"
+        "OC\\Preview\\MP3"
+        "OC\\Preview\\TXT"
+        "OC\\Preview\\MarkDown"
+      ];
+      preview_max_x = "1024";
+      preview_max_y = "768";
+      preview_max_scale_factor = "1";
+
+      auth.bruteforce.protection.enabled = true;
+      trashbin_retention_obligation = "auto,7";
+      skeletondirectory = "";
+      defaultapp = "file";
+      activity_expire_days = "14";
+      integrity.check.disabled = false;
+      updater.release.channel = "stable";
+      loglevel = 0;
+      maintenance = false;
+      app_install_overwrite = [
+        "pdfdraw"
+        "integration_whiteboard"
+      ];
+      htaccess.RewriteBase = "/";
+      theme = "";
+      simpleSignUpLink.shown = false;
+    };
+
+    caching.redis = true;
+    autoUpdateApps.enable = true;
+    database.createLocally = true;
+  };
+}
