@@ -9,5 +9,7 @@
       ./networking.nix
       ./nix.nix
       ./apps/nginx.nix
+
+      ./apps/nginx-website.nix
     ];
 }
