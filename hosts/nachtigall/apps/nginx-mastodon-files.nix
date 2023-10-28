@@ -26,7 +26,7 @@ in
             }
 
             resolver 8.8.8.8;
-            proxy_set_header Host $host;
+            proxy_set_header Host ${objStorHost};
             proxy_set_header Connection \'\';
             proxy_set_header Authorization \'\';
             proxy_hide_header Set-Cookie;
