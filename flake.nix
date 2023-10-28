@@ -2,6 +2,7 @@
   inputs = {
     # Track channels with commits tested and built by hydra
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -90,6 +91,8 @@
               ];
             };
           };
+
+          checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
 
           nixosModules = {
             # Common nixos/nix-darwin configuration shared between Linux and macOS.

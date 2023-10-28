@@ -6,6 +6,16 @@
  */
 
 { lib, inputs }: let
+  # https://github.com/serokell/deploy-rs#overall-usage
+  system = "x86_64-linux";
+  pkgs = import inputs.nixpkgs { inherit system; };
+  deployPkgs = import inputs.nixpkgs {
+    inherit system;
+    overlays = [
+      inputs.deploy-rs.overlay
+      (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
+    ];
+  };
   getFqdn = c: let
     net = c.config.networking;
     fqdn =
@@ -53,7 +63,7 @@ in {
           hostname = getFqdn c;
           profiles.system = {
             user = "root";
-            path = inputs.deploy-rs.lib.${c.pkgs.stdenv.hostPlatform.system}.activate.nixos c;
+            path = deployPkgs.deploy-rs.lib.activate.nixos c;
           };
         }
       )
