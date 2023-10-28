@@ -41,7 +41,8 @@
 
   users.users.hakkonaut = {
     description = "CI and automation user";
-    home = "/var/nix/iso-cache";
+    home = "/home/hakkonaut";
+    createHome = true;
     useDefaultShell = true;
     uid = 998;
     group = "hakkonaut";
