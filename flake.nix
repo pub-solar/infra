@@ -91,6 +91,8 @@
             };
           };
 
+          checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
+
           nixosModules = {
             # Common nixos/nix-darwin configuration shared between Linux and macOS.
             common = { pkgs, ... }: {
