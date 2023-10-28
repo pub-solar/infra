@@ -16,7 +16,7 @@ in {
   
   security.acme = {
     acceptTerms = true;
-    email = acmeEmailAddress;
+    defaults.email = acmeEmailAddress;
   };
 
   networking.firewall.allowedTCPPorts = [80 443];
