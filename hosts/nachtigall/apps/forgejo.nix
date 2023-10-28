@@ -2,17 +2,17 @@
   config,
   lib,
   pkgs,
-  self,
+  flake,
   ...
 }: {
   age.secrets.forgejo-database-password = {
-    file = "${self}/secrets/forgejo-database-password.age";
+    file = "${flake.self}/secrets/forgejo-database-password.age";
     mode = "600";
     owner = "gitea";
   };
 
   age.secrets.forgejo-mailer-password = {
-    file = "${self}/secrets/forgejo-mailer-password.age";
+    file = "${flake.self}/secrets/forgejo-mailer-password.age";
     mode = "600";
     owner = "gitea";
   };
