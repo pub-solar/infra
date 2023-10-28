@@ -26,7 +26,7 @@
 
   outputs = inputs@{ self, terranix, ... }:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
+      systems = [ "x86_64-linux" "aarch64-linux" ];
 
       imports = [
         inputs.nixos-flake.flakeModule
@@ -71,7 +71,7 @@
           system = "x86_64-linux";
         in {
           nixosConfigurations = {
-            nachtigall = self.nixos-flake.lib.mkLinuxSystem system {
+            nachtigall = self.nixos-flake.lib.mkLinuxSystem {
               imports = [
                 self.nixosModules.common
                 ./hosts/nachtigall
