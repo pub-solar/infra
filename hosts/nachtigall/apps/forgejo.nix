@@ -1,0 +1,94 @@
+{
+  config,
+  lib,
+  pkgs,
+  flake,
+  ...
+}: {
+  age.secrets.forgejo-database-password = {
+    file = "${flake.self}/secrets/forgejo-database-password.age";
+    mode = "600";
+    owner = "gitea";
+  };
+
+  age.secrets.forgejo-mailer-password = {
+    file = "${flake.self}/secrets/forgejo-mailer-password.age";
+    mode = "600";
+    owner = "gitea";
+  };
+
+  services.nginx.virtualHosts."git.pub.solar" = {
+    enableACME = true;
+    forceSSL = true;
+
+    locations."/user/login".extraConfig = ''
+        return 302 /user/oauth2/keycloak;
+    '';
+
+    locations."/".proxyPass = "http://localhost:3000";
+  };
+
+  services.gitea = {
+    enable = true;
+    package = pkgs.forgejo;
+    appName = "pub.solar git server";
+    database = {
+      type = "postgres";
+      passwordFile = config.age.secrets.forgejo-database-password.path;
+    };
+    stateDir = "/var/lib/forgejo";
+    lfs.enable = true;
+    mailerPasswordFile = config.age.secrets.forgejo-mailer-password.path;
+    settings = {
+      server = {
+        ROOT_URL = "https://git.pub.solar";
+        DOMAIN = "git.pub.solar";
+        HTTP_ADDR = "127.0.0.1";
+        HTTP_PORT = 3000;
+      };
+      mailer = {
+        ENABLED = true;
+        PROTOCOL = "smtps";
+        SMTP_ADDR = "mx2.greenbaum.cloud";
+        SMTP_PORT = 465;
+        FROM = ''"pub.solar git server" <forgejo@pub.solar>'';
+        USER = "admins@pub.solar";
+      };
+      "repository.signing" = {
+        SIGNING_KEY = "default";
+        MERGES = "always";
+      };
+      openid = {
+        ENABLE_OPENID_SIGNIN = true;
+        ENABLE_OPENID_SIGNUP = true;
+      };
+      # uncomment after initial deployment, first user is admin user
+      # required to setup SSO (oauth openid-connect, keycloak auth provider)
+      service.ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
+      service.ENABLE_NOTIFY_MAIL = true;
+      session.COOKIE_SECURE = lib.mkForce true;
+    };
+  };
+
+  # See: https://docs.gitea.io/en-us/signing/#installing-and-generating-a-gpg-key-for-gitea
+  # Required for gitea server side gpg signatures
+  # configured/setup manually in:
+  # /var/lib/gitea/data/home/.gitconfig
+  # /var/lib/gitea/data/home/.gnupg/
+  # sudo su gitea
+  # export GNUPGHOME=/var/lib/gitea/data/home/.gnupg
+  # gpg --quick-gen-key 'pub.solar gitea <gitea@pub.solar>' ed25519
+  # TODO: implement declarative GPG key generation and
+  # gitea gitconfig
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryFlavor = "curses";
+  };
+  # Required to make gpg work without a graphical environment?
+  # otherwise generating a new gpg key fails with this error:
+  # gpg: agent_genkey failed: No pinentry
+  # see: https://github.com/NixOS/nixpkgs/issues/97861#issuecomment-827951675
+  environment.variables = {
+    GPG_TTY = "$(tty)";
+  };
+}

@@ -17,5 +17,6 @@
       ./apps/mastodon.nix
       ./apps/opensearch.nix
       ./apps/postgresql.nix
+      ./apps/forgejo.nix
     ];
 }
