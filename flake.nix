@@ -71,7 +71,7 @@
           system = "x86_64-linux";
         in {
           nixosConfigurations = {
-            nachtigall = self.nixos-flake.lib.mkLinuxSystem system {
+            nachtigall = self.nixos-flake.lib.mkLinuxSystem {
               imports = [
                 self.nixosModules.common
                 ./hosts/nachtigall
