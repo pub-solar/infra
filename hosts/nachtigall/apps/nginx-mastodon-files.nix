@@ -42,6 +42,8 @@ in
             proxy_ignore_headers Set-Cookie;
             proxy_pass https://${objStorHost}/${objStorBucket}$request_uri?download;
             proxy_intercept_errors off;
+            proxy_ssl_protocols TLSv1.2 TLSv1.3;
+            proxy_ssl_server_name on;
 
             proxy_cache cache;
             proxy_cache_valid 200 48h;
