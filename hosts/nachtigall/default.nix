@@ -10,6 +10,7 @@
       ./nix.nix
       ./apps/nginx.nix
 
+      ./apps/forgejo.nix
       ./apps/keycloak.nix
       ./apps/nginx-mastodon.nix
       ./apps/nginx-mastodon-files.nix
@@ -17,9 +18,8 @@
       ./apps/mastodon.nix
       ./apps/opensearch.nix
       ./apps/postgresql.nix
-      ./apps/forgejo.nix
 
-      ./apps/matrix.nix
-      ./apps/mautrix-telegram.nix
+      ./apps/matrix/mautrix-telegram.nix
+      ./apps/matrix/synapse.nix
     ];
 }
