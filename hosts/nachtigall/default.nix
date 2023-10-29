@@ -21,6 +21,7 @@
       ./apps/nginx-website.nix
       ./apps/opensearch.nix
       ./apps/postgresql.nix
+      ./apps/searx.nix
 
       ./apps/matrix/mautrix-telegram.nix
       ./apps/matrix/synapse.nix
