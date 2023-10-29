@@ -1,0 +1,12 @@
+name: Flake checks
+on: [push]
+
+jobs:
+  Check:
+    runs-on: nix-flakes
+    steps:
+      - name: Check out repository code
+        uses: https://code.forgejo.org/actions/checkout@v4
+      - name: Run flake checks
+        run: |
+          nix --print-build-logs --verbose --accept-flake-config flake check
