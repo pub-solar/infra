@@ -2,3 +2,4 @@
 /tags.*
 .direnv
 .terraform
+*.plan
