@@ -111,6 +111,10 @@
       simpleSignUpLink.shown = false;
     };
 
+    phpOptions = {
+      "opcache.interned_strings_buffer" = "16";
+    };
+
     caching.redis = true;
     autoUpdateApps.enable = true;
     database.createLocally = true;
