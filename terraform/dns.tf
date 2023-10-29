@@ -80,8 +80,8 @@ resource "namecheap_domain_records" "pub-solar" {
   }
   record {
     hostname = "cloud"
-    type = "A"
-    address = "80.71.153.133"
+    type = "CNAME"
+    address = "nachtigall.pub.solar."
     ttl = 60
   }
   record {
