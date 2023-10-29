@@ -22,5 +22,6 @@
 
       ./apps/matrix/mautrix-telegram.nix
       ./apps/matrix/synapse.nix
+      ./apps/nginx-matrix.nix
     ];
 }
