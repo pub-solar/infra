@@ -15,18 +15,20 @@
     enableACME = true;
     forceSSL = true;
 
-    locations."/".proxyPass = "http://unix:/run/searx/searx.socket";
+    locations."/".extraConfig = ''
+      uwsgi_pass unix:/run/searx/searx.sock;
+    '';
   };
 
   users.users.nginx.extraGroups = [ "searx" ];
 
   services.searx = {
     enable = true;
+    package = pkgs.searxng;
     runInUwsgi = true;
-    package = searxng;
 
     uwsgiConfig = {
-      disable-logging = true;
+      disable-logging = false;
       socket = "/run/searx/searx.sock";
       chmod-socket = "660";
     };
@@ -34,28 +36,39 @@
     environmentFile = config.age.secrets.searx-environment.path; 
 
     settings = {
-      use_default_settings: true;
-      server.secret_key = "@SEARX_SECRET_KEY@";
+      use_default_settings = true;
+
+      server = {
+        base_url = "https://search.pub.solar";
+        secret_key = "@SEARX_SECRET_KEY@";
+      };
 
       general = {
+        debug = false;
         instance_name = "search.pub.solar";
-        privacypolicy_url: "https://pub.solar/privacy";
+        privacypolicy_url = "https://pub.solar/privacy";
         # use true to use your own donation page written in searx/info/en/donate.md
         # use false to disable the donation link
-        donation_url: false
+        donation_url = false;
         # mailto:contact@example.com
-        contact_url: false
-        enable_metrics: false
+        contact_url = false;
+        enable_metrics = false;
       };
 
       search = {
         # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "yandex", "mwmbl",
         # "seznam", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off
         # by default.
-        autocomplete: "duckduckgo"
+        autocomplete = "duckduckgo";
         # minimun characters to type before autocompleter starts
-        autocomplete_min: 4
+        autocomplete_min = 4;
       };
+
+      engine = [
+        { engine = "startpage"; disabled = false; }
+        { engine = "yahoo"; disabled = false; }
+        { engine = "tagesschau"; disabled = false; }
+      ];
 
       ui = {
         # query_in_title: When true, the result page's titles contains the query
