@@ -1,0 +1,40 @@
+version: 1
+
+formatters:
+  precise:
+    format: '%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(request)s - %(message)s'
+
+filters:
+  context:
+    (): synapse.util.logcontext.LoggingContextFilter
+    request: ""
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: precise
+    filters: [context]
+
+loggers:
+  synapse:
+    level: WARNING
+
+  synapse.storage.SQL:
+    # beware: increasing this to DEBUG will make synapse log sensitive
+    # information such as access tokens.
+    level: WARNING
+
+  synapse.http.matrixfederationclient:
+    level: CRITICAL
+  synapse.federation.sender.per_destination_queue:
+    level: CRITICAL
+  synapse.handlers.device:
+    level: CRITICAL
+  synapse.replication.tcp.handler:
+    level: CRITICAL
+  shared_secret_authenticator:
+    level: INFO
+
+root:
+  level: WARNING
+  handlers: [console]

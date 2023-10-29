@@ -20,22 +20,19 @@ let
     nachtigall-host
   ];
 in {
-
   "mastodon-secret-key-base.age".publicKeys = nachtigallKeys ++ baseKeys;
-
   "mastodon-otp-secret.age".publicKeys = nachtigallKeys ++ baseKeys;
-
   "mastodon-vapid-private-key.age".publicKeys = nachtigallKeys ++ baseKeys;
-
   "mastodon-vapid-public-key.age".publicKeys = nachtigallKeys ++ baseKeys;
-
   "mastodon-smtp-password.age".publicKeys = nachtigallKeys ++ baseKeys;
-
   "mastodon-extra-env-secrets.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "keycloak-database-password.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "forgejo-database-password.age".publicKeys = nachtigallKeys ++ baseKeys;
-
   "forgejo-mailer-password.age".publicKeys = nachtigallKeys ++ baseKeys;
+
+  "matrix-mautrix-telegram-env-file.age".publicKeys = nachtigallKeys ++ baseKeys;
+  "matrix-synapse-signing-key.age".publicKeys = nachtigallKeys ++ baseKeys;
+  "matrix-synapse-secret-config.yaml.age".publicKeys = nachtigallKeys ++ baseKeys;
 }
