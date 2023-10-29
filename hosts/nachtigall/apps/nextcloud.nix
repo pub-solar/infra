@@ -18,7 +18,7 @@
     enable = true;
     https = true;
     secretFile = config.age.secrets."nextcloud-secrets".path; # secret
-    phpPackage = pkgs.82;
+    phpPackage = pkgs.php82;
 
     configureRedis = true;
 
