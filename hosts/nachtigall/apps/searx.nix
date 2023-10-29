@@ -28,7 +28,7 @@
     runInUwsgi = true;
 
     uwsgiConfig = {
-      disable-logging = false;
+      disable-logging = true;
       socket = "/run/searx/searx.sock";
       chmod-socket = "660";
     };
