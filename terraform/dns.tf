@@ -14,7 +14,6 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "auth"
     type = "CNAME"
     address = "nachtigall.pub.solar"
-    ttl = 60
   }
   record {
     hostname = "ci"
@@ -26,19 +25,16 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "git"
     type = "CNAME"
     address = "nachtigall.pub.solar"
-    ttl = 60
   }
   record {
     hostname = "stream"
-    type = "A"
-    address = "80.71.153.210"
-    ttl = 60
+    type = "CNAME"
+    address = "nachtigall.pub.solar"
   }
   record {
     hostname = "list"
-    type = "A"
-    address = "80.71.153.210"
-    ttl = 60
+    type = "CNAME"
+    address = "nachtigall.pub.solar"
   }
   record {
     hostname = "obs-portal"
@@ -116,13 +112,11 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "files"
     type = "CNAME"
     address = "nachtigall.pub.solar"
-    ttl = 60
   }
   record {
     hostname = "mastodon"
     type = "CNAME"
     address = "nachtigall.pub.solar"
-    ttl = 60
   }
   record {
     hostname = "matrix"
@@ -134,7 +128,6 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "www"
     type = "CNAME"
     address = "nachtigall.pub.solar"
-    ttl = 60
   }
   record {
     hostname = "@"
@@ -171,17 +164,25 @@ resource "namecheap_domain_records" "pub-solar" {
   record {
     hostname = "nachtigall"
     type = "A"
-    ttl = 60
     address = "138.201.80.102"
   }
   record {
     hostname = "nachtigall"
     type = "AAAA"
-    ttl = 60
     address = "2a01:4f8:172:1c25::1"
   }
   record {
     hostname = "matrix.test"
+    type = "CNAME"
+    address = "nachtigall.pub.solar"
+  }
+  record {
+    hostname = "chat.test"
+    type = "CNAME"
+    address = "nachtigall.pub.solar"
+  }
+  record {
+    hostname = "test"
     type = "CNAME"
     address = "nachtigall.pub.solar"
   }
