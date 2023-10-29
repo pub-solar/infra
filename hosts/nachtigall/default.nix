@@ -16,6 +16,7 @@
       ./apps/mailman.nix
       ./apps/mastodon.nix
       ./apps/nextcloud.nix
+      ./apps/owncast.nix
       ./apps/nginx-mastodon.nix
       ./apps/nginx-mastodon-files.nix
       ./apps/nginx-website.nix
