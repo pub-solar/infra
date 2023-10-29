@@ -46,6 +46,11 @@
       dbname = "nextcloud";
       dbtableprefix = "oc_";
       overwriteProtocol = "https";
+
+      trustedProxies = [
+        "127.0.0.1"
+        "::1"
+      ];
     };
 
     extraOptions = {
@@ -63,6 +68,13 @@
       mail_smtpauth = 1;
       mail_smtphost = "mx2.greenbaum.cloud";
       mail_smtpport = "587";
+
+      # This is to allow connections to collabora and keycloak, among other services
+      # running on the same host
+      # 
+      # https://docs.nextcloud.com/server/stable/admin_manual/configuration_server/config_sample_php_parameters.html?highlight=allow_local_remote_servers%20true
+      # https://github.com/ONLYOFFICE/onlyoffice-nextcloud/issues/293
+      allow_local_remote_servers = true;
 
       enable_previews = true;
       enabledPreviewProviders = [
