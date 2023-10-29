@@ -38,4 +38,6 @@ in {
 
   "nextcloud-secrets.age".publicKeys = nachtigallKeys ++ baseKeys;
   "nextcloud-admin-pass.age".publicKeys = nachtigallKeys ++ baseKeys;
+
+  "searx-environment.age".publicKeys = nachtigallKeys ++ baseKeys;
 }
