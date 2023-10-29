@@ -76,7 +76,7 @@
       integrity.check.disabled = false;
       updater.release.channel = "stable";
       loglevel = 0;
-      maintenance = false;
+      # maintenance = false;
       app_install_overwrite = [
         "pdfdraw"
         "integration_whiteboard"
