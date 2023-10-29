@@ -1,3 +1,4 @@
 *.tf.json
 /tags.*
 .direnv
+.terraform
