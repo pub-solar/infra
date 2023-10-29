@@ -5,6 +5,8 @@
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     mastodon-fork.url = "github:teutat3s/nixpkgs/mastodon-4.2.1";
 
+    nixpkgs-2205.url = "github:nixos/nixpkgs/nixos-22.05";
+
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -63,6 +65,7 @@
             shfmt
             treefmt
             nixos-generators
+            inputs.nixpkgs-2205.legacyPackages.${system}.terraform
           ];
         };
       };
