@@ -13,7 +13,7 @@ resource "namecheap_domain_records" "pub-solar" {
   record {
     hostname = "auth"
     type = "CNAME"
-    address = "nachtigall.pub.solar"
+    address = "nachtigall.pub.solar."
   }
   record {
     hostname = "ci"
@@ -24,17 +24,17 @@ resource "namecheap_domain_records" "pub-solar" {
   record {
     hostname = "git"
     type = "CNAME"
-    address = "nachtigall.pub.solar"
+    address = "nachtigall.pub.solar."
   }
   record {
     hostname = "stream"
     type = "CNAME"
-    address = "nachtigall.pub.solar"
+    address = "nachtigall.pub.solar."
   }
   record {
     hostname = "list"
     type = "CNAME"
-    address = "nachtigall.pub.solar"
+    address = "nachtigall.pub.solar."
   }
   record {
     hostname = "obs-portal"
@@ -68,9 +68,9 @@ resource "namecheap_domain_records" "pub-solar" {
   }
   record {
     hostname = "@"
-    type = "CNAME"
-    address = "nachtigall.pub.solar"
-    ttl = 60
+    type = "ALIAS"
+    address = "nachtigall.pub.solar."
+    ttl = 300
   }
   record {
     hostname = "chat"
@@ -111,12 +111,12 @@ resource "namecheap_domain_records" "pub-solar" {
   record {
     hostname = "files"
     type = "CNAME"
-    address = "nachtigall.pub.solar"
+    address = "nachtigall.pub.solar."
   }
   record {
     hostname = "mastodon"
     type = "CNAME"
-    address = "nachtigall.pub.solar"
+    address = "nachtigall.pub.solar."
   }
   record {
     hostname = "matrix"
@@ -127,7 +127,7 @@ resource "namecheap_domain_records" "pub-solar" {
   record {
     hostname = "www"
     type = "CNAME"
-    address = "nachtigall.pub.solar"
+    address = "nachtigall.pub.solar."
   }
   record {
     hostname = "@"
@@ -158,7 +158,7 @@ resource "namecheap_domain_records" "pub-solar" {
   record {
     hostname = "list"
     type = "MX"
-    address = "list.pub.solar"
+    address = "list.pub.solar."
     mx_pref = "0"
   }
   record {
@@ -174,17 +174,17 @@ resource "namecheap_domain_records" "pub-solar" {
   record {
     hostname = "matrix.test"
     type = "CNAME"
-    address = "nachtigall.pub.solar"
+    address = "nachtigall.pub.solar."
   }
   record {
     hostname = "chat.test"
     type = "CNAME"
-    address = "nachtigall.pub.solar"
+    address = "nachtigall.pub.solar."
   }
   record {
     hostname = "test"
     type = "CNAME"
-    address = "nachtigall.pub.solar"
+    address = "nachtigall.pub.solar."
   }
   # SRV records can only be changed via NameCheap Web UI
   # add comment
