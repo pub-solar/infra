@@ -62,7 +62,7 @@
         # it decreases the privacy, since the browser can records the page titles.
         query_in_title = false;
         # infinite_scroll: When true, automatically loads the next page when scrolling to bottom of the current page.
-        infinite_scroll = false;
+        infinite_scroll = true;
       };
     };
   };
