@@ -62,8 +62,8 @@ resource "namecheap_domain_records" "pub-solar" {
   }
   record {
     hostname = "collabora"
-    type = "A"
-    address = "80.71.153.210"
+    type = "CNAME"
+    address = "nachtigall.pub.solar."
     ttl = 60
   }
   record {
