@@ -32,6 +32,9 @@
     owner = config.services.mastodon.user;
   };
 
+  # Nginx user needs access to mastodon unix sockets
+  users.users.nginx.extraGroups = [ "mastodon" ];
+
   services.mastodon = {
     enable = true;
     # Different from WEB_DOMAIN in our case
