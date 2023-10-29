@@ -3,7 +3,7 @@
 Clone this repository:
 
 ```
-git clone gitea@git.pub.solar:pub-solar/infra.git
+git clone https://git.pub.solar/pub-solar/infra-new.git
 ```
 
 then, install [the package manager nix](https://nixos.org/download).
