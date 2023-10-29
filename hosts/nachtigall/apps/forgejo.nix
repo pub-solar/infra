@@ -25,7 +25,7 @@
         return 302 /user/oauth2/keycloak;
     '';
 
-    locations."/".proxyPass = "http://localhost:3000";
+    locations."/".proxyPass = "http://127.0.0.1:3000";
   };
 
   services.gitea = {

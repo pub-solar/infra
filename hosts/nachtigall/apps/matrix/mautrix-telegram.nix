@@ -12,12 +12,12 @@
     settings = {
       homeserver = {
         # TODO: Use the port from synapse config
-        address = "http://localhost:8008";
+        address = "http://127.0.0.1:8008";
         domain = "test.pub.solar";
         verify_ssl = true;
       };
       appservice = {
-        address = "http://localhost:8009";
+        address = "http://127.0.0.1:8009";
         bot_avatar = "mxc://maunium.net/tJCRmUyJDsgRNgqhOgoiHWbX";
         bot_displayname = "Telegram bridge bot";
         bot_username = "telegrambot";
