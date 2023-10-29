@@ -27,6 +27,7 @@
     home = "/var/lib/nextcloud";
 
     enable = true;
+    package = pkgs.nextcloud27;
     https = true;
     secretFile = config.age.secrets."nextcloud-secrets".path; # secret
     maxUploadSize = "1G";
