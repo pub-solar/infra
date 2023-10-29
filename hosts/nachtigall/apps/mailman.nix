@@ -14,6 +14,12 @@
     enableACME = true;
     forceSSL = true;
   };
+  # Tweak permissions so nginx can read and serve the static assets
+  # (otherwise /var/lib/mailman-web is mode 0600)
+  # https://nixos.wiki/wiki/Mailman
+  systemd.services.mailman-settings.script = ''
+    chmod o+x /var/lib/mailman-web-static
+  '';
 
   services.postfix = {
     enable = true;
