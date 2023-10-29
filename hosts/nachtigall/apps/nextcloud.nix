@@ -1,9 +1,20 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  flake,
+  ...
+}:
 {
   age.secrets."nextcloud-secrets" = {
     file = "${flake.self}/secrets/nextcloud-secrets.age";
     mode = "400";
-    owner = config.services.mastodon.user;
+    owner = "nextcloud";
+  };
+
+  age.secrets."nextcloud-admin-pass" = {
+    file = "${flake.self}/secrets/nextcloud-admin-pass.age";
+    mode = "400";
+    owner = "nextcloud";
   };
 
   services.nginx.virtualHosts."cloud.pub.solar" = {
@@ -18,7 +29,7 @@
     enable = true;
     https = true;
     secretFile = config.age.secrets."nextcloud-secrets".path; # secret
-    phpPackage = pkgs.php82;
+    maxUploadSize = "1G";
 
     configureRedis = true;
 
@@ -28,6 +39,7 @@
 
     config = {
       adminuser = "admin";
+      adminpassFile = config.age.secrets."nextcloud-admin-pass".path;
       dbuser = "nextcloud";
       dbtype = "pgsql";
       dbname = "nextcloud";
