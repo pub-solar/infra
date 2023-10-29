@@ -5,6 +5,8 @@
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     mastodon-fork.url = "github:teutat3s/nixpkgs/mastodon-4.2.1";
 
+    nixpkgs-2205.url = "github:nixos/nixpkgs/nixos-22.05";
+
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -13,9 +15,6 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-flake.url = "github:srid/nixos-flake";
-
-    terranix.url = "github:terranix/terranix";
-    terranix.inputs.nixpkgs.follows = "nixpkgs";
 
     deploy-rs.url = "github:serokell/deploy-rs";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
@@ -29,13 +28,12 @@
     keycloak-theme-pub-solar.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, terranix, ... }:
+  outputs = inputs@{ self, ... }:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-linux" ];
 
       imports = [
         inputs.nixos-flake.flakeModule
-        # ./terraform.nix
         ./public-keys
         ./lib
         ./overlays
@@ -67,6 +65,7 @@
             shfmt
             treefmt
             nixos-generators
+            inputs.nixpkgs-2205.legacyPackages.${system}.terraform
           ];
         };
       };
