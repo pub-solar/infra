@@ -8,6 +8,13 @@
 {
   networking.firewall.allowedTCPPorts = [25];
 
+  users.users.nginx.extraGroups = [ "mailman" ];
+
+  services.nginx.virtualHosts."list.pub.solar" = {
+    enableACME = true;
+    forceSSL = true;
+  };
+
   services.postfix = {
     enable = true;
     relayDomains = ["hash:/var/lib/mailman/data/postfix_domains"];
