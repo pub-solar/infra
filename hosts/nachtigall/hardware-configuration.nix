@@ -28,6 +28,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/var/lib/docker" =
+    { device = "root_pool/data/docker";
+      fsType = "zfs";
+    };
+
   fileSystems."/boot1" =
     { device = "/dev/disk/by-uuid/5493-EFF5";
       fsType = "vfat";

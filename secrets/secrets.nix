@@ -37,4 +37,5 @@ in {
   "matrix-synapse-secret-config.yaml.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "nextcloud-secrets.age".publicKeys = nachtigallKeys ++ baseKeys;
+  "nextcloud-admin-pass.age".publicKeys = nachtigallKeys ++ baseKeys;
 }

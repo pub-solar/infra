@@ -107,6 +107,7 @@
                 extraOptions = ''
                   --data-root /var/lib/docker
                 '';
+                storageDriver = "zfs";
               };
 
               services.openssh.enable = true;
@@ -153,6 +154,7 @@
               };
             };
           };
+
           deploy.nodes = self.pub-solar.lib.deploy.mkDeployNodes self.nixosConfigurations {
             nachtigall = {
               sshUser = username;

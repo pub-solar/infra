@@ -1,9 +1,20 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  flake,
+  ...
+}:
 {
   age.secrets."nextcloud-secrets" = {
     file = "${flake.self}/secrets/nextcloud-secrets.age";
     mode = "400";
-    owner = config.services.mastodon.user;
+    owner = "nextcloud";
+  };
+
+  age.secrets."nextcloud-admin-pass" = {
+    file = "${flake.self}/secrets/nextcloud-admin-pass.age";
+    mode = "400";
+    owner = "nextcloud";
   };
 
   services.nginx.virtualHosts."cloud.pub.solar" = {
@@ -16,9 +27,10 @@
     home = "/var/lib/nextcloud";
 
     enable = true;
+    package = pkgs.nextcloud27;
     https = true;
     secretFile = config.age.secrets."nextcloud-secrets".path; # secret
-    phpPackage = pkgs.php82;
+    maxUploadSize = "1G";
 
     configureRedis = true;
 
@@ -28,11 +40,17 @@
 
     config = {
       adminuser = "admin";
+      adminpassFile = config.age.secrets."nextcloud-admin-pass".path;
       dbuser = "nextcloud";
       dbtype = "pgsql";
       dbname = "nextcloud";
       dbtableprefix = "oc_";
       overwriteProtocol = "https";
+
+      trustedProxies = [
+        "127.0.0.1"
+        "::1"
+      ];
     };
 
     extraOptions = {
@@ -50,6 +68,13 @@
       mail_smtpauth = 1;
       mail_smtphost = "mx2.greenbaum.cloud";
       mail_smtpport = "587";
+
+      # This is to allow connections to collabora and keycloak, among other services
+      # running on the same host
+      # 
+      # https://docs.nextcloud.com/server/stable/admin_manual/configuration_server/config_sample_php_parameters.html?highlight=allow_local_remote_servers%20true
+      # https://github.com/ONLYOFFICE/onlyoffice-nextcloud/issues/293
+      allow_local_remote_servers = true;
 
       enable_previews = true;
       enabledPreviewProviders = [
@@ -84,6 +109,10 @@
       htaccess.RewriteBase = "/";
       theme = "";
       simpleSignUpLink.shown = false;
+    };
+
+    phpOptions = {
+      "opcache.interned_strings_buffer" = "16";
     };
 
     caching.redis = true;
