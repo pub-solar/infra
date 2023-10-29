@@ -9,7 +9,7 @@
     enableACME = true;
     forceSSL = true;
 
-    locations."/".proxyPass = "http://localhost:9980";
+    locations."/".proxyPass = "http://127.0.0.1:9980";
   };
 
   virtualisation = {
@@ -20,7 +20,7 @@
         image = "collabora/code";
         autoStart = true;
         ports = [
-          "9980:9980"
+          "127.0.0.1:9980:9980"
         ];
         extraOptions = [
           "--cap-add=MKNOD"
