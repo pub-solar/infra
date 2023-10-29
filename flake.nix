@@ -103,7 +103,13 @@
           nixosModules = {
             # Common nixos/nix-darwin configuration shared between Linux and macOS.
             common = { pkgs, ... }: {
-              virtualisation.docker.enable = true;
+              virtualisation.docker = {
+                enable = true;
+                extraOptions = ''
+                  --data-root /var/lib/docker
+                '';
+              };
+
               services.openssh.enable = true;
               services.openssh.settings.PermitRootLogin = "prohibit-password";
               services.openssh.settings.PasswordAuthentication = false;
