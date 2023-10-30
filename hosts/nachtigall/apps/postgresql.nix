@@ -1,7 +1,11 @@
 { ... }:
 
 {
-  services.postgresql.enable = true;
+  services.postgresql = {
+    enable = true;
+    enableTCPIP = true;
+  };
+
   systemd.services.postgresql = {
     after = [
       "var-lib-postgresql.mount"

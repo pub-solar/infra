@@ -2,7 +2,7 @@
   users.users.${flake.self.username} = {
     name = flake.self.username;
     group = flake.self.username;
-    extraGroups = ["wheel"];
+    extraGroups = ["wheel" "docker"];
     isNormalUser = true;
     openssh.authorizedKeys.keys = flake.self.publicKeys.admins;
   };

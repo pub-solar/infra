@@ -6,4 +6,6 @@
     '';
     storageDriver = "zfs";
   };
+
+  networking.firewall.trustedInterfaces = [ "docker0" ];
 }
