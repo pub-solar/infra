@@ -37,6 +37,8 @@
         ./public-keys
         ./lib
         ./overlays
+        ./modules
+        ./hosts
       ];
 
       perSystem = { system, pkgs, config, ... }: {
@@ -73,87 +75,10 @@
       flake =
         let
           username = "barkeeper";
-          system = "x86_64-linux";
         in {
-          nixosConfigurations = {
-            nachtigall = self.nixos-flake.lib.mkLinuxSystem {
-              imports = [
-                self.nixosModules.common
-                ./hosts/nachtigall
-                self.pub-solar.lib.linux.unlockZFSOnBoot
-                self.nixosModules.home-manager
-                self.nixosModules.linux
-                self.nixosModules.overlays
-                inputs.agenix.nixosModules.default
-                {
-                  home-manager.users.${username} = {
-                    imports = [
-                      self.homeModules.common
-                    ];
-                    home.stateVersion = "23.05";
-                  };
-                }
-              ];
-            };
-          };
+          inherit username;
 
           checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
-
-          nixosModules = {
-            # Common nixos/nix-darwin configuration shared between Linux and macOS.
-            common = { pkgs, ... }: {
-              virtualisation.docker = {
-                enable = true;
-                extraOptions = ''
-                  --data-root /var/lib/docker
-                '';
-                storageDriver = "zfs";
-              };
-
-              services.openssh.enable = true;
-              services.openssh.settings.PermitRootLogin = "prohibit-password";
-              services.openssh.settings.PasswordAuthentication = false;
-            };
-
-            # NixOS specific configuration
-            linux = { pkgs, ... }: {
-              users.users.${username} = {
-                name = username;
-                group = username;
-                extraGroups = ["wheel"];
-                isNormalUser = true;
-                openssh.authorizedKeys.keys = self.publicKeys.allAdmins;
-              };
-              users.groups.${username} = {};
-
-              security.sudo.wheelNeedsPassword = false;
-              nix.settings.trusted-users = [ "root" username ];
-
-              # TODO: Remove when we stop locking ourselves out.
-              users.users.root.openssh.authorizedKeys.keys = self.publicKeys.allAdmins;
-            };
-          };
-
-          # All home-manager configurations are kept here.
-          homeModules = {
-            # Common home-manager configuration shared between Linux and macOS.
-            common = { pkgs, ... }: {
-              programs.git.enable = true;
-              programs.starship.enable = true;
-              programs.bash.enable = true;
-              programs.neovim = {
-                enable = true;
-                vimAlias = true;
-                viAlias = true;
-                defaultEditor = true;
-                # configure = {
-                #   packages.myVimPackages = with pkgs.vimPlugins; {
-                #     start = [vim-nix vim-surrund rainbow];
-                #   };
-                # };
-              };
-            };
-          };
 
           deploy.nodes = self.pub-solar.lib.deploy.mkDeployNodes self.nixosConfigurations {
             nachtigall = {
