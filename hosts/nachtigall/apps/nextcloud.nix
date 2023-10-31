@@ -71,7 +71,7 @@
 
       # This is to allow connections to collabora and keycloak, among other services
       # running on the same host
-      # 
+      #
       # https://docs.nextcloud.com/server/stable/admin_manual/configuration_server/config_sample_php_parameters.html?highlight=allow_local_remote_servers%20true
       # https://github.com/ONLYOFFICE/onlyoffice-nextcloud/issues/293
       allow_local_remote_servers = true;
@@ -113,6 +113,17 @@
 
     phpOptions = {
       "opcache.interned_strings_buffer" = "16";
+    };
+
+    # Calculated with 4GiB RAM, 80MiB process size available on
+    # https://spot13.com/pmcalculator/
+    poolSettings = {
+      pm = "dynamic";
+      "pm.max_children" = "52";
+      "pm.max_requests" = "500";
+      "pm.max_spare_servers" = "39";
+      "pm.min_spare_servers" = "13";
+      "pm.start_servers" = "13";
     };
 
     caching.redis = true;
