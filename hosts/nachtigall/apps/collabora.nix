@@ -9,10 +9,13 @@
     enableACME = true;
     forceSSL = true;
 
-    locations."/".extraConfig = ''
-      proxy_pass http://127.0.0.1:9980;
-      proxy_set_header Host $host;
-    '';
+    locations."/" = {
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_pass http://127.0.0.1:9980;
+        proxy_set_header Host $host;
+      '';
+      };
   };
 
   virtualisation = {
