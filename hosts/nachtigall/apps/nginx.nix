@@ -19,6 +19,10 @@ in {
     recommendedOptimisation = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
+    appendHttpConfig = ''
+      # https://nginx.org/en/docs/hash.html
+      proxy_headers_hash_max_size 1024;
+    '';
   };
   
   security.acme = {

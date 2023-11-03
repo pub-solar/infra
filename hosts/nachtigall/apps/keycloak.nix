@@ -25,6 +25,7 @@
       "/" = {
         extraConfig = ''
           proxy_pass http://127.0.0.1:8080;
+          proxy_buffer_size 8k;
         '';
       };
     };
