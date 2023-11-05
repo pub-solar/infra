@@ -58,6 +58,12 @@
   users.groups.hakkonaut = {};
 
   users.users.root.initialHashedPassword = "$y$j9T$bIN6GjQkmPMllOcQsq52K0$q0Z5B5.KW/uxXK9fItB8H6HO79RYAcI/ZZdB0Djke32";
+  age.secrets."nachtigall-root-ssh-key" = {
+    file = "${flake.self}/secrets/nachtigall-root-ssh-key.age";
+    path = "/root/.ssh/id_ed25519";
+    mode = "400";
+    owner = root;
+  };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
