@@ -1,6 +1,10 @@
-{ config, pkgs, flake, inputs, ... }:
-
 {
+  config,
+  pkgs,
+  flake,
+  inputs,
+  ...
+}: {
   age.secrets."mastodon-secret-key-base" = {
     file = "${flake.self}/secrets/mastodon-secret-key-base.age";
     mode = "400";
@@ -92,5 +96,17 @@
       # only use OIDC for login / registration
       OMNIAUTH_ONLY = "true";
     };
+  };
+
+  services.restic.backups.mastodon = flake.self.lib.droppieBackup {
+    paths = [
+      "/tmp/mastodon-backup.sql"
+    ];
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -iu postgres ${pkgs.postgresql}/bin/pg_dump -d gitea > /tmp/mastodon-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/mastodon-backup.sql
+    '';
   };
 }

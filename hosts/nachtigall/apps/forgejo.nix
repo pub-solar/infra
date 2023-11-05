@@ -107,4 +107,17 @@
   environment.variables = {
     GPG_TTY = "$(tty)";
   };
+
+  services.restic.backups.forgejo = flake.self.lib.droppieBackup {
+    paths = [
+      "/var/lib/forgejo"
+      "/tmp/forgejo-backup.sql"
+    ];
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -iu postgres ${pkgs.postgresql}/bin/pg_dump -d gitea > /tmp/forgejo-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/forgejo-backup.sql
+    '';
+  };
 }

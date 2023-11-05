@@ -11,6 +11,10 @@
       ## In configs, they can be used under "lib.our"
 
       deploy = import ./deploy.nix { inherit inputs lib; };
+
+      linux = {
+        unlockZFSOnBoot = import ./unlock-zfs-on-boot.nix {publicKeys = self.publicKeys.allAdmins;};
+      };
     };
   };
 }

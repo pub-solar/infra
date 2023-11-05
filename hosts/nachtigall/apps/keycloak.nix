@@ -46,4 +46,16 @@
       "pub.solar" = flake.inputs.keycloak-theme-pub-solar.legacyPackages.${pkgs.system}.keycloak-theme-pub-solar;
     };
   };
+
+  services.restic.backups.keycloak = flake.self.lib.droppieBackup {
+    paths = [
+      "/tmp/keycloak-backup.sql"
+    ];
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -iu postgres ${pkgs.postgresql}/bin/pg_dump -d keycloak > /tmp/keycloak-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/keycloak-backup.sql
+    '';
+  };
 }

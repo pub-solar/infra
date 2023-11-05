@@ -3,8 +3,7 @@
   pkgs,
   flake,
   ...
-}:
-{
+}: {
   age.secrets."nextcloud-secrets" = {
     file = "${flake.self}/secrets/nextcloud-secrets.age";
     mode = "400";
@@ -129,5 +128,18 @@
     caching.redis = true;
     autoUpdateApps.enable = true;
     database.createLocally = true;
+  };
+
+  services.restic.backups.nextcloud = flake.self.lib.droppieBackup {
+    paths = [
+      "/var/lib/nextcloud/data"
+      "/tmp/nextcloud-backup.sql"
+    ];
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -iu postgres ${pkgs.postgresql}/bin/pg_dump -d nextcloud > /tmp/nextcloud-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/nextcloud-backup.sql
+    '';
   };
 }

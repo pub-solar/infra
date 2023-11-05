@@ -43,4 +43,6 @@ in {
   "nextcloud-admin-pass.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "searx-environment.age".publicKeys = nachtigallKeys ++ baseKeys;
+
+  "restic-repo-droppie.age".publicKeys = nachtigallKeys ++ baseKeys;
 }

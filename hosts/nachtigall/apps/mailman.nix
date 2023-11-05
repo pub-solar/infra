@@ -79,4 +79,12 @@
   #    "allauth.socialaccount.providers.gitlab"
   #  ])
   #'';
+
+  services.restic.backups.mailman = flake.self.lib.droppieBackup {
+    paths = [
+      "/var/lib/mailman"
+      "/var/lib/mailman-web/mailman-web.db"
+      "/var/lib/postfix/conf/aliases.db"
+    ];
+  };
 }
