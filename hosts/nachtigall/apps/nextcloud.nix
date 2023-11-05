@@ -3,7 +3,8 @@
   pkgs,
   flake,
   ...
-}: {
+}:
+{
   age.secrets."nextcloud-secrets" = {
     file = "${flake.self}/secrets/nextcloud-secrets.age";
     mode = "400";
@@ -130,11 +131,19 @@
     database.createLocally = true;
   };
 
-  services.restic.backups.nextcloud = flake.self.lib.droppieBackup {
+  services.restic.backups.nextcloud = {
     paths = [
       "/var/lib/nextcloud/data"
       "/tmp/nextcloud-backup.sql"
     ];
+    timerConfig = {
+      OnCalendar = "*-*-* 02:00:00 Etc/UTC";
+      # droppie will be offline if nachtigall misses the timer
+      Persistent = false;
+    };
+    initialize = true;
+    passwordFile = config.age.secrets."restic-repo-droppie".path;
+    repository = "yule@droppie.b12f.io:/media/internal/backups-pub-solar";
     backupPrepareCommand = ''
       ${pkgs.sudo}/bin/sudo -iu postgres ${pkgs.postgresql}/bin/pg_dump -d nextcloud > /tmp/nextcloud-backup.sql
     '';
