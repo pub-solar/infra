@@ -20,6 +20,9 @@ let
     nachtigall-host
   ];
 in {
+  # ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBB5XaH02a6+TchnyQED2VwaltPgeFCbildbE2h6nF5e root@nachtigall
+  "nachtigall-root-ssh-key.age".publicKeys = nachtigallKeys ++ baseKeys;
+
   "mastodon-secret-key-base.age".publicKeys = nachtigallKeys ++ baseKeys;
   "mastodon-otp-secret.age".publicKeys = nachtigallKeys ++ baseKeys;
   "mastodon-vapid-private-key.age".publicKeys = nachtigallKeys ++ baseKeys;
