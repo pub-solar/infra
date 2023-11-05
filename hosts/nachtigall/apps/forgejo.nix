@@ -68,11 +68,16 @@
         ENABLE_OPENID_SIGNIN = true;
         ENABLE_OPENID_SIGNUP = true;
       };
-      # uncomment after initial deployment, first user is admin user
-      # required to setup SSO (oauth openid-connect, keycloak auth provider)
-      service.ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
-      service.ENABLE_NOTIFY_MAIL = true;
-      session.COOKIE_SECURE = lib.mkForce true;
+      service = {
+        # uncomment after initial deployment, first user is admin user
+        # required to setup SSO (oauth openid-connect, keycloak auth provider)
+        ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
+        ENABLE_NOTIFY_MAIL = true;
+        DEFAULT_KEEP_EMAIL_PRIVATE = true;
+      };
+      session = {
+        COOKIE_SECURE = lib.mkForce true;
+      };
     };
   };
 
