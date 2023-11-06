@@ -76,6 +76,7 @@
         DEFAULT_KEEP_EMAIL_PRIVATE = true;
       };
       session = {
+        PROVIDER = "db";
         COOKIE_SECURE = lib.mkForce true;
       };
       # See https://forgejo.org/docs/latest/admin/actions/
