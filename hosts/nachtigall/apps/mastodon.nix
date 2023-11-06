@@ -93,4 +93,24 @@
       OMNIAUTH_ONLY = "true";
     };
   };
+
+  services.restic.backups.mastodon = {
+    paths = [
+      "/tmp/mastodon-backup.sql"
+    ];
+    timerConfig = {
+      OnCalendar = "*-*-* 02:00:00 Etc/UTC";
+      # droppie will be offline if nachtigall misses the timer
+      Persistent = false;
+    };
+    initialize = true;
+    passwordFile = config.age.secrets."restic-repo-droppie".path;
+    repository = "yule@droppie.b12f.io:/media/internal/backups-pub-solar";
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d mastodon > /tmp/mastodon-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/mastodon-backup.sql
+    '';
+  };
 }

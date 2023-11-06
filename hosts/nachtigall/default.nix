@@ -7,6 +7,7 @@
       ./configuration.nix
 
       ./networking.nix
+      ./backups.nix
       ./apps/nginx.nix
 
       ./apps/collabora.nix

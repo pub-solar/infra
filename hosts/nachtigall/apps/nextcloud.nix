@@ -130,4 +130,25 @@
     autoUpdateApps.enable = true;
     database.createLocally = true;
   };
+
+  services.restic.backups.nextcloud = {
+    paths = [
+      "/var/lib/nextcloud/data"
+      "/tmp/nextcloud-backup.sql"
+    ];
+    timerConfig = {
+      OnCalendar = "*-*-* 02:00:00 Etc/UTC";
+      # droppie will be offline if nachtigall misses the timer
+      Persistent = false;
+    };
+    initialize = true;
+    passwordFile = config.age.secrets."restic-repo-droppie".path;
+    repository = "yule@droppie.b12f.io:/media/internal/backups-pub-solar";
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d nextcloud > /tmp/nextcloud-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/nextcloud-backup.sql
+    '';
+  };
 }

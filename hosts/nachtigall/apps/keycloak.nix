@@ -46,4 +46,24 @@
       "pub.solar" = flake.inputs.keycloak-theme-pub-solar.legacyPackages.${pkgs.system}.keycloak-theme-pub-solar;
     };
   };
+
+  services.restic.backups.keycloak = {
+    paths = [
+      "/tmp/keycloak-backup.sql"
+    ];
+    timerConfig = {
+      OnCalendar = "*-*-* 02:00:00 Etc/UTC";
+      # droppie will be offline if nachtigall misses the timer
+      Persistent = false;
+    };
+    initialize = true;
+    passwordFile = config.age.secrets."restic-repo-droppie".path;
+    repository = "yule@droppie.b12f.io:/media/internal/backups-pub-solar";
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d keycloak > /tmp/keycloak-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/keycloak-backup.sql
+    '';
+  };
 }

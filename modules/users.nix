@@ -29,7 +29,7 @@
     file = "${flake.self}/secrets/nachtigall-root-ssh-key.age";
     path = "/root/.ssh/id_ed25519";
     mode = "400";
-    owner = root;
+    owner = "root";
   };
 
   security.sudo.wheelNeedsPassword = false;

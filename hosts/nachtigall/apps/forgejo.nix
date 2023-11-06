@@ -107,4 +107,25 @@
   environment.variables = {
     GPG_TTY = "$(tty)";
   };
+
+  services.restic.backups.forgejo = {
+    paths = [
+      "/var/lib/forgejo"
+      "/tmp/forgejo-backup.sql"
+    ];
+    timerConfig = {
+      OnCalendar = "*-*-* 02:00:00 Etc/UTC";
+      # droppie will be offline if nachtigall misses the timer
+      Persistent = false;
+    };
+    initialize = true;
+    passwordFile = config.age.secrets."restic-repo-droppie".path;
+    repository = "yule@droppie.b12f.io:/media/internal/backups-pub-solar";
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d gitea > /tmp/forgejo-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/forgejo-backup.sql
+    '';
+  };
 }

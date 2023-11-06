@@ -79,4 +79,21 @@
   #    "allauth.socialaccount.providers.gitlab"
   #  ])
   #'';
+
+  services.restic.backups.mailman = {
+    paths = [
+      "/var/lib/mailman"
+      "/var/lib/mailman-web/mailman-web.db"
+      "/var/lib/mailman-web/settings_local.json"
+      "/var/lib/postfix/conf/aliases.db"
+    ];
+    timerConfig = {
+      OnCalendar = "*-*-* 02:00:00 Etc/UTC";
+      # droppie will be offline if nachtigall misses the timer
+      Persistent = false;
+    };
+    initialize = true;
+    passwordFile = config.age.secrets."restic-repo-droppie".path;
+    repository = "yule@droppie.b12f.io:/media/internal/backups-pub-solar";
+  };
 }

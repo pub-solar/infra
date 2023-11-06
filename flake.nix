@@ -80,7 +80,7 @@
 
           checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
 
-          deploy.nodes = self.pub-solar.lib.deploy.mkDeployNodes self.nixosConfigurations {
+          deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
             nachtigall = {
               sshUser = username;
             };
