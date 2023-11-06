@@ -35,14 +35,6 @@
 
   boot.initrd.availableKernelModules = [ "igb" ];
 
-  # Set your time zone.
-  time.timeZone = "Etc/UTC";
-
-  environment = {
-    # just a couple of packages to make our lives easier
-    systemPackages = with pkgs; [ vim ];
-  };
-
   # https://nixos.wiki/wiki/ZFS#declarative_mounting_of_ZFS_datasets
   systemd.services.zfs-mount.enable = false;
 

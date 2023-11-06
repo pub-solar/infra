@@ -9,6 +9,7 @@
         nixpkgs.overlays = [
           (final: prev: {
             mastodon = inputs.mastodon-fork.legacyPackages.${prev.system}.mastodon;
+            forgejo-actions-runner = inputs.unstable.legacyPackages.${prev.system}.forgejo-actions-runner;
           })
         ];
       });
