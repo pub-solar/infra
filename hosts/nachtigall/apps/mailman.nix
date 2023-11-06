@@ -84,6 +84,7 @@
     paths = [
       "/var/lib/mailman"
       "/var/lib/mailman-web/mailman-web.db"
+      "/var/lib/mailman-web/settings_local.json"
       "/var/lib/postfix/conf/aliases.db"
     ];
     timerConfig = {
