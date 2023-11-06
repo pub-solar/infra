@@ -2,7 +2,8 @@
 {
   flake = {
     publicKeys = {
-      allAdmins = lib.attrsets.attrValues (import ./admins.nix); 
+      admins = lib.attrsets.attrValues (import ./admins.nix); 
+      robots = lib.attrsets.attrValues (import ./robots.nix);
     };
   };
 }

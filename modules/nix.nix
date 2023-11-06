@@ -36,7 +36,7 @@
 
     nixPath = [
       "nixpkgs=${flake.inputs.nixpkgs}"
-      "nixos-config=${../../lib/compat/nixos}"
+      "nixos-config=${../lib/compat/nixos}"
       "home-manager=${flake.inputs.home-manager}"
     ];
   };
