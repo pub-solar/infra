@@ -143,7 +143,7 @@
     };
     initialize = true;
     passwordFile = config.age.secrets."restic-repo-droppie".path;
-    repository = "yule@droppie.b12f.io:/media/internal/backups-pub-solar";
+    repository = "sftp:yule@droppie.b12f.io:/media/internal/pub.solar";
     backupPrepareCommand = ''
       ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d nextcloud > /tmp/nextcloud-backup.sql
     '';
