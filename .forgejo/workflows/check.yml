@@ -7,6 +7,10 @@ jobs:
     steps:
       - name: Check out repository code
         uses: https://code.forgejo.org/actions/checkout@v4
+      - name: Prepare cachix
+        uses: https://github.com/cachix/cachix-action@v12
+        with:
+          name: pub-solar
       - name: Run flake checks
         run: |
           nix --print-build-logs --verbose --accept-flake-config flake check
