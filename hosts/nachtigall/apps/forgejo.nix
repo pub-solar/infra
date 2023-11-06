@@ -78,6 +78,11 @@
       session = {
         COOKIE_SECURE = lib.mkForce true;
       };
+      # See https://forgejo.org/docs/latest/admin/actions/
+      actions.ENABLED = true;
+      # In an actions workflow, when uses: does not specify an absolute URL,
+      # the value of DEFAULT_ACTIONS_URL is prepended to it.
+      actions.DEFAULT_ACTIONS_URL = "https://code.forgejo.org";
     };
   };
 
