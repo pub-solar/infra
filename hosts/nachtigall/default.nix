@@ -11,6 +11,7 @@
 
       ./apps/collabora.nix
       ./apps/forgejo.nix
+      ./apps/invidious.nix
       ./apps/keycloak.nix
       ./apps/mailman.nix
       ./apps/mastodon.nix

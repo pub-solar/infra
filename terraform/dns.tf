@@ -124,6 +124,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address = "nachtigall.pub.solar."
   }
   record {
+    hostname = "tube"
+    type = "CNAME"
+    address = "nachtigall.pub.solar."
+  }
+  record {
     hostname = "matrix"
     type = "A"
     address = "85.88.23.162"

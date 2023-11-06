@@ -43,4 +43,7 @@ in {
   "nextcloud-admin-pass.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "searx-environment.age".publicKeys = nachtigallKeys ++ baseKeys;
+
+  "invidious-database-password.age".publicKeys = nachtigallKeys ++ baseKeys;
+  "invidious-extra-settings.age".publicKeys = nachtigallKeys ++ baseKeys;
 }
