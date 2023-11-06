@@ -3,10 +3,16 @@ on: [push]
 
 jobs:
   Check:
-    runs-on: nix-flakes
+    runs-on: ubuntu-latest
+    env:
+      USER: root
     steps:
       - name: Check out repository code
         uses: https://code.forgejo.org/actions/checkout@v4
+      - name: Install sudo
+        run: "apt update && apt install -y sudo"
+      - name: Install nix
+        uses: https://github.com/cachix/install-nix-action@v23
       - name: Prepare cachix
         uses: https://github.com/cachix/cachix-action@v12
         with:
