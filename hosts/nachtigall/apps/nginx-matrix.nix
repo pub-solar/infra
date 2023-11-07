@@ -6,7 +6,24 @@ let
     add_header X-XSS-Protection "1; mode=block";
   '';
   clientConfig = import ./matrix/element-client-config.nix;
-  wellKnownClient."m.homeserver".base_url = "https://matrix.pub.solar";
+  wellKnownClient = {
+    "m.homeserver".base_url = "https://matrix.pub.solar";
+    "m.identity_server".base_url = "https://matrix.pub.solar";
+    "im.vector.riot.e2ee".default = true;
+    "io.element.e2ee" = {
+      default = true;
+      secure_backup_required = false;
+      secure_backup_setup_methods = [];
+    };
+    "m.integrations" = {
+      managers = [
+        {
+          api_url = "https://dimension.pub.solar/api/v1/scalar";
+          ui_url = "https://dimension.pub.solar/element";
+        }
+      ];
+    };
+  };
   wellKnownServer."m.server" = "matrix.pub.solar:8448";
   mkWellKnown = data: ''
     add_header Content-Type application/json;
@@ -20,9 +37,18 @@ let
 in
 {
   services.nginx.virtualHosts = {
+
+    #####################################
+    # This is already in production use #
+    #####################################
+
     "pub.solar" = {
       locations = wellKnownLocations;
     };
+
+    #######################################
+    # Stuff below is still in betatesting #
+    #######################################
 
     "chat.test.pub.solar" = {
       forceSSL = true;
