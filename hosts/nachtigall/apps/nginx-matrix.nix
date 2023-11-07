@@ -6,8 +6,8 @@ let
     add_header X-XSS-Protection "1; mode=block";
   '';
   clientConfig = import ./matrix/element-client-config.nix;
-  wellKnownClient."m.homeserver".base_url = "https://matrix.test.pub.solar";
-  wellKnownServer."m.server" = "matrix.test.pub.solar:8448";
+  wellKnownClient."m.homeserver".base_url = "https://matrix.pub.solar";
+  wellKnownServer."m.server" = "matrix.pub.solar:8448";
   mkWellKnown = data: ''
     add_header Content-Type application/json;
     add_header Access-Control-Allow-Origin *;
@@ -20,12 +20,7 @@ let
 in
 {
   services.nginx.virtualHosts = {
-    "test.pub.solar" = {
-      root = "/dev/null";
-
-      forceSSL = lib.mkDefault true;
-      enableACME = lib.mkDefault true;
-
+    "pub.solar" = {
       locations = wellKnownLocations;
     };
 
