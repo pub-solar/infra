@@ -21,13 +21,13 @@
       url = "https://git.pub.solar";
       tokenFile = config.age.secrets.forgejo-actions-runner-token.path;
       labels = [
-        # provide a debian 12 bookworm base for actions
-        "debian-latest:docker://debian:bookworm"
+        # provide a debian 12 bookworm base with Node.js for actions
+        "debian-latest:docker://node:20-bookworm"
         # fake the ubuntu name, commonly used in actions examples
-        "ubuntu-latest:docker://debian:bookworm"
-        # alpine
-        "alpine-latest:docker://alpine:3.18"
-        # nix flakes enabled image from
+        "ubuntu-latest:docker://node:20-bookworm"
+        # alpine with Node.js
+        "alpine-latest:docker://node:20-alpine"
+        # nix flakes enabled image with Node.js
         "nix-flakes:docker://git.pub.solar/pub-solar/nix-flakes-node:latest"
       ];
     };
