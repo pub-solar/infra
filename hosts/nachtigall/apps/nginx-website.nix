@@ -45,7 +45,7 @@
 
         "/satzung" = {
           extraConfig = ''
-            return 302 https://cloud.pub.solar/s/2tRCP9aZFCiWxQy;
+            return 302 https://cloud.pub.solar/s/iaKqiW25QJpHPYs;
           '';
         };
 
