@@ -8,7 +8,7 @@
 {
   age.secrets.searx-environment = {
     file = "${flake.self}/secrets/searx-environment.age";
-    mode = "700";
+    mode = "600";
   };
 
   services.nginx.virtualHosts."search.pub.solar" = {

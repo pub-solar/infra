@@ -15,6 +15,7 @@
       ./apps/keycloak.nix
       ./apps/mailman.nix
       ./apps/mastodon.nix
+      ./apps/mediawiki.nix
       ./apps/nextcloud.nix
       ./apps/owncast.nix
       ./apps/nginx-mastodon.nix
