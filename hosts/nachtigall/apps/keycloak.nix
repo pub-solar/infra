@@ -7,7 +7,7 @@
 }: {
   age.secrets.keycloak-database-password = {
     file = "${flake.self}/secrets/keycloak-database-password.age";
-    mode = "700";
+    mode = "600";
     #owner = "keycloak";
   };
 
