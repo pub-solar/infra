@@ -5,11 +5,6 @@ jobs:
   Check:
     runs-on: nix-flakes
     steps:
-      - name: Get Node.js dependency
-        run: |
-          nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
-          nix-channel --update
-          nix-env -iA nixpkgs.nodejs_20
       - name: Check out repository code
         uses: https://code.forgejo.org/actions/checkout@v4
       - name: Prepare cachix
