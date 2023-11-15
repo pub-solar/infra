@@ -13,6 +13,7 @@
       ./apps/collabora.nix
       ./apps/forgejo.nix
       ./apps/keycloak.nix
+      ./apps/libreddit.nix
       ./apps/mailman.nix
       ./apps/mastodon.nix
       ./apps/nextcloud.nix

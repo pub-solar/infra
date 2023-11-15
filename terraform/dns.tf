@@ -67,6 +67,12 @@ resource "namecheap_domain_records" "pub-solar" {
     ttl = 60
   }
   record {
+    hostname = "libreddit"
+    type = "CNAME"
+    address = "nachtigall.pub.solar."
+    ttl = 60
+  }
+  record {
     hostname = "@"
     type = "ALIAS"
     address = "nachtigall.pub.solar."
