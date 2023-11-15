@@ -1,5 +1,5 @@
 name: Flake checks
-on: [push]
+on: [pull_request]
 
 jobs:
   Check:
