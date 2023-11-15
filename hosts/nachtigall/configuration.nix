@@ -35,16 +35,16 @@
 
   boot.initrd.availableKernelModules = [ "igb" ];
 
-  # Set your time zone.
-  time.timeZone = "Etc/UTC";
-
-  environment = {
-    # just a couple of packages to make our lives easier
-    systemPackages = with pkgs; [ vim ];
-  };
-
   # https://nixos.wiki/wiki/ZFS#declarative_mounting_of_ZFS_datasets
   systemd.services.zfs-mount.enable = false;
+
+  # Declarative SSH private key
+  age.secrets."nachtigall-root-ssh-key" = {
+    file = "${flake.self}/secrets/nachtigall-root-ssh-key.age";
+    path = "/root/.ssh/id_ed25519";
+    mode = "400";
+    owner = "root";
+  };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

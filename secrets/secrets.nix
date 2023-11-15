@@ -7,6 +7,7 @@ let
   teutat3s-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHcU6KPy4b1MQXd6EJhcYwbJu7E+0IrBZF/IP6T7gbMf teutat3s@dumpyourvms";
 
   nachtigall-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7G0ufi+MNvaAZLDgpieHrABPGN7e/kD5kMFwSk4ABj root@nachtigall";
+  flora-6-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGP1InpTBN4AlF/4V8HHumAMLJzeO8DpzjUv9Co/+J09 root@flora-6";
 
   baseKeys = [
     axeman-1
@@ -18,6 +19,10 @@ let
 
   nachtigallKeys = [
     nachtigall-host
+  ];
+
+  flora6Keys = [
+    flora-6-host
   ];
 in {
   # ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBB5XaH02a6+TchnyQED2VwaltPgeFCbildbE2h6nF5e root@nachtigall
@@ -32,6 +37,7 @@ in {
 
   "keycloak-database-password.age".publicKeys = nachtigallKeys ++ baseKeys;
 
+  "forgejo-actions-runner-token.age".publicKeys = flora6Keys ++ baseKeys;
   "forgejo-database-password.age".publicKeys = nachtigallKeys ++ baseKeys;
   "forgejo-mailer-password.age".publicKeys = nachtigallKeys ++ baseKeys;
 
@@ -45,4 +51,7 @@ in {
   "searx-environment.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "restic-repo-droppie.age".publicKeys = nachtigallKeys ++ baseKeys;
+
+  "drone-db-secrets.age".publicKeys = flora6Keys ++ baseKeys;
+  "drone-secrets.age".publicKeys = flora6Keys ++ baseKeys;
 }

@@ -26,6 +26,9 @@
 
     keycloak-theme-pub-solar.url = "git+https://git.pub.solar/pub-solar/keycloak-theme?ref=main";
     keycloak-theme-pub-solar.inputs.nixpkgs.follows = "nixpkgs";
+
+    triton-vmtools.url = "git+https://git.pub.solar/pub-solar/infra-vintage?ref=main&dir=vmtools";
+    triton-vmtools.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{ self, ... }:
@@ -82,7 +85,14 @@
 
           deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
             nachtigall = {
+              # hostname is set in hosts/nachtigall/networking.nix
               sshUser = username;
+            };
+            flora-6 = {
+              hostname = "flora-6.pub.solar";
+              sshUser = username;
+              # Example
+              #sshOpts = [ "-p" "19999" ];
             };
           };
         };
