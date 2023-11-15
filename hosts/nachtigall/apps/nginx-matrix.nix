@@ -9,6 +9,7 @@ let
   wellKnownClient = {
     "m.homeserver".base_url = "https://matrix.pub.solar";
     "m.identity_server".base_url = "https://matrix.pub.solar";
+    "org.matrix.msc3575.proxy".url = "https://matrix.pub.solar/sliding-sync";
     "im.vector.riot.e2ee".default = true;
     "io.element.e2ee" = {
       default = true;
