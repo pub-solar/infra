@@ -36,6 +36,7 @@
 
     notify_push = {
       enable = true;
+      bendDomainToLocalhost = true;
     };
 
     config = {
@@ -46,11 +47,6 @@
       dbname = "nextcloud";
       dbtableprefix = "oc_";
       overwriteProtocol = "https";
-
-      trustedProxies = [
-        "127.0.0.1"
-        "::1"
-      ];
     };
 
     extraOptions = {
