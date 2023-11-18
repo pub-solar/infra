@@ -25,6 +25,7 @@
       ./apps/postgresql.nix
       ./apps/searx.nix
 
+      ./apps/matrix/matrix-hookshot.nix
       ./apps/matrix/mautrix-telegram.nix
       ./apps/matrix/synapse.nix
       ./apps/nginx-matrix.nix
