@@ -25,7 +25,7 @@ let
       ];
     };
   };
-  wellKnownServer = domain: { "m.server" = "${domain}:8448"; };
+  wellKnownServer = domain: { "m.server" = "matrix.${domain}:8448"; };
   mkWellKnown = data: ''
     add_header Content-Type application/json;
     add_header Access-Control-Allow-Origin *;
@@ -50,6 +50,14 @@ in
     #######################################
     # Stuff below is still in betatesting #
     #######################################
+    "test.pub.solar" = {
+      root = "/dev/null";
+
+      forceSSL = lib.mkDefault true;
+      enableACME = lib.mkDefault true;
+
+      locations = (wellKnownLocations "test.pub.solar");
+    };
 
     "chat.test.pub.solar" = {
       forceSSL = true;
@@ -70,7 +78,7 @@ in
         gzip on;
         gzip_types text/plain application/json;
       '';
-      locations = (wellKnownLocations "test.pub.solar") // {
+      locations = {
         # TODO: Configure metrics
         # "/metrics" = {
         # };
