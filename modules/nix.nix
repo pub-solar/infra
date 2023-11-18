@@ -14,6 +14,12 @@
     gc.automatic = true;
     optimise.automatic = true;
 
+    registry = {
+      nixpkgs.flake = flake.inputs.nixpkgs;
+      unstable.flake = flake.inputs.unstable;
+      system.flake = flake.self;
+    };
+
     settings = {
       # Improve nix store disk usage
       auto-optimise-store = true;
