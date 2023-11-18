@@ -47,7 +47,7 @@
     };
   };
 
-  services.restic.backups.keycloak = {
+  services.restic.backups.keycloak-droppie = {
     paths = [
       "/tmp/keycloak-backup.sql"
     ];
@@ -59,6 +59,24 @@
     initialize = true;
     passwordFile = config.age.secrets."restic-repo-droppie".path;
     repository = "sftp:yule@droppie.b12f.io:/media/internal/pub.solar";
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d keycloak > /tmp/keycloak-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/keycloak-backup.sql
+    '';
+  };
+
+  services.restic.backups.keycloak-storagebox = {
+    paths = [
+      "/tmp/keycloak-backup.sql"
+    ];
+    timerConfig = {
+      OnCalendar = "*-*-* 04:10:00 Etc/UTC";
+    };
+    initialize = true;
+    passwordFile = config.age.secrets."restic-repo-storagebox".path;
+    repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
     backupPrepareCommand = ''
       ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d keycloak > /tmp/keycloak-backup.sql
     '';

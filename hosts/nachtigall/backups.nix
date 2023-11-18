@@ -4,4 +4,9 @@
     mode = "400";
     owner = "root";
   };
+  age.secrets."restic-repo-storagebox" = {
+    file = "${flake.self}/secrets/restic-repo-storagebox.age";
+    mode = "400";
+    owner = "root";
+  };
 }

@@ -109,7 +109,7 @@
     GPG_TTY = "$(tty)";
   };
 
-  services.restic.backups.forgejo = {
+  services.restic.backups.forgejo-droppie = {
     paths = [
       "/var/lib/forgejo"
       "/tmp/forgejo-backup.sql"
@@ -122,6 +122,25 @@
     initialize = true;
     passwordFile = config.age.secrets."restic-repo-droppie".path;
     repository = "sftp:yule@droppie.b12f.io:/media/internal/pub.solar";
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d gitea > /tmp/forgejo-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/forgejo-backup.sql
+    '';
+  };
+
+  services.restic.backups.forgejo-storagebox = {
+    paths = [
+      "/var/lib/forgejo"
+      "/tmp/forgejo-backup.sql"
+    ];
+    timerConfig = {
+      OnCalendar = "*-*-* 04:20:00 Etc/UTC";
+    };
+    initialize = true;
+    passwordFile = config.age.secrets."restic-repo-storagebox".path;
+    repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
     backupPrepareCommand = ''
       ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d gitea > /tmp/forgejo-backup.sql
     '';
