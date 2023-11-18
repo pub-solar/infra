@@ -3,9 +3,9 @@
 ### Keycloak
 Required:
 - auth.pub.solar ops user credentials
-- SSH access to host flora-6
+- SSH access to host nachtigall
 ```
-ssh barkeeper@flora-6.pub.solar
+ssh barkeeper@nachtigall.pub.solar
 
 mkdir /tmp/keycloak-credential-reset
 
