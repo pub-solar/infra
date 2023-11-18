@@ -6,10 +6,10 @@ let
     add_header X-XSS-Protection "1; mode=block";
   '';
   clientConfig = import ./matrix/element-client-config.nix;
-  wellKnownClient = {
-    "m.homeserver".base_url = "https://matrix.pub.solar";
-    "m.identity_server".base_url = "https://matrix.pub.solar";
-    "org.matrix.msc3575.proxy".url = "https://matrix.pub.solar/sliding-sync";
+  wellKnownClient = domain: {
+    "m.homeserver".base_url = "https://matrix.${domain}";
+    "m.identity_server".base_url = "https://matrix.${domain}";
+    "org.matrix.msc3575.proxy".url = "https://matrix.${domain}/sliding-sync";
     "im.vector.riot.e2ee".default = true;
     "io.element.e2ee" = {
       default = true;
@@ -19,21 +19,21 @@ let
     "m.integrations" = {
       managers = [
         {
-          api_url = "https://dimension.pub.solar/api/v1/scalar";
-          ui_url = "https://dimension.pub.solar/element";
+          api_url = "https://dimension.${domain}/api/v1/scalar";
+          ui_url = "https://dimension.${domain}/element";
         }
       ];
     };
   };
-  wellKnownServer."m.server" = "matrix.pub.solar:8448";
+  wellKnownServer = domain: { "m.server" = "matrix.${domain}:8448"; };
   mkWellKnown = data: ''
     add_header Content-Type application/json;
     add_header Access-Control-Allow-Origin *;
     return 200 '${builtins.toJSON data}';
   '';
-  wellKnownLocations =  {
-    "= /.well-known/matrix/server".extraConfig = mkWellKnown wellKnownServer;
-    "= /.well-known/matrix/client".extraConfig = mkWellKnown wellKnownClient;
+  wellKnownLocations = domain: {
+    "= /.well-known/matrix/server".extraConfig = mkWellKnown (wellKnownServer domain);
+    "= /.well-known/matrix/client".extraConfig = mkWellKnown (wellKnownClient domain);
   };
 in
 {
@@ -44,12 +44,20 @@ in
     #####################################
 
     "pub.solar" = {
-      locations = wellKnownLocations;
+      locations = wellKnownLocations "pub.solar";
     };
 
     #######################################
     # Stuff below is still in betatesting #
     #######################################
+    "test.pub.solar" = {
+      root = "/dev/null";
+
+      forceSSL = lib.mkDefault true;
+      enableACME = lib.mkDefault true;
+
+      locations = (wellKnownLocations "test.pub.solar");
+    };
 
     "chat.test.pub.solar" = {
       forceSSL = true;
@@ -70,7 +78,7 @@ in
         gzip on;
         gzip_types text/plain application/json;
       '';
-      locations = wellKnownLocations // {
+      locations = {
         # TODO: Configure metrics
         # "/metrics" = {
         # };

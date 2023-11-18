@@ -63,7 +63,6 @@
             agenix
             cachix
             editorconfig-checker
-            nix
             nodePackages.prettier
             nvfetcher
             shellcheck
