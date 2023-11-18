@@ -3,7 +3,6 @@
     # Track channels with commits tested and built by hydra
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    mastodon-fork.url = "github:teutat3s/nixpkgs/mastodon-4.2.1";
 
     nixpkgs-2205.url = "github:nixos/nixpkgs/nixos-22.05";
 
