@@ -105,7 +105,7 @@
       "/var/lib/postfix/conf/aliases.db"
     ];
     timerConfig = {
-      OnCalendar = "*-*-* 04:00:00 Etc/UTC";
+      OnCalendar = "*-*-* 04:15:00 Etc/UTC";
     };
     initialize = true;
     passwordFile = config.age.secrets."restic-repo-storagebox".path;

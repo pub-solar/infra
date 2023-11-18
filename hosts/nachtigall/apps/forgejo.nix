@@ -136,7 +136,7 @@
       "/tmp/forgejo-backup.sql"
     ];
     timerConfig = {
-      OnCalendar = "*-*-* 04:00:00 Etc/UTC";
+      OnCalendar = "*-*-* 04:20:00 Etc/UTC";
     };
     initialize = true;
     passwordFile = config.age.secrets."restic-repo-storagebox".path;
