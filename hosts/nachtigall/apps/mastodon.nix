@@ -94,7 +94,7 @@
     };
   };
 
-  services.restic.backups.mastodon = {
+  services.restic.backups.mastodon-droppie = {
     paths = [
       "/tmp/mastodon-backup.sql"
     ];
@@ -106,6 +106,24 @@
     initialize = true;
     passwordFile = config.age.secrets."restic-repo-droppie".path;
     repository = "sftp:yule@droppie.b12f.io:/media/internal/pub.solar";
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d mastodon > /tmp/mastodon-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/mastodon-backup.sql
+    '';
+  };
+
+  services.restic.backups.mastodon-storagebox = {
+    paths = [
+      "/tmp/mastodon-backup.sql"
+    ];
+    timerConfig = {
+      OnCalendar = "*-*-* 04:00:00 Etc/UTC";
+    };
+    initialize = true;
+    passwordFile = config.age.secrets."restic-repo-storagebox".path;
+    repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
     backupPrepareCommand = ''
       ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d mastodon > /tmp/mastodon-backup.sql
     '';

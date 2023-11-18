@@ -51,6 +51,7 @@ in {
   "searx-environment.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "restic-repo-droppie.age".publicKeys = nachtigallKeys ++ baseKeys;
+  "restic-repo-storagebox.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "drone-db-secrets.age".publicKeys = flora6Keys ++ baseKeys;
   "drone-secrets.age".publicKeys = flora6Keys ++ baseKeys;

@@ -80,7 +80,7 @@
   #  ])
   #'';
 
-  services.restic.backups.mailman = {
+  services.restic.backups.mailman-droppie = {
     paths = [
       "/var/lib/mailman"
       "/var/lib/mailman-web/mailman-web.db"
@@ -95,5 +95,20 @@
     initialize = true;
     passwordFile = config.age.secrets."restic-repo-droppie".path;
     repository = "sftp:yule@droppie.b12f.io:/media/internal/pub.solar";
+  };
+
+  services.restic.backups.mailman-storagebox = {
+    paths = [
+      "/var/lib/mailman"
+      "/var/lib/mailman-web/mailman-web.db"
+      "/var/lib/mailman-web/settings_local.json"
+      "/var/lib/postfix/conf/aliases.db"
+    ];
+    timerConfig = {
+      OnCalendar = "*-*-* 04:00:00 Etc/UTC";
+    };
+    initialize = true;
+    passwordFile = config.age.secrets."restic-repo-storagebox".path;
+    repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
   };
 }
