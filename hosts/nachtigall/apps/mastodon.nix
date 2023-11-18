@@ -40,10 +40,9 @@
     # Different from WEB_DOMAIN in our case
     localDomain = "pub.solar";
     enableUnixSocket = true;
-    # Processes used by the mastodon-streaming service. Defaults to the number
-    # of CPU cores minus one
-    # This is without affect until this comment is addressed
-    # https://github.com/NixOS/nixpkgs/pull/251950#issuecomment-1732568492
+    # Number of processes used by the mastodon-streaming service
+    # Recommended is the amount of your CPU cores minus one
+    # On our current 8-Core system, let's start with 5 for now
     streamingProcesses = 5;
     # Processes used by the mastodon-web service
     webProcesses = 2;

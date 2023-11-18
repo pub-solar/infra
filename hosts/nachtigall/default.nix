@@ -1,4 +1,4 @@
-{ ... }:
+{ flake, ... }:
 
 {
   imports =
@@ -28,5 +28,11 @@
       ./apps/matrix/mautrix-telegram.nix
       ./apps/matrix/synapse.nix
       ./apps/nginx-matrix.nix
+
+      "${flake.inputs.unstable}/nixos/modules/services/web-apps/mastodon.nix"
+    ];
+
+    disabledModules = [
+      "services/web-apps/mastodon.nix"
     ];
 }
