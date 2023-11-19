@@ -60,9 +60,9 @@ in {
         invite_client_location = "https://chat.pub.solar";
         notif_for_new_users = true;
         notif_from = "Matrix <no-reply@pub.solar>";
-        require_transport_security = false;
-        smtp_host = "matrix-mailer";
-        smtp_port = 8025;
+        require_transport_security = true;
+        smtp_host = "mx2.greenbaum.cloud";
+        smtp_port = 465;
       };
 
       enable_media_repo = true;
