@@ -11,6 +11,7 @@
       ./apps/nginx.nix
 
       ./apps/collabora.nix
+      ./apps/coturn.nix
       ./apps/forgejo.nix
       ./apps/keycloak.nix
       ./apps/mailman.nix

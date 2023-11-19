@@ -196,6 +196,12 @@ resource "namecheap_domain_records" "pub-solar" {
     type = "CNAME"
     address = "nachtigall.pub.solar."
   }
+  record {
+    hostname = "turn.test"
+    type = "CNAME"
+    address = "nachtigall.pub.solar."
+    ttl = "300"
+  }
   # SRV records can only be changed via NameCheap Web UI
   # add comment
 }

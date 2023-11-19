@@ -169,11 +169,14 @@ in {
 
       stream_writers = {};
       trusted_key_servers = [{ server_name = "matrix.org";}];
+
       turn_allow_guests = false;
       turn_uris = [
-        "turn:matrix.pub.solar?transport=udp"
-        "turn:matrix.pub.solar?transport=tcp"
+        "turn:${config.services.coturn.realm}:3478?transport=udp"
+        "turn:${config.services.coturn.realm}:3478?transport=tcp"
       ];
+      turn_user_lifetime = "1h";
+
       url_preview_accept_language = [
         "en-US"
         "en"

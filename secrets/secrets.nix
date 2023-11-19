@@ -60,4 +60,6 @@ in {
   "mediawiki-admin-password.age".publicKeys = nachtigallKeys ++ baseKeys;
   "mediawiki-oidc-client-secret.age".publicKeys = nachtigallKeys ++ baseKeys;
   "mediawiki-secret-key.age".publicKeys = nachtigallKeys ++ baseKeys;
+
+  "coturn-static-auth-secret.age".publicKeys = nachtigallKeys ++ baseKeys;
 }
