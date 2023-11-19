@@ -91,7 +91,7 @@ in {
         pepper = "";
       };
 
-      presencee.enabled = true;
+      presence.enabled = true;
       push.include_content = false;
 
       rc_admin_redaction= {
