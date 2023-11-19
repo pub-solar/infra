@@ -29,10 +29,14 @@
       ./apps/matrix/synapse.nix
       ./apps/nginx-matrix.nix
 
+      # Override with module from nixos-unstable, needs to be added
+      # to disabledModules as well
+      "${flake.inputs.unstable}/nixos/modules/services/misc/gitea.nix"
       "${flake.inputs.unstable}/nixos/modules/services/web-apps/mastodon.nix"
     ];
 
     disabledModules = [
+      "services/misc/gitea.nix"
       "services/web-apps/mastodon.nix"
     ];
 }
