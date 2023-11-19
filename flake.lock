@@ -70,6 +70,23 @@
         "type": "github"
       }
     },
+    "element-themes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690602100,
+        "narHash": "sha256-fc/YOx5Py0iOBg2Aw3qjl0SHm+byIjuKdU1b/3q0FXs=",
+        "owner": "aaronraimist",
+        "repo": "element-themes",
+        "rev": "b1dbe27acee74cebe180538ef215208a1c26dc02",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aaronraimist",
+        "ref": "master",
+        "repo": "element-themes",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -271,6 +288,7 @@
       "inputs": {
         "agenix": "agenix",
         "deploy-rs": "deploy-rs",
+        "element-themes": "element-themes",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "keycloak-theme-pub-solar": "keycloak-theme-pub-solar",
