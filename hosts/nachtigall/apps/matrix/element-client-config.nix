@@ -1,4 +1,4 @@
-{
+{ pkgs, lib, ... }: {
 	default_server_config = {
 		"m.homeserver" = {
 			base_url = "https://matrix.test.pub.solar";
@@ -8,12 +8,11 @@
 			base_url = "";
 		};
 	};
-  # TODO: Add themes
-	# setting_defaults = {
-	# 	custom_themes = {{ matrix_client_element_setting_defaults_custom_themes | to_json }}
-	# };
-	# default_theme = {{ matrix_client_element_default_theme | string | to_json }};
-	# default_country_code = {{ matrix_client_element_default_country_code | string | to_json }};
+  setting_defaults = {
+    custom_themes = (lib.modules.importJSON "${pkgs.element-themes}").config;
+  };
+  default_theme = "light";
+  default_country_code = "DE";
 	permalink_prefix = "https://matrix.to";
 	disable_custom_urls = true;
 	disable_guests = true;
