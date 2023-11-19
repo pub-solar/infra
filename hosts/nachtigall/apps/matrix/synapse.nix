@@ -40,7 +40,7 @@ in {
         user_id = "*";
       }];
       allow_guest_access = false;
-      allow_public_rooms_over_federation = false;
+      allow_public_rooms_over_federation = true;
       allow_public_rooms_without_auth = false;
       auto_join_rooms = [
         "#community:${serverDomain}"
