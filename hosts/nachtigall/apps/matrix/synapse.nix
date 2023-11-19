@@ -209,7 +209,7 @@ in {
 
       app_service_config_files = [
         "/var/lib/matrix-synapse/telegram-registration.yaml"
-        # "/matrix-appservice-irc-registration.yaml"
+        "/var/lib/matrix-appservice-irc/registration.yml"
         # "/matrix-appservice-slack-registration.yaml"
         # "/hookshot-registration.yml"
         # "/matrix-mautrix-signal-registration.yaml"
