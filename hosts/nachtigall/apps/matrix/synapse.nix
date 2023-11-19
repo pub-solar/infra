@@ -57,8 +57,7 @@ in {
         client_base_url = "https://chat.pub.solar";
         enable_notifs = true;
         enable_tls = true;
-        # FUTUREWORK: Maybe we should change this
-        invite_client_location = "https://app.element.io";
+        invite_client_location = "https://chat.pub.solar";
         notif_for_new_users = true;
         notif_from = "Matrix <no-reply@pub.solar>";
         require_transport_security = false;
