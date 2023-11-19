@@ -27,6 +27,7 @@
 
       ./apps/matrix/mautrix-telegram.nix
       ./apps/matrix/synapse.nix
+      ./apps/matrix/irc.nix
       ./apps/nginx-matrix.nix
 
       # Override with module from nixos-unstable, needs to be added
