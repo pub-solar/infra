@@ -47,19 +47,7 @@ in
       locations = wellKnownLocations "pub.solar";
     };
 
-    #######################################
-    # Stuff below is still in betatesting #
-    #######################################
-    "test.pub.solar" = {
-      root = "/dev/null";
-
-      forceSSL = lib.mkDefault true;
-      enableACME = lib.mkDefault true;
-
-      locations = (wellKnownLocations "test.pub.solar");
-    };
-
-    "chat.test.pub.solar" = {
+    "chat.pub.solar" = {
       forceSSL = true;
       enableACME = true;
       root = pkgs.element-web.override {
@@ -67,7 +55,7 @@ in
       };
     };
 
-    "matrix.test.pub.solar" = {
+    "matrix.pub.solar" = {
       root = "/dev/null";
 
       forceSSL = lib.mkDefault true;
@@ -83,6 +71,7 @@ in
         # "/metrics" = {
         # };
 
+        # For telegram
         "/c3c3f34b-29fb-5feb-86e5-98c75ec8214b" = {
           proxyPass = "http://127.0.0.1:8009";
           extraConfig = commonHeaders;
@@ -105,7 +94,7 @@ in
       };
     };
     "matrix.pub.solar-federation" = {
-      serverName = "matrix.test.pub.solar";
+      serverName = "matrix.pub.solar";
       forceSSL = lib.mkDefault true;
       enableACME = lib.mkDefault true;
       listen = [{

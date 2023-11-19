@@ -1,7 +1,7 @@
 { flake, config, pkgs, ... }:
 let
-  publicDomain  = "matrix.test.pub.solar";
-  serverDomain = "test.pub.solar";
+  publicDomain  = "matrix.pub.solar";
+  serverDomain = "pub.solar";
 in {
   age.secrets."matrix-synapse-signing-key" = {
     file = "${flake.self}/secrets/matrix-synapse-signing-key.age";
@@ -19,7 +19,7 @@ in {
     enable = true;
     settings = {
       server_name = serverDomain;
-      public_baseurl = "https://matrix.test.pub.solar/";
+      public_baseurl = "https://${publicDomain}/";
       database = {
         name = "psycopg2";
         args = {

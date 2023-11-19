@@ -14,7 +14,7 @@
     max-port = 50000;
     use-auth-secret = true;
     static-auth-secret-file = "/run/agenix/coturn-static-auth-secret";
-    realm = "turn.test.pub.solar";
+    realm = "turn.pub.solar";
     cert = "${config.security.acme.certs.${realm}.directory}/full.pem";
     pkey = "${config.security.acme.certs.${realm}.directory}/key.pem";
     extraConfig =
