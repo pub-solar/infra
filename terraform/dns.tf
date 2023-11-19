@@ -74,8 +74,8 @@ resource "namecheap_domain_records" "pub-solar" {
   }
   record {
     hostname = "chat"
-    type = "A"
-    address = "85.88.23.162"
+    type = "CNAME"
+    address = "nachtigall.pub.solar."
     ttl = 60
   }
   record {
@@ -130,8 +130,8 @@ resource "namecheap_domain_records" "pub-solar" {
   }
   record {
     hostname = "matrix"
-    type = "A"
-    address = "85.88.23.162"
+    type = "CNAME"
+    address = "nachtigall.pub.solar."
     ttl = 60
   }
   record {
@@ -185,22 +185,6 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "matrix.test"
     type = "CNAME"
     address = "nachtigall.pub.solar."
-  }
-  record {
-    hostname = "chat.test"
-    type = "CNAME"
-    address = "nachtigall.pub.solar."
-  }
-  record {
-    hostname = "test"
-    type = "CNAME"
-    address = "nachtigall.pub.solar."
-  }
-  record {
-    hostname = "turn.test"
-    type = "CNAME"
-    address = "nachtigall.pub.solar."
-    ttl = "300"
   }
   # SRV records can only be changed via NameCheap Web UI
   # add comment
