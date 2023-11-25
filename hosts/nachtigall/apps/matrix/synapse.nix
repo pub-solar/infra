@@ -52,19 +52,6 @@ in {
 
       default_room_version = "10";
       disable_msisdn_registration = true;
-      email = {
-        app_name = "Matrix";
-        client_base_url = "https://chat.pub.solar";
-        enable_notifs = true;
-        enable_tls = true;
-        invite_client_location = "https://chat.pub.solar";
-        notif_for_new_users = true;
-        notif_from = "Matrix <no-reply@pub.solar>";
-        require_transport_security = true;
-        smtp_host = "mx2.greenbaum.cloud";
-        smtp_port = 465;
-      };
-
       enable_media_repo = true;
       enable_metrics = true;
       enable_registration = false;
