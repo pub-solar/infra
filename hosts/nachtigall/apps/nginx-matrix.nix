@@ -26,6 +26,26 @@ let
     };
   };
   wellKnownServer = domain: { "m.server" = "matrix.${domain}:8448"; };
+  wellKnownSupport = {
+    contacts = [
+        {
+            email_address = "crew@pub.solar";
+            matrix_id = "@b12f:pub.solar";
+            role = "m.role.admin";
+        }
+        {
+            email_address = "crew@pub.solar";
+            matrix_id = "@hensoko:pub.solar";
+            role = "m.role.admin";
+        }
+        {
+            email_address = "crew@pub.solar";
+            matrix_id = "@teutat3s:pub.solar";
+            role = "m.role.admin";
+        }
+    ];
+    support_page = "https://pub.solar/about";
+  };
   mkWellKnown = data: ''
     add_header Content-Type application/json;
     add_header Access-Control-Allow-Origin *;
@@ -34,6 +54,7 @@ let
   wellKnownLocations = domain: {
     "= /.well-known/matrix/server".extraConfig = mkWellKnown (wellKnownServer domain);
     "= /.well-known/matrix/client".extraConfig = mkWellKnown (wellKnownClient domain);
+    "= /.well-known/matrix/support".extraConfig = mkWellKnown wellKnownSupport;
   };
 in
 {
