@@ -8,9 +8,9 @@
     settings = {
       homeserver = {
         # TODO: Use the port from synapse config
-        domain = "test.pub.solar";
+        domain = "pub.solar";
         url = "http://127.0.0.1:8008";
-        media_url = "https://matrix.test.pub.solar";
+        media_url = "https://matrix.pub.solar";
         enablePresence = false;
       };
       ircService = {

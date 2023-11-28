@@ -1,7 +1,7 @@
 { flake, config, pkgs, ... }:
 let
-  publicDomain  = "matrix.test.pub.solar";
-  serverDomain = "test.pub.solar";
+  publicDomain  = "matrix.pub.solar";
+  serverDomain = "pub.solar";
 in {
   age.secrets."matrix-synapse-signing-key" = {
     file = "${flake.self}/secrets/matrix-synapse-signing-key.age";
@@ -19,7 +19,7 @@ in {
     enable = true;
     settings = {
       server_name = serverDomain;
-      public_baseurl = "https://matrix.test.pub.solar/";
+      public_baseurl = "https://${publicDomain}/";
       database = {
         name = "psycopg2";
         args = {
@@ -40,7 +40,7 @@ in {
         user_id = "*";
       }];
       allow_guest_access = false;
-      allow_public_rooms_over_federation = false;
+      allow_public_rooms_over_federation = true;
       allow_public_rooms_without_auth = false;
       auto_join_rooms = [
         "#community:${serverDomain}"
@@ -52,20 +52,6 @@ in {
 
       default_room_version = "10";
       disable_msisdn_registration = true;
-      email = {
-        app_name = "Matrix";
-        client_base_url = "https://chat.pub.solar";
-        enable_notifs = true;
-        enable_tls = true;
-        # FUTUREWORK: Maybe we should change this
-        invite_client_location = "https://app.element.io";
-        notif_for_new_users = true;
-        notif_from = "Matrix <no-reply@pub.solar>";
-        require_transport_security = false;
-        smtp_host = "matrix-mailer";
-        smtp_port = 8025;
-      };
-
       enable_media_repo = true;
       enable_metrics = true;
       enable_registration = false;
@@ -92,7 +78,7 @@ in {
         pepper = "";
       };
 
-      presencee.enabled = true;
+      presence.enabled = true;
       push.include_content = false;
 
       rc_admin_redaction= {
@@ -169,11 +155,14 @@ in {
 
       stream_writers = {};
       trusted_key_servers = [{ server_name = "matrix.org";}];
+
       turn_allow_guests = false;
       turn_uris = [
-        "turn:matrix.pub.solar?transport=udp"
-        "turn:matrix.pub.solar?transport=tcp"
+        "turn:${config.services.coturn.realm}:3478?transport=udp"
+        "turn:${config.services.coturn.realm}:3478?transport=tcp"
       ];
+      turn_user_lifetime = "1h";
+
       url_preview_accept_language = [
         "en-US"
         "en"

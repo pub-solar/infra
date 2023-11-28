@@ -1,8 +1,8 @@
 { pkgs, lib, ... }: {
 	default_server_config = {
 		"m.homeserver" = {
-			base_url = "https://matrix.test.pub.solar";
-			server_name = "test.pub.solar";
+			base_url = "https://matrix.pub.solar";
+			server_name = "pub.solar";
 		};
 		"m.identity_server" = {
 			base_url = "";
