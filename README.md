@@ -1,6 +1,6 @@
 # The pub.solar infrastructure
 
-This repository contains all almost all of the configuration for the whole pub.solar infrastructure. Our goal is to have everything, from host configurations to Terraform DNS in this repository.
+This repository contains almost all of the configuration for the whole pub.solar infrastructure. Our goal is to have everything, from host configurations to Terraform DNS in this repository.
 
 The architecture we are working towards is a vast simplification of what it was before: one dedicated Hetzner server running [NixOS](https://nixos.org/) with all services. Offsite backups go to several different locations with [restic](https://github.com/restic/restic).
 
