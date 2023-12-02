@@ -31,6 +31,7 @@
     https = true;
     secretFile = config.age.secrets."nextcloud-secrets".path; # secret
     maxUploadSize = "1G";
+    skeletonDirectory = "./nextcloud-skeleton";
 
     configureRedis = true;
 
