@@ -216,7 +216,7 @@
     User = "matrix-synapse";
     ExecStart = lib.mkForce ''
         ${pkgs.mautrix-telegram}/bin/mautrix-telegram \
-      --config='${settingsFile}'
+      --config='${settingsFile}' \
       --no-update
     '';
   };
