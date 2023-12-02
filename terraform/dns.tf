@@ -8,7 +8,6 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "flora-6"
     type = "A"
     address = "80.71.153.210"
-    ttl = 60
   }
   record {
     hostname = "auth"
@@ -19,7 +18,6 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "ci"
     type = "A"
     address = "80.71.153.210"
-    ttl = 60
   }
   record {
     hostname = "git"
@@ -52,19 +50,16 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "cache"
     type = "A"
     address = "95.217.225.160"
-    ttl = 60
   }
   record {
     hostname = "factorio"
     type = "A"
     address = "80.244.242.2"
-    ttl = 60
   }
   record {
     hostname = "collabora"
     type = "CNAME"
     address = "nachtigall.pub.solar."
-    ttl = 60
   }
   record {
     hostname = "@"
@@ -76,36 +71,22 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "chat"
     type = "CNAME"
     address = "nachtigall.pub.solar."
-    ttl = 60
   }
   record {
     hostname = "cloud"
     type = "CNAME"
     address = "nachtigall.pub.solar."
-    ttl = 60
   }
   record {
-    hostname = "coturn"
+    hostname = "turn"
     type = "A"
-    address = "80.71.153.239"
-    ttl = 60
+    address = "138.201.80.102"
+    ttl = 300
   }
   record {
     hostname = "hpb"
     type = "A"
     address = "80.71.153.239"
-    ttl = 60
-  }
-  record {
-    hostname = "dimension"
-    type = "A"
-    address = "85.88.23.162"
-    ttl = 60
-  }
-  record {
-    hostname = "element"
-    type = "A"
-    address = "85.88.23.162"
     ttl = 60
   }
   record {
@@ -132,7 +113,6 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "matrix"
     type = "CNAME"
     address = "nachtigall.pub.solar."
-    ttl = 60
   }
   record {
     hostname = "www"
