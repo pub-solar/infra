@@ -7,15 +7,6 @@
 }: let
   psCfg = config.pub-solar;
 in {
-  imports = [
-    "${flake.inputs.unstable}/nixos/modules/services/continuous-integration/gitea-actions-runner.nix"
-    "${flake.inputs.unstable}/nixos/modules/services/web-servers/caddy/default.nix"
-  ];
-  disabledModules = [
-    "services/continuous-integration/gitea-actions-runner.nix"
-    "services/web-servers/caddy/default.nix"
-  ];
-
   config = {
     # Override nix.conf for more agressive garbage collection
     nix.extraOptions = lib.mkForce ''
