@@ -205,19 +205,7 @@
     lottieconverter  # for animated stickers conversion, unfree package
     ffmpeg           # if converting animated stickers to webm (very slow!)
   ];
-  systemd.services.mautrix-telegram.serviceConfig =
-  let
-    cfg = config.services.mautrix-telegram;
-    settingsFormat = pkgs.formats.json {};
-    settingsFile =
-      settingsFormat.generate "mautrix-telegram-config.json" cfg.settings;
-  in
-  {
+  systemd.services.mautrix-telegram.serviceConfig = {
     User = "matrix-synapse";
-    ExecStart = lib.mkForce ''
-        ${pkgs.mautrix-telegram}/bin/mautrix-telegram \
-      --config='${settingsFile}' \
-      --no-update
-    '';
   };
 }
