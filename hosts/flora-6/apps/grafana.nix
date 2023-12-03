@@ -31,6 +31,7 @@
         http_port = 3000;
         # Grafana needs to know on which domain and URL it's running
         domain = "grafana.pub.solar";
+        root_url = "https://grafana.pub.solar";
         enable_gzip = true;
       };
       smtp = {
@@ -59,7 +60,7 @@
         auth_url = "https://auth.pub.solar/realms/pub.solar/protocol/openid-connect/auth";
         token_url = "https://auth.pub.solar/realms/pub.solar/protocol/openid-connect/token";
         api_url = "https://auth.pub.solar/realms/pub.solar/protocol/openid-connect/userinfo";
-        role_attribute_path = "contains(info.roles[*], 'admin') && 'GrafanaAdmin' || contains(info.roles[*], 'editor') && 'Editor' || 'Viewer'";
+        role_attribute_path = "contains(roles[*], 'admin') && 'GrafanaAdmin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'";
         allow_assign_grafana_admin = true;
       };
     };
