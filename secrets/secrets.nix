@@ -62,4 +62,8 @@ in {
   "mediawiki-secret-key.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "coturn-static-auth-secret.age".publicKeys = nachtigallKeys ++ baseKeys;
+
+  "grafana-admin-password.age".publicKeys = flora6Keys ++ baseKeys;
+  "grafana-keycloak-client-secret.age".publicKeys = flora6Keys ++ baseKeys;
+  "grafana-smtp-password.age".publicKeys = flora6Keys ++ baseKeys;
 }

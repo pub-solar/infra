@@ -27,6 +27,14 @@
           reverse_proxy :4000
         '';
       };
+      "grafana.pub.solar" = {
+        logFormat = lib.mkForce ''
+          output discard
+        '';
+        extraConfig = ''
+          reverse_proxy :${toString config.services.grafana.settings.server.http_port}
+        '';
+      };
       "obs-portal.pub.solar" = {
         logFormat = lib.mkForce ''
           output discard

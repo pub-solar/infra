@@ -84,6 +84,11 @@ resource "namecheap_domain_records" "pub-solar" {
     ttl = 300
   }
   record {
+    hostname = "grafana"
+    type = "CNAME"
+    address = "nachtigall.pub.solar."
+  }
+  record {
     hostname = "hpb"
     type = "A"
     address = "80.71.153.239"
