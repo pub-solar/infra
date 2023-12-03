@@ -218,6 +218,11 @@ in {
       "/var/lib/matrix-synapse/telegram-registration.yaml"
     ];
 
+    extras = [
+      "oidc"
+      "redis"
+    ];
+
     plugins = [
       config.services.matrix-synapse.package.plugins.matrix-synapse-shared-secret-auth
     ];
