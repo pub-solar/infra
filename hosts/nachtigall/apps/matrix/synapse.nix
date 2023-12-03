@@ -222,4 +222,25 @@ in {
       config.services.matrix-synapse.package.plugins.matrix-synapse-shared-secret-auth
     ];
   };
+
+  services.restic.backups.matrix-synapse-storagebox = {
+    paths = [
+      "/var/lib/matrix-synapse"
+      "/var/lib/matrix-appservice-irc"
+      "/var/lib/mautrix-telegram"
+      "/tmp/matrix-synapse-backup.sql"
+    ];
+    timerConfig = {
+      OnCalendar = "*-*-* 05:00:00 Etc/UTC";
+    };
+    initialize = true;
+    passwordFile = config.age.secrets."restic-repo-storagebox".path;
+    repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix > /tmp/matrix-synapse-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/matrix-synapse-backup.sql
+    '';
+  };
 }
