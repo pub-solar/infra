@@ -55,7 +55,7 @@
       mailer = {
         ENABLED = true;
         PROTOCOL = "smtps";
-        SMTP_ADDR = "mx2.greenbaum.cloud";
+        SMTP_ADDR = "mail.greenbaum.zone";
         SMTP_PORT = 465;
         FROM = ''"pub.solar git server" <forgejo@pub.solar>'';
         USER = "admins@pub.solar";

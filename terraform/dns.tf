@@ -122,7 +122,7 @@ resource "namecheap_domain_records" "pub-solar" {
   record {
     hostname = "@"
     type = "TXT"
-    address = "v=spf1 include:spf.greenbaum.cloud a:list.pub.solar ~all"
+    address = "v=spf1 include:spf.greenbaum.zone a:list.pub.solar ~all"
   }
   record {
     hostname = "list"
@@ -142,7 +142,7 @@ resource "namecheap_domain_records" "pub-solar" {
   record {
     hostname = "@"
     type = "MX"
-    address = "mx2.greenbaum.cloud."
+    address = "mail.greenbaum.zone."
     mx_pref = "0"
   }
   record {
