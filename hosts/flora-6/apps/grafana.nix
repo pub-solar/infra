@@ -21,6 +21,14 @@
     owner = "grafana";
   };
 
+  environment.etc = {
+    "grafana-dashboards/node-exporter-full_rev33.json" = {
+      source = ./grafana-dashboards/node-exporter-full_rev33.json;
+      group = "grafana";
+      user = "grafana";
+    };
+  };
+
   services.grafana = {
     enable = true;
     settings = {
@@ -62,6 +70,38 @@
         api_url = "https://auth.pub.solar/realms/pub.solar/protocol/openid-connect/userinfo";
         role_attribute_path = "contains(roles[*], 'admin') && 'GrafanaAdmin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'";
         allow_assign_grafana_admin = true;
+      };
+    };
+    provision = {
+      enable = true;
+      datasources = {
+        settings = {
+          datasources = [
+            {
+              name = "Prometheus";
+              type = "prometheus";
+              access = "proxy";
+              url = "http://127.0.0.1:${toString config.services.prometheus.port}";
+              isDefault = true;
+            }
+            {
+              name = "Loki";
+              type = "loki";
+              access = "proxy";
+              url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
+            }
+          ];
+        };
+      };
+      dashboards = {
+        settings = {
+          providers = [
+            {
+              name = "pub.solar Dashboards";
+              options.path = "/etc/grafana-dashboards";
+            }
+          ];
+        };
       };
     };
   };
