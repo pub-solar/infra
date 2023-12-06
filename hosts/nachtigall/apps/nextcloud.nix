@@ -63,7 +63,7 @@
       mail_smtpname = "admins@pub.solar";
       mail_smtpsecure = "tls";
       mail_smtpauth = 1;
-      mail_smtphost = "mx2.greenbaum.cloud";
+      mail_smtphost = "mail.greenbaum.zone";
       mail_smtpport = "587";
 
       # This is to allow connections to collabora and keycloak, among other services
