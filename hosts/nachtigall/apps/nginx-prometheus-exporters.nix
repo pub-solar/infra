@@ -1,8 +1,8 @@
 { config, flake, ... }:
 
 {
-  age.secrets.nachtigall-metrics-basic-auth = {
-    file = "${flake.self}/secrets/nachtigall-metrics-basic-auth.age";
+  age.secrets.nachtigall-metrics-nginx-basic-auth = {
+    file = "${flake.self}/secrets/nachtigall-metrics-nginx-basic-auth.age";
     mode = "600";
     owner = "nginx";
   };

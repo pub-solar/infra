@@ -5,6 +5,12 @@
   flake,
   ...
 }: {
+  age.secrets.nachtigall-metrics-prometheus-basic-auth-password = {
+    file = "${flake.self}/secrets/nachtigall-metrics-prometheus-basic-auth-password.age";
+    mode = "600";
+    owner = "prometheus";
+  };
+
   services.prometheus = {
     enable = true;
     port = 9001;
@@ -15,9 +21,13 @@
         port = 9002;
       };
     };
+    globalConfig = {
+      scrape_interval = "10s";
+      scrape_timeout = "9s";
+    };
     scrapeConfigs = [
       {
-        job_name = "flora-6";
+        job_name = "http-targets";
         static_configs = [{
           targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
           labels = {
