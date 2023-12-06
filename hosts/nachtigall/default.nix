@@ -21,9 +21,11 @@
       ./apps/owncast.nix
       ./apps/nginx-mastodon.nix
       ./apps/nginx-mastodon-files.nix
+      ./apps/nginx-prometheus-exporters.nix
       ./apps/nginx-website.nix
       ./apps/opensearch.nix
       ./apps/postgresql.nix
+      ./apps/prometheus-exporters.nix
       ./apps/searx.nix
 
       ./apps/matrix/mautrix-telegram.nix

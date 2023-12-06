@@ -25,6 +25,21 @@
           };
         }];
       }
+      {
+        job_name = "https-targets";
+        scheme = "https";
+        metrics_path = "/metrics";
+        basic_auth = {
+          username = "hakkonaut";
+          password_file = "${config.age.secrets.nachtigall-metrics-prometheus-basic-auth-password.path}";
+        };
+        static_configs = [{
+          targets = [ "nachtigall.pub.solar" ];
+          labels = {
+            instance = "nachtigall";
+          };
+        }];
+      }
     ];
   };
 }
