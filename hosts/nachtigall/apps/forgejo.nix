@@ -88,11 +88,7 @@
 
       # https://forgejo.org/docs/latest/admin/config-cheat-sheet/#webhook-webhook
       webhook = {
-        ALLOWED_HOST_LIST = [
-          "loopback"
-          "external"
-          "*.pub.solar"
-        ];
+        ALLOWED_HOST_LIST = "loopback,external,*.pub.solar";
       };
 
       # See https://forgejo.org/docs/latest/admin/actions/
