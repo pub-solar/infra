@@ -28,7 +28,16 @@
           };
         };
       };
-
+      # Keep logs for 4 weeks
+      # https://grafana.com/docs/loki/latest/operations/storage/retention/
+      limits_config.retention_period = "4w";
+      compactor = {
+        shared_store = "filesystem";
+        compaction_interval = "10m";
+        retention_enabled = true;
+        retention_delete_delay = "2h";
+        retention_delete_worker_count = 150;
+      };
       schema_config = {
         configs = [{
           from = "2020-05-15";
