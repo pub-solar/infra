@@ -34,10 +34,6 @@ in {
     #systemd.services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug";
     systemd.network.wait-online.ignoredInterfaces = [
      "docker0"
-     "br-91ba3e5e7589"
-     "vethd42ed22"
-     "veth8fbf599"
-     "vethd62653e"
     ];
 
     # List services that you want to enable:
