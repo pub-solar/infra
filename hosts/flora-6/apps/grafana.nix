@@ -68,7 +68,7 @@
         auth_url = "https://auth.pub.solar/realms/pub.solar/protocol/openid-connect/auth";
         token_url = "https://auth.pub.solar/realms/pub.solar/protocol/openid-connect/token";
         api_url = "https://auth.pub.solar/realms/pub.solar/protocol/openid-connect/userinfo";
-        role_attribute_path = "contains(roles[*], 'admin') && 'GrafanaAdmin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'";
+        role_attribute_path = "contains(roles[*], 'admin') && 'GrafanaAdmin' || 'Viewer'";
         allow_assign_grafana_admin = true;
       };
     };
