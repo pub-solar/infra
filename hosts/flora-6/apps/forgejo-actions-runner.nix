@@ -10,6 +10,10 @@
     mode = "644";
   };
 
+  # Trust docker bridge interface traffic
+  # Needed for the docker runner to communicate with the act_runner cache
+  networking.firewall.trustedInterfaces = [ "br-+" ];
+
   # forgejo actions runner
   # https://forgejo.org/docs/latest/admin/actions/
   # https://docs.gitea.com/usage/actions/quickstart

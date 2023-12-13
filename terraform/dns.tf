@@ -38,13 +38,11 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "obs-portal"
     type = "A"
     address = "80.71.153.210"
-    ttl = 60
   }
   record {
     hostname = "vpn"
     type = "A"
     address = "80.71.153.210"
-    ttl = 60
   }
   record {
     hostname = "cache"
@@ -81,13 +79,16 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "turn"
     type = "A"
     address = "138.201.80.102"
-    ttl = 300
+  }
+  record {
+    hostname = "grafana"
+    type = "A"
+    address = "80.71.153.210"
   }
   record {
     hostname = "hpb"
     type = "A"
     address = "80.71.153.239"
-    ttl = 60
   }
   record {
     hostname = "files"

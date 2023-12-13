@@ -29,6 +29,13 @@ in {
     # Force getting the hostname from cloud-init
     networking.hostName = lib.mkDefault "";
 
+    # We use cloud-init to configure networking, this option should fix
+    # systemd-networkd-wait-online timeouts
+    #systemd.services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug";
+    systemd.network.wait-online.ignoredInterfaces = [
+     "docker0"
+    ];
+
     # List services that you want to enable:
     services.cloud-init.enable = true;
     services.cloud-init.ext4.enable = true;
