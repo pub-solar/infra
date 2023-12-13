@@ -51,7 +51,9 @@
         HTTP_ADDR = "127.0.0.1";
         HTTP_PORT = 3000;
       };
+
       log.LEVEL = "Warn";
+
       mailer = {
         ENABLED = true;
         PROTOCOL = "smtps";
@@ -60,14 +62,17 @@
         FROM = ''"pub.solar git server" <forgejo@pub.solar>'';
         USER = "admins@pub.solar";
       };
+
       "repository.signing" = {
         SIGNING_KEY = "default";
         MERGES = "always";
       };
+
       openid = {
         ENABLE_OPENID_SIGNIN = true;
         ENABLE_OPENID_SIGNUP = true;
       };
+
       service = {
         # uncomment after initial deployment, first user is admin user
         # required to setup SSO (oauth openid-connect, keycloak auth provider)
@@ -75,15 +80,24 @@
         ENABLE_NOTIFY_MAIL = true;
         DEFAULT_KEEP_EMAIL_PRIVATE = true;
       };
+
       session = {
         PROVIDER = "db";
         COOKIE_SECURE = lib.mkForce true;
       };
+
+      # https://forgejo.org/docs/latest/admin/config-cheat-sheet/#webhook-webhook
+      webhook = {
+        ALLOWED_HOST_LIST = "loopback,external,*.pub.solar";
+      };
+
       # See https://forgejo.org/docs/latest/admin/actions/
-      actions.ENABLED = true;
-      # In an actions workflow, when uses: does not specify an absolute URL,
-      # the value of DEFAULT_ACTIONS_URL is prepended to it.
-      actions.DEFAULT_ACTIONS_URL = "https://code.forgejo.org";
+      actions = {
+        ENABLED = true;
+        # In an actions workflow, when uses: does not specify an absolute URL,
+        # the value of DEFAULT_ACTIONS_URL is prepended to it.
+        DEFAULT_ACTIONS_URL = "https://code.forgejo.org";
+      };
     };
   };
 
