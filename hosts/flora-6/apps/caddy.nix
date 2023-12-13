@@ -27,6 +27,17 @@
           reverse_proxy :4000
         '';
       };
+      "flora-6.pub.solar" = {
+        logFormat = lib.mkForce ''
+          output discard
+        '';
+        extraConfig = ''
+          basicauth * {
+	    hakkonaut $2a$14$mmIAy/Ezm6YGohUtXa2mWeW6Bcw1MQXPhrRbz14jAD2iUu3oob/t.
+          }
+          reverse_proxy :${toString config.services.loki.configuration.server.http_listen_port}
+        '';
+      };
       "grafana.pub.solar" = {
         logFormat = lib.mkForce ''
           output discard

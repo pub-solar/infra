@@ -68,5 +68,5 @@ in {
   "grafana-smtp-password.age".publicKeys = flora6Keys ++ baseKeys;
 
   "nachtigall-metrics-nginx-basic-auth.age".publicKeys = nachtigallKeys ++ baseKeys;
-  "nachtigall-metrics-prometheus-basic-auth-password.age".publicKeys = flora6Keys ++ baseKeys;
+  "nachtigall-metrics-prometheus-basic-auth-password.age".publicKeys = flora6Keys ++ nachtigallKeys ++ baseKeys;
 }
