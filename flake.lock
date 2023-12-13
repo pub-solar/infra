@@ -284,6 +284,22 @@
         "type": "github"
       }
     },
+    "release-2311": {
+      "locked": {
+        "lastModified": 1702509556,
+        "narHash": "sha256-trm+c/erCSRe+Mi2fAaI975+jrU8uhmUznx8py6N9po=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c15f414581b4eb4113eed52ed303a1e62771fb6f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "release-23.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -296,6 +312,7 @@
         "nixos-flake": "nixos-flake",
         "nixpkgs": "nixpkgs",
         "nixpkgs-2205": "nixpkgs-2205",
+        "release-2311": "release-2311",
         "triton-vmtools": "triton-vmtools",
         "unstable": "unstable"
       }
