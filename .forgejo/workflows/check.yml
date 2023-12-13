@@ -10,10 +10,6 @@ jobs:
       - name: Check out repository code
         uses: https://code.forgejo.org/actions/checkout@v4
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update && sudo apt-get install --yes zstd jq
-
       - uses: https://github.com/nixbuild/nix-quick-install-action@v26
         with:
           load_nixConfig: false
