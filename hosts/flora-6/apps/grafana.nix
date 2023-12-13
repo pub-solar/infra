@@ -44,7 +44,7 @@
       };
       smtp = {
         enabled = true;
-        host = "mx2.greenbaum.cloud:465";
+        host = "mail.greenbaum.zone:465";
         user = "admins@pub.solar";
         password = "\$__file{${config.age.secrets.grafana-smtp-password.path}}";
         from_address = "no-reply@pub.solar";
