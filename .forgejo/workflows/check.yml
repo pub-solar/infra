@@ -47,4 +47,4 @@ jobs:
 
       - name: Run flake checks
         run: |
-          nix --print-build-logs --verbose --accept-flake-config flake check
+          nix --print-build-logs --verbose --accept-flake-config --access-tokens '' flake check
