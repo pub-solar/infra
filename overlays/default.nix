@@ -17,6 +17,7 @@
             element-themes = prev.callPackage ./pkgs/element-themes { inherit (inputs) element-themes; };
             forgejo = release-2311.forgejo;
           })
+          (import ./keycloak.nix)
         ];
       });
     };
