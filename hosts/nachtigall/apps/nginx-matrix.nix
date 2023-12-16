@@ -99,7 +99,7 @@ in
         };
 
         # sliding-sync
-        "/sliding-sync" = {
+        "~ ^/(client/|_matrix/client/unstable/org.matrix.msc3575/sync)" = {
           proxyPass = "http://127.0.0.1:8011";
           extraConfig = commonHeaders;
         };
