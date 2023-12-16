@@ -44,6 +44,7 @@ in {
   "matrix-mautrix-telegram-env-file.age".publicKeys = nachtigallKeys ++ baseKeys;
   "matrix-synapse-signing-key.age".publicKeys = nachtigallKeys ++ baseKeys;
   "matrix-synapse-secret-config.yaml.age".publicKeys = nachtigallKeys ++ baseKeys;
+  "matrix-synapse-sliding-sync-secret.age".publicKeys = nachtigallKeys ++ baseKeys;
 
   "nextcloud-secrets.age".publicKeys = nachtigallKeys ++ baseKeys;
   "nextcloud-admin-pass.age".publicKeys = nachtigallKeys ++ baseKeys;

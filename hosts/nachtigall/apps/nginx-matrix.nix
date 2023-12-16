@@ -9,7 +9,7 @@ let
   wellKnownClient = domain: {
     "m.homeserver".base_url = "https://matrix.${domain}";
     "m.identity_server".base_url = "https://matrix.${domain}";
-    "org.matrix.msc3575.proxy".url = "https://matrix.${domain}/sliding-sync";
+    "org.matrix.msc3575.proxy".url = "https://matrix.${domain}";
     "im.vector.riot.e2ee".default = true;
     "io.element.e2ee" = {
       default = true;
@@ -95,6 +95,12 @@ in
         # For telegram
         "/c3c3f34b-29fb-5feb-86e5-98c75ec8214b" = {
           proxyPass = "http://127.0.0.1:8009";
+          extraConfig = commonHeaders;
+        };
+
+        # sliding-sync
+        "~ ^/(client/|_matrix/client/unstable/org.matrix.msc3575/sync)" = {
+          proxyPass = "http://127.0.0.1:8011";
           extraConfig = commonHeaders;
         };
 
