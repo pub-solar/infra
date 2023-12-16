@@ -98,6 +98,12 @@ in
           extraConfig = commonHeaders;
         };
 
+        # sliding-sync
+        "/sliding-sync" = {
+          proxyPass = "http://127.0.0.1:8011";
+          extraConfig = commonHeaders;
+        };
+
         "~* ^(/_matrix|/_synapse/client|/_synapse/oidc)" = {
           proxyPass = "http://127.0.0.1:8008";
 
