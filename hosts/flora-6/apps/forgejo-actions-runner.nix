@@ -26,9 +26,9 @@
       tokenFile = config.age.secrets.forgejo-actions-runner-token.path;
       labels = [
         # provide a debian 12 bookworm base with Node.js for actions
-        "debian-latest:docker://node:20-bookworm"
+        "debian-latest:docker://git.pub.solar/pub-solar/actions-base-image:20-bookworm"
         # fake the ubuntu name, commonly used in actions examples
-        "ubuntu-latest:docker://node:20-bookworm"
+        "ubuntu-latest:docker://git.pub.solar/pub-solar/actions-base-image:20-bookworm"
         # alpine with Node.js
         "alpine-latest:docker://node:20-alpine"
         # nix flakes enabled image with Node.js
