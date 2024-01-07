@@ -67,7 +67,7 @@
 
   $wgEnableUploads = true;
   $wgUploadDirectory = "/var/www/html/uploads";
-  $wgUploadPath = "/var/www/html/uploads";
+  $wgUploadPath = $wgScriptPath . "/uploads";
 
   $wgUseImageMagick = true;
   $wgImageMagickConvertCommand = "/usr/bin/convert";
