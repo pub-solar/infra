@@ -15,8 +15,8 @@
   # error_reporting( -1 );
   # ini_set( 'display_errors', 1 );
   # $wgShowExceptionDetails = true;
-  $wgDBerrorLog = '/dev/stderr';
-  $wgDebugLogFile = "/dev/stderr";
+  # $wgDBerrorLog = '/dev/stderr';
+  # $wgDebugLogFile = "/dev/stderr";
 
   $wgSitename = "pub.solar wiki";
   $wgMetaNamespace = false;
@@ -67,6 +67,7 @@
 
   $wgEnableUploads = true;
   $wgUploadDirectory = "/var/www/html/uploads";
+  $wgUploadPath = "/var/www/html/uploads";
 
   $wgUseImageMagick = true;
   $wgImageMagickConvertCommand = "/usr/bin/convert";
