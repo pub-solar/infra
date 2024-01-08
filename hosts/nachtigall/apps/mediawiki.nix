@@ -114,6 +114,7 @@
   wfLoadExtension('OpenIDConnect');
   wfLoadExtension('PluggableAuth');
   wfLoadExtension('VisualEditor');
+  wfLoadExtension('TemplateStyles');
 
   # End of automatically generated settings.
   # Add more configuration options below.
@@ -207,7 +208,7 @@ in {
       backend = "docker";
 
       containers."mediawiki" = {
-        image = "git.pub.solar/pub-solar/mediawiki-oidc-docker:latest";
+        image = "git.pub.solar/pub-solar/mediawiki-oidc-docker:1.41.0";
         user = "1000:${builtins.toString gid}";
         autoStart = true;
 
