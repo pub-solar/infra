@@ -115,7 +115,6 @@
   wfLoadExtension('PluggableAuth');
   wfLoadExtension('VisualEditor');
   wfLoadExtension('TemplateStyles');
-  wfLoadExtension('QuickInstantCommons');
 
   # End of automatically generated settings.
   # Add more configuration options below.
