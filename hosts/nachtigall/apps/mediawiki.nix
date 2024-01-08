@@ -40,7 +40,7 @@
 
   ## The URL path to the logo.  Make sure you change this from the default,
   ## or else you'll overwrite your logo when you upgrade!
-  $wgLogo = "$wgResourceBasePath/resources/assets/wiki.png";
+  $wgLogo = "https://pub.solar/assets/pubsolar.svg";
 
   ## UPO means: this is also a user preference option
 
@@ -73,7 +73,7 @@
   $wgImageMagickConvertCommand = "/usr/bin/convert";
 
   # InstantCommons allows wiki to use images from https://commons.wikimedia.org
-  $wgUseInstantCommons = false;
+  $wgUseInstantCommons = true;
 
   # Periodically send a pingback to https://www.mediawiki.org/ with basic data
   # about this MediaWiki instance. The Wikimedia Foundation shares this data
@@ -114,11 +114,12 @@
   wfLoadExtension('OpenIDConnect');
   wfLoadExtension('PluggableAuth');
   wfLoadExtension('VisualEditor');
+  wfLoadExtension('TemplateStyles');
+  wfLoadExtension('QuickInstantCommons');
 
   # End of automatically generated settings.
   # Add more configuration options below.
 
-  $wgLogo = "https://pub.solar/assets/pubsolar.svg";
   $wgLogos = [
     'svg' => "https://pub.solar/assets/pubsolar.svg",
     'icon' => "https://pub.solar/assets/pubsolar.svg",
@@ -207,7 +208,7 @@ in {
       backend = "docker";
 
       containers."mediawiki" = {
-        image = "git.pub.solar/pub-solar/mediawiki-oidc-docker:latest";
+        image = "git.pub.solar/pub-solar/mediawiki-oidc-docker:1.41.0";
         user = "1000:${builtins.toString gid}";
         autoStart = true;
 
