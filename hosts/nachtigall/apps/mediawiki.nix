@@ -120,7 +120,6 @@
   # End of automatically generated settings.
   # Add more configuration options below.
 
-  $wgLogo = "https://pub.solar/assets/pubsolar.svg";
   $wgLogos = [
     'svg' => "https://pub.solar/assets/pubsolar.svg",
     'icon' => "https://pub.solar/assets/pubsolar.svg",
