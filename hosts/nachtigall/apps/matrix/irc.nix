@@ -1,4 +1,4 @@
-{pkgs, lib, ...}:
+{config, lib, pkgs, ...}:
 {
   systemd.services.matrix-appservice-irc.serviceConfig.SystemCallFilter = lib.mkForce [
     "@system-service @pkey"
@@ -12,9 +12,8 @@
     registrationUrl = "http://localhost:8010";
     settings = {
       homeserver = {
-        # TODO: Use the port from synapse config
         domain = "pub.solar";
-        url = "http://127.0.0.1:8008";
+        url = "http://127.0.0.1:${toString (builtins.map (listener: listener.port) config.services.matrix-synapse.settings.listeners)}";
         media_url = "https://matrix.pub.solar";
         enablePresence = false;
       };
@@ -92,23 +91,16 @@
               ssl = true;
             };
           in {
-            # TODO: Remove freenode if nobody uses it.
-            "irc.freenode.net" = lib.attrsets.recursiveUpdate commonConfig {
-              name = "freenode";
-              dynamicChannels.groupId = "+freenode.net:localhost";
-              # TODO: if someone uses freenode, we should specify freenode in the user display names insted of just "IRC";
-              matrixClients.displayName = "$NICK (IRC)";
-              dynamicChannels.aliasTemplate = "#irc_$CHANNEL";
-              matrixClients.userTemplate = "@irc_$NICK";
-            };
             "irc.libera.chat" = lib.attrsets.recursiveUpdate commonConfig {
               name = "libera";
               dynamicChannels.groupId = "+libera.chat:localhost";
+              dynamicChannels.aliasTemplate = "#_libera_$CHANNEL";
               matrixClients.displayName = "$NICK (LIBERA-IRC)";
             };
             "irc.scratch-network.net" = lib.attrsets.recursiveUpdate commonConfig {
               name = "scratch";
               matrixClients.displayName = "$NICK (SCRATCH-IRC)";
+              dynamicChannels.aliasTemplate = "#_scratch_$CHANNEL";
               dynamicChannels.groupId = "+scratch-network.net:localhost";
             };
           };
