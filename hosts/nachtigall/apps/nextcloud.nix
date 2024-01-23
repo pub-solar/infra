@@ -108,6 +108,10 @@
       simpleSignUpLink.shown = false;
     };
 
+    phpOptions = {
+      "opcache.interned_strings_buffer" = "23";
+    };
+
     # Calculated with 4GiB RAM, 80MiB process size available on
     # https://spot13.com/pmcalculator/
     poolSettings = {
