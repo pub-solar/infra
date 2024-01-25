@@ -77,8 +77,8 @@ resource "namecheap_domain_records" "pub-solar" {
   }
   record {
     hostname = "turn"
-    type = "A"
-    address = "138.201.80.102"
+    type = "CNAME"
+    address = "nachtigall.pub.solar."
   }
   record {
     hostname = "grafana"
