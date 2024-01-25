@@ -14,6 +14,9 @@
       locations."/metrics" = {
         proxyPass = "http://127.0.0.1:${toString(config.services.prometheus.exporters.node.port)}";
       };
+      locations."/_synapse/metrics" = {
+        proxyPass = "http://127.0.0.1:${toString (builtins.map (listener: listener.port) config.services.matrix-synapse.settings.listeners)}";
+      };
     };
   };
 }
