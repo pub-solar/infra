@@ -110,6 +110,9 @@
 
     phpOptions = {
       "opcache.interned_strings_buffer" = "23";
+      # https://docs.nextcloud.com/server/latest/admin_manual/installation/server_tuning.html#:~:text=opcache.jit%20%3D%201255%20opcache.jit_buffer_size%20%3D%20128m
+      "opcache.jit" = "1255";
+      "opcache.jit_buffer_size" = "128M";
     };
 
     # Calculated with 4GiB RAM, 80MiB process size available on
