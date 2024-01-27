@@ -1,5 +1,8 @@
-{ config, flake, ... }:
-
+{ config, flake, lib, ... }:
+let
+  # Get port from first element in list of matrix-synapse listeners
+  synapsePort = "${toString (lib.findFirst (listener: listener.port != null) "" config.services.matrix-synapse.settings.listeners).port}";
+in
 {
   age.secrets.nachtigall-metrics-nginx-basic-auth = {
     file = "${flake.self}/secrets/nachtigall-metrics-nginx-basic-auth.age";
@@ -15,7 +18,7 @@
         proxyPass = "http://127.0.0.1:${toString(config.services.prometheus.exporters.node.port)}";
       };
       locations."/_synapse/metrics" = {
-        proxyPass = "http://127.0.0.1:${toString (builtins.map (listener: listener.port) config.services.matrix-synapse.settings.listeners)}";
+        proxyPass = "http://127.0.0.1:${synapsePort}";
       };
     };
   };

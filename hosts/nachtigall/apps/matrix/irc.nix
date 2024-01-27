@@ -1,4 +1,8 @@
 { config, lib, pkgs, ... }:
+let
+  # Get port from first element in list of matrix-synapse listeners
+  synapsePort = "${toString (lib.findFirst (listener: listener.port != null) "" config.services.matrix-synapse.settings.listeners).port}";
+in
 {
   systemd.services.matrix-appservice-irc.serviceConfig.SystemCallFilter = lib.mkForce [
     "@system-service @pkey"
@@ -13,7 +17,7 @@
     settings = {
       homeserver = {
         domain = "pub.solar";
-        url = "http://127.0.0.1:${toString (builtins.map (listener: listener.port) config.services.matrix-synapse.settings.listeners)}";
+        url = "http://127.0.0.1:${synapsePort}";
         media_url = "https://matrix.pub.solar";
         enablePresence = false;
       };
