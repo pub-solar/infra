@@ -55,13 +55,26 @@ in
               compress = false;
               names = [
                 "federation"
-                "metrics"
               ];
             }
           ];
           tls = false;
           type = "http";
           x_forwarded = true;
+        }
+        {
+          bind_addresses = [
+            "127.0.0.1"
+          ];
+          port = 8012;
+          resources = [
+            {
+              names = [
+                "metrics"
+              ];
+            }
+          ];
+          type = "metrics";
         }
       ];
 
