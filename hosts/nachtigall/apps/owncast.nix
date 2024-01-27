@@ -1,9 +1,8 @@
-{
-  flake,
-  config,
-  lib,
-  pkgs,
-  ...
+{ flake
+, config
+, lib
+, pkgs
+, ...
 }: {
   services.nginx.virtualHosts."stream.pub.solar" = {
     enableACME = true;

@@ -2,11 +2,11 @@
   users.users.${flake.self.username} = {
     name = flake.self.username;
     group = flake.self.username;
-    extraGroups = ["wheel" "docker"];
+    extraGroups = [ "wheel" "docker" ];
     isNormalUser = true;
     openssh.authorizedKeys.keys = flake.self.publicKeys.admins;
   };
-  users.groups.${flake.self.username} = {};
+  users.groups.${flake.self.username} = { };
 
   # TODO: Remove when we stop locking ourselves out.
   users.users.root.openssh.authorizedKeys.keys = flake.self.publicKeys.admins;
@@ -22,7 +22,7 @@
     openssh.authorizedKeys.keys = flake.self.publicKeys.robots;
   };
 
-  users.groups.hakkonaut = {};
+  users.groups.hakkonaut = { };
 
   users.users.root.initialHashedPassword = "$y$j9T$bIN6GjQkmPMllOcQsq52K0$q0Z5B5.KW/uxXK9fItB8H6HO79RYAcI/ZZdB0Djke32";
 

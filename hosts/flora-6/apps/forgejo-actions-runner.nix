@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  flake,
-  ...
+{ config
+, lib
+, pkgs
+, flake
+, ...
 }: {
   age.secrets.forgejo-actions-runner-token = {
     file = "${flake.self}/secrets/forgejo-actions-runner-token.age";

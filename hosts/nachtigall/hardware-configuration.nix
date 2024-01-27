@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "ahci" "nvme" ];
@@ -14,32 +15,38 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "root_pool/root";
+    {
+      device = "root_pool/root";
       fsType = "zfs";
     };
 
   fileSystems."/var/lib" =
-    { device = "root_pool/data";
+    {
+      device = "root_pool/data";
       fsType = "zfs";
     };
 
   fileSystems."/var/lib/postgresql" =
-    { device = "root_pool/data/postgresql";
+    {
+      device = "root_pool/data/postgresql";
       fsType = "zfs";
     };
 
   fileSystems."/var/lib/docker" =
-    { device = "root_pool/data/docker";
+    {
+      device = "root_pool/data/docker";
       fsType = "zfs";
     };
 
   fileSystems."/boot1" =
-    { device = "/dev/disk/by-uuid/5493-EFF5";
+    {
+      device = "/dev/disk/by-uuid/5493-EFF5";
       fsType = "vfat";
     };
 
   fileSystems."/boot2" =
-    { device = "/dev/disk/by-uuid/5494-BA1E";
+    {
+      device = "/dev/disk/by-uuid/5494-BA1E";
       fsType = "vfat";
     };
 

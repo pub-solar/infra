@@ -1,12 +1,11 @@
-{
-  flake,
-  config,
-  lib,
-  pkgs,
-  ...
+{ flake
+, config
+, lib
+, pkgs
+, ...
 }:
 {
-  networking.firewall.allowedTCPPorts = [25];
+  networking.firewall.allowedTCPPorts = [ 25 ];
 
   users.users.nginx.extraGroups = [ "mailman" ];
 
@@ -23,13 +22,13 @@
 
   services.postfix = {
     enable = true;
-    relayDomains = ["hash:/var/lib/mailman/data/postfix_domains"];
+    relayDomains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
     # get TLS certs for list.pub.solar from acme
     sslCert = "/var/lib/acme/list.pub.solar/fullchain.pem";
     sslKey = "/var/lib/acme/list.pub.solar/key.pem";
     config = {
-      transport_maps = ["hash:/var/lib/mailman/data/postfix_lmtp"];
-      local_recipient_maps = ["hash:/var/lib/mailman/data/postfix_lmtp"];
+      transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
+      local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
     };
     rootAlias = "admins@pub.solar";
     postmasterAlias = "admins@pub.solar";
@@ -38,34 +37,34 @@
 
   systemd.paths.watcher-acme-ssl-file = {
     description = "Watches for changes in acme's TLS cert file (after renewals) to reload postfix";
-    documentation = ["systemd.path(5)"];
-    partOf = ["postfix-reload.service"];
+    documentation = [ "systemd.path(5)" ];
+    partOf = [ "postfix-reload.service" ];
     pathConfig = {
       PathChanged = "/var/lib/acme/list.pub.solar/fullchain.pem";
       Unit = "postfix-reload.service";
     };
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
   };
 
   systemd.services."postfix-reload" = {
     description = "Reloads postfix config, e.g. after TLS certs change, notified by watcher-acme-ssl-file.path";
-    documentation = ["systemd.path(5)"];
-    requires = ["postfix.service"];
-    after = ["postfix.service"];
+    documentation = [ "systemd.path(5)" ];
+    requires = [ "postfix.service" ];
+    after = [ "postfix.service" ];
     startLimitIntervalSec = 10;
     startLimitBurst = 5;
     serviceConfig.Type = "oneshot";
     script = ''
       ${pkgs.systemd}/bin/systemctl reload postfix
     '';
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
   };
 
   services.mailman = {
     enable = true;
     serve.enable = true;
     hyperkitty.enable = true;
-    webHosts = ["list.pub.solar"];
+    webHosts = [ "list.pub.solar" ];
     siteOwner = "admins@pub.solar";
   };
 

@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  flake,
-  ...
+{ config
+, lib
+, pkgs
+, flake
+, ...
 }: {
   age.secrets.drone-secrets = {
     file = "${flake.self}/secrets/drone-secrets.age";
@@ -25,22 +24,24 @@
     isSystemUser = true;
   };
 
-  users.groups.drone = {};
+  users.groups.drone = { };
 
   systemd.tmpfiles.rules = [
     "d '/var/lib/drone-db' 0750 drone drone - -"
   ];
 
-  systemd.services."docker-network-drone" = let
-    docker = config.virtualisation.oci-containers.backend;
-    dockerBin = "${pkgs.${docker}}/bin/${docker}";
-  in {
-    serviceConfig.Type = "oneshot";
-    before = ["docker-drone-server.service"];
-    script = ''
-      ${dockerBin} network inspect drone-net >/dev/null 2>&1 || ${dockerBin} network create drone-net --subnet 172.20.0.0/24
-    '';
-  };
+  systemd.services."docker-network-drone" =
+    let
+      docker = config.virtualisation.oci-containers.backend;
+      dockerBin = "${pkgs.${docker}}/bin/${docker}";
+    in
+    {
+      serviceConfig.Type = "oneshot";
+      before = [ "docker-drone-server.service" ];
+      script = ''
+        ${dockerBin} network inspect drone-net >/dev/null 2>&1 || ${dockerBin} network create drone-net --subnet 172.20.0.0/24
+      '';
+    };
 
   virtualisation = {
     docker = {
@@ -73,7 +74,7 @@
         ports = [
           "4000:80"
         ];
-        dependsOn = ["drone-db"];
+        dependsOn = [ "drone-db" ];
         extraOptions = [
           "--network=drone-net"
           "--pull=always"
@@ -96,7 +97,7 @@
         volumes = [
           "/var/run/docker.sock:/var/run/docker.sock"
         ];
-        dependsOn = ["drone-db"];
+        dependsOn = [ "drone-db" ];
         extraOptions = [
           "--network=drone-net"
           "--pull=always"

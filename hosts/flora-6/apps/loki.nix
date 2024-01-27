@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  flake,
-  ...
+{ config
+, lib
+, pkgs
+, flake
+, ...
 }: {
   # source: https://gist.github.com/rickhull/895b0cb38fdd537c1078a858cf15d63e
   # https://grafana.com/docs/loki/latest/configure/examples/#1-local-configuration-exampleyaml

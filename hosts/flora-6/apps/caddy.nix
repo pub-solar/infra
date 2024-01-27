@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  flake,
-  ...
+{ config
+, lib
+, pkgs
+, flake
+, ...
 }:
 {
   systemd.tmpfiles.rules = [
@@ -32,10 +31,10 @@
           output discard
         '';
         extraConfig = ''
-          basicauth * {
-	    hakkonaut $2a$14$mmIAy/Ezm6YGohUtXa2mWeW6Bcw1MQXPhrRbz14jAD2iUu3oob/t.
-          }
-          reverse_proxy :${toString config.services.loki.configuration.server.http_listen_port}
+                    basicauth * {
+          	    hakkonaut $2a$14$mmIAy/Ezm6YGohUtXa2mWeW6Bcw1MQXPhrRbz14jAD2iUu3oob/t.
+                    }
+                    reverse_proxy :${toString config.services.loki.configuration.server.http_listen_port}
         '';
       };
       "grafana.pub.solar" = {
@@ -56,5 +55,5 @@
       };
     };
   };
-  networking.firewall.allowedTCPPorts = [80 443];
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }

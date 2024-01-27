@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  flake,
-  ...
+{ config
+, lib
+, pkgs
+, flake
+, ...
 }: {
   age.secrets.grafana-admin-password = {
     file = "${flake.self}/secrets/grafana-admin-password.age";
