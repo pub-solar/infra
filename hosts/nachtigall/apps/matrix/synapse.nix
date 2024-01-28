@@ -38,6 +38,45 @@ in
         allow_unsafe_locale = false;
         txn_limit = 0;
       };
+      listeners = [
+        {
+          bind_addresses = [
+            "127.0.0.1"
+          ];
+          port = 8008;
+          resources = [
+            {
+              compress = true;
+              names = [
+                "client"
+              ];
+            }
+            {
+              compress = false;
+              names = [
+                "federation"
+              ];
+            }
+          ];
+          tls = false;
+          type = "http";
+          x_forwarded = true;
+        }
+        {
+          bind_addresses = [
+            "127.0.0.1"
+          ];
+          port = 8012;
+          resources = [
+            {
+              names = [
+                "metrics"
+              ];
+            }
+          ];
+          type = "metrics";
+        }
+      ];
 
       account_threepid_delegates.msisdn = "";
       alias_creation_rules = [{
@@ -68,6 +107,7 @@ in
       encryption_enabled_by_default_for_room_type = "off";
       event_cache_size = "100K";
       federation_rr_transactions_per_room_per_second = 50;
+      federation_client_minimum_tls_version = "1.2";
       forget_rooms_on_leave = true;
       include_profile_data_on_invite = true;
       instance_map = { };
@@ -162,6 +202,7 @@ in
 
       stream_writers = { };
       trusted_key_servers = [{ server_name = "matrix.org"; }];
+      suppress_key_server_warning = true;
 
       turn_allow_guests = false;
       turn_uris = [
@@ -212,6 +253,8 @@ in
         # "/matrix-mautrix-telegram-registration.yaml"
       ];
     };
+
+    withJemalloc = true;
 
     extraConfigFiles = [
       "/run/agenix/matrix-synapse-secret-config.yaml"

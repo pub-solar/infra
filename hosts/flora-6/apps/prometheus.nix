@@ -26,7 +26,7 @@
     };
     scrapeConfigs = [
       {
-        job_name = "http-targets";
+        job_name = "node-exporter-http";
         static_configs = [{
           targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
           labels = {
@@ -35,9 +35,24 @@
         }];
       }
       {
-        job_name = "https-targets";
+        job_name = "node-exporter-https";
         scheme = "https";
         metrics_path = "/metrics";
+        basic_auth = {
+          username = "hakkonaut";
+          password_file = "${config.age.secrets.nachtigall-metrics-prometheus-basic-auth-password.path}";
+        };
+        static_configs = [{
+          targets = [ "nachtigall.pub.solar" ];
+          labels = {
+            instance = "nachtigall";
+          };
+        }];
+      }
+      {
+        job_name = "matrix-synapse";
+        scheme = "https";
+        metrics_path = "/_synapse/metrics";
         basic_auth = {
           username = "hakkonaut";
           password_file = "${config.age.secrets.nachtigall-metrics-prometheus-basic-auth-password.path}";

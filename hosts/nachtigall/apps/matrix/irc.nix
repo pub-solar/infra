@@ -1,4 +1,17 @@
 { config, lib, pkgs, ... }:
+let
+  # Find element in list config.services.matrix-synapse.settings.listeners.*.resources
+  # that sets names = "client"
+  nameHasClient = name: name == "client";
+  resourceHasClient = resource: builtins.any nameHasClient resource.names;
+  listenerWithClient = lib.findFirst
+    (listener:
+      builtins.any resourceHasClient listener.resources)
+    (throw "Found no matrix-synapse.settings.listeners.*.resources.*.names containing string client")
+    config.services.matrix-synapse.settings.listeners
+  ;
+  synapseClientPort = "${toString listenerWithClient.port}";
+in
 {
   systemd.services.matrix-appservice-irc.serviceConfig.SystemCallFilter = lib.mkForce [
     "@system-service @pkey"
@@ -13,7 +26,7 @@
     settings = {
       homeserver = {
         domain = "pub.solar";
-        url = "http://127.0.0.1:${toString (builtins.map (listener: listener.port) config.services.matrix-synapse.settings.listeners)}";
+        url = "http://127.0.0.1:${synapseClientPort}";
         media_url = "https://matrix.pub.solar";
         enablePresence = false;
       };
