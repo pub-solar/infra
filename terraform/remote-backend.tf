@@ -4,6 +4,6 @@ terraform {
     path        = "pub-solar/nachtigall"
     object_name = "terraform.tfstate"
     account     = "pub_solar"
-    url         = "https://eu-central.manta.greenbaum.cloud"
+    url         = "https://eu-central.manta.greenbaum.zone"
   }
 }
