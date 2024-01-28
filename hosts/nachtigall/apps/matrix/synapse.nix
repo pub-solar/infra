@@ -1,8 +1,9 @@
 { flake, config, pkgs, ... }:
 let
-  publicDomain  = "matrix.pub.solar";
+  publicDomain = "matrix.pub.solar";
   serverDomain = "pub.solar";
-in {
+in
+{
   age.secrets."matrix-synapse-signing-key" = {
     file = "${flake.self}/secrets/matrix-synapse-signing-key.age";
     mode = "400";
@@ -41,8 +42,8 @@ in {
       account_threepid_delegates.msisdn = "";
       alias_creation_rules = [{
         action = "allow";
-        alias=  "*";
-        room_id = "*" ;
+        alias = "*";
+        room_id = "*";
         user_id = "*";
       }];
       allow_guest_access = false;
@@ -69,14 +70,14 @@ in {
       federation_rr_transactions_per_room_per_second = 50;
       forget_rooms_on_leave = true;
       include_profile_data_on_invite = true;
-      instance_map = {};
+      instance_map = { };
       limit_profile_requests_to_users_who_share_rooms = false;
 
       log_config = ./matrix-log-config.yaml;
 
       max_spider_size = "10M";
       max_upload_size = "50M";
-      media_storage_providers = [];
+      media_storage_providers = [ ];
 
       password_config = {
         enabled = false;
@@ -87,67 +88,67 @@ in {
       presence.enabled = true;
       push.include_content = false;
 
-      rc_admin_redaction= {
+      rc_admin_redaction = {
         burst_count = 50;
         per_second = 1;
       };
-      rc_federation= {
+      rc_federation = {
         concurrent = 3;
         reject_limit = 50;
         sleep_delay = 500;
         sleep_limit = 10;
         window_size = 1000;
       };
-      rc_invites= {
-        per_issuer= {
+      rc_invites = {
+        per_issuer = {
           burst_count = 10;
           per_second = 0.3;
         };
-        per_room= {
+        per_room = {
           burst_count = 10;
           per_second = 0.3;
         };
-        per_user= {
+        per_user = {
           burst_count = 5;
           per_second = 0.003;
         };
       };
-      rc_joins= {
-        local= {
+      rc_joins = {
+        local = {
           burst_count = 10;
           per_second = 0.1;
         };
-        remote= {
+        remote = {
           burst_count = 10;
           per_second = 0.01;
         };
       };
-      rc_login= {
-        account= {
+      rc_login = {
+        account = {
           burst_count = 3;
           per_second = 0.17;
         };
-        address= {
+        address = {
           burst_count = 3;
           per_second = 0.17;
         };
-        failed_attempts= {
+        failed_attempts = {
           burst_count = 3;
           per_second = 0.17;
         };
       };
-      rc_message= {
+      rc_message = {
         burst_count = 10;
         per_second = 0.2;
       };
-      rc_registration= {
+      rc_registration = {
         burst_count = 3;
         per_second = 0.17;
       };
       redaction_retention_period = "7d";
       redis.enabled = false;
       registration_requires_token = false;
-      registrations_require_3pid = ["email"];
+      registrations_require_3pid = [ "email" ];
       report_stats = false;
       require_auth_for_profile_requests = false;
       room_list_publication_rules = [{
@@ -159,8 +160,8 @@ in {
 
       signing_key_path = "/run/agenix/matrix-synapse-signing-key";
 
-      stream_writers = {};
-      trusted_key_servers = [{ server_name = "matrix.org";}];
+      stream_writers = { };
+      trusted_key_servers = [{ server_name = "matrix.org"; }];
 
       turn_allow_guests = false;
       turn_uris = [

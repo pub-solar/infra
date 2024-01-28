@@ -1,8 +1,7 @@
-{
-  flake,
-  config,
-  pkgs,
-  ...
+{ flake
+, config
+, pkgs
+, ...
 }: {
   # Use GRUB2 as the boot loader.
   # We don't use systemd-boot because Hetzner uses BIOS legacy boot.

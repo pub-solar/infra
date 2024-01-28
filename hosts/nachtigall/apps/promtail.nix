@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  flake,
-  ...
+{ config
+, lib
+, pkgs
+, flake
+, ...
 }: {
   age.secrets.nachtigall-metrics-prometheus-basic-auth-password = {
     file = "${flake.self}/secrets/nachtigall-metrics-prometheus-basic-auth-password.age";

@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  self,
-  ...
+{ config
+, lib
+, pkgs
+, self
+, ...
 }: {
   services.nginx.virtualHosts."collabora.pub.solar" = {
     enableACME = true;
@@ -15,7 +14,7 @@
         proxy_pass http://127.0.0.1:9980;
         proxy_set_header Host $host;
       '';
-      };
+    };
   };
 
   virtualisation = {

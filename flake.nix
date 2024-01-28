@@ -80,7 +80,8 @@
       flake =
         let
           username = "barkeeper";
-        in {
+        in
+        {
           inherit username;
 
           checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;

@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  flake,
-  ...
+{ config
+, lib
+, pkgs
+, flake
+, ...
 }: {
   age.secrets.forgejo-database-password = {
     file = "${flake.self}/secrets/forgejo-database-password.age";
@@ -22,7 +21,7 @@
     forceSSL = true;
 
     locations."/user/login".extraConfig = ''
-        return 302 /user/oauth2/keycloak;
+      return 302 /user/oauth2/keycloak;
     '';
 
     locations."/" = {

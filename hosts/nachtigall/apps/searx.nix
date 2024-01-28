@@ -1,9 +1,8 @@
-{
-  flake,
-  config,
-  lib,
-  pkgs,
-  ...
+{ flake
+, config
+, lib
+, pkgs
+, ...
 }:
 {
   age.secrets.searx-environment = {
@@ -33,7 +32,7 @@
       chmod-socket = "660";
     };
 
-    environmentFile = config.age.secrets.searx-environment.path; 
+    environmentFile = config.age.secrets.searx-environment.path;
 
     settings = {
       use_default_settings = true;

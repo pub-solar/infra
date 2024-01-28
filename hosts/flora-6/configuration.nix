@@ -1,12 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  flake,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, flake
+, ...
+}:
+let
   psCfg = config.pub-solar;
-in {
+in
+{
   config = {
     # Override nix.conf for more agressive garbage collection
     nix.extraOptions = lib.mkForce ''
@@ -33,7 +34,7 @@ in {
     # systemd-networkd-wait-online timeouts
     #systemd.services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug";
     systemd.network.wait-online.ignoredInterfaces = [
-     "docker0"
+      "docker0"
     ];
 
     # List services that you want to enable:

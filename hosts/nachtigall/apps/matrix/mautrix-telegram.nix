@@ -27,7 +27,7 @@
         id = "telegram";
         max_body_size = 1;
         port = 8009;
-        provisioning =  {
+        provisioning = {
           enabled = false;
           prefix = "/_matrix/provision/v1";
           shared_secret = "generate";
@@ -59,7 +59,7 @@
         bot_messages_as_notices = true;
         bridge_notices = {
           default = false;
-          exceptions = [];
+          exceptions = [ ];
         };
         command_prefix = "!tg";
         delivery_error_reports = true;
@@ -84,13 +84,13 @@
         };
         federate_rooms = true;
         filter = {
-          list = [];
+          list = [ ];
           mode = "blacklist";
         };
         image_as_file_size = 10;
         initial_power_level_overrides = {
-          group = {};
-          user = {};
+          group = { };
+          user = { };
         };
         inline_images = false;
         max_document_size = 100;
@@ -112,15 +112,15 @@
         public_portals = true;
         relaybot = {
           authless_portals = true;
-          group_chat_invite = [];
+          group_chat_invite = [ ];
           ignore_own_incoming_events = true;
           ignore_unbridged_group_chat = true;
           private_chat = {
-            invite = [];
+            invite = [ ];
             message = "This is a Matrix bridge relaybot and does not support direct chats";
             state_changes = true;
           };
-          whitelist = [];
+          whitelist = [ ];
           whitelist_group_admins = true;
         };
         resend_bridge_info = false;
@@ -145,7 +145,7 @@
       };
 
       logging = {
-        formatters= {
+        formatters = {
           precise = {
             format = "[%(asctime)s] [%(levelname)s@%(name)s] %(message)s";
           };
@@ -156,14 +156,14 @@
             formatter = "precise";
           };
         };
-        loggers={
+        loggers = {
           aiohttp.level = "WARNING";
           mau.level = "WARNING";
           telethon.level = "WARNING";
         };
         root = {
           handlers = [ "console" ];
-          level =  "WARNING";
+          level = "WARNING";
         };
         version = 1;
       };
@@ -202,8 +202,8 @@
   };
 
   systemd.services.mautrix-telegram.path = with pkgs; [
-    lottieconverter  # for animated stickers conversion, unfree package
-    ffmpeg           # if converting animated stickers to webm (very slow!)
+    lottieconverter # for animated stickers conversion, unfree package
+    ffmpeg # if converting animated stickers to webm (very slow!)
   ];
   systemd.services.mautrix-telegram.serviceConfig = {
     User = "matrix-synapse";

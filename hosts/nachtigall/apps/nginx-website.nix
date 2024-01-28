@@ -22,17 +22,17 @@
       forceSSL = true;
 
       locations = {
-# serve base domain pub.solar for mastodon.pub.solar
-# https://masto.host/mastodon-usernames-different-from-the-domain-used-for-installation/
+        # serve base domain pub.solar for mastodon.pub.solar
+        # https://masto.host/mastodon-usernames-different-from-the-domain-used-for-installation/
         "/.well-known/host-meta" = {
           extraConfig = ''
             return 301 https://mastodon.pub.solar$request_uri;
           '';
         };
 
-# Tailscale OIDC webfinger requirement plus Mastodon webfinger redirect
+        # Tailscale OIDC webfinger requirement plus Mastodon webfinger redirect
         "/.well-known/webfinger" = {
-# Redirect requests that match /.well-known/webfinger?resource=* to Mastodon
+          # Redirect requests that match /.well-known/webfinger?resource=* to Mastodon
           extraConfig = ''
             if ($arg_resource) {
               return 301 https://mastodon.pub.solar$request_uri;

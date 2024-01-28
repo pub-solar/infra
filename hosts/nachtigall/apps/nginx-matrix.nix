@@ -14,7 +14,7 @@ let
     "io.element.e2ee" = {
       default = true;
       secure_backup_required = false;
-      secure_backup_setup_methods = [];
+      secure_backup_setup_methods = [ ];
     };
     "m.integrations" = {
       managers = [
@@ -28,21 +28,21 @@ let
   wellKnownServer = domain: { "m.server" = "matrix.${domain}:8448"; };
   wellKnownSupport = {
     contacts = [
-        {
-            email_address = "crew@pub.solar";
-            matrix_id = "@b12f:pub.solar";
-            role = "m.role.admin";
-        }
-        {
-            email_address = "crew@pub.solar";
-            matrix_id = "@hensoko:pub.solar";
-            role = "m.role.admin";
-        }
-        {
-            email_address = "crew@pub.solar";
-            matrix_id = "@teutat3s:pub.solar";
-            role = "m.role.admin";
-        }
+      {
+        email_address = "crew@pub.solar";
+        matrix_id = "@b12f:pub.solar";
+        role = "m.role.admin";
+      }
+      {
+        email_address = "crew@pub.solar";
+        matrix_id = "@hensoko:pub.solar";
+        role = "m.role.admin";
+      }
+      {
+        email_address = "crew@pub.solar";
+        matrix_id = "@teutat3s:pub.solar";
+        role = "m.role.admin";
+      }
     ];
     support_page = "https://pub.solar/about";
   };
@@ -128,11 +128,12 @@ in
         port = 8448;
         addr = "0.0.0.0";
         ssl = true;
-      } {
-        port = 8448;
-        addr = "[::]";
-        ssl = true;
-      }];
+      }
+        {
+          port = 8448;
+          addr = "[::]";
+          ssl = true;
+        }];
       root = "/dev/null";
       extraConfig = ''
         server_tokens off;
@@ -154,6 +155,6 @@ in
       };
     };
   };
-  networking.firewall.allowedTCPPorts = [8448];
+  networking.firewall.allowedTCPPorts = [ 8448 ];
 }
 

@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 {
   systemd.services.matrix-appservice-irc.serviceConfig.SystemCallFilter = lib.mkForce [
     "@system-service @pkey"
@@ -90,7 +90,8 @@
               sendConnectionMessages = true;
               ssl = true;
             };
-          in {
+          in
+          {
             "irc.libera.chat" = lib.attrsets.recursiveUpdate commonConfig {
               name = "libera";
               dynamicChannels.groupId = "+libera.chat:localhost";
