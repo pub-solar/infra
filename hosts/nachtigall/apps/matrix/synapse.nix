@@ -74,6 +74,7 @@ in
               ];
             }
           ];
+          tls = false;
           type = "metrics";
         }
       ];
