@@ -101,6 +101,7 @@ in
       disable_msisdn_registration = true;
       enable_media_repo = true;
       enable_metrics = true;
+      mau_stats_only = true;
       enable_registration = false;
       enable_registration_captcha = false;
       enable_registration_without_verification = false;
