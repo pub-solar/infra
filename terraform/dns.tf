@@ -141,6 +141,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address = "v=DMARC1; p=reject;"
   }
   record {
+    hostname = "modoboa._domainkey"
+    type = "TXT"
+    address = "v=DKIM1;k=rsa;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx/EqLMpk0MyL1aQ0JVG44ypTRbZBVA13MFjEntxAvowaWtq1smRbnEwTTKgqUOrUyaM4dVmli1dedne4mk/ncqRAm02KuhtTY+5wXfhTKK53EhqehbKwH+Qvzb12983Qwdau/QTHiFHwXHufMaSsCvd9CRWCp9q68Q7noQqndJeLHT6L0eECd2Zk3ZxJuh+Fxdb7+Kw68Tf6z13Rs+MU01qLM7x0jmSQHa4cv2pk+7NTGMBRp6fVskfbqev5nFkZWJ7rhXEbP9Eukd/L3ro/ubs1quWJotG02gPRKE8fgkm1Ytlws1/pnqpuvKXQS1HzBEP1X2ExezJMzQ1SnZCigQIDAQAB"
+  }
+  record {
     hostname = "@"
     type = "MX"
     address = "mail.greenbaum.zone."
