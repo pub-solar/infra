@@ -32,13 +32,26 @@
     };
   };
 
-  services.gitea = {
+  users.users.gitea = {
+    home = "/var/lib/forgejo";
+    useDefaultShell = true;
+    group = "gitea";
+    isSystemUser = true;
+  };
+
+  users.groups.gitea = {};
+
+  services.forgejo = {
     enable = true;
+    user = "gitea";
+    group = "gitea";
     package = pkgs.forgejo;
     appName = "pub.solar git server";
     database = {
       type = "postgres";
       passwordFile = config.age.secrets.forgejo-database-password.path;
+      name = "gitea";
+      user = "gitea";
     };
     stateDir = "/var/lib/forgejo";
     lfs.enable = true;
