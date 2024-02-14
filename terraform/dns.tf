@@ -116,6 +116,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address = "nachtigall.pub.solar."
   }
   record {
+    hostname = "tmate"
+    type = "CNAME"
+    address = "nachtigall.pub.solar."
+  }
+  record {
     hostname = "www"
     type = "CNAME"
     address = "nachtigall.pub.solar."

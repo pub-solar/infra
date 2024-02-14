@@ -46,7 +46,6 @@
     user = "gitea";
     group = "gitea";
     package = pkgs.forgejo;
-    appName = "pub.solar git server";
     database = {
       type = "postgres";
       passwordFile = config.age.secrets.forgejo-database-password.path;
@@ -57,6 +56,8 @@
     lfs.enable = true;
     mailerPasswordFile = config.age.secrets.forgejo-mailer-password.path;
     settings = {
+      DEFAULT.APP_NAME = "pub.solar git server";
+
       server = {
         ROOT_URL = "https://git.pub.solar";
         DOMAIN = "git.pub.solar";

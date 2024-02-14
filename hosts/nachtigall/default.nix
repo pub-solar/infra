@@ -29,6 +29,7 @@
       ./apps/prometheus-exporters.nix
       ./apps/promtail.nix
       ./apps/searx.nix
+      ./apps/tmate.nix
 
       ./apps/matrix/irc.nix
       ./apps/matrix/mautrix-telegram.nix
