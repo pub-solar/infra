@@ -285,6 +285,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-head": {
+      "locked": {
+        "lastModified": 1708085481,
+        "narHash": "sha256-6pi0YjrW5yZIvjhrIkME4IgFBljsCZArkCSJeEd+W0o=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "8ecf09944fe1cf1ce5b08d34dbcd134e5764f0f1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -315,6 +331,7 @@
         "nixos-flake": "nixos-flake",
         "nixpkgs": "nixpkgs",
         "nixpkgs-2205": "nixpkgs-2205",
+        "nixpkgs-head": "nixpkgs-head",
         "triton-vmtools": "triton-vmtools",
         "unstable": "unstable"
       }
