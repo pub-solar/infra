@@ -32,6 +32,7 @@
       ./apps/promtail.nix
       ./apps/searx.nix
       ./apps/tmate.nix
+      ./apps/obs-portal.nix
 
       ./apps/matrix/irc.nix
       ./apps/matrix/mautrix-telegram.nix

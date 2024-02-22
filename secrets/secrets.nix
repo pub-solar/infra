@@ -1,4 +1,5 @@
 let
+<<<<<<< HEAD
   admins = import ../logins/admins.nix;
 
   nachtigall-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7G0ufi+MNvaAZLDgpieHrABPGN7e/kD5kMFwSk4ABj root@nachtigall";
@@ -64,4 +65,7 @@ in
 
   "nachtigall-metrics-nginx-basic-auth.age".publicKeys = nachtigallKeys ++ adminKeys;
   "nachtigall-metrics-prometheus-basic-auth-password.age".publicKeys = flora6Keys ++ nachtigallKeys ++ adminKeys;
+
+  "obs-portal-env.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "obs-portal-database-env.age".publicKeys = nachtigallKeys ++ adminKeys;
 }
