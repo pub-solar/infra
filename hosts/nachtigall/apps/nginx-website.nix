@@ -9,6 +9,12 @@
     "www.pub.solar" = {
       enableACME = true;
       addSSL = true;
+
+      extraConfig = ''
+        error_log /dev/null;
+        access_log /dev/null;
+      '';
+
       locations."/" = {
         extraConfig = ''
           return 301 https://pub.solar$request_uri;
@@ -20,6 +26,11 @@
       default = true;
       enableACME = true;
       forceSSL = true;
+
+      extraConfig = ''
+        error_log /dev/null;
+        access_log /dev/null;
+      '';
 
       locations = {
         # serve base domain pub.solar for mastodon.pub.solar
