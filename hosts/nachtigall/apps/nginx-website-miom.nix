@@ -9,6 +9,12 @@
     "www.miom.space" = {
       enableACME = true;
       addSSL = true;
+
+      extraConfig = ''
+        error_log /dev/null;
+        access_log /dev/null;
+      '';
+
       locations."/" = {
         extraConfig = ''
           return 301 https://miom.space$request_uri;
@@ -20,6 +26,11 @@
       default = true;
       enableACME = true;
       forceSSL = true;
+
+      extraConfig = ''
+        error_log /dev/null;
+        access_log /dev/null;
+      '';
 
       locations = {
         "/" = {
