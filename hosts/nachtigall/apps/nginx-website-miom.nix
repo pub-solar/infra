@@ -23,7 +23,6 @@
     };
 
     "miom.space" = {
-      default = true;
       enableACME = true;
       forceSSL = true;
 
