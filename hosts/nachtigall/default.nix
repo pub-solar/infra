@@ -23,6 +23,7 @@
       ./apps/nginx-mastodon-files.nix
       ./apps/nginx-prometheus-exporters.nix
       ./apps/nginx-website.nix
+      ./apps/nginx-website-miom.nix
       ./apps/opensearch.nix
       ./apps/owncast.nix
       ./apps/postgresql.nix
