@@ -72,7 +72,7 @@
         autoStart = true;
         user = "994";
         ports = [
-          "4000:80"
+          "127.0.0.1:4000:80"
         ];
         dependsOn = [ "drone-db" ];
         extraOptions = [
