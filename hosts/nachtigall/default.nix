@@ -15,6 +15,7 @@
       ./apps/coturn.nix
       ./apps/forgejo.nix
       ./apps/keycloak.nix
+      ./apps/loomio.nix
       ./apps/mailman.nix
       ./apps/mastodon.nix
       ./apps/mediawiki.nix

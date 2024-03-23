@@ -106,6 +106,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address = "nachtigall.pub.solar."
   }
   record {
+    hostname = "decide"
+    type = "CNAME"
+    address = "decide.pub.solar."
+  }
+  record {
     hostname = "mastodon"
     type = "CNAME"
     address = "nachtigall.pub.solar."

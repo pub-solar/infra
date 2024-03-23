@@ -63,6 +63,7 @@
             deploy-rs
             nixpkgs-fmt
             agenix
+            age-plugin-yubikey
             cachix
             editorconfig-checker
             nodePackages.prettier
