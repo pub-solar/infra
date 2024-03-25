@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{ lib, ... }: {
   systemd.tmpfiles.rules = [
     "d '/srv/www/pub.solar' 0750 hakkonaut hakkonaut - -"
   ];
@@ -51,6 +49,22 @@
 
             add_header Content-Type text/plain;
             return 200 '{\n  "subject": "acct:admins@pub.solar",\n  "links": [\n    {\n    "rel": "http://openid.net/specs/connect/1.0/issuer",\n    "href": "https://auth.pub.solar/realms/pub.solar"\n    }\n  ]\n}';
+          '';
+        };
+
+        # Responsible disclosure information https://securitytxt.org/
+        "/.well-known/security.txt" = let
+            securityTXT = lib.lists.foldr (a: b: a + "\n" + b) "" [
+              "Contact: mailto:admins@pub.solar"
+              "Expires: 2025-01-04T23:00:00.000Z"
+              "Encryption: https://keys.openpgp.org/vks/v1/by-fingerprint/8A8987ADE3736C8CA2EB315A9B809EBBDD62BAE3"
+              "Preferred-Languages: en,de"
+              "Canonical: https://pub.solar/.well-known/security.txt"
+            ];
+        in {
+          extraConfig = ''
+            add_header Content-Type text/plain;
+            return 200 '${securityTXT}';
           '';
         };
 
