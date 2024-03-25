@@ -188,6 +188,7 @@ in
         per_second = 0.17;
       };
       redaction_retention_period = "7d";
+      forgotten_room_retention_period = "7d";
       redis.enabled = false;
       registration_requires_token = false;
       registrations_require_3pid = [ "email" ];
