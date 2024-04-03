@@ -19,6 +19,10 @@
     } // sshPubKeys;
 
     wireguardDevices = [
+      { # stroopwafel
+        publicKey = "NNb7T8Jmn+V2dTZ8T6Fcq7hGomHGDckKoV3kK2oAhSE=";
+        allowedIPs = [ "10.7.6.200/32" "fd00:fae:fae:fae:fae:200::/96" ];
+      }
     ];
   };
 
