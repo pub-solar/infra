@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  flake,
+  ... }:
 {
 
   networking.hostName = "nachtigall";
@@ -21,4 +25,28 @@
   ];
   networking.defaultGateway = "138.201.80.65";
   networking.defaultGateway6 = { address = "fe80::1"; interface = "enp35s0"; };
+
+  networking.firewall.allowedUDPPorts = [ 51899 ];
+
+  age.secrets.wg-private-key.file = "${flake.self}/secrets/nachtigall-wg-private-key.age";
+
+  networking.wireguard.interfaces = {
+    wg-ssh = {
+      listenPort = 51899;
+      mtu = 1300;
+      ips = [
+        "10.7.6.1/32"
+        "fd00:fae:fae:fae:fae:1::/96"
+      ];
+      privateKeyFile = config.age.secrets.wg-private-key.path;
+      peers = flake.self.logins.admins.wireguardDevices ++ [
+        { # flora6
+          publicKey = "jtSR5G2P/nm9s8WrVc26Xc/SQLupRxyXE+5eIeqlsTU=";
+          allowedIPs = [ ];
+          persistentKeepalive = 30;
+          dynamicEndpointRefreshSeconds = 30;
+        }
+      ];
+    };
+  };
 }
