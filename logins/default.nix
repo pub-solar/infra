@@ -4,10 +4,10 @@
 in {
   flake = {
     logins = {
-      admins = lib.lists.foldl (logins: adminConfig: logins // {
-        sshPubKeys = lib.attrsets.attrValues adminConfig.sshPubKeys;
-        wireguardDevices = if adminConfig ? "wireguardDevices" then adminConfig.wireguardDevices else [];
-      }) {} (lib.attrsets.attrValues admins);
+      admins = lib.lists.foldl (logins: adminConfig: {
+        sshPubKeys = logins.sshPubKeys ++ (lib.attrsets.attrValues adminConfig.sshPubKeys);
+        wireguardDevices = logins.wireguardDevices ++ (if adminConfig ? "wireguardDevices" then adminConfig.wireguardDevices else []);
+      }) { sshPubKeys = []; wireguardDevices = []; } (lib.attrsets.attrValues admins);
       robots.sshPubKeys = lib.attrsets.attrValues robots;
     };
   };
