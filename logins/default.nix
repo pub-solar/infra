@@ -6,7 +6,7 @@ in {
     logins = {
       admins = lib.lists.foldl (logins: adminConfig: logins // {
         sshPubKeys = lib.attrsets.attrValues adminConfig.sshPubKeys;
-        wireguardDevices = adminConfig.wireguardDevices;
+        wireguardDevices = if adminConfig ? "wireguardDevices" then adminConfig.wireguardDevices else [];
       }) {} (lib.attrsets.attrValues admins);
       robots.sshPubKeys = lib.attrsets.attrValues robots;
     };
