@@ -37,6 +37,12 @@
     };
 
     secretEncryptionKeys = sshPubKeys;
+    wireguardDevices = [
+      { # judy
+        publicKey = "I+gN7v1VXkAGoSir6L8aebtLbguvy5nAx1QVDTzdckk=";
+        allowedIPs = [ "10.7.6.202/32" "fd00:fae:fae:fae:fae:202::/96" ];
+      }
+    ];
   };
 
   teutat3s = {
