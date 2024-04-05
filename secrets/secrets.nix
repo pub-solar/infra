@@ -33,6 +33,7 @@ in
   "forgejo-actions-runner-token.age".publicKeys = flora6Keys ++ adminKeys;
   "forgejo-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
   "forgejo-mailer-password.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "forgejo-ssh-private-key.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "matrix-mautrix-telegram-env-file.age".publicKeys = nachtigallKeys ++ adminKeys;
   "matrix-synapse-signing-key.age".publicKeys = nachtigallKeys ++ adminKeys;
