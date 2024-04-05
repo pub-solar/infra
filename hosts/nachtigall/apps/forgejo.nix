@@ -42,7 +42,7 @@
   users.groups.gitea = {};
 
   # Expose SSH port only for forgejo SSH
-  networking.firewall.interfaces.enp35s0.allowedTCPPorts = [ 22 ];
+  networking.firewall.interfaces.enp35s0.allowedTCPPorts = [ 2223 ];
   networking.firewall.extraCommands = ''
     iptables -t nat -i enp35s0 -I PREROUTING -p tcp --dport 22 -j REDIRECT --to-ports 2223
   '';
