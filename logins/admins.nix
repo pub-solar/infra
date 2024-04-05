@@ -5,6 +5,14 @@
     };
 
     secretEncryptionKeys = sshPubKeys;
+
+    wireguardDevices = [
+      {
+        # tuxnix
+        publicKey = "fTvULvdsc92binFaBV+uWwFi33bi8InShcaPnoxUZEA=";
+        allowedIPs = [ "10.7.6.203/32" "fd00:fae:fae:fae:fae:203::/96" ];
+      }
+    ];
   };
 
   b12f = rec {
