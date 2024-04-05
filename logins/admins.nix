@@ -23,10 +23,6 @@
         publicKey = "NNb7T8Jmn+V2dTZ8T6Fcq7hGomHGDckKoV3kK2oAhSE=";
         allowedIPs = [ "10.7.6.200/32" "fd00:fae:fae:fae:fae:200::/96" ];
       }
-      { # dumpyourvms
-        publicKey = "3UrVLQrwXnPAVXPiTAd7eM3fZYxnFSYgKAGpNMUwnUk=";
-        allowedIPs = [ "10.7.6.201/32" "fd00:fae:fae:fae:fae:201::/96" ];
-      }
     ];
   };
 
@@ -53,5 +49,12 @@
     secretEncryptionKeys = {
       teutat3s-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHcU6KPy4b1MQXd6EJhcYwbJu7E+0IrBZF/IP6T7gbMf teutat3s@dumpyourvms";
     };
+
+    wireguardDevices = [
+      { # dumpyourvms
+        publicKey = "3UrVLQrwXnPAVXPiTAd7eM3fZYxnFSYgKAGpNMUwnUk=";
+        allowedIPs = [ "10.7.6.201/32" "fd00:fae:fae:fae:fae:201::/96" ];
+      }
+    ];
   };
 }
