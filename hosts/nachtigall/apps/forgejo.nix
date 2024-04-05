@@ -16,6 +16,19 @@
     owner = "gitea";
   };
 
+  age.secrets.forgejo-ssh-private-key = {
+    file = "${flake.self}/secrets/forgejo-ssh-private-key.age";
+    mode = "600";
+    owner = "gitea";
+    path = "/etc/forgejo/ssh/id_forgejo";
+  };
+
+  environment.etc."forgejo/ssh/id_forgejo.pub" = {
+    text = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCkPjvF2tZ2lZtkXed6lBvaPUpsNrI5kHlCNEf4LyFtgFXHoUL8UD3Bz9Fn1S+SDkdBMw/SumjvUf7TEGqQqzmFbG7+nWdWg2L00VdN8Kp8W+kKPBByJrzjDUIGhIMt7obaZnlSAVO5Cdqc1Q6bA9POLjSHIBxSD3QUs2pjUCkciNcEtL93easuXnlMwoYa217n5sA8n+BZmOJAcmA/UxYvKsqYlpJxa44m8JgMTy+5L08i/zkx9/FwniOcKcLedxmjZfV8raitDy34LslT2nBNG4I+em7qhKhSScn/cfyPvARiK71pk/rTx9mxBEjcGAkp3+hiA3Nyms0h/qTUh8yGyhbOn8hiro34HEKswXDN1HRfseyyZ4TqOoIC07F53x4OliYA0B+QbvwOemTX2XAWHfU4xEYrIhR46o3Eu5ooOM9HZLLYzIzKjsj/rpuKalFZ+9IeT/PJ/DrbgOEBlJGTu4XucEYXSiIvWB7G9WXij7TXKYbsRAFho9jw+9UZWklFAh9dcUKlX9YxafxOrw9DhJK620hblHLY9wPPFCbZVXDGfqdtn+ncRReMAw6N3VYqxMgnxd+OC52SMsSUi9VaL26i2UvEBwNYuim8GDnVabu/ciQLHMgifBONuF9sKD58ee5nnKgtYLDy9zU86aHBU78Ijew+WhYitO7qejMHMQ==";
+    mode = "600";
+    user = "gitea";
+  };
+
   services.nginx.virtualHosts."git.pub.solar" = {
     enableACME = true;
     forceSSL = true;
@@ -70,6 +83,7 @@
         HTTP_PORT = 3000;
         START_SSH_SERVER = true;
         SSH_LISTEN_PORT = 2223;
+        SSH_SERVER_HOST_KEYS = "${config.age.secrets."forgejo-ssh-private-key".path}";
       };
 
       log.LEVEL = "Warn";
