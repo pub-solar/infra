@@ -6,7 +6,7 @@
 {
   networking.firewall.allowedUDPPorts = [ 51820 ];
 
-  age.secrets.wg-private-key.file = "${flake.self}/secrets/nachtigall-wg-private-key.age";
+  age.secrets.wg-private-key.file = "${flake.self}/secrets/flora6-wg-private-key.age";
 
   networking.wireguard.interfaces = {
     wg-ssh = {
