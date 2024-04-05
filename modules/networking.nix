@@ -1,6 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
+  # Don't expose SSH via public interfaces
+  networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ 22 ];
+
   services.openssh = {
     enable = true;
+    openFirewall = lib.mkDefault false;
     settings = {
       PermitRootLogin = "prohibit-password";
       PasswordAuthentication = false;
