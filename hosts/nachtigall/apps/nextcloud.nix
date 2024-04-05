@@ -97,6 +97,7 @@
       integrity.check.disabled = false;
       updater.release.channel = "stable";
       loglevel = 0;
+      maintenance_window_start = "1";
       # maintenance = false;
       app_install_overwrite = [
         "pdfdraw"
