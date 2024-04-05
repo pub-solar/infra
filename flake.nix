@@ -39,7 +39,7 @@
 
       imports = [
         inputs.nixos-flake.flakeModule
-        ./public-keys
+        ./logins
         ./lib
         ./overlays
         ./modules
@@ -63,6 +63,7 @@
             deploy-rs
             nixpkgs-fmt
             agenix
+            age-plugin-yubikey
             cachix
             editorconfig-checker
             nodePackages.prettier

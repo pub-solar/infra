@@ -8,6 +8,7 @@
       ./configuration.nix
 
       ./networking.nix
+      ./wireguard.nix
       ./backups.nix
       ./apps/nginx.nix
 

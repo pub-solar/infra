@@ -4,12 +4,12 @@
     group = flake.self.username;
     extraGroups = [ "wheel" "docker" ];
     isNormalUser = true;
-    openssh.authorizedKeys.keys = flake.self.publicKeys.admins;
+    openssh.authorizedKeys.keys = flake.self.logins.admins.sshPubKeys;
   };
   users.groups.${flake.self.username} = { };
 
   # TODO: Remove when we stop locking ourselves out.
-  users.users.root.openssh.authorizedKeys.keys = flake.self.publicKeys.admins;
+  users.users.root.openssh.authorizedKeys.keys = flake.self.logins.admins.sshPubKeys;
 
   users.users.hakkonaut = {
     description = "CI and automation user";
@@ -19,7 +19,7 @@
     uid = 998;
     group = "hakkonaut";
     isSystemUser = true;
-    openssh.authorizedKeys.keys = flake.self.publicKeys.robots;
+    openssh.authorizedKeys.keys = flake.self.logins.robots.sshPubKeys;
   };
 
   users.groups.hakkonaut = { };

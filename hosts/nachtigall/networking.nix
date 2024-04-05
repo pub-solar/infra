@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  flake,
+  ... }:
 {
 
   networking.hostName = "nachtigall";

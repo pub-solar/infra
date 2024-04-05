@@ -7,6 +7,7 @@
       ./hardware-configuration.nix
       ./configuration.nix
       ./triton-vmtools.nix
+      ./wireguard.nix
 
       ./apps/caddy.nix
 

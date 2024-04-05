@@ -10,7 +10,7 @@
 
       # Please create this manually the first time.
       hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
-      authorizedKeys = flake.self.publicKeys.admins;
+      authorizedKeys = flake.self.logins.admins.sshPubKeys;
     };
     # this will automatically load the zfs password prompt on login
     # and kill the other prompt so boot can continue
