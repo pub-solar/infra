@@ -25,4 +25,10 @@
   ];
   networking.defaultGateway = "138.201.80.65";
   networking.defaultGateway6 = { address = "fe80::1"; interface = "enp35s0"; };
+
+  networking.nat = {
+    enable = true;
+    enableIPv6 = true;
+    externalInterface = "enp35s0";
+  };
 }
