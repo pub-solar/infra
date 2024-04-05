@@ -63,6 +63,10 @@
         publicKey = "3UrVLQrwXnPAVXPiTAd7eM3fZYxnFSYgKAGpNMUwnUk=";
         allowedIPs = [ "10.7.6.201/32" "fd00:fae:fae:fae:fae:201::/96" ];
       }
+      { # ryzensun
+        publicKey = "oVF2/s7eIxyVjtG0MhKPx5SZ1JllZg+ZFVF2eVYtPGo=";
+        allowedIPs = [ "10.7.6.204/32" "fd00:fae:fae:fae:fae:204::/96" ];
+      }
     ];
   };
 }
