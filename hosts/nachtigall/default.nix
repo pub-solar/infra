@@ -14,7 +14,7 @@
 
       ./apps/collabora.nix
       ./apps/coturn.nix
-      ./apps/forgejo.nix
+      ./apps/forgejo
       ./apps/keycloak.nix
       ./apps/mailman.nix
       ./apps/mastodon.nix

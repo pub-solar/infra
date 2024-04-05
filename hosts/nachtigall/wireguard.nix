@@ -26,4 +26,15 @@
       ];
     };
   };
+
+  services.openssh.listenAddresses = [ 
+    {
+      addr = "10.7.6.1";
+      port = 22;
+    }
+    {
+      addr = "[fd00:fae:fae:fae:fae:1::]";
+      port = 22;
+    }
+  ];
 }
