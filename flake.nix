@@ -89,14 +89,12 @@
 
           deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
             nachtigall = {
-              # hostname is set in hosts/nachtigall/networking.nix
+              hostname = "10.7.6.1";
               sshUser = username;
             };
             flora-6 = {
-              hostname = "flora-6.pub.solar";
+              hostname = "10.7.6.2";
               sshUser = username;
-              # Example
-              #sshOpts = [ "-p" "19999" ];
             };
           };
         };
