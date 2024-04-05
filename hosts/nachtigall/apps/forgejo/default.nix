@@ -41,11 +41,16 @@
 
   users.groups.gitea = {};
 
+  # Expose SSH port only for forgejo SSH
+  networking.firewall.interfaces.enp35s0.allowedTCPPorts = [ 22 ];
+
   services.forgejo = {
     enable = true;
     user = "gitea";
     group = "gitea";
-    package = pkgs.forgejo;
+    package = pkgs.forgejo.overrideAttrs (o: {
+      patches = (o.patches or [ ]) ++ [ ./multiple-ssh-host.patch ];
+    });
     database = {
       type = "postgres";
       passwordFile = config.age.secrets.forgejo-database-password.path;
@@ -63,6 +68,8 @@
         DOMAIN = "git.pub.solar";
         HTTP_ADDR = "127.0.0.1";
         HTTP_PORT = 3000;
+        START_SSH_SERVER = true;
+        SSH_LISTEN_HOST = "138.201.80.102,[2a01:4f8:172:1c25::1]";
       };
 
       log.LEVEL = "Warn";
