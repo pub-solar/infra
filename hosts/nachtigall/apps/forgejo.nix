@@ -43,12 +43,20 @@
 
   # Expose SSH port only for forgejo SSH
   networking.firewall.interfaces.enp35s0.allowedTCPPorts = [ 2223 ];
-  networking.nat.forwardPorts = [{
-    proto = "tcp";
-    sourcePort = 22;
-    destination = "127.0.0.1:2223";
-    loopbackIPs = [ "138.201.80.102" "2a01:4f8:172:1c25::1" ];
-  }];
+  networking.nat.forwardPorts = [
+    {
+      proto = "tcp";
+      sourcePort = 22;
+      destination = "127.0.0.1:2223";
+      loopbackIPs = [ "138.201.80.102" ];
+    }
+    {
+      proto = "tcp";
+      sourcePort = 22;
+      destination = "[::1]:2223";
+      loopbackIPs = [ "2a01:4f8:172:1c25::1" ];
+    }
+  ];
 
   services.forgejo = {
     enable = true;
