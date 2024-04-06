@@ -132,6 +132,19 @@
         # the value of DEFAULT_ACTIONS_URL is prepended to it.
         DEFAULT_ACTIONS_URL = "https://code.forgejo.org";
       };
+
+      # https://forgejo.org/docs/next/admin/recommendations/#securitylogin_remember_days
+      security = {
+        LOGIN_REMEMBER_DAYS = 365;
+      };
+
+      # https://forgejo.org/docs/next/admin/config-cheat-sheet/#indexer-indexer
+      indexer = {
+        REPO_INDEXER_ENABLED = true;
+        REPO_INDEXER_PATH = "indexers/repos.bleve";
+        MAX_FILE_SIZE = 1048576;
+        REPO_INDEXER_EXCLUDE = "resources/bin/**";
+      };
     };
   };
 
