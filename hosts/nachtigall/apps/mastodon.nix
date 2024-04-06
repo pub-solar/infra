@@ -61,6 +61,9 @@
       passwordFile = "/run/agenix/mastodon-smtp-password";
       fromAddress = "mastodon-notifications@pub.solar";
     };
+    mediaAutoRemove = {
+      olderThanDays = 7;
+    };
     extraEnvFiles = [
       "/run/agenix/mastodon-extra-env-secrets"
     ];
