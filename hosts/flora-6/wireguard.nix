@@ -19,7 +19,7 @@
       privateKeyFile = config.age.secrets.wg-private-key.path;
       peers = flake.self.logins.admins.wireguardDevices ++ [
         { 
-          endpoint = "nachtigall.pub.solar:51820";
+          endpoint = "138.201.80.102:51820";
           publicKey = "qzNywKY9RvqTnDO8eLik75/SHveaSk9OObilDzv+xkk=";
           allowedIPs = [ "10.7.6.1/32" "fd00:fae:fae:fae:fae:1::/96" ];
         }
