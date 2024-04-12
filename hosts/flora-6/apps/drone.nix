@@ -78,6 +78,7 @@
         extraOptions = [
           "--network=drone-net"
           "--pull=always"
+          "--add-host=nachtigall.pub.solar:10.7.6.1"
         ];
         environment = {
           DRONE_GITEA_SERVER = "https://git.pub.solar";
@@ -101,6 +102,7 @@
         extraOptions = [
           "--network=drone-net"
           "--pull=always"
+          "--add-host=nachtigall.pub.solar:10.7.6.1"
         ];
         environment = {
           DRONE_RPC_HOST = "ci.pub.solar";
