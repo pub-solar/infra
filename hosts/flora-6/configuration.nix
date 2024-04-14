@@ -35,6 +35,7 @@ in
     #systemd.services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug";
     systemd.network.wait-online.ignoredInterfaces = [
       "docker0"
+      "wg-ssh"
     ];
 
     # List services that you want to enable:
