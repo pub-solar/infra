@@ -27,17 +27,16 @@ jobs:
         uses: https://github.com/nix-community/cache-nix-action@v5
         id: nix-store-cache
         with:
-          key: cache-${{ runner.os }}-nix-store-${{ steps.flake-lock-hash.outputs.hash }}
-          restore-keys: |
+          primary-key: cache-${{ runner.os }}-nix-store-${{ steps.flake-lock-hash.outputs.hash }}
+          restore-prefixes-first-match: |
             cache-${{ runner.os }}-nix-store-
 
           gc-linux: true
           gc-max-store-size-linux: 10000000000
 
-          purge-caches: true
-          purge-keys: cache-${{ runner.os }}-nix-store-
-          purge-created: true
-          purge-created-max-age: 42
+          purge: true
+          purge-prefixes: cache-${{ runner.os }}-nix-store-
+          purge-created: 42
 
       - name: Prepare cachix
         uses: https://github.com/cachix/cachix-action@v14
