@@ -17,7 +17,7 @@
   # https://forgejo.org/docs/latest/admin/actions/
   # https://docs.gitea.com/usage/actions/quickstart
   services.gitea-actions-runner = {
-    package = pkgs.forgejo-actions-runner;
+    package = pkgs.forgejo-runner;
     instances."flora-6" = {
       enable = true;
       name = config.networking.hostName;
