@@ -34,10 +34,6 @@ jobs:
           gc-linux: true
           gc-max-store-size-linux: 10000000000
 
-          purge: true
-          purge-prefixes: cache-${{ runner.os }}-nix-store-
-          purge-created: 42
-
       - name: Prepare cachix
         uses: https://github.com/cachix/cachix-action@v14
         with:
