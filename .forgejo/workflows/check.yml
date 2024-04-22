@@ -10,7 +10,7 @@ jobs:
       - name: Check out repository code
         uses: https://code.forgejo.org/actions/checkout@v4
 
-      - uses: https://github.com/nixbuild/nix-quick-install-action@v26
+      - uses: https://github.com/nixbuild/nix-quick-install-action@v27
         with:
           load_nixConfig: false
           nix_conf: |
@@ -24,23 +24,22 @@ jobs:
           echo "hash=$(md5sum flake.lock | awk '{print $1}')" >> $GITHUB_OUTPUT
 
       - name: Restore and cache Nix store
-        uses: https://github.com/nix-community/cache-nix-action@v4
+        uses: https://github.com/nix-community/cache-nix-action@v5
         id: nix-store-cache
         with:
-          key: cache-${{ runner.os }}-nix-store-${{ steps.flake-lock-hash.outputs.hash }}
-          restore-keys: |
+          primary-key: cache-${{ runner.os }}-nix-store-${{ steps.flake-lock-hash.outputs.hash }}
+          restore-prefixes-first-match: |
             cache-${{ runner.os }}-nix-store-
 
           gc-linux: true
           gc-max-store-size-linux: 10000000000
 
-          purge-caches: true
-          purge-keys: cache-${{ runner.os }}-nix-store-
-          purge-created: true
-          purge-created-max-age: 42
+          purge: true
+          purge-prefixes: cache-${{ runner.os }}-nix-store-
+          purge-created: 42
 
       - name: Prepare cachix
-        uses: https://github.com/cachix/cachix-action@v12
+        uses: https://github.com/cachix/cachix-action@v14
         with:
           name: pub-solar
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
