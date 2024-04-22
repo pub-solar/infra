@@ -114,6 +114,11 @@
     backupCleanupCommand = ''
       rm /tmp/mastodon-backup.sql
     '';
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 3"
+    ];
   };
 
   services.restic.backups.mastodon-storagebox = {
@@ -132,5 +137,10 @@
     backupCleanupCommand = ''
       rm /tmp/mastodon-backup.sql
     '';
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 3"
+    ];
   };
 }
