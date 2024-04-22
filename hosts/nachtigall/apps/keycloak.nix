@@ -64,6 +64,11 @@
     backupCleanupCommand = ''
       rm /tmp/keycloak-backup.sql
     '';
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 3"
+    ];
   };
 
   services.restic.backups.keycloak-storagebox = {
@@ -82,5 +87,10 @@
     backupCleanupCommand = ''
       rm /tmp/keycloak-backup.sql
     '';
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 3"
+    ];
   };
 }

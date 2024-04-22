@@ -190,6 +190,11 @@
     backupCleanupCommand = ''
       rm /tmp/forgejo-backup.sql
     '';
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 3"
+    ];
   };
 
   services.restic.backups.forgejo-storagebox = {
@@ -209,5 +214,10 @@
     backupCleanupCommand = ''
       rm /tmp/forgejo-backup.sql
     '';
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 3"
+    ];
   };
 }

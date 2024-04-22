@@ -94,6 +94,11 @@
     initialize = true;
     passwordFile = config.age.secrets."restic-repo-droppie".path;
     repository = "sftp:yule@droppie.b12f.io:/media/internal/pub.solar";
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 3"
+    ];
   };
 
   services.restic.backups.mailman-storagebox = {
@@ -109,5 +114,10 @@
     initialize = true;
     passwordFile = config.age.secrets."restic-repo-storagebox".path;
     repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 3"
+    ];
   };
 }

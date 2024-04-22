@@ -150,6 +150,11 @@
     backupCleanupCommand = ''
       rm /tmp/nextcloud-backup.sql
     '';
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 3"
+    ];
   };
 
   services.restic.backups.nextcloud-storagebox = {
@@ -169,5 +174,10 @@
     backupCleanupCommand = ''
       rm /tmp/nextcloud-backup.sql
     '';
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 3"
+    ];
   };
 }
