@@ -13,6 +13,9 @@
   # Needed for the docker runner to communicate with the act_runner cache
   networking.firewall.trustedInterfaces = [ "br-+" ];
 
+  systemd.services."gitea-runner-flora\\x2d6".serviceConfig = {
+    CacheDirectory = "/data/gitea-actions-runner";
+  };
   # forgejo actions runner
   # https://forgejo.org/docs/latest/admin/actions/
   # https://docs.gitea.com/usage/actions/quickstart
@@ -23,6 +26,15 @@
       name = config.networking.hostName;
       url = "https://git.pub.solar";
       tokenFile = config.age.secrets.forgejo-actions-runner-token.path;
+      settings = {
+        cache = {
+          enabled = true;
+          dir = "/data/gitea-actions-runner/actcache";
+          host = "";
+          port = 0;
+          external_server = "";
+        };
+      };
       labels = [
         # provide a debian 12 bookworm base with Node.js for actions
         "debian-latest:docker://git.pub.solar/pub-solar/actions-base-image:20-bookworm"
