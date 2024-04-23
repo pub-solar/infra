@@ -13,6 +13,7 @@
               };
             in
             {
+              forgejo-runner = unstable.forgejo-runner;
               element-themes = prev.callPackage ./pkgs/element-themes { inherit (inputs) element-themes; };
             })
         ];

@@ -24,26 +24,48 @@ jobs:
           echo "hash=$(md5sum flake.lock | awk '{print $1}')" >> $GITHUB_OUTPUT
 
       - name: Restore and cache Nix store
-        uses: https://github.com/nix-community/cache-nix-action@v5
+        uses: https://github.com/nix-community/cache-nix-action@v4.0.3
         id: nix-store-cache
         with:
-          primary-key: cache-${{ runner.os }}-nix-store-${{ steps.flake-lock-hash.outputs.hash }}
-          restore-prefixes-first-match: |
+          key: cache-${{ runner.os }}-nix-store-${{ steps.flake-lock-hash.outputs.hash }}
+          restore-keys: |
             cache-${{ runner.os }}-nix-store-
 
           gc-linux: true
           gc-max-store-size-linux: 10000000000
 
-          purge: true
-          purge-prefixes: cache-${{ runner.os }}-nix-store-
-          purge-created: 42
+          purge-caches: true
+          purge-key: cache-${{ runner.os }}-nix-store-
+          purge-created: true
+          purge-created-max-age: 42
 
       - name: Prepare cachix
         uses: https://github.com/cachix/cachix-action@v14
         with:
           name: pub-solar
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          useDaemon: false
 
       - name: Run flake checks
         run: |
+          # Prevent cache garbage collection by creating GC roots
+          for target in $(nix flake show --json --all-systems | jq '
+            .["nixosConfigurations"] |
+            to_entries[] |
+            .key
+            ' | tr -d '"'
+          ); do
+            nix --print-build-logs --verbose --accept-flake-config --access-tokens '' \
+              build --out-link ./result-$target ".#nixosConfigurations.${target}.config.system.build.toplevel"
+          done
+
           nix --print-build-logs --verbose --accept-flake-config --access-tokens '' flake check
+
+          # Add GC roots for flake inputs, too
+          # https://github.com/NixOS/nix/issues/4250#issuecomment-1146878407
+          mkdir --parents "$NIX_USER_PROFILE_DIR"
+          gc_root_prefix="$NIX_USER_PROFILE_DIR"/infra-flake-
+          echo "Adding gcroots flake inputs with prefix $gc_root_prefix ..."
+          nix flake archive --json 2>/dev/null | jq --raw-output '.inputs | to_entries[] | "ln --force --symbolic --no-target-directory "+.value.path+" \"'"$gc_root_prefix"'"+.key+"\""' | while read -r line; do
+            eval "$line"
+          done
