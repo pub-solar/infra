@@ -48,13 +48,14 @@ jobs:
 
       - name: Run flake checks
         run: |
-          nix --print-build-logs --verbose --accept-flake-config --access-tokens '' flake check
-          # Prevent cache garbage collection
+          # Prevent cache garbage collection by creating GC roots
           for target in $(nix flake show --json --all-systems | jq '
             .["nixosConfigurations"] |
             to_entries[] |
             .key
             ' | tr -d '"'
           ); do
-            nix profile install --profile "/nix/var/nix/profiles/$target" ".#nixosConfigurations.${target}.config.system.build.toplevel"
+            nix --print-build-logs --verbose --accept-flake-config --access-tokens '' \
+              build --out-link ./result-$target ".#nixosConfigurations.${target}.config.system.build.toplevel"
           done
+          nix --print-build-logs --verbose --accept-flake-config --access-tokens '' flake check
