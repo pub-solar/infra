@@ -34,11 +34,17 @@ jobs:
           gc-linux: true
           gc-max-store-size-linux: 10000000000
 
+          purge: true
+          purge-prefixes: cache-${{ runner.os }}-nix-store-
+          purge-created: 42
+          purge-primary-key: never
+
       - name: Prepare cachix
         uses: https://github.com/cachix/cachix-action@v14
         with:
           name: pub-solar
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          useDaemon: false
 
       - name: Run flake checks
         run: |
