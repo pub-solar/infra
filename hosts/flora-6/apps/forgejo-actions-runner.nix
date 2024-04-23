@@ -13,9 +13,24 @@
   # Needed for the docker runner to communicate with the act_runner cache
   networking.firewall.trustedInterfaces = [ "br-+" ];
 
-  systemd.services."gitea-runner-flora\\x2d6".serviceConfig = {
-    CacheDirectory = "/data/gitea-actions-runner";
+  users.users.gitea-runner = {
+    home = "/var/lib/gitea-runner/flora-6";
+    useDefaultShell = true;
+    group = "gitea-runner";
+    isSystemUser = true;
   };
+
+  users.groups.gitea-runner = {};
+
+  systemd.services."gitea-runner-flora\\x2d6".serviceConfig = {
+    DynamicUser = lib.mkForce false;
+  };
+
+  systemd.tmpfiles.rules = [
+    "d '/data/gitea-actions-runner' 0750 gitea-runner gitea-runner - -"
+    "d '/var/lib/gitea-runner' 0750 gitea-runner gitea-runner - -"
+  ];
+
   # forgejo actions runner
   # https://forgejo.org/docs/latest/admin/actions/
   # https://docs.gitea.com/usage/actions/quickstart
