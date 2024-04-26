@@ -13,11 +13,6 @@ let
   synapseClientPort = "${toString listenerWithClient.port}";
 in
 {
-  systemd.services.matrix-appservice-irc.serviceConfig.SystemCallFilter = lib.mkForce [
-    "@system-service @pkey"
-    "~@privileged @resources"
-    "@chown"
-  ];
   services.matrix-appservice-irc = {
     enable = true;
     localpart = "irc_bot";
