@@ -20,6 +20,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address = "80.71.153.210"
   }
   record {
+    hostname = "alerts"
+    type     = "CNAME"
+    address  = "flora-6.pub.solar."
+  }
+  record {
     hostname = "git"
     type = "CNAME"
     address = "nachtigall.pub.solar."
