@@ -12,6 +12,15 @@
     owner = "prometheus";
   };
 
+  services.caddy.virtualHosts."prometheus.${config.pub-solar-os.networking.domain}" = {
+    logFormat = lib.mkForce ''
+      output discard
+    '';
+    extraConfig = ''
+      reverse_proxy :${toString config.services.prometheus.alertmanager.port}
+    '';
+  };
+
   services.prometheus = {
     enable = true;
     port = 9001;
