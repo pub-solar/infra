@@ -59,7 +59,8 @@ in {
     in
     {
       serviceConfig.Type = "oneshot";
-      before = [ "docker-obs-portal.service" ];
+      before = [ "docker-obs-portal.service" "docker-obs-portal-db.service" "docker-obs-portal-worker.service" ];
+      requiredBy = [ "docker-obs-portal.service" "docker-obs-portal-db.service" "docker-obs-portal-worker.service" ];
       script = ''
         ${dockerBin} network inspect obs-portal-net >/dev/null 2>&1 || ${dockerBin} network create obs-portal-net --subnet 172.20.0.0/24
       '';
@@ -85,7 +86,11 @@ in {
       containers."obs-portal" = {
         image = "git.pub.solar/pub-solar/obs-portal:latest";
         autoStart = true;
-        ports = [ "localhost:3001:${env.OBS_PORT}" ];
+        ports = [ "127.0.0.1:3001:${env.OBS_PORT}" ];
+        dependsOn = [
+          "obs-portal-db"
+          "obs-portal-worker"
+        ];
 
         environment = env;
         environmentFiles = [ config.age.secrets.obs-portal-env.path ];
