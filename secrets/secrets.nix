@@ -64,4 +64,7 @@ in
 
   "nachtigall-metrics-nginx-basic-auth.age".publicKeys = nachtigallKeys ++ adminKeys;
   "nachtigall-metrics-prometheus-basic-auth-password.age".publicKeys = flora6Keys ++ nachtigallKeys ++ adminKeys;
+
+  "obs-portal-env.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "obs-portal-database-env.age".publicKeys = nachtigallKeys ++ adminKeys;
 }
