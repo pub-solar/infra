@@ -1,5 +1,4 @@
 let
-<<<<<<< HEAD
   admins = import ../logins/admins.nix;
 
   nachtigall-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7G0ufi+MNvaAZLDgpieHrABPGN7e/kD5kMFwSk4ABj root@nachtigall";
