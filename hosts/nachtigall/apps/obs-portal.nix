@@ -98,7 +98,6 @@ in {
         volumes = [
           "${configPy}:/opt/obs/api/config.py"
           "/var/lib/obs-portal${env.OBS_DATA_DIR}:${env.OBS_DATA_DIR}"
-          "/var/lib/obs-portal/tiles/:/tiles"
           "/var/lib/obs-portal/pbf/:/pbf"
         ];
 
