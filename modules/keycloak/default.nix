@@ -56,6 +56,9 @@
         "pub.solar" =
           flake.inputs.keycloak-theme-pub-solar.legacyPackages.${pkgs.system}.keycloak-theme-pub-solar;
       };
+      plugins = [
+        flake.inputs.keycloak-event-listener.packages.${pkgs.system}.keycloak-event-listener
+      ];
     };
 
     pub-solar-os.backups.backups.keycloak = {

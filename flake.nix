@@ -26,6 +26,9 @@
     keycloak-theme-pub-solar.url = "git+https://git.pub.solar/pub-solar/keycloak-theme?ref=main";
     keycloak-theme-pub-solar.inputs.nixpkgs.follows = "nixpkgs";
 
+    keycloak-event-listener.url = "git+https://git.pub.solar/pub-solar/keycloak-event-listener?ref=main";
+    keycloak-event-listener.inputs.nixpkgs.follows = "unstable";
+
     triton-vmtools.url = "git+https://git.pub.solar/pub-solar/infra-vintage?ref=main&dir=vmtools";
     triton-vmtools.inputs.nixpkgs.follows = "nixpkgs";
 
