@@ -33,6 +33,15 @@
     };
   };
 
+  services.caddy.virtualHosts."grafana.pub.solar" = {
+    logFormat = lib.mkForce ''
+      output discard
+    '';
+    extraConfig = ''
+      reverse_proxy :${toString config.services.grafana.settings.server.http_port}
+    '';
+  };
+
   services.grafana = {
     enable = true;
     settings = {

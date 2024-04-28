@@ -8,13 +8,5 @@
       ./configuration.nix
       ./triton-vmtools.nix
       ./wireguard.nix
-
-      ./apps/caddy.nix
-
-      ./apps/drone.nix
-      ./apps/forgejo-actions-runner.nix
-      ./apps/grafana.nix
-      ./apps/prometheus.nix
-      ./apps/loki.nix
     ];
 }

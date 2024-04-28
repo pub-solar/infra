@@ -1,5 +1,5 @@
-{ flake, ... }: {
-  home-manager.users.${flake.self.username} = {
+{ flake, config, ... }: {
+  home-manager.users.${config.pub-solar-os.authentication.username} = {
     programs.git.enable = true;
     programs.starship.enable = true;
     programs.bash.enable = true;
