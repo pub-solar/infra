@@ -5,7 +5,7 @@ let
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     add_header X-XSS-Protection "1; mode=block";
   '';
-  clientConfig = import ./matrix/element-client-config.nix { inherit lib pkgs; };
+  clientConfig = import ./element-client-config.nix { inherit lib pkgs; };
   wellKnownClient = domain: {
     "m.homeserver".base_url = "https://matrix.${domain}";
     "m.identity_server".base_url = "https://matrix.${domain}";

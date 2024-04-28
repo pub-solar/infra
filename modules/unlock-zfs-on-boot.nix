@@ -1,4 +1,4 @@
-{ flake, ... }: {
+{ flake, config, ... }: {
   # From https://nixos.wiki/wiki/ZFS#Unlock_encrypted_zfs_via_ssh_on_boot
   boot.initrd.network = {
     enable = true;
@@ -10,7 +10,7 @@
 
       # Please create this manually the first time.
       hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
-      authorizedKeys = flake.self.logins.admins.sshPubKeys;
+      authorizedKeys = config.pub-solar-os.authentication.sshPubKeys;
     };
     # this will automatically load the zfs password prompt on login
     # and kill the other prompt so boot can continue

@@ -30,6 +30,15 @@
     "d '/var/lib/drone-db' 0750 drone drone - -"
   ];
 
+  services.caddy.virtualHosts."ci.pub.solar" = {
+    logFormat = lib.mkForce ''
+      output discard
+    '';
+    extraConfig = ''
+      reverse_proxy :4000
+    '';
+  };
+
   systemd.services."docker-network-drone" =
     let
       docker = config.virtualisation.oci-containers.backend;
