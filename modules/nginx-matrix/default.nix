@@ -76,6 +76,12 @@ in
       };
     };
 
+    "stickers.chat.pub.solar" = {
+      forceSSL = true;
+      enableACME = true;
+      root = pkgs.element-stickerpicker;
+    };
+
     "matrix.pub.solar" = {
       root = "/dev/null";
 

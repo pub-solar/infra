@@ -31,6 +31,13 @@
 
     element-themes.url = "github:aaronraimist/element-themes/master";
     element-themes.flake = false;
+
+    maunium-stickerpicker.url = "github:maunium/stickerpicker?ref=master&dir=web";
+    maunium-stickerpicker.flake = false;
+
+    element-stickers.url = "git+https://git.pub.solar/pub-solar/maunium-stickerpicker-nix?ref=main";
+    element-stickers.inputs.maunium-stickerpicker.follows = "maunium-stickerpicker";
+    element-stickers.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{ self, ... }:

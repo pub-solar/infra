@@ -71,6 +71,30 @@
         "type": "github"
       }
     },
+    "element-stickers": {
+      "inputs": {
+        "maunium-stickerpicker": [
+          "maunium-stickerpicker"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1714430716,
+        "narHash": "sha256-+WmgGbONe5u2wpvkUC5wNhYnrE6eziIv3Liq4pv7jro=",
+        "ref": "main",
+        "rev": "85716a9e30fb6fae47336ed0cae3d1425c80f17c",
+        "revCount": 6,
+        "type": "git",
+        "url": "https://git.pub.solar/pub-solar/maunium-stickerpicker-nix"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "https://git.pub.solar/pub-solar/maunium-stickerpicker-nix"
+      }
+    },
     "element-themes": {
       "flake": false,
       "locked": {
@@ -217,6 +241,25 @@
         "url": "https://git.pub.solar/pub-solar/keycloak-theme"
       }
     },
+    "maunium-stickerpicker": {
+      "flake": false,
+      "locked": {
+        "dir": "web",
+        "lastModified": 1668509918,
+        "narHash": "sha256-5Kbok9vJIlOti+ikpJXv2skdADhQQTjX5mVmBTM0wGU=",
+        "owner": "maunium",
+        "repo": "stickerpicker",
+        "rev": "f59406a47a6778cd402e656ffb64f667335f665a",
+        "type": "github"
+      },
+      "original": {
+        "dir": "web",
+        "owner": "maunium",
+        "ref": "master",
+        "repo": "stickerpicker",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -301,10 +344,12 @@
       "inputs": {
         "agenix": "agenix",
         "deploy-rs": "deploy-rs",
+        "element-stickers": "element-stickers",
         "element-themes": "element-themes",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "keycloak-theme-pub-solar": "keycloak-theme-pub-solar",
+        "maunium-stickerpicker": "maunium-stickerpicker",
         "nix-darwin": "nix-darwin",
         "nixos-flake": "nixos-flake",
         "nixpkgs": "nixpkgs",
