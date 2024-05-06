@@ -42,7 +42,6 @@
         ./logins
         ./lib
         ./overlays
-        ./modules
         ./hosts
       ];
 
@@ -85,9 +84,20 @@
         {
           inherit username;
 
-          checks = builtins.mapAttrs (
-            system: deployLib: deployLib.deployChecks self.deploy
-          ) inputs.deploy-rs.lib;
+          nixosModules = builtins.listToAttrs (
+            map
+              (x: {
+                name = x;
+                value = import (./modules + "/${x}");
+              })
+              (builtins.attrNames (builtins.readDir ./modules))
+          );
+
+          checks = builtins.mapAttrs
+            (
+              system: deployLib: deployLib.deployChecks self.deploy
+            )
+            inputs.deploy-rs.lib;
 
           formatter."x86_64-linux" = inputs.unstable.legacyPackages."x86_64-linux".nixfmt-rfc-style;
 
