@@ -46,6 +46,10 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           useDaemon: false
 
+      - name: Check formatting
+        run: |
+          nix --accept-flake-config --access-tokens '' develop --command treefmt --fail-on-change
+
       - name: Run flake checks
         run: |
           # Prevent cache garbage collection by creating GC roots
