@@ -46,6 +46,7 @@ in
   "matrix-synapse-signing-key.age".publicKeys = nachtigallKeys ++ adminKeys;
   "matrix-synapse-secret-config.yaml.age".publicKeys = nachtigallKeys ++ adminKeys;
   "matrix-synapse-sliding-sync-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "matrix-draupnir-access-token.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "nextcloud-secrets.age".publicKeys = nachtigallKeys ++ adminKeys;
   "nextcloud-admin-pass.age".publicKeys = nachtigallKeys ++ adminKeys;
