@@ -1,5 +1,5 @@
+{ lib, config, ... }:
 {
-  lib, config, ... }: {
   systemd.tmpfiles.rules = [
     "d '/srv/www/${config.pub-solar-os.networking.domain}' 0750 hakkonaut hakkonaut - -"
   ];
@@ -54,7 +54,8 @@
         };
 
         # Responsible disclosure information https://securitytxt.org/
-        "/.well-known/security.txt" = let
+        "/.well-known/security.txt" =
+          let
             securityTXT = lib.lists.foldr (a: b: a + "\n" + b) "" [
               "Contact: mailto:admins@pub.solar"
               "Expires: 2025-01-04T23:00:00.000Z"
@@ -62,12 +63,13 @@
               "Preferred-Languages: en,de"
               "Canonical: https://${config.pub-solar-os.networking.domain}/.well-known/security.txt"
             ];
-        in {
-          extraConfig = ''
-            add_header Content-Type text/plain;
-            return 200 '${securityTXT}';
-          '';
-        };
+          in
+          {
+            extraConfig = ''
+              add_header Content-Type text/plain;
+              return 200 '${securityTXT}';
+            '';
+          };
 
         "/satzung" = {
           extraConfig = ''

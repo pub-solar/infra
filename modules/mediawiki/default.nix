@@ -1,8 +1,9 @@
-{ flake
-, config
-, lib
-, pkgs
-, ...
+{
+  flake,
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 let
   localSettingsPHP = pkgs.writeScript "LocalSettings.php" ''
@@ -201,7 +202,9 @@ in
     group = "mediawiki";
     inherit uid;
   };
-  users.groups.mediawiki = { inherit gid; };
+  users.groups.mediawiki = {
+    inherit gid;
+  };
 
   virtualisation = {
     oci-containers = {
@@ -212,9 +215,7 @@ in
         user = "1000:${builtins.toString gid}";
         autoStart = true;
 
-        ports = [
-          "127.0.0.1:8293:80"
-        ];
+        ports = [ "127.0.0.1:8293:80" ];
 
         extraOptions = [
           "--add-host=host.docker.internal:host-gateway"

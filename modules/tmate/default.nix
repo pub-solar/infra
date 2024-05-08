@@ -1,4 +1,4 @@
-{ config,... }:
+{ config, ... }:
 {
   services.tmate-ssh-server = {
     enable = true;

@@ -1,9 +1,11 @@
-{ config
-, lib
-, pkgs
-, flake
-, ...
-}: {
+{
+  config,
+  lib,
+  pkgs,
+  flake,
+  ...
+}:
+{
   age.secrets.drone-secrets = {
     file = "${flake.self}/secrets/drone-secrets.age";
     mode = "600";
@@ -26,9 +28,7 @@
 
   users.groups.drone = { };
 
-  systemd.tmpfiles.rules = [
-    "d '/var/lib/drone-db' 0750 drone drone - -"
-  ];
+  systemd.tmpfiles.rules = [ "d '/var/lib/drone-db' 0750 drone drone - -" ];
 
   services.caddy.virtualHosts."ci.${config.pub-solar-os.networking.domain}" = {
     logFormat = lib.mkForce ''
@@ -66,23 +66,15 @@
         image = "postgres:14";
         autoStart = true;
         user = "994";
-        volumes = [
-          "/var/lib/drone-db:/var/lib/postgresql/data"
-        ];
-        extraOptions = [
-          "--network=drone-net"
-        ];
-        environmentFiles = [
-          config.age.secrets.drone-db-secrets.path
-        ];
+        volumes = [ "/var/lib/drone-db:/var/lib/postgresql/data" ];
+        extraOptions = [ "--network=drone-net" ];
+        environmentFiles = [ config.age.secrets.drone-db-secrets.path ];
       };
       containers."drone-server" = {
         image = "drone/drone:2";
         autoStart = true;
         user = "994";
-        ports = [
-          "127.0.0.1:4000:80"
-        ];
+        ports = [ "127.0.0.1:4000:80" ];
         dependsOn = [ "drone-db" ];
         extraOptions = [
           "--network=drone-net"
@@ -95,18 +87,14 @@
           DRONE_SERVER_PROTO = "https";
           DRONE_DATABASE_DRIVER = "postgres";
         };
-        environmentFiles = [
-          config.age.secrets.drone-secrets.path
-        ];
+        environmentFiles = [ config.age.secrets.drone-secrets.path ];
       };
       containers."drone-docker-runner" = {
         image = "drone/drone-runner-docker:1";
         autoStart = true;
         # needs to run as root
         #user = "994";
-        volumes = [
-          "/var/run/docker.sock:/var/run/docker.sock"
-        ];
+        volumes = [ "/var/run/docker.sock:/var/run/docker.sock" ];
         dependsOn = [ "drone-db" ];
         extraOptions = [
           "--network=drone-net"
@@ -119,9 +107,7 @@
           DRONE_RUNNER_CAPACITY = "2";
           DRONE_RUNNER_NAME = "flora-6-docker-runner";
         };
-        environmentFiles = [
-          config.age.secrets.drone-secrets.path
-        ];
+        environmentFiles = [ config.age.secrets.drone-secrets.path ];
       };
     };
   };

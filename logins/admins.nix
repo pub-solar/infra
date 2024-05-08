@@ -10,7 +10,10 @@
       {
         # tuxnix
         publicKey = "fTvULvdsc92binFaBV+uWwFi33bi8InShcaPnoxUZEA=";
-        allowedIPs = [ "10.7.6.203/32" "fd00:fae:fae:fae:fae:203::/96" ];
+        allowedIPs = [
+          "10.7.6.203/32"
+          "fd00:fae:fae:fae:fae:203::/96"
+        ];
       }
     ];
   };
@@ -27,9 +30,13 @@
     } // sshPubKeys;
 
     wireguardDevices = [
-      { # stroopwafel
+      {
+        # stroopwafel
         publicKey = "NNb7T8Jmn+V2dTZ8T6Fcq7hGomHGDckKoV3kK2oAhSE=";
-        allowedIPs = [ "10.7.6.200/32" "fd00:fae:fae:fae:fae:200::/96" ];
+        allowedIPs = [
+          "10.7.6.200/32"
+          "fd00:fae:fae:fae:fae:200::/96"
+        ];
       }
     ];
   };
@@ -42,9 +49,13 @@
 
     secretEncryptionKeys = sshPubKeys;
     wireguardDevices = [
-      { # judy
+      {
+        # judy
         publicKey = "I+gN7v1VXkAGoSir6L8aebtLbguvy5nAx1QVDTzdckk=";
-        allowedIPs = [ "10.7.6.202/32" "fd00:fae:fae:fae:fae:202::/96" ];
+        allowedIPs = [
+          "10.7.6.202/32"
+          "fd00:fae:fae:fae:fae:202::/96"
+        ];
       }
     ];
   };
@@ -59,13 +70,21 @@
     };
 
     wireguardDevices = [
-      { # dumpyourvms
+      {
+        # dumpyourvms
         publicKey = "3UrVLQrwXnPAVXPiTAd7eM3fZYxnFSYgKAGpNMUwnUk=";
-        allowedIPs = [ "10.7.6.201/32" "fd00:fae:fae:fae:fae:201::/96" ];
+        allowedIPs = [
+          "10.7.6.201/32"
+          "fd00:fae:fae:fae:fae:201::/96"
+        ];
       }
-      { # ryzensun
+      {
+        # ryzensun
         publicKey = "oVF2/s7eIxyVjtG0MhKPx5SZ1JllZg+ZFVF2eVYtPGo=";
-        allowedIPs = [ "10.7.6.204/32" "fd00:fae:fae:fae:fae:204::/96" ];
+        allowedIPs = [
+          "10.7.6.204/32"
+          "fd00:fae:fae:fae:fae:204::/96"
+        ];
       }
     ];
   };

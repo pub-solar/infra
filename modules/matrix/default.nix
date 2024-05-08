@@ -1,4 +1,9 @@
-{ flake, config, pkgs, ... }:
+{
+  flake,
+  config,
+  pkgs,
+  ...
+}:
 let
   publicDomain = "matrix.${config.pub-solar-os.networking.domain}";
   serverDomain = "${config.pub-solar-os.networking.domain}";
@@ -40,22 +45,16 @@ in
       };
       listeners = [
         {
-          bind_addresses = [
-            "127.0.0.1"
-          ];
+          bind_addresses = [ "127.0.0.1" ];
           port = 8008;
           resources = [
             {
               compress = true;
-              names = [
-                "client"
-              ];
+              names = [ "client" ];
             }
             {
               compress = false;
-              names = [
-                "federation"
-              ];
+              names = [ "federation" ];
             }
           ];
           tls = false;
@@ -63,29 +62,23 @@ in
           x_forwarded = true;
         }
         {
-          bind_addresses = [
-            "127.0.0.1"
-          ];
+          bind_addresses = [ "127.0.0.1" ];
           port = 8012;
-          resources = [
-            {
-              names = [
-                "metrics"
-              ];
-            }
-          ];
+          resources = [ { names = [ "metrics" ]; } ];
           tls = false;
           type = "metrics";
         }
       ];
 
       account_threepid_delegates.msisdn = "";
-      alias_creation_rules = [{
-        action = "allow";
-        alias = "*";
-        room_id = "*";
-        user_id = "*";
-      }];
+      alias_creation_rules = [
+        {
+          action = "allow";
+          alias = "*";
+          room_id = "*";
+          user_id = "*";
+        }
+      ];
       allow_guest_access = false;
       allow_public_rooms_over_federation = true;
       allow_public_rooms_without_auth = false;
@@ -152,7 +145,7 @@ in
         };
         per_user = {
           burst_count = 5;
-          per_second = 0.003;
+          per_second = 3.0e-3;
         };
       };
       rc_joins = {
@@ -162,7 +155,7 @@ in
         };
         remote = {
           burst_count = 10;
-          per_second = 0.01;
+          per_second = 1.0e-2;
         };
       };
       rc_login = {
@@ -194,17 +187,19 @@ in
       registrations_require_3pid = [ "email" ];
       report_stats = false;
       require_auth_for_profile_requests = false;
-      room_list_publication_rules = [{
-        action = "allow";
-        alias = "*";
-        room_id = "*";
-        user_id = "*";
-      }];
+      room_list_publication_rules = [
+        {
+          action = "allow";
+          alias = "*";
+          room_id = "*";
+          user_id = "*";
+        }
+      ];
 
       signing_key_path = "/run/agenix/matrix-synapse-signing-key";
 
       stream_writers = { };
-      trusted_key_servers = [{ server_name = "matrix.org"; }];
+      trusted_key_servers = [ { server_name = "matrix.org"; } ];
       suppress_key_server_warning = true;
 
       turn_allow_guests = false;
@@ -276,9 +271,7 @@ in
       "redis"
     ];
 
-    plugins = [
-      config.services.matrix-synapse.package.plugins.matrix-synapse-shared-secret-auth
-    ];
+    plugins = [ config.services.matrix-synapse.package.plugins.matrix-synapse-shared-secret-auth ];
 
     sliding-sync = {
       enable = true;

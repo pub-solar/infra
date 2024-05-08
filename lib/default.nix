@@ -1,4 +1,10 @@
-{ self, lib, inputs, ... }: {
+{
+  self,
+  lib,
+  inputs,
+  ...
+}:
+{
   # Configuration common to all Linux systems
   flake = {
     lib =

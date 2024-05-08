@@ -1,4 +1,10 @@
-{ flake, lib, config, pkgs, ... }:
+{
+  flake,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   age.secrets."matrix-mautrix-telegram-env-file" = {
     file = "${flake.self}/secrets/matrix-mautrix-telegram-env-file.age";

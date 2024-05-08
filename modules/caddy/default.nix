@@ -1,11 +1,12 @@
-{ config
-, lib
-, pkgs
-, flake
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  flake,
+  ...
 }:
 {
- services.caddy = {
+  services.caddy = {
     enable = lib.mkForce true;
     group = config.pub-solar-os.authentication.robot.username;
     email = config.pub-solar-os.adminEmail;
@@ -14,5 +15,8 @@
       grace_period 60s
     '';
   };
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 }

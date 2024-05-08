@@ -1,9 +1,11 @@
-{ flake
-, config
-, lib
-, pkgs
-, ...
-}: {
+{
+  flake,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   services.nginx.virtualHosts."stream.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;

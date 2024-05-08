@@ -1,29 +1,31 @@
-{ config
-, lib
-, pkgs
-, self
-, flake
-, ...
-}: let
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  flake,
+  ...
+}:
+let
   configPy = pkgs.writeText "obs-portal-config.py" ''
-DEBUG = False
-VERBOSE = DEBUG
-AUTO_RESTART = DEBUG
-LEAN_MODE = False
-FRONTEND_URL = None
-FRONTEND_HTTPS = True
-FRONTEND_DIR = "../frontend/build/"
-FRONTEND_CONFIG = {
-    "imprintUrl": "${config.pub-solar-os.imprintUrl}",
-    "privacyPolicyUrl": "${config.pub-solar-os.privacyPolicyUrl}",
-    "mapHome": {"zoom": 12, "latitude": 50.93, "longitude": 6.97},
-    "banner": {
-        "text": "This is an installation serving the Cologne/Bonn region run for Team OBSKöln by pub.solar n.e.V.",
-        "style": "info"
-    },
-}
-TILES_FILE = None
-ADDITIONAL_CORS_ORIGINS = None
+    DEBUG = False
+    VERBOSE = DEBUG
+    AUTO_RESTART = DEBUG
+    LEAN_MODE = False
+    FRONTEND_URL = None
+    FRONTEND_HTTPS = True
+    FRONTEND_DIR = "../frontend/build/"
+    FRONTEND_CONFIG = {
+        "imprintUrl": "${config.pub-solar-os.imprintUrl}",
+        "privacyPolicyUrl": "${config.pub-solar-os.privacyPolicyUrl}",
+        "mapHome": {"zoom": 12, "latitude": 50.93, "longitude": 6.97},
+        "banner": {
+            "text": "This is an installation serving the Cologne/Bonn region run for Team OBSKöln by pub.solar n.e.V.",
+            "style": "info"
+        },
+    }
+    TILES_FILE = None
+    ADDITIONAL_CORS_ORIGINS = None
   '';
 
   env = {
@@ -41,7 +43,8 @@ ADDITIONAL_CORS_ORIGINS = None
     OBS_DATA_DIR = "/data";
     OBS_PROXIES_COUNT = "1";
   };
-in {
+in
+{
   age.secrets.obs-portal-env = {
     file = "${flake.self}/secrets/obs-portal-env.age";
     mode = "600";
@@ -59,8 +62,16 @@ in {
     in
     {
       serviceConfig.Type = "oneshot";
-      before = [ "docker-obs-portal.service" "docker-obs-portal-db.service" "docker-obs-portal-worker.service" ];
-      requiredBy = [ "docker-obs-portal.service" "docker-obs-portal-db.service" "docker-obs-portal-worker.service" ];
+      before = [
+        "docker-obs-portal.service"
+        "docker-obs-portal-db.service"
+        "docker-obs-portal-worker.service"
+      ];
+      requiredBy = [
+        "docker-obs-portal.service"
+        "docker-obs-portal-db.service"
+        "docker-obs-portal-worker.service"
+      ];
       script = ''
         ${dockerBin} network inspect obs-portal-net >/dev/null 2>&1 || ${dockerBin} network create obs-portal-net --subnet 172.20.0.0/24
       '';
@@ -101,16 +112,17 @@ in {
           "/var/lib/obs-portal/pbf/:/pbf"
         ];
 
-        extraOptions = [
-          "--network=obs-portal-net"
-        ];
+        extraOptions = [ "--network=obs-portal-net" ];
       };
 
       containers."obs-portal-worker" = {
         image = "git.pub.solar/pub-solar/obs-portal:latest";
         autoStart = true;
 
-        cmd = [ "python" "tools/process_track.py" ];
+        cmd = [
+          "python"
+          "tools/process_track.py"
+        ];
 
         environment = env;
         environmentFiles = [ config.age.secrets.obs-portal-env.path ];
@@ -120,9 +132,7 @@ in {
           "/var/lib/obs-portal${env.OBS_DATA_DIR}:${env.OBS_DATA_DIR}"
         ];
 
-        extraOptions = [
-          "--network=obs-portal-net"
-        ];
+        extraOptions = [ "--network=obs-portal-net" ];
       };
 
       containers."obs-portal-db" = {
@@ -131,13 +141,9 @@ in {
 
         environmentFiles = [ config.age.secrets.obs-portal-database-env.path ];
 
-        volumes = [
-          "/var/lib/postgres-obs-portal/data:/var/lib/postgresql/data"
-        ];
+        volumes = [ "/var/lib/postgres-obs-portal/data:/var/lib/postgresql/data" ];
 
-        extraOptions = [
-          "--network=obs-portal-net"
-        ];
+        extraOptions = [ "--network=obs-portal-net" ];
       };
     };
   };

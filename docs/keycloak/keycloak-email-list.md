@@ -1,9 +1,12 @@
 # Process for getting a list of email addresses of all keycloak users
 
 ### Keycloak
+
 Required:
+
 - auth.pub.solar ops user credentials
 - SSH access to host nachtigall
+
 ```
 ssh barkeeper@nachtigall.pub.solar
 

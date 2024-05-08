@@ -1,11 +1,12 @@
-{ config
-, pkgs
-, lib
-, flake
-, ...
-}: {
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-  ];
+{
+  config,
+  pkgs,
+  lib,
+  flake,
+  ...
+}:
+{
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ ];
 
   nix = {
     # Use default version alias for nix package
@@ -25,7 +26,10 @@
       # Prevents impurities in builds
       sandbox = true;
       # Give root and @wheel special privileges with nix
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
       # Allow only group wheel to connect to the nix daemon
       allowed-users = [ "@wheel" ];
     };

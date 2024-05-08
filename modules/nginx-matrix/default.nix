@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   commonHeaders = ''
     add_header Permissions-Policy interest-cohort=() always;
@@ -71,9 +76,7 @@ in
     "chat.${config.pub-solar-os.networking.domain}" = {
       forceSSL = true;
       enableACME = true;
-      root = pkgs.element-web.override {
-        conf = clientConfig;
-      };
+      root = pkgs.element-web.override { conf = clientConfig; };
     };
 
     "stickers.chat.${config.pub-solar-os.networking.domain}" = {
@@ -126,16 +129,18 @@ in
       serverName = "matrix.${config.pub-solar-os.networking.domain}";
       forceSSL = lib.mkDefault true;
       enableACME = lib.mkDefault true;
-      listen = [{
-        port = 8448;
-        addr = "0.0.0.0";
-        ssl = true;
-      }
+      listen = [
+        {
+          port = 8448;
+          addr = "0.0.0.0";
+          ssl = true;
+        }
         {
           port = 8448;
           addr = "[::]";
           ssl = true;
-        }];
+        }
+      ];
       root = "/dev/null";
       extraConfig = ''
         server_tokens off;
@@ -159,4 +164,3 @@ in
   };
   networking.firewall.allowedTCPPorts = [ 8448 ];
 }
-

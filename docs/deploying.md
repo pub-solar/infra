@@ -8,11 +8,13 @@ To deploy, make sure you have a [working development shell](./development-shell.
 Then, run `deploy-rs` with the hostname of the server you want to deploy:
 
 For nachtigall.pub.solar:
+
 ```
 deploy --targets '.#nachtigall' --magic-rollback false --auto-rollback false
 ```
 
 For flora-6.pub.solar:
+
 ```
 deploy --targets '.#flora-6' --magic-rollback false --auto-rollback false
 ```
@@ -29,4 +31,5 @@ to enable switching to the new config quickly at a later moment.
 You'll need to have SSH Access to the boxes to be able to run `deploy`.
 
 ### Getting SSH access
+
 See [administrative-access.md](./administrative-access.md).

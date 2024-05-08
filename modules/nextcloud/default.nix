@@ -1,7 +1,8 @@
-{ config
-, pkgs
-, flake
-, ...
+{
+  config,
+  pkgs,
+  flake,
+  ...
 }:
 {
   age.secrets."nextcloud-secrets" = {

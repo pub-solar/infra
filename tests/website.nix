@@ -4,7 +4,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   name = "website";
 
   nodes.nachtigall-test = self.nixosConfigurations.nachtigall-test;

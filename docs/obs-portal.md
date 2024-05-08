@@ -1,10 +1,10 @@
 # OpenBikeSensor Portal
 
 ## Docker Containers
-* portal
-* worker
-* db
 
+- portal
+- worker
+- db
 
 ## Run database migrations
 

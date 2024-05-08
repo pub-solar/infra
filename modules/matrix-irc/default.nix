@@ -1,15 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   # Find element in list config.services.matrix-synapse.settings.listeners.*.resources
   # that sets names = "client"
   nameHasClient = name: name == "client";
   resourceHasClient = resource: builtins.any nameHasClient resource.names;
-  listenerWithClient = lib.findFirst
-    (listener:
-      builtins.any resourceHasClient listener.resources)
-    (throw "Found no matrix-synapse.settings.listeners.*.resources.*.names containing string client")
-    config.services.matrix-synapse.settings.listeners
-  ;
+  listenerWithClient =
+    lib.findFirst (listener: builtins.any resourceHasClient listener.resources)
+      (throw "Found no matrix-synapse.settings.listeners.*.resources.*.names containing string client")
+      config.services.matrix-synapse.settings.listeners;
   synapseClientPort = "${toString listenerWithClient.port}";
 in
 {
@@ -46,7 +49,11 @@ in
         };
         metrics = {
           enabled = true;
-          remoteUserAgeBuckets = [ "1h" "1d" "1w" ];
+          remoteUserAgeBuckets = [
+            "1h"
+            "1d"
+            "1w"
+          ];
         };
         provisioning = {
           enabled = false;
@@ -122,4 +129,3 @@ in
     };
   };
 }
-
