@@ -49,6 +49,7 @@
           self.nixosModules.overlays
           self.nixosModules.core
 
+          self.nixosModules.keycloak
           self.nixosModules.caddy
           self.nixosModules.drone
           self.nixosModules.forgejo-actions-runner

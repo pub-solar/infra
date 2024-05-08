@@ -14,7 +14,7 @@
     max-port = 50000;
     use-auth-secret = true;
     static-auth-secret-file = "/run/agenix/coturn-static-auth-secret";
-    realm = "turn.pub.solar";
+    realm = "turn.${config.pub-solar-os.networking.domain}";
     cert = "${config.security.acme.certs.${realm}.directory}/full.pem";
     pkey = "${config.security.acme.certs.${realm}.directory}/key.pem";
     extraConfig =
@@ -89,7 +89,7 @@
   services.nginx.virtualHosts.${config.services.coturn.realm} = {
     enableACME = true;
     addSSL = true;
-    globalRedirect = "pub.solar";
+    globalRedirect = "${config.pub-solar-os.networking.domain}";
   };
 
   users.users.nginx.extraGroups = [ "turnserver" ];

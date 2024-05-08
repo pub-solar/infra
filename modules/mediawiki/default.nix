@@ -26,14 +26,14 @@ let
       ## For more information on customizing the URLs
       ## (like /w/index.php/Page_title to /wiki/Page_title) please see:
       ## https://www.mediawiki.org/wiki/Manual:Short_URL
-      $wgScriptPath = "https://wiki.pub.solar";
+      $wgScriptPath = "https://wiki.${config.pub-solar-os.networking.domain}";
 
       ## https://www.mediawiki.org/wiki/Manual:Short_URL
       ## https://www.mediawiki.org/wiki/Extension:OpenID_Connect#Known_issues
       $wgArticlePath = "/index.php/$1";
 
       ## The protocol and server name to use in fully-qualified URLs
-      $wgServer = "https://wiki.pub.solar";
+      $wgServer = "https://wiki.${config.pub-solar-os.networking.domain}";
 
       ## The URL path to static resources (images, scripts, etc.)
       $wgResourceBasePath = $wgScriptPath;
@@ -143,7 +143,7 @@ let
       $wgPluggableAuth_Config[] = [
           'plugin' => 'OpenIDConnect',
           'data' => [
-              'providerURL' => 'https://auth.pub.solar/realms/pub.solar',
+              'providerURL' => 'https://auth.${config.pub-solar-os.networking.domain}/realms/${config.pub-solar-os.auth.realm}',
               'clientID' => 'mediawiki',
               'clientsecret' => trim(file_get_contents('/run/mediawiki/oidc-client-secret'))
           ]
@@ -189,7 +189,7 @@ in
     '';
   };
 
-  services.nginx.virtualHosts."wiki.pub.solar" = {
+  services.nginx.virtualHosts."wiki.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
 

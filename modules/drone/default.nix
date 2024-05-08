@@ -30,7 +30,7 @@
     "d '/var/lib/drone-db' 0750 drone drone - -"
   ];
 
-  services.caddy.virtualHosts."ci.pub.solar" = {
+  services.caddy.virtualHosts."ci.${config.pub-solar-os.networking.domain}" = {
     logFormat = lib.mkForce ''
       output discard
     '';
@@ -87,11 +87,11 @@
         extraOptions = [
           "--network=drone-net"
           "--pull=always"
-          "--add-host=nachtigall.pub.solar:10.7.6.1"
+          "--add-host=nachtigall.${config.pub-solar-os.networking.domain}:10.7.6.1"
         ];
         environment = {
-          DRONE_GITEA_SERVER = "https://git.pub.solar";
-          DRONE_SERVER_HOST = "ci.pub.solar";
+          DRONE_GITEA_SERVER = "https://git.${config.pub-solar-os.networking.domain}";
+          DRONE_SERVER_HOST = "ci.${config.pub-solar-os.networking.domain}";
           DRONE_SERVER_PROTO = "https";
           DRONE_DATABASE_DRIVER = "postgres";
         };
@@ -111,10 +111,10 @@
         extraOptions = [
           "--network=drone-net"
           "--pull=always"
-          "--add-host=nachtigall.pub.solar:10.7.6.1"
+          "--add-host=nachtigall.${config.pub-solar-os.networking.domain}:10.7.6.1"
         ];
         environment = {
-          DRONE_RPC_HOST = "ci.pub.solar";
+          DRONE_RPC_HOST = "ci.${config.pub-solar-os.networking.domain}";
           DRONE_RPC_PROTO = "https";
           DRONE_RUNNER_CAPACITY = "2";
           DRONE_RUNNER_NAME = "flora-6-docker-runner";

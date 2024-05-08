@@ -16,13 +16,13 @@
     owner = "nextcloud";
   };
 
-  services.nginx.virtualHosts."cloud.pub.solar" = {
+  services.nginx.virtualHosts."cloud.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
   };
 
   services.nextcloud = {
-    hostName = "cloud.pub.solar";
+    hostName = "cloud.${config.pub-solar-os.networking.domain}";
     home = "/var/lib/nextcloud";
 
     enable = true;
@@ -50,7 +50,7 @@
     };
 
     extraOptions = {
-      overwrite.cli.url = "http://cloud.pub.solar";
+      overwrite.cli.url = "http://cloud.${config.pub-solar-os.networking.domain}";
 
       installed = true;
       default_phone_region = "+49";

@@ -4,7 +4,7 @@
 , self
 , flake
 , ...
-}: let 
+}: let
   configPy = pkgs.writeText "obs-portal-config.py" ''
 DEBUG = False
 VERBOSE = DEBUG
@@ -14,8 +14,8 @@ FRONTEND_URL = None
 FRONTEND_HTTPS = True
 FRONTEND_DIR = "../frontend/build/"
 FRONTEND_CONFIG = {
-    "imprintUrl": "https://pub.solar/about",
-    "privacyPolicyUrl": "https://pub.solar/privacy",
+    "imprintUrl": "${config.pub-solar-os.imprintUrl}",
+    "privacyPolicyUrl": "${config.pub-solar-os.privacyPolicyUrl}",
     "mapHome": {"zoom": 12, "latitude": 50.93, "longitude": 6.97},
     "banner": {
         "text": "This is an installation serving the Cologne/Bonn region run for Team OBSKöln by pub.solar n.e.V.",
@@ -27,15 +27,15 @@ ADDITIONAL_CORS_ORIGINS = None
   '';
 
   env = {
-    OBS_KEYCLOAK_URI = "auth.pub.solar";
-    OBS_PORTAL_URI = "obs-portal.pub.solar";
+    OBS_KEYCLOAK_URI = "auth.${config.pub-solar-os.networking.domain}";
+    OBS_PORTAL_URI = "obs-portal.${config.pub-solar-os.networking.domain}";
 
     OBS_POSTGRES_MAX_OVERFLOW = "20";
     OBS_POSTGRES_POOL_SIZE = "40";
 
     OBS_HOST = "0.0.0.0";
     OBS_PORT = "3000";
-    OBS_KEYCLOAK_URL = "https://auth.pub.solar/realms/pub.solar/";
+    OBS_KEYCLOAK_URL = "https://auth.${config.pub-solar-os.networking.domain}/realms/${config.pub-solar-os.auth.realm}/";
     OBS_KEYCLOAK_CLIENT_ID = "openbikesensor-portal";
     OBS_DEDICATED_WORKER = "True";
     OBS_DATA_DIR = "/data";
@@ -66,7 +66,7 @@ in {
       '';
     };
 
-  services.nginx.virtualHosts."obs-portal.pub.solar" = {
+  services.nginx.virtualHosts."obs-portal.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
 

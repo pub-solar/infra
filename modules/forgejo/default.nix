@@ -29,7 +29,7 @@
     user = "gitea";
   };
 
-  services.nginx.virtualHosts."git.pub.solar" = {
+  services.nginx.virtualHosts."git.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
 
@@ -78,8 +78,8 @@
       DEFAULT.APP_NAME = "pub.solar git server";
 
       server = {
-        ROOT_URL = "https://git.pub.solar";
-        DOMAIN = "git.pub.solar";
+        ROOT_URL = "https://git.${config.pub-solar-os.networking.domain}";
+        DOMAIN = "git.${config.pub-solar-os.networking.domain}";
         HTTP_ADDR = "127.0.0.1";
         HTTP_PORT = 3000;
         START_SSH_SERVER = true;
@@ -123,7 +123,7 @@
 
       # https://forgejo.org/docs/latest/admin/config-cheat-sheet/#webhook-webhook
       webhook = {
-        ALLOWED_HOST_LIST = "loopback,external,*.pub.solar";
+        ALLOWED_HOST_LIST = "loopback,external,*.${config.pub-solar-os.networking.domain}";
       };
 
       # See https://forgejo.org/docs/latest/admin/actions/

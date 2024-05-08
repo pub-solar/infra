@@ -4,7 +4,7 @@
 , pkgs
 , ...
 }: {
-  services.nginx.virtualHosts."stream.pub.solar" = {
+  services.nginx.virtualHosts."stream.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {

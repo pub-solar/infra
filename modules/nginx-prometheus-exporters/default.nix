@@ -17,7 +17,7 @@ in
     owner = "nginx";
   };
   services.nginx.virtualHosts = {
-    "nachtigall.pub.solar" = {
+    "nachtigall.${config.pub-solar-os.networking.domain}" = {
       enableACME = true;
       addSSL = true;
       basicAuthFile = "${config.age.secrets.nachtigall-metrics-nginx-basic-auth.path}";

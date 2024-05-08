@@ -33,7 +33,7 @@
     };
   };
 
-  services.caddy.virtualHosts."grafana.pub.solar" = {
+  services.caddy.virtualHosts."grafana.${config.pub-solar-os.networking.domain}" = {
     logFormat = lib.mkForce ''
       output discard
     '';
@@ -51,8 +51,8 @@
         # and Port
         http_port = 3000;
         # Grafana needs to know on which domain and URL it's running
-        domain = "grafana.pub.solar";
-        root_url = "https://grafana.pub.solar";
+        domain = "grafana.${config.pub-solar-os.networking.domain}";
+        root_url = "https://grafana.${config.pub-solar-os.networking.domain}";
         enable_gzip = true;
       };
       smtp = {
@@ -78,9 +78,9 @@
         email_attribute_path = "email";
         login_attribute_path = "preferred_username";
         name_attribute_path = "full_name";
-        auth_url = "https://auth.pub.solar/realms/pub.solar/protocol/openid-connect/auth";
-        token_url = "https://auth.pub.solar/realms/pub.solar/protocol/openid-connect/token";
-        api_url = "https://auth.pub.solar/realms/pub.solar/protocol/openid-connect/userinfo";
+        auth_url = "https://auth.${config.pub-solar-os.networking.domain}/realms/${config.pub-solar-os.auth.realm}/protocol/openid-connect/auth";
+        token_url = "https://auth.${config.pub-solar-os.networking.domain}/realms/${config.pub-solar-os.auth.realm}/protocol/openid-connect/token";
+        api_url = "https://auth.${config.pub-solar-os.networking.domain}/realms/${config.pub-solar-os.auth.realm}/protocol/openid-connect/userinfo";
         role_attribute_path = "contains(roles[*], 'admin') && 'GrafanaAdmin' || 'Viewer'";
         allow_assign_grafana_admin = true;
       };

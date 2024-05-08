@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
 let
   commonHeaders = ''
     add_header Permissions-Policy interest-cohort=() always;
@@ -44,7 +44,7 @@ let
         role = "m.role.admin";
       }
     ];
-    support_page = "https://pub.solar/about";
+    support_page = "https://${config.pub-solar-os.networking.domain}/about";
   };
   mkWellKnown = data: ''
     add_header Content-Type application/json;
@@ -64,11 +64,11 @@ in
     # This is already in production use #
     #####################################
 
-    "pub.solar" = {
-      locations = wellKnownLocations "pub.solar";
+    "${config.pub-solar-os.networking.domain}" = {
+      locations = wellKnownLocations "${config.pub-solar-os.networking.domain}";
     };
 
-    "chat.pub.solar" = {
+    "chat.${config.pub-solar-os.networking.domain}" = {
       forceSSL = true;
       enableACME = true;
       root = pkgs.element-web.override {
@@ -76,13 +76,13 @@ in
       };
     };
 
-    "stickers.chat.pub.solar" = {
+    "stickers.chat.${config.pub-solar-os.networking.domain}" = {
       forceSSL = true;
       enableACME = true;
       root = pkgs.element-stickerpicker;
     };
 
-    "matrix.pub.solar" = {
+    "matrix.${config.pub-solar-os.networking.domain}" = {
       root = "/dev/null";
 
       forceSSL = lib.mkDefault true;
@@ -122,8 +122,8 @@ in
         };
       };
     };
-    "matrix.pub.solar-federation" = {
-      serverName = "matrix.pub.solar";
+    "matrix.${config.pub-solar-os.networking.domain}-federation" = {
+      serverName = "matrix.${config.pub-solar-os.networking.domain}";
       forceSSL = lib.mkDefault true;
       enableACME = lib.mkDefault true;
       listen = [{

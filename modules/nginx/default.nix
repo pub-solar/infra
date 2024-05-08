@@ -5,7 +5,7 @@
 , ...
 }:
 let
-  acmeEmailAddress = "admins@pub.solar";
+  acmeEmailAddress = config.pub-solar-os.adminEmail;
   webserverGroup = "hakkonaut";
 in
 {

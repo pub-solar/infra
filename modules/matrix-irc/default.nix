@@ -25,9 +25,9 @@ in
     registrationUrl = "http://localhost:8010";
     settings = {
       homeserver = {
-        domain = "pub.solar";
+        domain = "${config.pub-solar-os.networking.domain}";
         url = "http://127.0.0.1:${synapseClientPort}";
-        media_url = "https://matrix.pub.solar";
+        media_url = "https://matrix.${config.pub-solar-os.networking.domain}";
         enablePresence = false;
       };
       ircService = {
