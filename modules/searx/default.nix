@@ -10,7 +10,7 @@
     mode = "600";
   };
 
-  services.nginx.virtualHosts."search.pub.solar" = {
+  services.nginx.virtualHosts."search.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
 
@@ -38,14 +38,14 @@
       use_default_settings = true;
 
       server = {
-        base_url = "https://search.pub.solar";
+        base_url = "https://search.${config.pub-solar-os.networking.domain}";
         secret_key = "@SEARX_SECRET_KEY@";
       };
 
       general = {
         debug = false;
-        instance_name = "search.pub.solar";
-        privacypolicy_url = "https://pub.solar/privacy";
+        instance_name = "search.${config.pub-solar-os.networking.domain}";
+        privacypolicy_url = config.pub-solar-os.privacyPolicyUrl;
         # use true to use your own donation page written in searx/info/en/donate.md
         # use false to disable the donation link
         donation_url = false;

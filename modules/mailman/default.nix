@@ -9,7 +9,7 @@
 
   users.users.nginx.extraGroups = [ "mailman" ];
 
-  services.nginx.virtualHosts."list.pub.solar" = {
+  services.nginx.virtualHosts."list.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
   };
@@ -24,15 +24,15 @@
     enable = true;
     relayDomains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
     # get TLS certs for list.pub.solar from acme
-    sslCert = "/var/lib/acme/list.pub.solar/fullchain.pem";
-    sslKey = "/var/lib/acme/list.pub.solar/key.pem";
+    sslCert = "/var/lib/acme/list.${config.pub-solar-os.networking.domain}/fullchain.pem";
+    sslKey = "/var/lib/acme/list.${config.pub-solar-os.networking.domain}/key.pem";
     config = {
       transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
       local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
     };
     rootAlias = "admins@pub.solar";
     postmasterAlias = "admins@pub.solar";
-    hostname = "list.pub.solar";
+    hostname = "list.${config.pub-solar-os.networking.domain}";
   };
 
   systemd.paths.watcher-acme-ssl-file = {
@@ -40,7 +40,7 @@
     documentation = [ "systemd.path(5)" ];
     partOf = [ "postfix-reload.service" ];
     pathConfig = {
-      PathChanged = "/var/lib/acme/list.pub.solar/fullchain.pem";
+      PathChanged = "/var/lib/acme/list.${config.pub-solar-os.networking.domain}/fullchain.pem";
       Unit = "postfix-reload.service";
     };
     wantedBy = [ "multi-user.target" ];
@@ -64,7 +64,7 @@
     enable = true;
     serve.enable = true;
     hyperkitty.enable = true;
-    webHosts = [ "list.pub.solar" ];
+    webHosts = [ "list.${config.pub-solar-os.networking.domain}" ];
     siteOwner = "admins@pub.solar";
   };
 

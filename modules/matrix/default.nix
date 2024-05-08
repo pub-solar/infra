@@ -1,7 +1,7 @@
 { flake, config, pkgs, ... }:
 let
-  publicDomain = "matrix.pub.solar";
-  serverDomain = "pub.solar";
+  publicDomain = "matrix.${config.pub-solar-os.networking.domain}";
+  serverDomain = "${config.pub-solar-os.networking.domain}";
 in
 {
   age.secrets."matrix-synapse-signing-key" = {

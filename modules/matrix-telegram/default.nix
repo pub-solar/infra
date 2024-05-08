@@ -13,7 +13,7 @@
       homeserver = {
         # TODO: Use the port from synapse config
         address = "http://127.0.0.1:8008";
-        domain = "pub.solar";
+        domain = "${config.pub-solar-os.networking.domain}";
         verify_ssl = true;
       };
       appservice = {
@@ -34,7 +34,7 @@
         };
         public = {
           enabled = true;
-          external = "https://matrix.pub.solar/c3c3f34b-29fb-5feb-86e5-98c75ec8214b";
+          external = "https://matrix.${config.pub-solar-os.networking.domain}/c3c3f34b-29fb-5feb-86e5-98c75ec8214b";
           prefix = "/c3c3f34b-29fb-5feb-86e5-98c75ec8214b";
         };
       };
@@ -140,7 +140,7 @@
         username_template = "telegram_{userid}";
 
         permissions = {
-          "pub.solar" = "full";
+          "${config.pub-solar-os.networking.domain}" = "full";
         };
       };
 

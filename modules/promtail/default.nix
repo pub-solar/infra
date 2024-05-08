@@ -21,7 +21,7 @@
         filename = "/tmp/positions.yaml";
       };
       clients = [{
-        url = "https://flora-6.pub.solar/loki/api/v1/push";
+        url = "https://flora-6.${config.pub-solar-os.networking.domain}/loki/api/v1/push";
         basic_auth = {
           username = "hakkonaut";
           password_file = "${config.age.secrets.nachtigall-metrics-prometheus-basic-auth-password.path}";

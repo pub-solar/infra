@@ -12,6 +12,18 @@
       type = types.str;
       default = "admins@pub.solar";
     };
+
+    privacyPolicyUrl = mkOption {
+      description = "URL of the privacy policy. Used to link there from applications";
+      type = types.str;
+      default = "https://pub.solar/privacy";
+    };
+
+    imprintUrl = mkOption {
+      description = "URL of the imprint. Used to link there from applications";
+      type = types.str;
+      default = "https://pub.solar/about";
+    };
   };
 
   config = {

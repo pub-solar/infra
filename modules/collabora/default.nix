@@ -4,7 +4,7 @@
 , self
 , ...
 }: {
-  services.nginx.virtualHosts."collabora.pub.solar" = {
+  services.nginx.virtualHosts."collabora.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
 
@@ -32,8 +32,8 @@
           "--pull=always"
         ];
         environment = {
-          server_name = "collabora.pub.solar";
-          aliasgroup1 = "https://cloud.pub.solar:443";
+          server_name = "collabora.${config.pub-solar-os.networking.domain}";
+          aliasgroup1 = "https://cloud.${config.pub-solar-os.networking.domain}:443";
           DONT_GEN_SSL_CERT = "1";
           extra_params = "--o:ssl.enable=false --o:ssl.termination=true";
           SLEEPFORDEBUGGER = "0";

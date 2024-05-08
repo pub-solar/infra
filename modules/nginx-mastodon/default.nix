@@ -5,7 +5,7 @@ in
 {
   services.nginx = {
     virtualHosts = {
-      "mastodon.pub.solar" = {
+      "mastodon.${config.pub-solar-os.networking.domain}" = {
         root = "${cfg.package}/public/";
         # mastodon only supports https, but you can override this if you offload tls elsewhere.
         forceSSL = lib.mkDefault true;
@@ -16,11 +16,11 @@ in
         '';
 
         locations."/auth/confirmation/new".extraConfig = ''
-          return 302 https://auth.pub.solar/realms/pub.solar/login-actions/reset-credentials?client_id=mastodon;
+          return 302 https://auth.${config.pub-solar-os.networking.domain}/realms/${config.pub-solar-os.auth.realm}/login-actions/reset-credentials?client_id=mastodon;
         '';
 
         locations."/auth/password/new".extraConfig = ''
-          return 302 https://auth.pub.solar/realms/pub.solar/login-actions/reset-credentials?client_id=mastodon;
+          return 302 https://auth.${config.pub-solar-os.networking.domain}/realms/${config.pub-solar-os.auth.realm}/login-actions/reset-credentials?client_id=mastodon;
         '';
 
         locations."/system/".alias = "/var/lib/mastodon/public-system/";

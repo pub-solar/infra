@@ -4,6 +4,19 @@
 , flake
 , ...
 }: {
+  services.caddy.virtualHosts = {
+    "flora-6.${config.pub-solar-os.networking.domain}" = {
+      logFormat = lib.mkForce ''
+        output discard
+      '';
+      extraConfig = ''
+        basicauth * {
+          ${config.pub-solar-os.authentication.robot.username} $2a$14$mmIAy/Ezm6YGohUtXa2mWeW6Bcw1MQXPhrRbz14jAD2iUu3oob/t.
+        }
+        reverse_proxy :${toString config.services.loki.configuration.server.http_listen_port}
+      '';
+    };
+  };
   # source: https://gist.github.com/rickhull/895b0cb38fdd537c1078a858cf15d63e
   # https://grafana.com/docs/loki/latest/configure/examples/#1-local-configuration-exampleyaml
   services.loki = {

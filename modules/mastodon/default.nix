@@ -38,7 +38,7 @@
   services.mastodon = {
     enable = true;
     # Different from WEB_DOMAIN in our case
-    localDomain = "pub.solar";
+    localDomain = "${config.pub-solar-os.networking.domain}";
     enableUnixSocket = true;
     # Number of processes used by the mastodon-streaming service
     # Recommended is the amount of your CPU cores minus one
@@ -68,7 +68,7 @@
       "/run/agenix/mastodon-extra-env-secrets"
     ];
     extraConfig = {
-      WEB_DOMAIN = "mastodon.pub.solar";
+      WEB_DOMAIN = "mastodon.${config.pub-solar-os.networking.domain}";
       # Defined in ./opensearch.nix
       ES_HOST = "127.0.0.1";
       # S3 File storage (optional)
@@ -77,7 +77,7 @@
       S3_BUCKET = "pub-solar-mastodon";
       S3_REGION = "europe-west-1";
       S3_ENDPOINT = "https://gateway.tardigradeshare.io";
-      S3_ALIAS_HOST = "files.pub.solar";
+      S3_ALIAS_HOST = "files.${config.pub-solar-os.networking.domain}";
       # Translation (optional)
       # -----------------------
       DEEPL_PLAN = "free";
@@ -85,11 +85,11 @@
       # --------------
       OIDC_ENABLED = "true";
       OIDC_DISPLAY_NAME = "pub.solar ID";
-      OIDC_ISSUER = "https://auth.pub.solar/realms/pub.solar";
+      OIDC_ISSUER = "https://auth.${config.pub-solar-os.networking.domain}/realms/${config.pub-solar-os.auth.realm}";
       OIDC_DISCOVERY = "true";
       OIDC_SCOPE = "openid,profile,email";
       OIDC_UID_FIELD = "preferred_username";
-      OIDC_REDIRECT_URI = "https://mastodon.pub.solar/auth/auth/openid_connect/callback";
+      OIDC_REDIRECT_URI = "https://mastodon.${config.pub-solar-os.networking.domain}/auth/auth/openid_connect/callback";
       OIDC_SECURITY_ASSUME_EMAIL_IS_VERIFIED = "true";
       # only use OIDC for login / registration
       OMNIAUTH_ONLY = "true";

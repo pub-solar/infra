@@ -1,10 +1,11 @@
-{ lib, ... }: {
+{
+  lib, config, ... }: {
   systemd.tmpfiles.rules = [
-    "d '/srv/www/pub.solar' 0750 hakkonaut hakkonaut - -"
+    "d '/srv/www/${config.pub-solar-os.networking.domain}' 0750 hakkonaut hakkonaut - -"
   ];
 
   services.nginx.virtualHosts = {
-    "www.pub.solar" = {
+    "www.${config.pub-solar-os.networking.domain}" = {
       enableACME = true;
       addSSL = true;
 
@@ -15,12 +16,12 @@
 
       locations."/" = {
         extraConfig = ''
-          return 301 https://pub.solar$request_uri;
+          return 301 https://${config.pub-solar-os.networking.domain}$request_uri;
         '';
       };
     };
 
-    "pub.solar" = {
+    "${config.pub-solar-os.networking.domain}" = {
       default = true;
       enableACME = true;
       forceSSL = true;
@@ -35,7 +36,7 @@
         # https://masto.host/mastodon-usernames-different-from-the-domain-used-for-installation/
         "/.well-known/host-meta" = {
           extraConfig = ''
-            return 301 https://mastodon.pub.solar$request_uri;
+            return 301 https://mastodon.${config.pub-solar-os.networking.domain}$request_uri;
           '';
         };
 
@@ -44,11 +45,11 @@
           # Redirect requests that match /.well-known/webfinger?resource=* to Mastodon
           extraConfig = ''
             if ($arg_resource) {
-              return 301 https://mastodon.pub.solar$request_uri;
+              return 301 https://mastodon.${config.pub-solar-os.networking.domain}$request_uri;
             }
 
             add_header Content-Type text/plain;
-            return 200 '{\n  "subject": "acct:admins@pub.solar",\n  "links": [\n    {\n    "rel": "http://openid.net/specs/connect/1.0/issuer",\n    "href": "https://auth.pub.solar/realms/pub.solar"\n    }\n  ]\n}';
+            return 200 '{\n  "subject": "acct:admins@pub.solar",\n  "links": [\n    {\n    "rel": "http://openid.net/specs/connect/1.0/issuer",\n    "href": "https://auth.${config.pub-solar-os.networking.domain}/realms/pub.solar"\n    }\n  ]\n}';
           '';
         };
 
@@ -59,7 +60,7 @@
               "Expires: 2025-01-04T23:00:00.000Z"
               "Encryption: https://keys.openpgp.org/vks/v1/by-fingerprint/8A8987ADE3736C8CA2EB315A9B809EBBDD62BAE3"
               "Preferred-Languages: en,de"
-              "Canonical: https://pub.solar/.well-known/security.txt"
+              "Canonical: https://${config.pub-solar-os.networking.domain}/.well-known/security.txt"
             ];
         in {
           extraConfig = ''
@@ -70,12 +71,12 @@
 
         "/satzung" = {
           extraConfig = ''
-            return 302 https://cloud.pub.solar/s/iaKqiW25QJpHPYs;
+            return 302 https://cloud.${config.pub-solar-os.networking.domain}/s/iaKqiW25QJpHPYs;
           '';
         };
 
         "/" = {
-          root = "/srv/www/pub.solar";
+          root = "/srv/www/${config.pub-solar-os.networking.domain}";
           index = "index.html";
           tryFiles = "$uri $uri/ =404";
         };

@@ -1,4 +1,7 @@
-{ ... }:
+{
+  config,
+  ...
+}:
 
 let
   objStorHost = "link.tardigradeshare.io";
@@ -6,7 +9,7 @@ let
 in
 {
   services.nginx.virtualHosts = {
-    "files.pub.solar" = {
+    "files.${config.pub-solar-os.networking.domain}" = {
       enableACME = true;
       forceSSL = true;
 

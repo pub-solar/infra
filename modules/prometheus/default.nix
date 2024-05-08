@@ -43,7 +43,7 @@
           password_file = "${config.age.secrets.nachtigall-metrics-prometheus-basic-auth-password.path}";
         };
         static_configs = [{
-          targets = [ "nachtigall.pub.solar" ];
+          targets = [ "nachtigall.${config.pub-solar-os.networking.domain}" ];
           labels = {
             instance = "nachtigall";
           };
@@ -58,7 +58,7 @@
           password_file = "${config.age.secrets.nachtigall-metrics-prometheus-basic-auth-password.path}";
         };
         static_configs = [{
-          targets = [ "nachtigall.pub.solar" ];
+          targets = [ "nachtigall.${config.pub-solar-os.networking.domain}" ];
           labels = {
             instance = "nachtigall";
           };
