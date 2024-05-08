@@ -1,8 +1,10 @@
-{ flake
-, config
-, pkgs
-, ...
-}: {
+{
+  flake,
+  config,
+  pkgs,
+  ...
+}:
+{
   # Use GRUB2 as the boot loader.
   # We don't use systemd-boot because Hetzner uses BIOS legacy boot.
   boot.loader.systemd-boot.enable = false;
@@ -11,15 +13,11 @@
     efiSupport = false;
     mirroredBoots = [
       {
-        devices = [
-          "/dev/disk/by-id/nvme-SAMSUNG_MZVL21T0HCLR-00B00_S676NF0R517371"
-        ];
+        devices = [ "/dev/disk/by-id/nvme-SAMSUNG_MZVL21T0HCLR-00B00_S676NF0R517371" ];
         path = "/boot1";
       }
       {
-        devices = [
-          "/dev/disk/by-id/nvme-KXG60ZNV1T02_TOSHIBA_Z9NF704ZF9ZL"
-        ];
+        devices = [ "/dev/disk/by-id/nvme-KXG60ZNV1T02_TOSHIBA_Z9NF704ZF9ZL" ];
         path = "/boot2";
       }
     ];

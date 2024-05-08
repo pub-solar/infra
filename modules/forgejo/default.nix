@@ -1,9 +1,11 @@
-{ config
-, lib
-, pkgs
-, flake
-, ...
-}: {
+{
+  config,
+  lib,
+  pkgs,
+  flake,
+  ...
+}:
+{
   age.secrets.forgejo-database-password = {
     file = "${flake.self}/secrets/forgejo-database-password.age";
     mode = "600";
@@ -52,7 +54,7 @@
     isSystemUser = true;
   };
 
-  users.groups.gitea = {};
+  users.groups.gitea = { };
 
   # Expose SSH port only for forgejo SSH
   networking.firewall.interfaces.enp35s0.allowedTCPPorts = [ 2223 ];

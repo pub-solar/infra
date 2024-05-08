@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}:
+{ config, ... }:
 
 let
   objStorHost = "link.tardigradeshare.io";

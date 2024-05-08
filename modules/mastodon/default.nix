@@ -1,4 +1,10 @@
-{ config, pkgs, flake, inputs, ... }:
+{
+  config,
+  pkgs,
+  flake,
+  inputs,
+  ...
+}:
 
 {
   age.secrets."mastodon-secret-key-base" = {
@@ -64,9 +70,7 @@
     mediaAutoRemove = {
       olderThanDays = 7;
     };
-    extraEnvFiles = [
-      "/run/agenix/mastodon-extra-env-secrets"
-    ];
+    extraEnvFiles = [ "/run/agenix/mastodon-extra-env-secrets" ];
     extraConfig = {
       WEB_DOMAIN = "mastodon.${config.pub-solar-os.networking.domain}";
       # Defined in ./opensearch.nix
@@ -97,9 +101,7 @@
   };
 
   services.restic.backups.mastodon-droppie = {
-    paths = [
-      "/tmp/mastodon-backup.sql"
-    ];
+    paths = [ "/tmp/mastodon-backup.sql" ];
     timerConfig = {
       OnCalendar = "*-*-* 02:00:00 Etc/UTC";
       # droppie will be offline if nachtigall misses the timer
@@ -122,9 +124,7 @@
   };
 
   services.restic.backups.mastodon-storagebox = {
-    paths = [
-      "/tmp/mastodon-backup.sql"
-    ];
+    paths = [ "/tmp/mastodon-backup.sql" ];
     timerConfig = {
       OnCalendar = "*-*-* 04:05:00 Etc/UTC";
     };

@@ -1,4 +1,8 @@
-{ stdenvNoCC, jq, element-themes }:
+{
+  stdenvNoCC,
+  jq,
+  element-themes,
+}:
 stdenvNoCC.mkDerivation {
   src = element-themes;
   name = "element-themes";

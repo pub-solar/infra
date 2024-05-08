@@ -70,9 +70,7 @@
       "icon": "external link",
       "includeVars": true,
       "keepTime": true,
-      "tags": [
-        "matrix"
-      ],
+      "tags": ["matrix"],
       "title": "Dashboards",
       "type": "dashboards"
     }
@@ -4313,9 +4311,7 @@
                   "id": "byNames",
                   "options": {
                     "mode": "exclude",
-                    "names": [
-                      "libera.chat "
-                    ],
+                    "names": ["libera.chat "],
                     "prefix": "All except:",
                     "readOnly": true
                   }
@@ -4435,9 +4431,7 @@
                   "id": "byNames",
                   "options": {
                     "mode": "exclude",
-                    "names": [
-                      "libera.chat"
-                    ],
+                    "names": ["libera.chat"],
                     "prefix": "All except:",
                     "readOnly": true
                   }
@@ -13266,9 +13260,7 @@
   "refresh": false,
   "schemaVersion": 37,
   "style": "dark",
-  "tags": [
-    "matrix"
-  ],
+  "tags": ["matrix"],
   "templating": {
     "list": [
       {
@@ -13453,17 +13445,7 @@
       "2h",
       "1d"
     ],
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ]
+    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
   },
   "timezone": "",
   "title": "Synapse",

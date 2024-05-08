@@ -30,7 +30,12 @@ in
         };
 
         locations."@proxy" = {
-          proxyPass = (if cfg.enableUnixSocket then "http://unix:/run/mastodon-web/web.socket" else "http://127.0.0.1:${toString(cfg.webPort)}");
+          proxyPass = (
+            if cfg.enableUnixSocket then
+              "http://unix:/run/mastodon-web/web.socket"
+            else
+              "http://127.0.0.1:${toString (cfg.webPort)}"
+          );
           proxyWebsockets = true;
         };
 
@@ -45,13 +50,12 @@ in
       extraConfig = ''
         least_conn;
       '';
-      servers = builtins.listToAttrs
-        (map
-          (i: {
-            name = "unix:/run/mastodon-streaming/streaming-${toString i}.socket";
-            value = { };
-          })
-          (lib.range 1 cfg.streamingProcesses));
+      servers = builtins.listToAttrs (
+        map (i: {
+          name = "unix:/run/mastodon-streaming/streaming-${toString i}.socket";
+          value = { };
+        }) (lib.range 1 cfg.streamingProcesses)
+      );
     };
   };
 }

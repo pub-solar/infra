@@ -1,9 +1,11 @@
-{ config
-, lib
-, pkgs
-, self
-, ...
-}: {
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
+{
   services.nginx.virtualHosts."collabora.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
@@ -24,9 +26,7 @@
       containers."collabora" = {
         image = "collabora/code";
         autoStart = true;
-        ports = [
-          "127.0.0.1:9980:9980"
-        ];
+        ports = [ "127.0.0.1:9980:9980" ];
         extraOptions = [
           "--cap-add=MKNOD"
           "--pull=always"

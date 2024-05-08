@@ -1,9 +1,7 @@
 { ... }:
 
 {
-  systemd.tmpfiles.rules = [
-    "d '/srv/www/miom.space' 0750 hakkonaut hakkonaut - -"
-  ];
+  systemd.tmpfiles.rules = [ "d '/srv/www/miom.space' 0750 hakkonaut hakkonaut - -" ];
 
   services.nginx.virtualHosts = {
     "www.miom.space" = {

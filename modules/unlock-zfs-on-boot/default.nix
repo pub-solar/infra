@@ -1,4 +1,5 @@
-{ flake, config, ... }: {
+{ flake, config, ... }:
+{
   # From https://nixos.wiki/wiki/ZFS#Unlock_encrypted_zfs_via_ssh_on_boot
   boot.initrd.network = {
     enable = true;

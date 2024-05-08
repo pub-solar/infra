@@ -1,8 +1,9 @@
-{ config
-, lib
-, pkgs
-, self
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
 }:
 let
   acmeEmailAddress = config.pub-solar-os.adminEmail;
@@ -38,5 +39,8 @@ in
     defaults.email = acmeEmailAddress;
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 }

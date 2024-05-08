@@ -4,15 +4,13 @@ let
   nachtigall-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7G0ufi+MNvaAZLDgpieHrABPGN7e/kD5kMFwSk4ABj root@nachtigall";
   flora-6-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGP1InpTBN4AlF/4V8HHumAMLJzeO8DpzjUv9Co/+J09 root@flora-6";
 
-  adminKeys = builtins.foldl' (keys: login: keys ++ (builtins.attrValues login.secretEncryptionKeys)) [] (builtins.attrValues admins);
+  adminKeys = builtins.foldl' (
+    keys: login: keys ++ (builtins.attrValues login.secretEncryptionKeys)
+  ) [ ] (builtins.attrValues admins);
 
-  nachtigallKeys = [
-    nachtigall-host
-  ];
+  nachtigallKeys = [ nachtigall-host ];
 
-  flora6Keys = [
-    flora-6-host
-  ];
+  flora6Keys = [ flora-6-host ];
 in
 {
   # ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBB5XaH02a6+TchnyQED2VwaltPgeFCbildbE2h6nF5e root@nachtigall
@@ -63,7 +61,8 @@ in
   "grafana-smtp-password.age".publicKeys = flora6Keys ++ adminKeys;
 
   "nachtigall-metrics-nginx-basic-auth.age".publicKeys = nachtigallKeys ++ adminKeys;
-  "nachtigall-metrics-prometheus-basic-auth-password.age".publicKeys = flora6Keys ++ nachtigallKeys ++ adminKeys;
+  "nachtigall-metrics-prometheus-basic-auth-password.age".publicKeys =
+    flora6Keys ++ nachtigallKeys ++ adminKeys;
 
   "obs-portal-env.age".publicKeys = nachtigallKeys ++ adminKeys;
   "obs-portal-database-env.age".publicKeys = nachtigallKeys ++ adminKeys;

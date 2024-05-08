@@ -24,6 +24,7 @@ deploy --targets '.#nachtigall'
 ```
 
 Then, finalize the update by running the database migration script:
+
 ```
 ssh barkeeper@nachtigall.pub.solar
 docker exec -it mediawiki bash

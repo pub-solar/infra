@@ -1,4 +1,8 @@
-{ stdenvNoCC, element-stickers, maunium-stickerpicker }:
+{
+  stdenvNoCC,
+  element-stickers,
+  maunium-stickerpicker,
+}:
 stdenvNoCC.mkDerivation {
   src = maunium-stickerpicker;
   name = "element-stickers";

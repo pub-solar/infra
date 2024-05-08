@@ -1,4 +1,11 @@
-{ pkgs, config, flake, lib, ... }: {
+{
+  pkgs,
+  config,
+  flake,
+  lib,
+  ...
+}:
+{
   imports = [
     ./nix.nix
     ./networking.nix
@@ -29,7 +36,11 @@
   config = {
     environment = {
       # Just a couple of global packages to make our lives easier
-      systemPackages = with pkgs; [ git vim wget ];
+      systemPackages = with pkgs; [
+        git
+        vim
+        wget
+      ];
     };
 
     # Select internationalization properties

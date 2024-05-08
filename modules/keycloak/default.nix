@@ -1,13 +1,15 @@
-{ flake
-, config
-, lib
-, pkgs
-, ...
-}: {
+{
+  flake,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options.pub-solar-os.auth = with lib; {
-     enable = mkEnableOption "Enable keycloak to run on the node";
+    enable = mkEnableOption "Enable keycloak to run on the node";
 
-     realm = mkOption {
+    realm = mkOption {
       description = "Name of the realm";
       type = types.str;
       default = config.pub-solar-os.networking.domain;
@@ -53,14 +55,13 @@
         features = "declarative-user-profile";
       };
       themes = {
-        "pub.solar" = flake.inputs.keycloak-theme-pub-solar.legacyPackages.${pkgs.system}.keycloak-theme-pub-solar;
+        "pub.solar" =
+          flake.inputs.keycloak-theme-pub-solar.legacyPackages.${pkgs.system}.keycloak-theme-pub-solar;
       };
     };
 
     services.restic.backups.keycloak-droppie = {
-      paths = [
-        "/tmp/keycloak-backup.sql"
-      ];
+      paths = [ "/tmp/keycloak-backup.sql" ];
       timerConfig = {
         OnCalendar = "*-*-* 02:00:00 Etc/UTC";
         # droppie will be offline if nachtigall misses the timer
@@ -83,9 +84,7 @@
     };
 
     services.restic.backups.keycloak-storagebox = {
-      paths = [
-        "/tmp/keycloak-backup.sql"
-      ];
+      paths = [ "/tmp/keycloak-backup.sql" ];
       timerConfig = {
         OnCalendar = "*-*-* 04:10:00 Etc/UTC";
       };

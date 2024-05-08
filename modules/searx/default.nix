@@ -1,8 +1,9 @@
-{ flake
-, config
-, lib
-, pkgs
-, ...
+{
+  flake,
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 {
   age.secrets.searx-environment = {
@@ -64,9 +65,18 @@
       };
 
       engine = [
-        { engine = "startpage"; disabled = false; }
-        { engine = "yahoo"; disabled = false; }
-        { engine = "tagesschau"; disabled = false; }
+        {
+          engine = "startpage";
+          disabled = false;
+        }
+        {
+          engine = "yahoo";
+          disabled = false;
+        }
+        {
+          engine = "tagesschau";
+          disabled = false;
+        }
       ];
 
       ui = {

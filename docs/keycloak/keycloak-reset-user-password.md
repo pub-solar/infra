@@ -1,9 +1,12 @@
 # Process for resetting keycloak user passwords
 
 ### Keycloak
+
 Required:
+
 - auth.pub.solar ops user credentials
 - SSH access to host nachtigall
+
 ```
 ssh barkeeper@nachtigall.pub.solar
 

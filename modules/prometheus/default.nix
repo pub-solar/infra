@@ -1,9 +1,11 @@
-{ config
-, lib
-, pkgs
-, flake
-, ...
-}: {
+{
+  config,
+  lib,
+  pkgs,
+  flake,
+  ...
+}:
+{
   age.secrets.nachtigall-metrics-prometheus-basic-auth-password = {
     file = "${flake.self}/secrets/nachtigall-metrics-prometheus-basic-auth-password.age";
     mode = "600";
@@ -27,12 +29,14 @@
     scrapeConfigs = [
       {
         job_name = "node-exporter-http";
-        static_configs = [{
-          targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-          labels = {
-            instance = "flora-6";
-          };
-        }];
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+            labels = {
+              instance = "flora-6";
+            };
+          }
+        ];
       }
       {
         job_name = "node-exporter-https";
@@ -42,12 +46,14 @@
           username = "hakkonaut";
           password_file = "${config.age.secrets.nachtigall-metrics-prometheus-basic-auth-password.path}";
         };
-        static_configs = [{
-          targets = [ "nachtigall.${config.pub-solar-os.networking.domain}" ];
-          labels = {
-            instance = "nachtigall";
-          };
-        }];
+        static_configs = [
+          {
+            targets = [ "nachtigall.${config.pub-solar-os.networking.domain}" ];
+            labels = {
+              instance = "nachtigall";
+            };
+          }
+        ];
       }
       {
         job_name = "matrix-synapse";
@@ -57,12 +63,14 @@
           username = "hakkonaut";
           password_file = "${config.age.secrets.nachtigall-metrics-prometheus-basic-auth-password.path}";
         };
-        static_configs = [{
-          targets = [ "nachtigall.${config.pub-solar-os.networking.domain}" ];
-          labels = {
-            instance = "nachtigall";
-          };
-        }];
+        static_configs = [
+          {
+            targets = [ "nachtigall.${config.pub-solar-os.networking.domain}" ];
+            labels = {
+              instance = "nachtigall";
+            };
+          }
+        ];
       }
     ];
   };

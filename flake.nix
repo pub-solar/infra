@@ -40,9 +40,13 @@
     element-stickers.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, ... }:
+  outputs =
+    inputs@{ self, ... }:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" "aarch64-linux" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
       imports = [
         inputs.nixos-flake.flakeModule
@@ -52,37 +56,42 @@
         ./hosts
       ];
 
-      perSystem = { system, pkgs, config, ... }: {
-        _module.args = {
-          inherit inputs;
-          pkgs = import inputs.nixpkgs {
-            inherit system;
-            overlays = [
-              inputs.agenix.overlays.default
+      perSystem =
+        {
+          system,
+          pkgs,
+          config,
+          ...
+        }:
+        {
+          _module.args = {
+            inherit inputs;
+            pkgs = import inputs.nixpkgs {
+              inherit system;
+              overlays = [ inputs.agenix.overlays.default ];
+            };
+            unstable = import inputs.unstable { inherit system; };
+            master = import inputs.master { inherit system; };
+          };
+          devShells.default = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              deploy-rs
+              nixpkgs-fmt
+              agenix
+              age-plugin-yubikey
+              cachix
+              editorconfig-checker
+              nodePackages.prettier
+              nvfetcher
+              shellcheck
+              shfmt
+              treefmt
+              nixos-generators
+              inputs.nixpkgs-2205.legacyPackages.${system}.terraform
+              jq
             ];
           };
-          unstable = import inputs.unstable { inherit system; };
-          master = import inputs.master { inherit system; };
         };
-        devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            deploy-rs
-            nixpkgs-fmt
-            agenix
-            age-plugin-yubikey
-            cachix
-            editorconfig-checker
-            nodePackages.prettier
-            nvfetcher
-            shellcheck
-            shfmt
-            treefmt
-            nixos-generators
-            inputs.nixpkgs-2205.legacyPackages.${system}.terraform
-            jq
-          ];
-        };
-      };
 
       flake =
         let
@@ -92,19 +101,15 @@
           inherit username;
 
           nixosModules = builtins.listToAttrs (
-            map
-              (x: {
-                name = x;
-                value = import (./modules + "/${x}");
-              })
-              (builtins.attrNames (builtins.readDir ./modules))
+            map (x: {
+              name = x;
+              value = import (./modules + "/${x}");
+            }) (builtins.attrNames (builtins.readDir ./modules))
           );
 
-          checks = builtins.mapAttrs
-            (
-              system: deployLib: deployLib.deployChecks self.deploy
-            )
-            inputs.deploy-rs.lib;
+          checks = builtins.mapAttrs (
+            system: deployLib: deployLib.deployChecks self.deploy
+          ) inputs.deploy-rs.lib;
 
           formatter."x86_64-linux" = inputs.unstable.legacyPackages."x86_64-linux".nixfmt-rfc-style;
 

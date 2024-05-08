@@ -1,4 +1,9 @@
-{ flake, config, lib, ... }:
+{
+  flake,
+  config,
+  lib,
+  ...
+}:
 {
   age.secrets."coturn-static-auth-secret" = {
     file = "${flake.self}/secrets/coturn-static-auth-secret.age";
@@ -19,8 +24,12 @@
     pkey = "${config.security.acme.certs.${realm}.directory}/key.pem";
     extraConfig =
       let
-        externalIPv4s = lib.strings.concatMapStringsSep "\n" ({ address, ... }: "external-ip=${address}") config.networking.interfaces.enp35s0.ipv4.addresses;
-        externalIPv6s = lib.strings.concatMapStringsSep "\n" ({ address, ... }: "external-ip=${address}") config.networking.interfaces.enp35s0.ipv6.addresses;
+        externalIPv4s = lib.strings.concatMapStringsSep "\n" (
+          { address, ... }: "external-ip=${address}"
+        ) config.networking.interfaces.enp35s0.ipv4.addresses;
+        externalIPv6s = lib.strings.concatMapStringsSep "\n" (
+          { address, ... }: "external-ip=${address}"
+        ) config.networking.interfaces.enp35s0.ipv6.addresses;
       in
       ''
         ${externalIPv4s}
@@ -61,28 +70,35 @@
         denied-peer-ip=fc00::-fdff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
         denied-peer-ip=fe80::-febf:ffff:ffff:ffff:ffff:ffff:ffff:ffff
       '';
-
   };
 
   networking.firewall = {
     interfaces.enp35s0 =
       let
-        range = with config.services.coturn; [{
-          from = min-port;
-          to = max-port;
-        }];
+        range = with config.services.coturn; [
+          {
+            from = min-port;
+            to = max-port;
+          }
+        ];
       in
       {
         allowedUDPPortRanges = range;
-        allowedUDPPorts = [ 3478 5349 ];
+        allowedUDPPorts = [
+          3478
+          5349
+        ];
         allowedTCPPortRanges = [ ];
-        allowedTCPPorts = [ 3478 5349 ];
+        allowedTCPPorts = [
+          3478
+          5349
+        ];
       };
   };
 
   # get a certificate
   security.acme.certs.${config.services.coturn.realm} = {
-    /* insert here the right configuration to obtain a certificate */
+    # insert here the right configuration to obtain a certificate
     postRun = "systemctl restart coturn.service";
     group = "turnserver";
   };

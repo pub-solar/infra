@@ -4,7 +4,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   options.pub-solar-os.authentication = with lib; {
     username = mkOption {
       description = "Username for the adminstrative user";
@@ -41,7 +42,10 @@
     users.users.${config.pub-solar-os.authentication.username} = {
       name = config.pub-solar-os.authentication.username;
       group = config.pub-solar-os.authentication.username;
-      extraGroups = [ "wheel" "docker" ];
+      extraGroups = [
+        "wheel"
+        "docker"
+      ];
       isNormalUser = true;
       openssh.authorizedKeys.keys = config.pub-solar-os.authentication.sshPubKeys;
     };
@@ -63,7 +67,8 @@
 
     users.groups.${config.pub-solar-os.authentication.robot.username} = { };
 
-    users.users.root.initialHashedPassword = config.pub-solar-os.authentication.root.initialHashedPassword;
+    users.users.root.initialHashedPassword =
+      config.pub-solar-os.authentication.root.initialHashedPassword;
 
     security.sudo.wheelNeedsPassword = false;
   };

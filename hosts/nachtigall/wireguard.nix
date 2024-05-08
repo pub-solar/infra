@@ -2,7 +2,8 @@
   config,
   pkgs,
   flake,
-  ... }:
+  ...
+}:
 {
   networking.firewall.allowedUDPPorts = [ 51820 ];
 
@@ -18,16 +19,20 @@
       ];
       privateKeyFile = config.age.secrets.wg-private-key.path;
       peers = flake.self.logins.admins.wireguardDevices ++ [
-        { # flora-6.pub.solar
+        {
+          # flora-6.pub.solar
           endpoint = "80.71.153.210:51820";
           publicKey = "jtSR5G2P/nm9s8WrVc26Xc/SQLupRxyXE+5eIeqlsTU=";
-          allowedIPs = [ "10.7.6.2/32" "fd00:fae:fae:fae:fae:2::/96" ];
+          allowedIPs = [
+            "10.7.6.2/32"
+            "fd00:fae:fae:fae:fae:2::/96"
+          ];
         }
       ];
     };
   };
 
-  services.openssh.listenAddresses = [ 
+  services.openssh.listenAddresses = [
     {
       addr = "10.7.6.1";
       port = 22;

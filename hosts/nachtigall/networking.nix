@@ -2,7 +2,8 @@
   config,
   pkgs,
   flake,
-  ... }:
+  ...
+}:
 {
 
   networking.hostName = "nachtigall";
@@ -24,5 +25,8 @@
     }
   ];
   networking.defaultGateway = "138.201.80.65";
-  networking.defaultGateway6 = { address = "fe80::1"; interface = "enp35s0"; };
+  networking.defaultGateway6 = {
+    address = "fe80::1";
+    interface = "enp35s0";
+  };
 }

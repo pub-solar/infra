@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   default_server_config = {
     "m.homeserver" = {
       base_url = "https://matrix.pub.solar";
@@ -35,10 +36,12 @@
     homeUrl = "";
   };
   branding = {
-    auth_footer_links = [{
-      text = "Privacy";
-      url = "https://pub.solar/privacy";
-    }];
+    auth_footer_links = [
+      {
+        text = "Privacy";
+        url = "https://pub.solar/privacy";
+      }
+    ];
     # FUTUREWORK: Replace with pub.solar logo
     auth_header_logo_url = "themes/element/img/logos/element-logo.svg";
   };

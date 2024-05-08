@@ -1,9 +1,11 @@
-{ config
-, lib
-, pkgs
-, flake
-, ...
-}: {
+{
+  config,
+  lib,
+  pkgs,
+  flake,
+  ...
+}:
+{
   services.caddy.virtualHosts = {
     "flora-6.${config.pub-solar-os.networking.domain}" = {
       logFormat = lib.mkForce ''
@@ -51,16 +53,18 @@
         retention_delete_worker_count = 150;
       };
       schema_config = {
-        configs = [{
-          from = "2020-05-15";
-          store = "boltdb-shipper";
-          object_store = "filesystem";
-          schema = "v11";
-          index = {
-            prefix = "index_";
-            period = "24h";
-          };
-        }];
+        configs = [
+          {
+            from = "2020-05-15";
+            store = "boltdb-shipper";
+            object_store = "filesystem";
+            schema = "v11";
+            index = {
+              prefix = "index_";
+              period = "24h";
+            };
+          }
+        ];
       };
     };
   };
@@ -75,23 +79,29 @@
       positions = {
         filename = "/tmp/positions.yaml";
       };
-      clients = [{
-        url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/loki/api/v1/push";
-      }];
-      scrape_configs = [{
-        job_name = "journal";
-        journal = {
-          max_age = "24h";
-          labels = {
-            job = "systemd-journal";
-            host = "flora-6";
+      clients = [
+        {
+          url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/loki/api/v1/push";
+        }
+      ];
+      scrape_configs = [
+        {
+          job_name = "journal";
+          journal = {
+            max_age = "24h";
+            labels = {
+              job = "systemd-journal";
+              host = "flora-6";
+            };
           };
-        };
-        relabel_configs = [{
-          source_labels = [ "__journal__systemd_unit" ];
-          target_label = "unit";
-        }];
-      }];
+          relabel_configs = [
+            {
+              source_labels = [ "__journal__systemd_unit" ];
+              target_label = "unit";
+            }
+          ];
+        }
+      ];
     };
   };
 }

@@ -1,8 +1,9 @@
-{ flake
-, config
-, lib
-, pkgs
-, ...
+{
+  flake,
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 {
   networking.firewall.allowedTCPPorts = [ 25 ];

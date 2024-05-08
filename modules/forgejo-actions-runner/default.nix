@@ -1,9 +1,11 @@
-{ config
-, lib
-, pkgs
-, flake
-, ...
-}: {
+{
+  config,
+  lib,
+  pkgs,
+  flake,
+  ...
+}:
+{
   age.secrets.forgejo-actions-runner-token = {
     file = "${flake.self}/secrets/forgejo-actions-runner-token.age";
     mode = "644";
@@ -20,7 +22,7 @@
     isSystemUser = true;
   };
 
-  users.groups.gitea-runner = {};
+  users.groups.gitea-runner = { };
 
   systemd.services."gitea-runner-flora\\x2d6".serviceConfig = {
     DynamicUser = lib.mkForce false;

@@ -1,9 +1,12 @@
 # Process for updating a keycloak realm via CLI
 
 ### Keycloak
+
 Required:
+
 - auth.pub.solar ops user credentials
 - SSH access to host nachtigall
+
 ```
 ssh barkeeper@nachtigall.pub.solar
 
