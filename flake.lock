@@ -350,6 +350,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-draupnir": {
+      "locked": {
+        "lastModified": 1744859637,
+        "narHash": "sha256-aBC43eomBgw1/iJqLC9PlQ8t85orUzto4ONL//J3KVc=",
+        "owner": "teutat3s",
+        "repo": "nixpkgs",
+        "rev": "eb6abb00725eea8b969dfd6402496c14ff84cf3a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "teutat3s",
+        "ref": "draupnir-2025",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1743296961,
@@ -379,6 +395,7 @@
         "maunium-stickerpicker": "maunium-stickerpicker",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-draupnir": "nixpkgs-draupnir",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "unstable": "unstable"
       }

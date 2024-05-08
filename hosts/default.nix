@@ -63,6 +63,7 @@
           self.nixosModules.tt-rss
           self.nixosModules.obs-portal
           self.nixosModules.matrix
+          self.nixosModules.matrix-draupnir
           self.nixosModules.matrix-irc
           self.nixosModules.matrix-telegram
           self.nixosModules.nginx-matrix
