@@ -8,7 +8,7 @@
 {
   age.secrets.forgejo-actions-runner-token = {
     file = "${flake.self}/secrets/forgejo-actions-runner-token.age";
-    mode = "644";
+    mode = "440";
   };
 
   # Trust docker bridge interface traffic
