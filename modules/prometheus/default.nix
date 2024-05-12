@@ -84,15 +84,19 @@
     ];
 
     ruleFiles = [
-      (pkgs.writeText "prometheus-rules.yml" (builtins.toJSON {
-        groups = [{
-          name = "alerting-rules";
-          rules = import ./alert-rules.nix { inherit lib; };
-        }];
-      }))
+      (pkgs.writeText "prometheus-rules.yml" (
+        builtins.toJSON {
+          groups = [
+            {
+              name = "alerting-rules";
+              rules = import ./alert-rules.nix { inherit lib; };
+            }
+          ];
+        }
+      ))
     ];
 
-    alertmanagers = [{ static_configs = [{ targets = [ "localhost:9093" ]; }]; }];
+    alertmanagers = [ { static_configs = [ { targets = [ "localhost:9093" ]; } ]; } ];
 
     alertmanager = {
       enable = true;
@@ -109,22 +113,26 @@
           repeat_interval = "24h";
         };
 
-        receivers = [{
-          name = "all";
-          # Email config documentation: https://prometheus.io/docs/alerting/latest/configuration/#email_config
-          email_configs = [{
-            send_resolved = true;
-            to = "TODO";
-            from = "alerts@pub.solar";
-            smarthost = "TODO";
-            auth_username = "TODO";
-            auth_password_file = "${config.age.secrets.nachtigall-alertmanager-smtp-password.path}";
-            require_tls = true;
-          }];
-          # TODO:
-          # For matrix notifications, look into: https://github.com/pinpox/matrix-hook and add a webhook
-          #   webhook_configs = [ { url = "http://127.0.0.1:11000/alert"; } ];
-        }];
+        receivers = [
+          {
+            name = "all";
+            # Email config documentation: https://prometheus.io/docs/alerting/latest/configuration/#email_config
+            email_configs = [
+              {
+                send_resolved = true;
+                to = "TODO";
+                from = "alerts@pub.solar";
+                smarthost = "TODO";
+                auth_username = "TODO";
+                auth_password_file = "${config.age.secrets.nachtigall-alertmanager-smtp-password.path}";
+                require_tls = true;
+              }
+            ];
+            # TODO:
+            # For matrix notifications, look into: https://github.com/pinpox/matrix-hook and add a webhook
+            #   webhook_configs = [ { url = "http://127.0.0.1:11000/alert"; } ];
+          }
+        ];
       };
     };
   };
