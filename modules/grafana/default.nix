@@ -15,6 +15,7 @@
     file = "${flake.self}/secrets/grafana-smtp-password.age";
     mode = "644";
     owner = "grafana";
+    group = "prometheus";
   };
   age.secrets.grafana-keycloak-client-secret = {
     file = "${flake.self}/secrets/grafana-keycloak-client-secret.age";

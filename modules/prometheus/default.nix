@@ -17,6 +17,8 @@
       output discard
     '';
     extraConfig = ''
+      bind 10.7.6.2 fd00:fae:fae:fae:fae:2::
+      tls internal
       reverse_proxy :${toString config.services.prometheus.alertmanager.port}
     '';
   };
@@ -101,7 +103,7 @@
     alertmanager = {
       enable = true;
       # port = 9093; # Default
-      webExternalUrl = "https://alerts.pub.solar"; # TODO use a proper url?
+      webExternalUrl = "https://alerts.pub.solar";
       # environmentFile = "${config.age.secrets.nachtigall-alertmanager-envfile.path}";
       configuration = {
 
@@ -120,11 +122,11 @@
             email_configs = [
               {
                 send_resolved = true;
-                to = "TODO";
+                to = "admins@pub.solar";
                 from = "alerts@pub.solar";
-                smarthost = "TODO";
-                auth_username = "TODO";
-                auth_password_file = "${config.age.secrets.nachtigall-alertmanager-smtp-password.path}";
+                smarthost = "mail.greenbaum.zone:465";
+                auth_username = "admins@pub.solar";
+                auth_password_file = "${config.age.secrets.grafana-smtp-password.path}";
                 require_tls = true;
               }
             ];

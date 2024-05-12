@@ -51,8 +51,14 @@ lib.mapAttrsToList
     #   description = ''{{ $labels.instance }} {{ $labels.job }} {{ $labels.path }} has been lagging by more than 1MB for more than 15m.'';
     # };
 
-    filesystem_full_80percent = {
+    filesystem_root_full_80percent = {
       condition = ''100 - ((node_filesystem_avail_bytes{fstype!="rootfs",mountpoint="/"} * 100) / node_filesystem_size_bytes{fstype!="rootfs",mountpoint="/"}) > 80'';
+      time = "10m";
+      description = "{{$labels.instance}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 20% space left on its filesystem.";
+    };
+
+    filesystem_data_full_80percent = {
+      condition = ''100 - ((node_filesystem_avail_bytes{fstype!="rootfs",mountpoint="/var/lib"} * 100) / node_filesystem_size_bytes{fstype!="rootfs",mountpoint="/var/lib"}) > 80'';
       time = "10m";
       description = "{{$labels.instance}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 20% space left on its filesystem.";
     };
@@ -102,11 +108,11 @@ lib.mapAttrsToList
     #     "homeassistant notification {{$labels.entity}} ({{$labels.friendly_name}}): {{$value}}";
     # };
 
-    swap_using_20percent = {
-      condition = "node_memory_SwapTotal_bytes - (node_memory_SwapCached_bytes + node_memory_SwapFree_bytes) > node_memory_SwapTotal_bytes * 0.2";
-      time = "30m";
-      description = "{{$labels.instance}} is using 20% of its swap space for at least 30 minutes.";
-    };
+    #swap_using_20percent = {
+    #  condition = "node_memory_SwapTotal_bytes - (node_memory_SwapCached_bytes + node_memory_SwapFree_bytes) > node_memory_SwapTotal_bytes * 0.2";
+    #  time = "30m";
+    #  description = "{{$labels.instance}} is using 20% of its swap space for at least 30 minutes.";
+    #};
 
     systemd_service_failed = {
       condition = ''node_systemd_unit_state{state="failed"} == 1'';
@@ -118,10 +124,10 @@ lib.mapAttrsToList
       description = "{{$labels.instance}} not backed up for more than 24 hours. ({{$value}})";
     };
 
-    host_down = {
-      condition = ''up{job="node-stats", instance!~"ahorn.wireguard:9100|kartoffel.wireguard:9100|mega.wireguard:9100"} == 0'';
-      description = "{{$labels.instance}} is down!";
-    };
+    #host_down = {
+    #  condition = ''up{job="node-stats", instance!~"ahorn.wireguard:9100|kartoffel.wireguard:9100|mega.wireguard:9100"} == 0'';
+    #  description = "{{$labels.instance}} is down!";
+    #};
 
     # service_not_running = {
     #   condition = ''systemd_units_active_code{name=~"teamspeak3-server.service|tt-rss.service", sub!="running"}'';
@@ -166,10 +172,10 @@ lib.mapAttrsToList
       description = "{{$labels.instance}}: ping probe from {{$labels.source}} is encountering high latency!";
       };
     */
-    http_status = {
-      condition = ''probe_http_status_code{instance!~"https://megaclan3000.de"} != 200'';
-      description = "http request failed from {{$labels.instance}}: {{$labels.result}}!";
-    };
+    #http_status = {
+    #  condition = ''probe_http_status_code{instance!~"https://pub.solar"} != 200'';
+    #  description = "http request failed from {{$labels.instance}}: {{$labels.result}}!";
+    #};
     /*
       http_match_failed = {
       condition = "http_response_response_string_match == 0";
@@ -192,10 +198,10 @@ lib.mapAttrsToList
       description = "{{$labels.instance}}: healtcheck {{$labels.job}} fails!";
       };
     */
-    cert_expiry = {
-      condition = "(probe_ssl_earliest_cert_expiry - time())/(3600*24) < 30";
-      description = "{{$labels.instance}}: The TLS certificate will expire in less than 30 days: {{$value}}s";
-    };
+    #cert_expiry = {
+    #  condition = "(probe_ssl_earliest_cert_expiry - time())/(3600*24) < 30";
+    #  description = "{{$labels.instance}}: The TLS certificate will expire in less than 30 days: {{$value}}s";
+    #};
 
     # ignore devices that disabled S.M.A.R.T (example if attached via USB)
 
