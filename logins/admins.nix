@@ -67,6 +67,7 @@
 
     secretEncryptionKeys = {
       teutat3s-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHcU6KPy4b1MQXd6EJhcYwbJu7E+0IrBZF/IP6T7gbMf teutat3s@dumpyourvms";
+      teutat3s-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPAsRdVYK0077cdtavmrRr6akrI68T1EDY4Hfv4+W86J teutat3s@ryzensun";
     };
 
     wireguardDevices = [
