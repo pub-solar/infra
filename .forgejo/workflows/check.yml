@@ -52,6 +52,7 @@ jobs:
 
       - name: Run flake checks
         run: |
+          set -exuo pipefail
           # Prevent cache garbage collection by creating GC roots
           for target in $(nix flake show --json --all-systems | jq '
             .["nixosConfigurations"] |
@@ -60,16 +61,7 @@ jobs:
             ' | tr -d '"'
           ); do
             nix --print-build-logs --verbose --accept-flake-config --access-tokens '' \
-              build --out-link ./result-$target ".#nixosConfigurations.${target}.config.system.build.toplevel"
+              build --out-link ./result-"$target" ".#nixosConfigurations.${target}.config.system.build.toplevel"
           done
 
           nix --print-build-logs --verbose --accept-flake-config --access-tokens '' flake check
-
-          # Add GC roots for flake inputs, too
-          # https://github.com/NixOS/nix/issues/4250#issuecomment-1146878407
-          mkdir --parents "$NIX_USER_PROFILE_DIR"
-          gc_root_prefix="$NIX_USER_PROFILE_DIR"/infra-flake-
-          echo "Adding gcroots flake inputs with prefix $gc_root_prefix ..."
-          nix flake archive --json 2>/dev/null | jq --raw-output '.inputs | to_entries[] | "ln --force --symbolic --no-target-directory "+.value.path+" \"'"$gc_root_prefix"'"+.key+"\""' | while read -r line; do
-            eval "$line"
-          done
