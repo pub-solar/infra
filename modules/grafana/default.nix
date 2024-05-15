@@ -8,17 +8,17 @@
 {
   age.secrets.grafana-admin-password = {
     file = "${flake.self}/secrets/grafana-admin-password.age";
-    mode = "644";
+    mode = "440";
     owner = "grafana";
   };
   age.secrets.grafana-smtp-password = {
     file = "${flake.self}/secrets/grafana-smtp-password.age";
-    mode = "644";
+    mode = "440";
     owner = "grafana";
   };
   age.secrets.grafana-keycloak-client-secret = {
     file = "${flake.self}/secrets/grafana-keycloak-client-secret.age";
-    mode = "644";
+    mode = "440";
     owner = "grafana";
   };
 
