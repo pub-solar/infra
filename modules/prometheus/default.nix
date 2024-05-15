@@ -11,6 +11,11 @@
     mode = "600";
     owner = "prometheus";
   };
+  age.secrets.alertmanager-envfile = {
+    file = "${flake.self}/secrets/alertmanager-envfile.age";
+    mode = "600";
+    owner = "alertmanager";
+  };
 
   services.caddy.virtualHosts."alerts.${config.pub-solar-os.networking.domain}" = {
     logFormat = lib.mkForce ''
@@ -104,7 +109,7 @@
       enable = true;
       # port = 9093; # Default
       webExternalUrl = "https://alerts.pub.solar";
-      # environmentFile = "${config.age.secrets.nachtigall-alertmanager-envfile.path}";
+      environmentFile = "${config.age.secrets.alertmanager-envfile.path}";
       configuration = {
 
         route = {
@@ -126,8 +131,8 @@
                 from = "alerts@pub.solar";
                 smarthost = "mail.greenbaum.zone:465";
                 auth_username = "admins@pub.solar";
-                auth_password_file = "${config.age.secrets.grafana-smtp-password.path}";
-                require_tls = true;
+                auth_password = "$SMTP_AUTH_PASSWORD";
+                require_tls = false;
               }
             ];
             # TODO:
