@@ -12,7 +12,7 @@
     owner = "prometheus";
   };
 
-  services.caddy.virtualHosts."prometheus.${config.pub-solar-os.networking.domain}" = {
+  services.caddy.virtualHosts."alerts.${config.pub-solar-os.networking.domain}" = {
     logFormat = lib.mkForce ''
       output discard
     '';
