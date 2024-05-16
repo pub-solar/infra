@@ -43,6 +43,10 @@
     owner = "root";
   };
 
+  pub-solar-os.auth.enable = true;
+
+  nixpkgs.config.permittedInsecurePackages = [ "keycloak-23.0.6" ];
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
