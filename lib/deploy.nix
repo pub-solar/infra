@@ -7,21 +7,6 @@
 
 { lib, inputs }:
 let
-  # https://github.com/serokell/deploy-rs#overall-usage
-  system = "aarch64-linux";
-  pkgs = import inputs.nixpkgs { inherit system; };
-  deployPkgs = import inputs.nixpkgs {
-    inherit system;
-    overlays = [
-      inputs.deploy-rs.overlay
-      (self: super: {
-        deploy-rs = {
-          inherit (pkgs) deploy-rs;
-          lib = super.deploy-rs.lib;
-        };
-      })
-    ];
-  };
   getFqdn =
     c:
     let
@@ -66,7 +51,21 @@ in
     */
     lib.recursiveUpdate (lib.mapAttrs (_: c: {
       hostname = getFqdn c;
-      profiles.system = {
+      profiles.system = let
+        system = c.pkgs.system;
+
+        # Unmodified nixpkgs
+        pkgs = import inputs.nixpkgs { inherit system; };
+
+        # nixpkgs with deploy-rs overlay but force the nixpkgs package
+        deployPkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [
+            inputs.deploy-rs.overlay # or deploy-rs.overlays.default
+            (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
+          ];
+        };
+      in {
         user = "root";
         path = deployPkgs.deploy-rs.lib.activate.nixos c;
       };
