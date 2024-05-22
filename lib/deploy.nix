@@ -8,7 +8,7 @@
 { lib, inputs }:
 let
   # https://github.com/serokell/deploy-rs#overall-usage
-  system = "x86_64-linux";
+  system = "aarch64-linux";
   pkgs = import inputs.nixpkgs { inherit system; };
   deployPkgs = import inputs.nixpkgs {
     inherit system;

@@ -59,6 +59,19 @@
         ];
       };
 
+      metronom = self.nixos-flake.lib.mkLinuxSystem {
+        imports = [
+          self.inputs.agenix.nixosModules.default
+          self.nixosModules.home-manager
+          ./metronom
+          self.nixosModules.overlays
+          self.nixosModules.unlock-zfs-on-boot
+          self.nixosModules.core
+
+          self.inputs.simple-nixos-mailserver.nixosModule
+        ];
+      };
+
       tankstelle = self.nixos-flake.lib.mkLinuxSystem {
         imports = [
           self.inputs.agenix.nixosModules.default

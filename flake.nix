@@ -38,6 +38,9 @@
     element-stickers.url = "git+https://git.pub.solar/pub-solar/maunium-stickerpicker-nix?ref=main";
     element-stickers.inputs.maunium-stickerpicker.follows = "maunium-stickerpicker";
     element-stickers.inputs.nixpkgs.follows = "nixpkgs";
+
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.11";
+    simple-nixos-mailserver.inputs.nixpkgs-23_11.follows = "nixpkgs";
   };
 
   outputs =
@@ -121,6 +124,10 @@
             };
             flora-6 = {
               hostname = "10.7.6.2";
+              sshUser = username;
+            };
+            metronom = {
+              hostname = "49.13.236.167";
               sshUser = username;
             };
             tankstelle = {
