@@ -10,6 +10,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "80.71.153.210"
   }
   record {
+    hostname = "metronom"
+    type     = "A"
+    address  = "49.13.236.167"
+  }
+  record {
     hostname = "auth"
     type     = "CNAME"
     address  = "nachtigall.pub.solar."
