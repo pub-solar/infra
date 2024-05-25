@@ -183,6 +183,27 @@ resource "namecheap_domain_records" "pub-solar" {
     mx_pref  = "0"
   }
   record {
+    hostname = "metronom"
+    type     = "TXT"
+    address  = "v=spf1 a:metronom.pub.solar ?all"
+  }
+  record {
+    hostname = "mail._domainkey.metronom"
+    type     = "TXT"
+    address  = "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCpFkI+IqTwyUIo5LqYVPMXlkTJe7trcE+ln6vjLFcoXBZaXfFVRJThMtfEZLkJ84ndEHadszFdSZs8eLRVCt/h7x9+GaOPIdKI9lbOn+AepwxhE3z/VrKKfO0CFyLsA6+XY7ebiF1aYctalY+r8Jtt8LuXh0Fj6+4YAFkvNxJEnQIDAQAB"
+  }
+  record {
+    hostname = "_dmarc.metronom"
+    type     = "TXT"
+    address  = "v=DMARC1; p=reject;"
+  }
+  record {
+    hostname = "metronom"
+    type     = "MX"
+    address  = "metronom.pub.solar."
+    mx_pref  = "0"
+  }
+  record {
     hostname = "nachtigall"
     type     = "A"
     address  = "138.201.80.102"
