@@ -79,4 +79,10 @@ in
 
   # mail
   "mail/hensoko.age".publicKeys = metronomKeys ++ adminKeys;
+  "mail/teutat3s.age".publicKeys = metronomKeys ++ adminKeys;
+  "mail/admins.age".publicKeys = metronomKeys ++ adminKeys;
+  "mail/bot.age".publicKeys = metronomKeys ++ adminKeys;
+  "mail/crew.age".publicKeys = metronomKeys ++ adminKeys;
+  "mail/erpnext.age".publicKeys = metronomKeys ++ adminKeys;
+  "mail/hakkonaut.age".publicKeys = metronomKeys ++ adminKeys;
 }
