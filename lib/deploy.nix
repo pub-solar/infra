@@ -51,23 +51,30 @@ in
     */
     lib.recursiveUpdate (lib.mapAttrs (_: c: {
       hostname = getFqdn c;
-      profiles.system = let
-        system = c.pkgs.system;
+      profiles.system =
+        let
+          system = c.pkgs.system;
 
-        # Unmodified nixpkgs
-        pkgs = import inputs.nixpkgs { inherit system; };
+          # Unmodified nixpkgs
+          pkgs = import inputs.nixpkgs { inherit system; };
 
-        # nixpkgs with deploy-rs overlay but force the nixpkgs package
-        deployPkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = [
-            inputs.deploy-rs.overlay # or deploy-rs.overlays.default
-            (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
-          ];
+          # nixpkgs with deploy-rs overlay but force the nixpkgs package
+          deployPkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [
+              inputs.deploy-rs.overlay # or deploy-rs.overlays.default
+              (self: super: {
+                deploy-rs = {
+                  inherit (pkgs) deploy-rs;
+                  lib = super.deploy-rs.lib;
+                };
+              })
+            ];
+          };
+        in
+        {
+          user = "root";
+          path = deployPkgs.deploy-rs.lib.activate.nixos c;
         };
-      in {
-        user = "root";
-        path = deployPkgs.deploy-rs.lib.activate.nixos c;
-      };
     }) systemConfigurations) extraConfig;
 }
