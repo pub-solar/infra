@@ -152,8 +152,8 @@ lib.mapAttrsToList
     };
 
     uptime = {
-      condition = "(time() - node_boot_time_seconds ) / (60*60*24) > 30";
-      description = "Uptime monster: {{$labels.instance}} has been up for more than 30 days.";
+      condition = "(time() - node_boot_time_seconds ) / (60*60*24) > 90";
+      description = "Uptime monster: {{$labels.instance}} has been up for more than 90 days.";
     };
 
     flake_nixpkgs_outdated = {
