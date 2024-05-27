@@ -12,9 +12,7 @@
   mailserver = {
     enable = true;
     fqdn = "mail.pub.solar";
-    domains = [
-      "pub.solar"
-    ];
+    domains = [ "pub.solar" ];
 
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -R11 -m bcrypt'
