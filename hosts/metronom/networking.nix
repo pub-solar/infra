@@ -7,6 +7,10 @@
 {
 
   networking.hostName = "metronom";
+  networking.extraHosts = ''
+    127.0.0.2 mail.pub.solar mail
+    ::1 mail.pub.solar mail
+  '';
   networking.domain = "pub.solar";
   networking.hostId = "00000002";
 

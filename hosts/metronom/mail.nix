@@ -11,10 +11,9 @@
 
   mailserver = {
     enable = true;
-    fqdn = "metronom.pub.solar";
+    fqdn = "mail.pub.solar";
     domains = [
       "pub.solar"
-      "metronom.pub.solar"
     ];
 
     # A list of all login accounts. To create the password hashes, use
@@ -24,7 +23,7 @@
         hashedPasswordFile = config.age.secrets.mail-hensoko.path;
         quota = "2G";
       };
-      "teutat3s@metronom.pub.solar" = {
+      "teutat3s@pub.solar" = {
         hashedPasswordFile = config.age.secrets.mail-teutat3s.path;
         quota = "2G";
       };
