@@ -6,12 +6,12 @@
   ...
 }:
 {
-  options.pub-solar-os.auth = with lib; {
-    enable = mkEnableOption "Enable keycloak to run on the node";
+  options.pub-solar-os.auth = {
+    enable = lib.mkEnableOption "Enable keycloak to run on the node";
 
-    realm = mkOption {
+    realm = lib.mkOption {
       description = "Name of the realm";
-      type = types.str;
+      type = lib.types.str;
       default = config.pub-solar-os.networking.domain;
     };
   };

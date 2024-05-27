@@ -6,37 +6,41 @@
   ...
 }:
 {
-  options.pub-solar-os.authentication = with lib; {
-    username = mkOption {
-      description = "Username for the adminstrative user";
-      type = types.str;
-      default = flake.self.username;
-    };
+  options.pub-solar-os.authentication =
+    let
+      inherit (lib) mkOption types;
+    in
+    {
+      username = mkOption {
+        description = "Username for the adminstrative user";
+        type = types.str;
+        default = flake.self.username;
+      };
 
-    sshPubKeys = mkOption {
-      description = "SSH Keys that should have administrative root access";
-      type = types.listOf types.str;
-      default = flake.self.logins.admins.sshPubKeys;
-    };
+      sshPubKeys = mkOption {
+        description = "SSH Keys that should have administrative root access";
+        type = types.listOf types.str;
+        default = flake.self.logins.admins.sshPubKeys;
+      };
 
-    root.initialHashedPassword = mkOption {
-      description = "Hashed password of the root account";
-      type = types.str;
-      default = "$y$j9T$bIN6GjQkmPMllOcQsq52K0$q0Z5B5.KW/uxXK9fItB8H6HO79RYAcI/ZZdB0Djke32";
-    };
+      root.initialHashedPassword = mkOption {
+        description = "Hashed password of the root account";
+        type = types.str;
+        default = "$y$j9T$bIN6GjQkmPMllOcQsq52K0$q0Z5B5.KW/uxXK9fItB8H6HO79RYAcI/ZZdB0Djke32";
+      };
 
-    robot.username = mkOption {
-      description = "username for the robot user";
-      type = types.str;
-      default = "hakkonaut";
-    };
+      robot.username = mkOption {
+        description = "username for the robot user";
+        type = types.str;
+        default = "hakkonaut";
+      };
 
-    robot.sshPubKeys = mkOption {
-      description = "SSH Keys to use for the robot user";
-      type = types.listOf types.str;
-      default = flake.self.logins.robots.sshPubKeys;
+      robot.sshPubKeys = mkOption {
+        description = "SSH Keys to use for the robot user";
+        type = types.listOf types.str;
+        default = flake.self.logins.robots.sshPubKeys;
+      };
     };
-  };
 
   config = {
     users.users.${config.pub-solar-os.authentication.username} = {
