@@ -6,7 +6,6 @@
     ./configuration.nix
 
     ./networking.nix
-    ./mail.nix
     ./wireguard.nix
     #./backups.nix
   ];
