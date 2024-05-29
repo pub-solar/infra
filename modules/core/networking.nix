@@ -28,6 +28,7 @@
     networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ 22 ];
 
     networking.hosts = {
+      "138.201.80.102" = [ "git.${config.pub-solar-os.networking.domain}" ];
       "10.7.6.1" = [ "nachtigall.${config.pub-solar-os.networking.domain}" ];
       "10.7.6.2" = [ "flora-6.${config.pub-solar-os.networking.domain}" ];
     };

@@ -1,43 +1,19 @@
 name: Flake checks
 on: [pull_request]
 env:
-  USER: ci
+  PATH: /run/current-system/sw/bin
+  HOME: /var/lib/gitea-runner/tankstelle
 
 jobs:
   Check:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
+      - name: Enter ci devshell
+        run: |
+          nix --accept-flake-config --access-tokens '' develop .#ci
+
       - name: Check out repository code
         uses: https://code.forgejo.org/actions/checkout@v4
-
-      - uses: https://github.com/nixbuild/nix-quick-install-action@v27
-        with:
-          load_nixConfig: false
-          nix_conf: |
-            substituters = https://cache.nixos.org/ https://nix-community.cachix.org
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
-            keep-outputs = true
-
-      - name: Calculate flake.lock hash
-        id: flake-lock-hash
-        run: |
-          echo "hash=$(md5sum flake.lock | awk '{print $1}')" >> $GITHUB_OUTPUT
-
-      - name: Restore and cache Nix store
-        uses: https://github.com/nix-community/cache-nix-action@v4.0.3
-        id: nix-store-cache
-        with:
-          key: cache-${{ runner.os }}-nix-store-${{ steps.flake-lock-hash.outputs.hash }}
-          restore-keys: |
-            cache-${{ runner.os }}-nix-store-
-
-          gc-linux: true
-          gc-max-store-size-linux: 10000000000
-
-          purge-caches: true
-          purge-key: cache-${{ runner.os }}-nix-store-
-          purge-created: true
-          purge-created-max-age: 42
 
       - name: Prepare cachix
         uses: https://github.com/cachix/cachix-action@v14

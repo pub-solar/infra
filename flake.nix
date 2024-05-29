@@ -91,6 +91,11 @@
               jq
             ];
           };
+          devShells.ci = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              nodejs
+            ];
+          };
         };
 
       flake =

@@ -3,12 +3,15 @@ let
 
   nachtigall-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7G0ufi+MNvaAZLDgpieHrABPGN7e/kD5kMFwSk4ABj root@nachtigall";
   flora-6-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGP1InpTBN4AlF/4V8HHumAMLJzeO8DpzjUv9Co/+J09 root@flora-6";
+  tankstelle-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdF6cJKPDiloWiDja1ZtqkXDdXOCHPs10HD+JMzgeU4 root@tankstelle";
 
   adminKeys = builtins.foldl' (
     keys: login: keys ++ (builtins.attrValues login.secretEncryptionKeys)
   ) [ ] (builtins.attrValues admins);
 
   nachtigallKeys = [ nachtigall-host ];
+
+  tankstelleKeys = [ tankstelle-host ];
 
   flora6Keys = [ flora-6-host ];
 in
@@ -29,6 +32,7 @@ in
   "keycloak-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "forgejo-actions-runner-token.age".publicKeys = flora6Keys ++ adminKeys;
+  "tankstelle-forgejo-actions-runner-token.age".publicKeys = tankstelleKeys ++ adminKeys;
   "forgejo-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
   "forgejo-mailer-password.age".publicKeys = nachtigallKeys ++ adminKeys;
   "forgejo-ssh-private-key.age".publicKeys = nachtigallKeys ++ adminKeys;
