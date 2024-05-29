@@ -1,17 +1,10 @@
 name: Flake checks
 on: [pull_request]
-env:
-  PATH: /run/current-system/sw/bin
-  HOME: /var/lib/gitea-runner/tankstelle
 
 jobs:
   Check:
     runs-on: self-hosted
     steps:
-      - name: Enter ci devshell
-        run: |
-          nix --accept-flake-config --access-tokens '' develop .#ci
-
       - name: Check out repository code
         uses: https://code.forgejo.org/actions/checkout@v4
 

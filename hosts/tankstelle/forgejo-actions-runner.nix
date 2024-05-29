@@ -15,6 +15,18 @@
   # Needed for the docker runner to communicate with the act_runner cache
   networking.firewall.trustedInterfaces = [ "br-+" ];
 
+  systemd.services."gitea-runner-tankstelle".path = with pkgs; [
+    coreutils
+    bash
+    coreutils
+    curl
+    gawk
+    gitMinimal
+    gnused
+    nodejs
+    wget
+  ];
+
   # forgejo actions runner
   # https://forgejo.org/docs/latest/admin/actions/
   # https://docs.gitea.com/usage/actions/quickstart
