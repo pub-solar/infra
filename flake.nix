@@ -127,7 +127,7 @@
               sshUser = username;
             };
             metronom = {
-              hostname = "49.13.236.167";
+              hostname = "10.7.6.3";
               sshUser = username;
             };
             tankstelle = {
