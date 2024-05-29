@@ -58,6 +58,16 @@
           self.nixosModules.loki
         ];
       };
+
+      tankstelle = self.nixos-flake.lib.mkLinuxSystem {
+        imports = [
+          self.inputs.agenix.nixosModules.default
+          self.nixosModules.home-manager
+          ./tankstelle
+          self.nixosModules.overlays
+          self.nixosModules.core
+        ];
+      };
     };
   };
 }
