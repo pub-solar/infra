@@ -37,9 +37,7 @@
       name = config.networking.hostName;
       url = "https://git.pub.solar";
       tokenFile = config.age.secrets.tankstelle-forgejo-actions-runner-token.path;
-      labels = [
-        "self-hosted:host://-self-hosted"
-      ];
+      labels = [ "self-hosted:host://-self-hosted" ];
     };
   };
 }

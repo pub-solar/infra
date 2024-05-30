@@ -17,7 +17,10 @@
       address = "2001:4d88:1ffa:26::1";
       interface = "enp1s0";
     };
-    nameservers = [ "95.129.51.51" "80.244.244.244" ];
+    nameservers = [
+      "95.129.51.51"
+      "80.244.244.244"
+    ];
     interfaces."enp1s0" = {
       ipv4.addresses = [
         {
