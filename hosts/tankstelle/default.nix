@@ -7,7 +7,7 @@
 
     ./networking.nix
     ./forgejo-actions-runner.nix
-    #./wireguard.nix
+    ./wireguard.nix
     #./backups.nix
   ];
 }

@@ -20,6 +20,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "80.71.153.210"
   }
   record {
+    hostname = "tankstelle"
+    type     = "A"
+    address  = "80.244.242.5"
+  }
+  record {
     hostname = "alerts"
     type     = "A"
     address  = "10.7.6.2"

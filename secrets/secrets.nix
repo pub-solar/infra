@@ -20,6 +20,7 @@ in
   "nachtigall-root-ssh-key.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "nachtigall-wg-private-key.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "tankstelle-wg-private-key.age".publicKeys = tankstelleKeys ++ adminKeys;
   "flora6-wg-private-key.age".publicKeys = flora6Keys ++ adminKeys;
 
   "mastodon-secret-key-base.age".publicKeys = nachtigallKeys ++ adminKeys;
