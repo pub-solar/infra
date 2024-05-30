@@ -20,9 +20,7 @@
     useDefaultShell = true;
     group = "gitea-runner";
     # Required to interact with nix daemon
-    extraGroups = [
-     "wheel"
-    ];
+    extraGroups = [ "wheel" ];
     isSystemUser = true;
   };
 
@@ -44,6 +42,7 @@
       wget
       cachix
       jq
+      nix
     ];
   };
 
