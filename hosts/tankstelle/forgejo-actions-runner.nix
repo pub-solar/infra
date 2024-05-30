@@ -15,17 +15,37 @@
   # Needed for the docker runner to communicate with the act_runner cache
   networking.firewall.trustedInterfaces = [ "br-+" ];
 
-  systemd.services."gitea-runner-tankstelle".path = with pkgs; [
-    coreutils
-    bash
-    coreutils
-    curl
-    gawk
-    gitMinimal
-    gnused
-    nodejs
-    wget
-  ];
+  users.users.gitea-runner = {
+    home = "/var/lib/gitea-runner/tankstelle";
+    useDefaultShell = true;
+    group = "gitea-runner";
+    # Required to interact with nix daemon
+    extraGroups = [
+     "wheel"
+    ];
+    isSystemUser = true;
+  };
+
+  users.groups.gitea-runner = { };
+
+  systemd.tmpfiles.rules = [ "d '/var/lib/gitea-runner' 0750 gitea-runner gitea-runner - -" ];
+
+  systemd.services."gitea-runner-tankstelle" = {
+    serviceConfig.DynamicUser = lib.mkForce false;
+    path = with pkgs; [
+      coreutils
+      bash
+      coreutils
+      curl
+      gawk
+      gitMinimal
+      gnused
+      nodejs
+      wget
+      cachix
+      jq
+    ];
+  };
 
   # forgejo actions runner
   # https://forgejo.org/docs/latest/admin/actions/

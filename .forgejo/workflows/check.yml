@@ -8,13 +8,6 @@ jobs:
       - name: Check out repository code
         uses: https://code.forgejo.org/actions/checkout@v4
 
-      - name: Prepare cachix
-        uses: https://github.com/cachix/cachix-action@v14
-        with:
-          name: pub-solar
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-          useDaemon: false
-
       - name: Check formatting
         run: |
           nix --accept-flake-config --access-tokens '' develop --command treefmt --fail-on-change
