@@ -28,6 +28,15 @@
             "fd00:fae:fae:fae:fae:2::/96"
           ];
         }
+        {
+          # tankstelle.pub.solar
+          endpoint = "80.244.242.5:51820";
+          publicKey = "iRTlY1lB7nPXf2eXzX8ZZDkfMmXyGjff5/joccbP8Cg=";
+          allowedIPs = [
+            "10.7.6.4/32"
+            "fd00:fae:fae:fae:fae:4::/96"
+          ];
+        }
       ];
     };
   };

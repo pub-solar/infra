@@ -91,6 +91,7 @@
               jq
             ];
           };
+          devShells.ci = pkgs.mkShell { buildInputs = with pkgs; [ nodejs ]; };
         };
 
       flake =
@@ -120,6 +121,10 @@
             };
             flora-6 = {
               hostname = "10.7.6.2";
+              sshUser = username;
+            };
+            tankstelle = {
+              hostname = "80.244.242.5";
               sshUser = username;
             };
           };
