@@ -60,7 +60,7 @@
     vapidPublicKeyFile = "/run/agenix/mastodon-vapid-public-key";
     smtp = {
       createLocally = false;
-      host = "mail.greenbaum.zone";
+      host = "mail.pub.solar";
       port = 587;
       authenticate = true;
       user = "admins@pub.solar";

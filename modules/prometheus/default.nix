@@ -129,7 +129,7 @@
                 send_resolved = true;
                 to = "admins@pub.solar";
                 from = "alerts@pub.solar";
-                smarthost = "mail.greenbaum.zone:465";
+                smarthost = "mail.pub.solar:465";
                 auth_username = "admins@pub.solar";
                 auth_password = "$SMTP_AUTH_PASSWORD";
                 require_tls = false;

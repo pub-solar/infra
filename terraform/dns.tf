@@ -10,6 +10,16 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "80.71.153.210"
   }
   record {
+    hostname = "metronom"
+    type     = "A"
+    address  = "49.13.236.167"
+  }
+  record {
+    hostname = "mail"
+    type     = "A"
+    address  = "49.13.236.167"
+  }
+  record {
     hostname = "auth"
     type     = "CNAME"
     address  = "nachtigall.pub.solar."
@@ -143,7 +153,7 @@ resource "namecheap_domain_records" "pub-solar" {
   record {
     hostname = "@"
     type     = "TXT"
-    address  = "v=spf1 include:spf.greenbaum.zone a:list.pub.solar ~all"
+    address  = "v=spf1 a:mail.pub.solar a:list.pub.solar ~all"
   }
   record {
     hostname = "list"
@@ -161,6 +171,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "v=DMARC1; p=reject;"
   }
   record {
+    hostname = "mail._domainkey"
+    type     = "TXT"
+    address  = "v=DKIM1;k=rsa;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDI333HhjmVmDYc5hYTtmB6o9KYb782xw+ewH1eQlpFcCMyJ1giYFeGKviNki9uSm52tk34zUIthsqJMRlz2WsKGgk4oq3MRtgPtogxbh1ipJlynXejPU5WVetjjMnwr6AtV1DP1Sv4n5Vz0EV8cTi3tRZdgYpG6hlriiHXbrvlIwIDAQAB"
+  }
+  record {
     hostname = "modoboa._domainkey"
     type     = "TXT"
     address  = "v=DKIM1;k=rsa;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx/EqLMpk0MyL1aQ0JVG44ypTRbZBVA13MFjEntxAvowaWtq1smRbnEwTTKgqUOrUyaM4dVmli1dedne4mk/ncqRAm02KuhtTY+5wXfhTKK53EhqehbKwH+Qvzb12983Qwdau/QTHiFHwXHufMaSsCvd9CRWCp9q68Q7noQqndJeLHT6L0eECd2Zk3ZxJuh+Fxdb7+Kw68Tf6z13Rs+MU01qLM7x0jmSQHa4cv2pk+7NTGMBRp6fVskfbqev5nFkZWJ7rhXEbP9Eukd/L3ro/ubs1quWJotG02gPRKE8fgkm1Ytlws1/pnqpuvKXQS1HzBEP1X2ExezJMzQ1SnZCigQIDAQAB"
@@ -168,7 +183,7 @@ resource "namecheap_domain_records" "pub-solar" {
   record {
     hostname = "@"
     type     = "MX"
-    address  = "mail.greenbaum.zone."
+    address  = "mail.pub.solar."
     mx_pref  = "0"
   }
   record {
