@@ -5,6 +5,46 @@ resource "namecheap_domain_records" "pub-solar" {
   email_type = "MX"
 
   record {
+    hostname = "nachtigall.wg"
+    type     = "A"
+    address  = "10.7.6.1"
+  }
+  record {
+    hostname = "flora-6.wg"
+    type     = "A"
+    address  = "10.7.6.2"
+  }
+  record {
+    hostname = "metronom.wg"
+    type     = "A"
+    address  = "10.7.6.3"
+  }
+  record {
+    hostname = "tankstelle.wg"
+    type     = "A"
+    address  = "10.7.6.4"
+  }
+  record {
+    hostname = "nachtigall.wg"
+    type     = "AAAA"
+    address  = "fd00:fae:fae:fae:fae:1::"
+  }
+  record {
+    hostname = "flora-6.wg"
+    type     = "AAAA"
+    address  = "fd00:fae:fae:fae:fae:2::"
+  }
+  record {
+    hostname = "metronom.wg"
+    type     = "AAAA"
+    address  = "fd00:fae:fae:fae:fae:3::"
+  }
+  record {
+    hostname = "tankstelle.wg"
+    type     = "AAAA"
+    address  = "fd00:fae:fae:fae:fae:4::"
+  }
+  record {
     hostname = "flora-6"
     type     = "A"
     address  = "80.71.153.210"
