@@ -14,16 +14,12 @@ let
   synapseMetricsPort = "${toString listenerWithMetrics.port}";
 in
 {
-  age.secrets.nachtigall-metrics-nginx-basic-auth = {
-    file = "${flake.self}/secrets/nachtigall-metrics-nginx-basic-auth.age";
-    mode = "600";
-    owner = "nginx";
-  };
   services.nginx.virtualHosts = {
-    "nachtigall.${config.pub-solar-os.networking.domain}" = {
-      enableACME = true;
-      addSSL = true;
-      basicAuthFile = "${config.age.secrets.nachtigall-metrics-nginx-basic-auth.path}";
+    "nachtigall.wg.${config.pub-solar-os.networking.domain}" = {
+      listenAddresses = [
+        "10.7.6.1"
+        "fd00:fae:fae:fae:fae:1::"
+      ];
       locations."/metrics" = {
         proxyPass = "http://127.0.0.1:${toString (config.services.prometheus.exporters.node.port)}";
       };
