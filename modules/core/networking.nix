@@ -28,8 +28,10 @@
     networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ 22 ];
 
     networking.hosts = {
-      "10.7.6.1" = [ "nachtigall.${config.pub-solar-os.networking.domain}" ];
-      "10.7.6.2" = [ "flora-6.${config.pub-solar-os.networking.domain}" ];
+      "10.7.6.1" = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}" ];
+      "10.7.6.2" = [ "flora-6.wg.${config.pub-solar-os.networking.domain}" ];
+      "10.7.6.3" = [ "metronom.wg.${config.pub-solar-os.networking.domain}" ];
+      "10.7.6.4" = [ "tankstelle.wg.${config.pub-solar-os.networking.domain}" ];
     };
 
     services.openssh = {
