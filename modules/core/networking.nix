@@ -32,6 +32,10 @@
       "10.7.6.2" = [ "flora-6.wg.${config.pub-solar-os.networking.domain}" ];
       "10.7.6.3" = [ "metronom.wg.${config.pub-solar-os.networking.domain}" ];
       "10.7.6.4" = [ "tankstelle.wg.${config.pub-solar-os.networking.domain}" ];
+      "fd00:fae:fae:fae:fae:1::" = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}" ];
+      "fd00:fae:fae:fae:fae:2::" = [ "flora-6.wg.${config.pub-solar-os.networking.domain}" ];
+      "fd00:fae:fae:fae:fae:3::" = [ "metronom.wg.${config.pub-solar-os.networking.domain}" ];
+      "fd00:fae:fae:fae:fae:4::" = [ "tankstelle.wg.${config.pub-solar-os.networking.domain}" ];
     };
 
     services.openssh = {
