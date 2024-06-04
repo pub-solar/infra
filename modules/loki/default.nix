@@ -6,6 +6,9 @@
   ...
 }:
 {
+  # Only expose loki port via wireguard interface
+  networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ 3100 ];
+
   # source: https://gist.github.com/rickhull/895b0cb38fdd537c1078a858cf15d63e
   # https://grafana.com/docs/loki/latest/configure/examples/#1-local-configuration-exampleyaml
   services.loki = {
