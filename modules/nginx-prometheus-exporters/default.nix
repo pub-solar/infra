@@ -18,7 +18,7 @@ in
     "nachtigall.wg.${config.pub-solar-os.networking.domain}" = {
       listenAddresses = [
         "10.7.6.1"
-        "fd00:fae:fae:fae:fae:1::"
+        "[fd00:fae:fae:fae:fae:1::]"
       ];
       locations."/metrics" = {
         proxyPass = "http://127.0.0.1:${toString (config.services.prometheus.exporters.node.port)}";
