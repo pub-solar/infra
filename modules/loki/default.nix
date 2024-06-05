@@ -6,19 +6,9 @@
   ...
 }:
 {
-  services.caddy.virtualHosts = {
-    "flora-6.${config.pub-solar-os.networking.domain}" = {
-      logFormat = lib.mkForce ''
-        output discard
-      '';
-      extraConfig = ''
-        basicauth * {
-          ${config.pub-solar-os.authentication.robot.username} $2a$14$mmIAy/Ezm6YGohUtXa2mWeW6Bcw1MQXPhrRbz14jAD2iUu3oob/t.
-        }
-        reverse_proxy :${toString config.services.loki.configuration.server.http_listen_port}
-      '';
-    };
-  };
+  # Only expose loki port via wireguard interface
+  networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ 3100 ];
+
   # source: https://gist.github.com/rickhull/895b0cb38fdd537c1078a858cf15d63e
   # https://grafana.com/docs/loki/latest/configure/examples/#1-local-configuration-exampleyaml
   services.loki = {
@@ -28,7 +18,8 @@
       auth_enabled = false;
       common = {
         ring = {
-          instance_addr = "127.0.0.1";
+          instance_interface_names = [ "wg-ssh" ];
+          instance_enable_ipv6 = true;
           kvstore = {
             store = "inmemory";
           };
@@ -81,7 +72,7 @@
       };
       clients = [
         {
-          url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/loki/api/v1/push";
+          url = "http://flora-6.wg.pub.solar:${toString config.services.loki.configuration.server.http_listen_port}/loki/api/v1/push";
         }
       ];
       scrape_configs = [

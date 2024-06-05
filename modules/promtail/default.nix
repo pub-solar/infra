@@ -6,12 +6,6 @@
   ...
 }:
 {
-  age.secrets.nachtigall-metrics-prometheus-basic-auth-password = {
-    file = "${flake.self}/secrets/nachtigall-metrics-prometheus-basic-auth-password.age";
-    mode = "600";
-    owner = "promtail";
-  };
-
   services.promtail = {
     enable = true;
     configuration = {
@@ -24,11 +18,7 @@
       };
       clients = [
         {
-          url = "https://flora-6.${config.pub-solar-os.networking.domain}/loki/api/v1/push";
-          basic_auth = {
-            username = "hakkonaut";
-            password_file = "${config.age.secrets.nachtigall-metrics-prometheus-basic-auth-password.path}";
-          };
+          url = "http://flora-6.wg.pub.solar:${toString flake.self.nixosConfigurations.flora-6.config.services.loki.configuration.server.http_listen_port}/loki/api/v1/push";
         }
       ];
       scrape_configs = [
