@@ -67,6 +67,7 @@
           self.nixosModules.overlays
           self.nixosModules.unlock-zfs-on-boot
           self.nixosModules.core
+          self.nixosModules.mail
 
           self.inputs.simple-nixos-mailserver.nixosModule
         ];
