@@ -31,6 +31,7 @@ SSH is not reachable from the open internet. Instead, SSH Port 22 is protected b
 2. **Wireguard device**: each wireguard device has two parts: the public key and the IP addresses it should have in the wireguard network. The pub.solar wireguard network is spaced under `10.7.6.0/24` and `fd00:fae:fae:fae:fae::/80`. To add your device, it's best to choose a free number between 200 and 255 and use that in both the ipv4 and ipv6 ranges: `10.7.6.<ip-address>/32` `fd00:fae:fae:fae:fae:<ip-address>::/96`. For more information on how to generate keypairs, see [the NixOS Wireguard docs](https://nixos.wiki/wiki/WireGuard#Generate_keypair).
 
 Example NixOS snippet for WireGuard client config
+
 ```
 {
   networking = {

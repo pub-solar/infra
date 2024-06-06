@@ -54,13 +54,17 @@
             };
           }
           {
-            targets = [ "metronom.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}" ];
+            targets = [
+              "metronom.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}"
+            ];
             labels = {
               instance = "metronom";
             };
           }
           {
-            targets = [ "tankstelle.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}" ];
+            targets = [
+              "tankstelle.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}"
+            ];
             labels = {
               instance = "tankstelle";
             };
