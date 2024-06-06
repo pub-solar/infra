@@ -27,6 +27,8 @@
     # Don't expose SSH via public interfaces
     networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ 22 ];
 
+    networking.domain = config.pub-solar-os.networking.domain;
+
     networking.hosts = {
       "10.7.6.1" = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}" ];
       "10.7.6.2" = [ "flora-6.wg.${config.pub-solar-os.networking.domain}" ];
