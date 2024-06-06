@@ -59,6 +59,12 @@
               instance = "metronom";
             };
           }
+          {
+            targets = [ "tankstelle.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}" ];
+            labels = {
+              instance = "tankstelle";
+            };
+          }
         ];
       }
       {

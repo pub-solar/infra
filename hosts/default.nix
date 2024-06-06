@@ -82,6 +82,8 @@
           ./tankstelle
           self.nixosModules.overlays
           self.nixosModules.core
+          self.nixosModules.prometheus-exporters
+          self.nixosModules.promtail
         ];
       };
     };
