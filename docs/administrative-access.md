@@ -14,7 +14,7 @@ People with admin access to the infrastructure are added to [`logins/admins.nix`
                 publicKey = <pubkey-string>;
                 allowedIPs = [ "10.7.6.<ip-address>/32" "fd00:fae:fae:fae:fae:<ip-address>::/96" ];
             }
-        }];
+        ];
 
         secretEncryptionKeys = {
             <name> = <encryption-key-string>;
