@@ -7,7 +7,6 @@
 {
 
   networking.hostName = "nachtigall";
-  networking.domain = "pub.solar";
   networking.hostId = "00000001";
 
   # Network (Hetzner uses static IP assignments, and we don't use DHCP here)

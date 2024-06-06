@@ -7,7 +7,6 @@
 {
   networking = {
     hostName = "tankstelle";
-    domain = "pub.solar";
     enableIPv6 = true;
     defaultGateway = {
       address = "80.244.242.1";
