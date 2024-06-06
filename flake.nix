@@ -119,19 +119,19 @@
 
           deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
             nachtigall = {
-              hostname = "10.7.6.1";
+              hostname = "nachtigall.wg.pub.solar";
               sshUser = username;
             };
             flora-6 = {
-              hostname = "10.7.6.2";
+              hostname = "flora-6.wg.pub.solar";
               sshUser = username;
             };
             metronom = {
-              hostname = "10.7.6.3";
+              hostname = "metronom.wg.pub.solar";
               sshUser = username;
             };
             tankstelle = {
-              hostname = "80.244.242.5";
+              hostname = "tankstelle.wg.pub.solar";
               sshUser = username;
             };
           };
