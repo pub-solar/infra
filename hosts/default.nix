@@ -68,6 +68,8 @@
           self.nixosModules.unlock-zfs-on-boot
           self.nixosModules.core
           self.nixosModules.mail
+          self.nixosModules.prometheus-exporters
+          self.nixosModules.promtail
 
           self.inputs.simple-nixos-mailserver.nixosModule
         ];

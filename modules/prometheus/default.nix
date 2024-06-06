@@ -53,6 +53,12 @@
               instance = "nachtigall";
             };
           }
+          {
+            targets = [ "metronom.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}" ];
+            labels = {
+              instance = "metronom";
+            };
+          }
         ];
       }
       {

@@ -28,6 +28,16 @@
             "fd00:fae:fae:fae:fae:1::/96"
           ];
         }
+        {
+          # metronom.pub.solar
+          endpoint = "49.13.236.167:51820";
+          publicKey = "zOSYGO7MfnOOUnzaTcWiKRQM0qqxR3JQrwx/gtEtHmo=";
+          allowedIPs = [
+            "10.7.6.3/32"
+            "fd00:fae:fae:fae:fae:3::/96"
+          ];
+          persistentKeepalive = 15;
+        }
       ];
     };
   };
