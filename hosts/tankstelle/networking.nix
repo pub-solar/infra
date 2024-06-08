@@ -35,7 +35,4 @@
       ];
     };
   };
-
-  # TODO: ssh via wireguard only
-  services.openssh.openFirewall = true;
 }
