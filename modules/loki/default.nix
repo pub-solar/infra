@@ -33,9 +33,36 @@
           };
         };
       };
+      ingester = {
+        chunk_encoding = "snappy";
+        chunk_idle_period = "1h";
+      };
+      query_range = {
+        results_cache = {
+          cache = {
+            embedded_cache = {
+              enabled = true;
+              max_size_mb = 500;
+            };
+          };
+        };
+      };
+      chunk_store_config = {
+        max_look_back_period = "0s";
+        chunk_cache_config = {
+          embedded_cache = {
+            enabled = true;
+            max_size_mb = 500;
+            ttl = "24h";
+          };
+        };
+      };
       # Keep logs for 4 weeks
       # https://grafana.com/docs/loki/latest/operations/storage/retention/
-      limits_config.retention_period = "4w";
+      limits_config = {
+        retention_period = "4w";
+        split_queries_by_interval = "0";
+      };
       compactor = {
         shared_store = "filesystem";
         compaction_interval = "10m";
