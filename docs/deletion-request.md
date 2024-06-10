@@ -4,13 +4,13 @@
 
 Required:
 
-- auth.pub.solar ops user credentials
+- auth.pub.solar `admin-cli` service user credentials
 - [SSH access to host `nachtigall`](./administrative-access.md#ssh-access)
 
 Run each of the following after SSH'ing to `nachtigall`:
 
 ```
-sudo --user keycloak kcadm.sh config credentials --config /tmp/kcadm.config --server http://localhost:8080 --realm pub.solar --user ops
+sudo --user keycloak kcadm.sh config credentials --config /tmp/kcadm.config --server http://localhost:8080 --realm pub.solar --client admin-cli
 
 # Take note of user id in response from following command
 sudo --user keycloak kcadm.sh get --config /tmp/kcadm.config users --realm pub.solar --query email=<email-address>

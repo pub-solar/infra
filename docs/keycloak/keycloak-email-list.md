@@ -4,7 +4,6 @@
 
 Required:
 
-- auth.pub.solar ops user credentials
 - auth.pub.solar admin-cli service user credentials
 - [SSH access to host `nachtigall`](../administrative-access.md#ssh-access)
 
