@@ -41,14 +41,14 @@
     };
   };
 
-  #services.openssh.listenAddresses = [
-  #  {
-  #    addr = "10.7.6.4";
-  #    port = 22;
-  #  }
-  #  {
-  #    addr = "[fd00:fae:fae:fae:fae:4::]";
-  #    port = 22;
-  #  }
-  #];
+  services.openssh.listenAddresses = [
+    {
+      addr = "10.7.6.4";
+      port = 22;
+    }
+    {
+      addr = "[fd00:fae:fae:fae:fae:4::]";
+      port = 22;
+    }
+  ];
 }
