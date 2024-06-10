@@ -5,11 +5,11 @@
 Required:
 
 - auth.pub.solar ops user credentials
-- SSH access to host nachtigall
+- [SSH access to host `nachtigall`](./administrative-access.md#ssh-access)
+
+Run each of the following after SSH'ing to `nachtigall`:
 
 ```
-ssh barkeeper@nachtigall.pub.solar
-
 sudo --user keycloak kcadm.sh config credentials --config /tmp/kcadm.config --server http://localhost:8080 --realm pub.solar --user ops
 
 # Take note of user id in response from following command
@@ -26,7 +26,6 @@ Docs: https://www.keycloak.org/docs/latest/server_admin/index.html#updating-a-us
 ### Nextcloud
 
 ```
-ssh barkeeper@nachtigall.pub.solar
 nextcloud-occ user:delete <username>
 ```
 
@@ -35,7 +34,6 @@ Docs: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server
 ### Mastodon
 
 ```
-ssh barkeeper@nachtigall.pub.solar
 sudo -u mastodon mastodon-tootctl accounts delete --email <mail-address>
 ```
 
@@ -44,7 +42,6 @@ Docs: https://docs.joinmastodon.org/admin/tootctl/#accounts-delete
 ### Forgejo
 
 ```
-ssh barkeeper@nachtigall.pub.solar
 sudo -u gitea gitea admin user delete --config /var/lib/forgejo/custom/conf/app.ini --purge --email <mail-address>
 ```
 
@@ -53,7 +50,6 @@ Docs: https://forgejo.org/docs/latest/admin/command-line/#delete
 ### Matrix
 
 ```
-ssh bartender@matrix.pub.solar -p 2020
 curl --header "Authorization: Bearer <admin-access-token>" --request POST http://172.18.0.3:8008/_synapse/admin/v1/deactivate/@<username>:pub.solar --data '{"erase": true}'
 ```
 

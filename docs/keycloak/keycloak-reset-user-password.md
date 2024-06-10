@@ -5,11 +5,11 @@
 Required:
 
 - auth.pub.solar ops user credentials
-- SSH access to host nachtigall
+- [SSH access to host `nachtigall`](../administrative-access.md#ssh-access)
+
+Run the following after SSH'ing to `nachtigall`:
 
 ```
-ssh barkeeper@nachtigall.pub.solar
-
 mkdir /tmp/keycloak-credential-reset
 
 sudo --user keycloak kcadm.sh config credentials --config /tmp/kcadm.config --server http://localhost:8080 --realm pub.solar --user ops

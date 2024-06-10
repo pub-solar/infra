@@ -5,15 +5,12 @@
 Required:
 
 - auth.pub.solar admin-cli service user credentials
-- SSH access to host nachtigall
+- [SSH access to host `nachtigall`](../administrative-access.md#ssh-access)
 
-```
-ssh barkeeper@nachtigall.wg.pub.solar
-```
+Run following after SSH'ing to `nachtigall`.
 
-Credentials for the following command are in keepass.
-
-Create keycloak config/credentials file at `/tmp/kcadm.config`:
+Credentials for the following command are in keepass. Create a keycloak
+config/credentials file at `/tmp/kcadm.config`:
 
 ```
 sudo --user keycloak kcadm.sh config credentials \
