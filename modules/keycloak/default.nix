@@ -52,7 +52,6 @@
         http-host = "127.0.0.1";
         http-port = 8080;
         proxy = "edge";
-        features = "declarative-user-profile";
       };
       themes = {
         "pub.solar" =

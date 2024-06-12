@@ -64,8 +64,8 @@
         split_queries_by_interval = "0";
       };
       compactor = {
-        shared_store = "filesystem";
         compaction_interval = "10m";
+        delete_request_store = "filesystem";
         retention_enabled = true;
         retention_delete_delay = "2h";
         retention_delete_worker_count = 150;
@@ -77,6 +77,16 @@
             store = "boltdb-shipper";
             object_store = "filesystem";
             schema = "v11";
+            index = {
+              prefix = "index_";
+              period = "24h";
+            };
+          }
+          {
+            from = "2024-05-31";
+            store = "tsdb";
+            object_store = "filesystem";
+            schema = "v13";
             index = {
               prefix = "index_";
               period = "24h";

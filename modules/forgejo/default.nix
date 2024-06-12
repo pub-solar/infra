@@ -163,7 +163,7 @@
   # gitea gitconfig
   programs.gnupg.agent = {
     enable = true;
-    pinentryFlavor = "curses";
+    pinentryPackage = pkgs.pinentry-curses;
   };
   # Required to make gpg work without a graphical environment?
   # otherwise generating a new gpg key fails with this error:

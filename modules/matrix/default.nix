@@ -270,18 +270,18 @@ in
     ];
 
     plugins = [ config.services.matrix-synapse.package.plugins.matrix-synapse-shared-secret-auth ];
+  };
 
-    sliding-sync = {
-      enable = true;
-      settings = {
-        SYNCV3_SERVER = "https://${publicDomain}";
-        SYNCV3_BINDADDR = "127.0.0.1:8011";
-        # The bind addr for Prometheus metrics, which will be accessible at
-        # /metrics at this address
-        SYNCV3_PROM = "127.0.0.1:9100";
-      };
-      environmentFile = config.age.secrets."matrix-synapse-sliding-sync-secret".path;
+  services.matrix-sliding-sync = {
+    enable = true;
+    settings = {
+      SYNCV3_SERVER = "https://${publicDomain}";
+      SYNCV3_BINDADDR = "127.0.0.1:8011";
+      # The bind addr for Prometheus metrics, which will be accessible at
+      # /metrics at this address
+      SYNCV3_PROM = "127.0.0.1:9100";
     };
+    environmentFile = config.age.secrets."matrix-synapse-sliding-sync-secret".path;
   };
 
   services.restic.backups.matrix-synapse-storagebox = {
