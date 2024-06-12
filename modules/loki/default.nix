@@ -48,7 +48,6 @@
         };
       };
       chunk_store_config = {
-        max_look_back_period = "0s";
         chunk_cache_config = {
           embedded_cache = {
             enabled = true;
