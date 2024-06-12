@@ -39,8 +39,9 @@
     element-stickers.inputs.maunium-stickerpicker.follows = "maunium-stickerpicker";
     element-stickers.inputs.nixpkgs.follows = "nixpkgs";
 
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.11";
-    simple-nixos-mailserver.inputs.nixpkgs-23_11.follows = "nixpkgs";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.05";
+    simple-nixos-mailserver.inputs.nixpkgs-24_05.follows = "nixpkgs";
+    simple-nixos-mailserver.inputs.nixpkgs.follows = "unstable";
   };
 
   outputs =
