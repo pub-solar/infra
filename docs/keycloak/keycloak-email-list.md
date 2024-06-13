@@ -4,12 +4,12 @@
 
 Required:
 
-- auth.pub.solar ops user credentials
-- SSH access to host nachtigall
+- auth.pub.solar admin-cli service user credentials
+- [SSH access to host `nachtigall`](../administrative-access.md#ssh-access)
+
+Run following after SSH'ing to `nachtigall`:
 
 ```
-ssh barkeeper@nachtigall.pub.solar
-
 sudo --user keycloak kcadm.sh get users \
   -r pub.solar \
   --offset 0 \

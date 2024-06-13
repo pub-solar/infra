@@ -11,10 +11,9 @@ Next, push your changes to https://git.pub.solar and get them reviewed and
 approved.
 
 After approval, create a fresh backup of the database and deploy the changes to
-`nachtigall`:
+`nachtigall`. Run the following after [SSH'ing to `nachtigall`](./administrative-access.md#ssh-access):
 
 ```
-ssh barkeeper@nachtigall.pub.solar
 sudo -u postgres pg_dump --create -Fc mediawiki > mediawiki-db-$(date +%F).dump
 exit
 ```
@@ -23,10 +22,9 @@ exit
 deploy --targets '.#nachtigall'
 ```
 
-Then, finalize the update by running the database migration script:
+Then, finalize the update by running the database migration script (in a [SSH](./administrative-access.md#ssh-access) shell on `nachtigall`):
 
 ```
-ssh barkeeper@nachtigall.pub.solar
 docker exec -it mediawiki bash
 php maintenance/run.php update.php
 ```

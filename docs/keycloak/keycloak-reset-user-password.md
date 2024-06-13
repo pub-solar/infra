@@ -4,15 +4,15 @@
 
 Required:
 
-- auth.pub.solar ops user credentials
-- SSH access to host nachtigall
+- auth.pub.solar admin-cli service user credentials
+- [SSH access to host `nachtigall`](../administrative-access.md#ssh-access)
+
+Run the following after SSH'ing to `nachtigall`:
 
 ```
-ssh barkeeper@nachtigall.pub.solar
-
 mkdir /tmp/keycloak-credential-reset
 
-sudo --user keycloak kcadm.sh config credentials --config /tmp/kcadm.config --server http://localhost:8080 --realm pub.solar --user ops
+sudo --user keycloak kcadm.sh config credentials --config /tmp/kcadm.config --server http://localhost:8080 --realm pub.solar --client admin-cli
 
 sudo --user keycloak kcadm.sh get --config /tmp/kcadm.config users --realm pub.solar | jq --raw-output '.[] | .id' > /tmp/keycloak-credential-reset/all-uuids
 
