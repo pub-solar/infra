@@ -141,16 +141,22 @@ in
           ssl = true;
         }
       ];
-      root = "/dev/null";
+      root = "/srv/nginx";
       extraConfig = ''
         server_tokens off;
 
         gzip on;
         gzip_types text/plain application/json;
       '';
+      locations."/maintenance.html" = {
+      };
       locations."/" = {
-        proxyPass = "http://127.0.0.1:8008";
         extraConfig = ''
+          if (-f $document_root/maintenance.html) {
+            return 503;
+          }
+          error_page 503 /maintenance.html;
+          proxy_pass http://127.0.0.1:8008;
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
