@@ -13,6 +13,7 @@
               in
               {
                 forgejo-runner = unstable.forgejo-runner;
+                forgejo = unstable.forgejo;
                 prometheus-node-exporter = unstable.prometheus-node-exporter;
                 element-themes = prev.callPackage ./pkgs/element-themes { inherit (inputs) element-themes; };
                 element-stickerpicker = prev.callPackage ./pkgs/element-stickerpicker {
