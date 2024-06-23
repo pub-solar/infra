@@ -35,6 +35,11 @@
   # https://nixos.wiki/wiki/ZFS#declarative_mounting_of_ZFS_datasets
   systemd.services.zfs-mount.enable = false;
 
+  services.zfs.autoScrub = {
+    enable = true;
+    pools = [ "root_pool" ];
+  };
+
   # Declarative SSH private key
   age.secrets."nachtigall-root-ssh-key" = {
     file = "${flake.self}/secrets/nachtigall-root-ssh-key.age";
