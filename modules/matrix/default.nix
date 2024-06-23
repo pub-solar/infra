@@ -108,8 +108,6 @@ in
       instance_map = { };
       limit_profile_requests_to_users_who_share_rooms = false;
 
-      log_config = ./matrix-log-config.yaml;
-
       max_spider_size = "10M";
       max_upload_size = "50M";
       media_storage_providers = [ ];

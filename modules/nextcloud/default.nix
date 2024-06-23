@@ -97,7 +97,8 @@
       activity_expire_days = "14";
       integrity.check.disabled = false;
       updater.release.channel = "stable";
-      loglevel = 0;
+      loglevel = 2;
+      debug = false;
       maintenance_window_start = "1";
       # maintenance = false;
       app_install_overwrite = [
@@ -111,6 +112,10 @@
 
     phpOptions = {
       "opcache.interned_strings_buffer" = "32";
+      "opcache.max_accelerated_files" = "16229";
+      "opcache.memory_consumption" = "256";
+      # https://docs.nextcloud.com/server/latest/admin_manual/installation/server_tuning.html#enable-php-opcache
+      "opcache.revalidate_freq" = "60";
       # https://docs.nextcloud.com/server/latest/admin_manual/installation/server_tuning.html#:~:text=opcache.jit%20%3D%201255%20opcache.jit_buffer_size%20%3D%20128m
       "opcache.jit" = "1255";
       "opcache.jit_buffer_size" = "128M";
