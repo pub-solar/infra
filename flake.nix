@@ -1,7 +1,7 @@
 {
   inputs = {
     # Track channels with commits tested and built by hydra
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixpkgs-2205.url = "github:nixos/nixpkgs/nixos-22.05";
@@ -9,7 +9,7 @@
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -39,8 +39,9 @@
     element-stickers.inputs.maunium-stickerpicker.follows = "maunium-stickerpicker";
     element-stickers.inputs.nixpkgs.follows = "nixpkgs";
 
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.11";
-    simple-nixos-mailserver.inputs.nixpkgs-23_11.follows = "nixpkgs";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.05";
+    simple-nixos-mailserver.inputs.nixpkgs-24_05.follows = "nixpkgs";
+    simple-nixos-mailserver.inputs.nixpkgs.follows = "unstable";
   };
 
   outputs =

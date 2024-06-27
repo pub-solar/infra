@@ -31,7 +31,6 @@
     https = true;
     secretFile = config.age.secrets."nextcloud-secrets".path; # secret
     maxUploadSize = "1G";
-    skeletonDirectory = "./nextcloud-skeleton";
 
     configureRedis = true;
 
@@ -47,11 +46,11 @@
       dbtype = "pgsql";
       dbname = "nextcloud";
       dbtableprefix = "oc_";
-      overwriteProtocol = "https";
     };
 
-    extraOptions = {
+    settings = {
       overwrite.cli.url = "http://cloud.${config.pub-solar-os.networking.domain}";
+      overwriteprotocol = "https";
 
       installed = true;
       default_phone_region = "+49";
@@ -92,7 +91,7 @@
 
       auth.bruteforce.protection.enabled = true;
       trashbin_retention_obligation = "auto,7";
-      skeletondirectory = "";
+      skeletondirectory = "./nextcloud-skeleton";
       defaultapp = "file";
       activity_expire_days = "14";
       integrity.check.disabled = false;
