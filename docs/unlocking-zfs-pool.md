@@ -6,13 +6,13 @@ accessing the server via SSH as user `root` on port 2222.
 Nachtigall:
 
 ```
-ssh root@nachtigall.pub.solar -p2222
+ssh -4 root@nachtigall.pub.solar -p2222
 ```
 
 Metronom:
 
 ```
-ssh root@metronom.pub.solar -p2222
+ssh -4 root@metronom.pub.solar -p2222
 ```
 
 After connecting, paste the encryption passphrase you can find in the shared
