@@ -360,22 +360,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-head": {
-      "locked": {
-        "lastModified": 1720453862,
-        "narHash": "sha256-iQcYpFRFzQV/lN6eqrHWMKmMMkGbJl3eY+piZ67ZKqU=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "acbecbb607c70bddfc5938b61cedbff3cfb1fc39",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "release-24.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1719876945,
@@ -402,7 +386,6 @@
         "nixos-flake": "nixos-flake",
         "nixpkgs": "nixpkgs",
         "nixpkgs-2205": "nixpkgs-2205",
-        "nixpkgs-head": "nixpkgs-head",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "triton-vmtools": "triton-vmtools",
         "unstable": "unstable"
