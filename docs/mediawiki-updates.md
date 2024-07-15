@@ -4,7 +4,7 @@ See the [mediawiki-oidc-docker repository](https://git.pub.solar/pub-solar/media
 for instructions on updating our customized mediawiki docker image.
 
 To deploy a new docker image to `nachtigall`, first bump the mediawiki version
-of the docker image tag in `hosts/nachtigall/apps/mediawiki.nix` (search for
+of the docker image tag in `modules/mediawiki/default.nix` (search for
 `image`).
 
 Next, push your changes to https://git.pub.solar and get them reviewed and
@@ -19,7 +19,7 @@ exit
 ```
 
 ```
-deploy --targets '.#nachtigall'
+deploy --targets '.#nachtigall' --magic-rollback false --auto-rollback false --keep-result --result-path ./results
 ```
 
 Then, finalize the update by running the database migration script (in a [SSH](./administrative-access.md#ssh-access) shell on `nachtigall`):
