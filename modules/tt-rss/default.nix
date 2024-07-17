@@ -1,17 +1,20 @@
 {
   flake,
   config,
-  lib,
   pkgs,
   ...
 }: let
   ttrss-auth-oidc = pkgs.stdenv.mkDerivation {
     name = "ttrss-auth-oidc";
     version = "7ebfbc91e92bb133beb907c6bde79279ee5156df";
-    src = fetchGit {
+    src = pkgs.fetchgit {
       url = "https://gitlab.tt-rss.org/tt-rss/plugins/ttrss-auth-oidc.git";
-      hash = "";
+      hash = "sha256-G6vZBvSWms6s6nHZWsxJjMGuubt/imiBvbp6ykwrZbg=";
     };
+    installPhase = ''
+      mkdir -p $out
+      cp -r * $out
+    '';
   };
 in {
   age.secrets.tt-rss-database-password = {
@@ -38,17 +41,11 @@ in {
   services.nginx.virtualHosts."rss.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
-
-    locations."/".extraConfig = ''
-      uwsgi_pass unix:/run/searx/searx.sock;
-    '';
   };
-
-  users.users.nginx.extraGroups = [ "searx" ];
 
   services.tt-rss = {
     enable = true;
-    feedCryptKey = "";
+    virtualHost = "rss.${config.pub-solar-os.networking.domain}";
     selfUrlPath = "https://rss.${config.pub-solar-os.networking.domain}";
     root = "/var/lib/tt-rss";
     plugins = [
@@ -76,8 +73,8 @@ in {
         putenv('TTRSS_AUTH_OIDC_NAME=Keycloak');
         putenv('TTRSS_AUTH_OIDC_URL=https://auth.${config.pub-solar-os.networking.domain}/realms/${config.pub-solar-os.auth.realm}/');
         putenv('TTRSS_AUTH_OIDC_CLIENT_ID=tt-rss');
-        putenv('TTRSS_AUTH_OIDC_CLIENT_SECRET=' . file_get_contents('${config.age.secrets.tt-rss-keycloak-client-secret}'));
-        putenv('TTRSS_FEED_CRYPT_KEY=' . file_get_contents('${config.age.secrets.tt-rss-feed-crypt-key}'));
+        putenv('TTRSS_AUTH_OIDC_CLIENT_SECRET=' . file_get_contents('${config.age.secrets.tt-rss-keycloak-client-secret.path}'));
+        putenv('TTRSS_FEED_CRYPT_KEY=' . file_get_contents('${config.age.secrets.tt-rss-feed-crypt-key.path}'));
     '';
   };
 }
