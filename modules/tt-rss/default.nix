@@ -12,8 +12,8 @@
       hash = "sha256-G6vZBvSWms6s6nHZWsxJjMGuubt/imiBvbp6ykwrZbg=";
     };
     installPhase = ''
-      mkdir -p $out
-      cp -r * $out
+      mkdir -p $out/auth_oidc
+      cp -r * $out/auth_oidc
     '';
   };
 in {
@@ -48,10 +48,11 @@ in {
     virtualHost = "rss.${config.pub-solar-os.networking.domain}";
     selfUrlPath = "https://rss.${config.pub-solar-os.networking.domain}";
     root = "/var/lib/tt-rss";
+    logDestination = "";
     plugins = [
       "auth_internal"
       "note"
-      "ttrss-auth-oidc"
+      "auth_oidc"
     ];
     pluginPackages = [
       ttrss-auth-oidc
@@ -70,7 +71,7 @@ in {
     };
     extraConfig = ''
         putenv('TTRSS_SMTP_PASSWORD=' . file_get_contents('${config.age.secrets.tt-rss-smtp-password.path}'));
-        putenv('TTRSS_AUTH_OIDC_NAME=Keycloak');
+        putenv('TTRSS_AUTH_OIDC_NAME=pub.solar ID');
         putenv('TTRSS_AUTH_OIDC_URL=https://auth.${config.pub-solar-os.networking.domain}/realms/${config.pub-solar-os.auth.realm}/');
         putenv('TTRSS_AUTH_OIDC_CLIENT_ID=tt-rss');
         putenv('TTRSS_AUTH_OIDC_CLIENT_SECRET=' . file_get_contents('${config.age.secrets.tt-rss-keycloak-client-secret.path}'));

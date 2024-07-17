@@ -10,9 +10,12 @@ let
   webserverGroup = "hakkonaut";
 in
 {
+  users.users.nginx.extraGroups = [
+    webserverGroup
+  ];
+
   services.nginx = {
     enable = true;
-    group = webserverGroup;
     enableReload = true;
     proxyCachePath.cache = {
       enable = true;
