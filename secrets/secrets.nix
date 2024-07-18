@@ -74,6 +74,11 @@ in
   "obs-portal-env.age".publicKeys = nachtigallKeys ++ adminKeys;
   "obs-portal-database-env.age".publicKeys = nachtigallKeys ++ adminKeys;
 
+  "tt-rss-feed-crypt-key.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "tt-rss-keycloak-client-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "tt-rss-smtp-password.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "tt-rss-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
+
   # mail
   "mail/hensoko.age".publicKeys = metronomKeys ++ adminKeys;
   "mail/teutat3s.age".publicKeys = metronomKeys ++ adminKeys;

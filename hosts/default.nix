@@ -33,6 +33,7 @@
           self.nixosModules.promtail
           self.nixosModules.searx
           self.nixosModules.tmate
+          self.nixosModules.tt-rss
           self.nixosModules.obs-portal
           self.nixosModules.matrix
           self.nixosModules.matrix-irc

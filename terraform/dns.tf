@@ -85,6 +85,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "nachtigall.pub.solar."
   }
   record {
+    hostname = "rss"
+    type     = "CNAME"
+    address  = "nachtigall.pub.solar."
+  }
+  record {
     hostname = "stream"
     type     = "CNAME"
     address  = "nachtigall.pub.solar."
