@@ -3,7 +3,8 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   ttrss-auth-oidc = pkgs.stdenv.mkDerivation {
     name = "ttrss-auth-oidc";
     version = "7ebfbc91e92bb133beb907c6bde79279ee5156df";
@@ -16,7 +17,8 @@
       cp -r * $out/auth_oidc
     '';
   };
-in {
+in
+{
   age.secrets.tt-rss-database-password = {
     file = "${flake.self}/secrets/tt-rss-database-password.age";
     owner = "tt_rss";
@@ -54,9 +56,7 @@ in {
       "note"
       "auth_oidc"
     ];
-    pluginPackages = [
-      ttrss-auth-oidc
-    ];
+    pluginPackages = [ ttrss-auth-oidc ];
     email = {
       server = "mail.pub.solar";
       security = "tls";
@@ -70,12 +70,12 @@ in {
       createLocally = true;
     };
     extraConfig = ''
-        putenv('TTRSS_SMTP_PASSWORD=' . file_get_contents('${config.age.secrets.tt-rss-smtp-password.path}'));
-        putenv('TTRSS_AUTH_OIDC_NAME=pub.solar ID');
-        putenv('TTRSS_AUTH_OIDC_URL=https://auth.${config.pub-solar-os.networking.domain}/realms/${config.pub-solar-os.auth.realm}/');
-        putenv('TTRSS_AUTH_OIDC_CLIENT_ID=tt-rss');
-        putenv('TTRSS_AUTH_OIDC_CLIENT_SECRET=' . file_get_contents('${config.age.secrets.tt-rss-keycloak-client-secret.path}'));
-        putenv('TTRSS_FEED_CRYPT_KEY=' . file_get_contents('${config.age.secrets.tt-rss-feed-crypt-key.path}'));
+      putenv('TTRSS_SMTP_PASSWORD=' . file_get_contents('${config.age.secrets.tt-rss-smtp-password.path}'));
+      putenv('TTRSS_AUTH_OIDC_NAME=pub.solar ID');
+      putenv('TTRSS_AUTH_OIDC_URL=https://auth.${config.pub-solar-os.networking.domain}/realms/${config.pub-solar-os.auth.realm}/');
+      putenv('TTRSS_AUTH_OIDC_CLIENT_ID=tt-rss');
+      putenv('TTRSS_AUTH_OIDC_CLIENT_SECRET=' . file_get_contents('${config.age.secrets.tt-rss-keycloak-client-secret.path}'));
+      putenv('TTRSS_FEED_CRYPT_KEY=' . file_get_contents('${config.age.secrets.tt-rss-feed-crypt-key.path}'));
     '';
   };
 }

@@ -10,9 +10,7 @@ let
   webserverGroup = "hakkonaut";
 in
 {
-  users.users.nginx.extraGroups = [
-    webserverGroup
-  ];
+  users.users.nginx.extraGroups = [ webserverGroup ];
 
   services.nginx = {
     enable = true;
