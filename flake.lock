@@ -360,6 +360,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-331083-331168": {
+      "locked": {
+        "lastModified": 1722418656,
+        "narHash": "sha256-C0zLS4tb8yulQ61L0FOQJ+Z3NC3GylewegS7oKJunSs=",
+        "owner": "teutat3s",
+        "repo": "nixpkgs",
+        "rev": "65251f43b4564dbd46a71da90e420326749c02a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "teutat3s",
+        "ref": "backport-element-desktop-1.11.72",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1719876945,
@@ -386,6 +402,7 @@
         "nixos-flake": "nixos-flake",
         "nixpkgs": "nixpkgs",
         "nixpkgs-2205": "nixpkgs-2205",
+        "nixpkgs-331083-331168": "nixpkgs-331083-331168",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "triton-vmtools": "triton-vmtools",
         "unstable": "unstable"
