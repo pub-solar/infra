@@ -25,7 +25,7 @@
           };
         };
         replication_factor = 1;
-        path_prefix = "/var/lib/loki";
+        path_prefix = "/data/loki";
         storage = {
           filesystem = {
             chunks_directory = "chunks/";
