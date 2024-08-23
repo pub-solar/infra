@@ -65,6 +65,7 @@
           system,
           pkgs,
           config,
+          lib,
           ...
         }:
         {
@@ -77,6 +78,16 @@
             unstable = import inputs.unstable { inherit system; };
             master = import inputs.master { inherit system; };
           };
+
+          packages = let
+            nixos-lib = import (inputs.nixpkgs + "/nixos/lib") { };
+          in builtins.listToAttrs (
+            map (x: {
+              name = "test-${lib.strings.removeSuffix ".nix" x}";
+              value = nixos-lib.runTest (import (./tests + "/${x}") { inherit self; inherit pkgs; inherit lib; inherit config; });
+            }) (builtins.attrNames (builtins.readDir ./tests))
+          );
+
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs; [
               deploy-rs
