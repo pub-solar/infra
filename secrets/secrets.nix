@@ -21,7 +21,11 @@ let
 
   metronomKeys = [ metronom-host ];
 
-  garageKeys = [ trinkgenossin-host delite-host blue-shell-host ];
+  garageKeys = [
+    trinkgenossin-host
+    delite-host
+    blue-shell-host
+  ];
 in
 {
   # ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBB5XaH02a6+TchnyQED2VwaltPgeFCbildbE2h6nF5e root@nachtigall

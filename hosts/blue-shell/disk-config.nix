@@ -18,9 +18,7 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/boot";
-                mountOptions = [
-                  "defaults"
-                ];
+                mountOptions = [ "defaults" ];
               };
             };
             luks = {
@@ -60,9 +58,7 @@
                   type = "filesystem";
                   format = "xfs";
                   mountpoint = "/var/lib/garage/data";
-                  mountOptions = [
-                    "defaults"
-                  ];
+                  mountOptions = [ "defaults" ];
                 };
               };
             };
@@ -80,9 +76,7 @@
               type = "filesystem";
               format = "ext4";
               mountpoint = "/";
-              mountOptions = [
-                "defaults"
-              ];
+              mountOptions = [ "defaults" ];
             };
           };
           swap = {
@@ -97,9 +91,7 @@
               type = "filesystem";
               format = "btrfs";
               mountpoint = "/var/lib/garage/meta";
-              mountOptions = [
-                "defaults"
-              ];
+              mountOptions = [ "defaults" ];
             };
           };
         };

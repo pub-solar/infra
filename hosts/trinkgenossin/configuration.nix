@@ -7,7 +7,7 @@
 }:
 {
   boot.loader.grub.enable = true;
-  boot.loader.grub.devices = ["/dev/vda"];
+  boot.loader.grub.devices = [ "/dev/vda" ];
 
   boot.kernelParams = [
     "boot.shell_on_fail=1"

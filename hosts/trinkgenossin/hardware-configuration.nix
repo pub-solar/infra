@@ -24,7 +24,7 @@
   boot.extraModulePackages = [ ];
 
   boot.initrd.luks.devices."cryptroot" = {
-   device = "/dev/disk/by-uuid/52a1fd17-63d7-4d0a-b7ff-74aceaf6085a";
+    device = "/dev/disk/by-uuid/52a1fd17-63d7-4d0a-b7ff-74aceaf6085a";
   };
 
   fileSystems."/" = {
@@ -47,9 +47,7 @@
     fsType = "btrfs";
   };
 
-  swapDevices = [
-    { device = "/dev/disk/by-label/swap"; }
-  ];
+  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   virtualisation.hypervGuest.enable = true;
