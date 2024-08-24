@@ -39,6 +39,7 @@ in {
         self.nixosModules.nginx
         self.nixosModules.keycloak
         self.nixosModules.postgresql
+        { virtualisation.memorySize = 4096; services.keycloak.database.createLocally = true; }
         ./support/global.nix
       ];
 
