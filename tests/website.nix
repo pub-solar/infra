@@ -13,12 +13,12 @@
   node.pkgs = pkgs;
   node.specialArgs = self.outputs.nixosConfigurations.nachtigall._module.specialArgs;
 
-  nodes.nachtigall-test = {
+  nodes.nachtigall_test = {
     imports = [
       self.nixosModules.home-manager
       self.nixosModules.core
       self.nixosModules.nginx
-      self.nixosModules.nginx-website
+      self.nixosModules.keycloak
     ];
   };
 
@@ -28,6 +28,7 @@
     nachtigall_test.wait_for_unit("system.slice")
     nachtigall_test.succeed("ping 127.0.0.1 -c 2")
     nachtigall_test.wait_for_unit("nginx.service")
-    nachtigall_test.succeed("curl -H 'Host:pub.solar' http://127.0.0.1/")
+    nachtigall_test.succeed("curl https://test.pub.solar/")
+    nachtigall_test.succeed("curl https://www.test.pub.solar/")
   '';
 }

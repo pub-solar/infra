@@ -6,23 +6,22 @@
   ...
 }:
 {
-  options.pub-solar-os.auth = {
-    enable = lib.mkEnableOption "Enable keycloak to run on the node";
+  options.pub-solar-os.auth = with lib; {
+    enable = mkEnableOption "Enable keycloak to run on the node";
 
-    realm = lib.mkOption {
+    realm = mkOption {
       description = "Name of the realm";
-      type = lib.types.str;
+      type = types.str;
       default = config.pub-solar-os.networking.domain;
+    };
+
+    database-password-file = mkOption {
+      description = "Database password file path";
+      type = types.str;
     };
   };
 
   config = lib.mkIf config.pub-solar-os.auth.enable {
-    age.secrets.keycloak-database-password = {
-      file = "${flake.self}/secrets/keycloak-database-password.age";
-      mode = "600";
-      #owner = "keycloak";
-    };
-
     services.nginx.virtualHosts."auth.${config.pub-solar-os.networking.domain}" = {
       enableACME = true;
       forceSSL = true;
@@ -43,10 +42,14 @@
       };
     };
 
+    nixpkgs.config = lib.mkDefault {
+      permittedInsecurePackages = [ "keycloak-23.0.6" ];
+    };
+
     # keycloak
     services.keycloak = {
       enable = true;
-      database.passwordFile = config.age.secrets.keycloak-database-password.path;
+      database.passwordFile = config.pub-solar-os.auth.database-password-file;
       settings = {
         hostname = "auth.${config.pub-solar-os.networking.domain}";
         http-host = "127.0.0.1";
@@ -59,14 +62,12 @@
       };
     };
 
-    services.restic.backups.keycloak-storagebox = {
+    pub-solar-os.backups.backups.keycloak = {
       paths = [ "/tmp/keycloak-backup.sql" ];
       timerConfig = {
         OnCalendar = "*-*-* 03:00:00 Etc/UTC";
       };
       initialize = true;
-      passwordFile = config.age.secrets."restic-repo-storagebox".path;
-      repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
       backupPrepareCommand = ''
         ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d keycloak > /tmp/keycloak-backup.sql
       '';

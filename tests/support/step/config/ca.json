@@ -1,0 +1,46 @@
+{
+	"federatedRoots": null,
+	"address": ":443",
+	"insecureAddress": "",
+	"dnsNames": [
+		"ca.test.pub.solar"
+	],
+	"logger": {
+		"format": "text"
+	},
+	"db": {
+		"type": "badgerv2",
+		"badgerFileLoadingMode": ""
+	},
+	"authority": {
+		"provisioners": [
+      {
+          "name": "acme",
+          "type": "ACME"
+      },
+			{
+				"type": "JWK",
+				"name": "test.pub.solar",
+				"key": {
+					"use": "sig",
+					"kty": "EC",
+					"kid": "lM-BJXRwwQcdgxLqAS4Za23A2YatZpwXx-PP5NIt8JM",
+					"crv": "P-256",
+					"alg": "ES256",
+					"x": "ouB2mP04Kt8rDa10C8ZzYyzA36rrz-k0c4_ud1hVjyg",
+					"y": "RbXKcudQRPEFqjG_5AxuqCQXn7pyRToQCwC4MrwLVUQ"
+				},
+				"encryptedKey": "eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJjdHkiOiJqd2sranNvbiIsImVuYyI6IkEyNTZHQ00iLCJwMmMiOjYwMDAwMCwicDJzIjoiNWR5T2puR2Y5aFFNRlc1U25fRWhzUSJ9.a3xtSBuMmzZCMsdfHAXMgFpe9bq8A6bGGOoW9F2Gw7AhxL4bG-AlgA.IA68rSJSGTAKnaVS.XDQc4da-8D9Ykfw-8S4uphsauq5gsEm4qp7zKQUIvcjUlnPAtiHP3xiiBie29ncdg8rKmyzprEEOpTNvXtQl7LsPsHXyKV3SqsTnJecvim9YXGDneAHyWe-XF6hyCZAfSoFbFMgLDKR6d44hMht3ueazL_TPlkFUBLrJbsW782MfdfF3nzcaDf_JDuhKsKHDmKqZyNXDzwf6rINe8adrf5gqaLM2_sGhk7i3XyXygn8HHVw1Dj_w2gPOVm4MS7CO_NgikPqAtGuXDhpWZfXte-FlnMO6d9xQF67b0cwB8kmColPSp1zRiCKPAk9vof8Nn-gGE_aw8zxPi0CJkoY.xbuqSSspgLc_Uw17uiRF7Q"
+			}
+		]
+	},
+	"tls": {
+		"cipherSuites": [
+			"TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+			"TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
+		],
+		"minVersion": 1.2,
+		"maxVersion": 1.3,
+		"renegotiation": false
+	}
+}

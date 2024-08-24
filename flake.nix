@@ -81,12 +81,12 @@
 
           packages = let
             nixos-lib = import (inputs.nixpkgs + "/nixos/lib") { };
-          in builtins.listToAttrs (
-            map (x: {
-              name = "test-${lib.strings.removeSuffix ".nix" x}";
-              value = nixos-lib.runTest (import (./tests + "/${x}") { inherit self; inherit pkgs; inherit lib; inherit config; });
-            }) (builtins.attrNames (builtins.readDir ./tests))
-          );
+            testDir = builtins.attrNames (builtins.readDir ./tests);
+            testFiles = builtins.filter (n: builtins.match "^.*.nix$" n != null) testDir;
+          in builtins.listToAttrs (map (x: {
+            name = "test-${lib.strings.removeSuffix ".nix" x}";
+            value = nixos-lib.runTest (import (./tests + "/${x}") { inherit self; inherit pkgs; inherit lib; inherit config; });
+          }) testFiles);
 
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs; [
@@ -106,6 +106,7 @@
               jq
             ];
           };
+
           devShells.ci = pkgs.mkShell { buildInputs = with pkgs; [ nodejs ]; };
         };
 
