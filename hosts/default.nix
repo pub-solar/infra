@@ -87,6 +87,21 @@
           self.nixosModules.promtail
         ];
       };
+
+      trinkgenossin = self.nixos-flake.lib.mkLinuxSystem {
+        imports = [
+          self.inputs.agenix.nixosModules.default
+          self.nixosModules.home-manager
+          ./trinkgenossin
+          self.nixosModules.overlays
+          self.nixosModules.unlock-luks-on-boot
+          self.nixosModules.core
+          #self.nixosModules.prometheus-exporters
+          #self.nixosModules.promtail
+
+          self.nixosModules.garage
+        ];
+      };
     };
   };
 }
