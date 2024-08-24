@@ -5,6 +5,9 @@ let
   flora-6-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGP1InpTBN4AlF/4V8HHumAMLJzeO8DpzjUv9Co/+J09 root@flora-6";
   metronom-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICLX6UvvrKALKL0xsNnytLPHryzZF5evUnxAgGokf14i root@metronom";
   tankstelle-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdF6cJKPDiloWiDja1ZtqkXDdXOCHPs10HD+JMzgeU4 root@tankstelle";
+  trinkgenossin-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDZXRDpom/LtyoCxvRuoONARKxIT6wNUwEyUjzHRE7DG root@trinkgenossin";
+  delite-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAKo7zlfQhcJ5/okFTOoOstZtmEL1iNlHxQ4q2baEcWT root@delite";
+  blue-shell-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP9g9X0a/MaVtbh44IeLxcq+McuYec0GYAdLsseBpk5f root@blue-shell";
 
   adminKeys = builtins.foldl' (
     keys: login: keys ++ (builtins.attrValues login.secretEncryptionKeys)
@@ -17,6 +20,8 @@ let
   flora6Keys = [ flora-6-host ];
 
   metronomKeys = [ metronom-host ];
+
+  garageKeys = [ trinkgenossin-host delite-host blue-shell-host ];
 in
 {
   # ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBB5XaH02a6+TchnyQED2VwaltPgeFCbildbE2h6nF5e root@nachtigall
@@ -87,4 +92,8 @@ in
   "mail/crew.age".publicKeys = metronomKeys ++ adminKeys;
   "mail/erpnext.age".publicKeys = metronomKeys ++ adminKeys;
   "mail/hakkonaut.age".publicKeys = metronomKeys ++ adminKeys;
+
+  # garage
+  "garage-rpc-secret.age".publicKeys = garageKeys ++ adminKeys;
+  "garage-admin-token.age".publicKeys = garageKeys ++ adminKeys;
 }
