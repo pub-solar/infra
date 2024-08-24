@@ -35,7 +35,7 @@
     }
   ];
 
-  networking.interfaces.eth0.useDHCP = false;
+  networking.useDHCP = false;
 
   networking.hosts = {
     "192.168.1.1" = [ "ca.${config.pub-solar-os.networking.domain}" ];
