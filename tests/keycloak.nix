@@ -64,6 +64,7 @@ in {
 
   testScript = ''
     start_all()
+    join_all()
 
     nachtigall.wait_for_unit("system.slice")
     nachtigall.succeed("ping 127.0.0.1 -c 2")

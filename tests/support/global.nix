@@ -12,6 +12,29 @@
     (builtins.readFile ./step/certs/root_ca.crt)
   ];
 
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      PermitRootLogin = lib.mkForce "yes";
+      PermitEmptyPasswords = lib.mkForce "yes";
+      PasswordAuthentication = lib.mkForce true;
+    };
+  };
+
+  security.pam.services.sshd.allowNullPassword = true;
+
+  virtualisation.forwardPorts = let
+    address = (builtins.elemAt config.networking.interfaces.eth0.ipv4.addresses 0).address;
+    lastAddressPart = builtins.elemAt (lib.strings.splitString "." address) 3;
+  in [
+    {
+      from = "host";
+      host.port = 2000 + (lib.strings.toInt lastAddressPart);
+      guest.port = 22;
+    }
+  ];
+
   networking.interfaces.eth0.useDHCP = false;
 
   networking.hosts = {
