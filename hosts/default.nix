@@ -96,8 +96,8 @@
           self.nixosModules.overlays
           self.nixosModules.unlock-luks-on-boot
           self.nixosModules.core
-          #self.nixosModules.prometheus-exporters
-          #self.nixosModules.promtail
+          self.nixosModules.prometheus-exporters
+          self.nixosModules.promtail
 
           self.nixosModules.garage
           self.nixosModules.nginx

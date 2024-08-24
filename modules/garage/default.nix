@@ -27,6 +27,8 @@
     3902
   ];
 
+  networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ 3903 ];
+
   security.acme = {
     defaults = {
       environmentFile = config.age.secrets.acme-namecheap-env.path;
@@ -59,7 +61,7 @@
       "[::1]:3902" = { };
     };
     virtualHosts."buckets.${config.pub-solar-os.networking.domain}" = {
-      serverAliases = ["*.buckets.${config.pub-solar-os.networking.domain}"];
+      serverAliases = [ "*.buckets.${config.pub-solar-os.networking.domain}" ];
 
       enableACME = true;
       forceSSL = true;
@@ -72,7 +74,7 @@
       };
     };
     virtualHosts."web.${config.pub-solar-os.networking.domain}" = {
-      serverAliases = ["*.web.${config.pub-solar-os.networking.domain}"];
+      serverAliases = [ "*.web.${config.pub-solar-os.networking.domain}" ];
 
       enableACME = true;
       forceSSL = true;
@@ -102,6 +104,9 @@
         bind_addr = "[::]:3902";
         root_domain = ".web.${config.pub-solar-os.networking.domain}";
         index = "index.html";
+      };
+      admin = {
+        api_bind_addr = "[::]:3903";
       };
     };
   };
