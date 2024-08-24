@@ -60,6 +60,36 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "49.13.236.167"
   }
   record {
+    hostname = "trinkgenossin"
+    type     = "A"
+    address  = "85.215.152.22"
+  }
+  record {
+    hostname = "trinkgenossin"
+    type     = "AAAA"
+    address  = "2a01:239:35d:f500::1"
+  }
+  record {
+    hostname = "delite"
+    type     = "A"
+    address  = "5.255.119.132"
+  }
+  record {
+    hostname = "delite"
+    type     = "AAAA"
+    address  = "2a04:52c0:124:9d8c::2"
+  }
+  record {
+    hostname = "blue-shell"
+    type     = "A"
+    address  = "194.13.83.205"
+  }
+  record {
+    hostname = "blue-shell"
+    type     = "AAAA"
+    address  = "2a03:4000:43:24e::1"
+  }
+  record {
     hostname = "auth"
     type     = "CNAME"
     address  = "nachtigall.pub.solar."
