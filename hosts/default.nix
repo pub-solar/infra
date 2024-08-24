@@ -102,6 +102,22 @@
           self.nixosModules.garage
         ];
       };
+
+      delite = self.nixos-flake.lib.mkLinuxSystem {
+        imports = [
+          self.inputs.agenix.nixosModules.default
+          self.inputs.disko.nixosModules.disko
+          self.nixosModules.home-manager
+          ./delite
+          self.nixosModules.overlays
+          self.nixosModules.unlock-luks-on-boot
+          self.nixosModules.core
+          #self.nixosModules.prometheus-exporters
+          #self.nixosModules.promtail
+
+          self.nixosModules.garage
+        ];
+      };
     };
   };
 }
