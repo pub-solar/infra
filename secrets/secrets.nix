@@ -21,6 +21,12 @@ let
 
   metronomKeys = [ metronom-host ];
 
+  trinkgenossinKeys = [ trinkgenossin-host ];
+
+  deliteKeys = [ delite-host ];
+
+  blueshellKeys = [ blue-shell-host ];
+
   garageKeys = [
     trinkgenossin-host
     delite-host
@@ -35,6 +41,9 @@ in
   "tankstelle-wg-private-key.age".publicKeys = tankstelleKeys ++ adminKeys;
   "flora6-wg-private-key.age".publicKeys = flora6Keys ++ adminKeys;
   "metronom-wg-private-key.age".publicKeys = metronomKeys ++ adminKeys;
+  "trinkgenossin-wg-private-key.age".publicKeys = trinkgenossinKeys ++ adminKeys;
+  "delite-wg-private-key.age".publicKeys = deliteKeys ++ adminKeys;
+  "blue-shell-wg-private-key.age".publicKeys = blueshellKeys ++ adminKeys;
 
   "mastodon-secret-key-base.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mastodon-otp-secret.age".publicKeys = nachtigallKeys ++ adminKeys;

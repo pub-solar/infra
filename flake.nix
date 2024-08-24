@@ -139,15 +139,15 @@
               sshUser = username;
             };
             trinkgenossin = {
-              #hostname = "trinkgenossin.wg.pub.solar";
+              hostname = "trinkgenossin.wg.pub.solar";
               sshUser = username;
             };
             delite = {
-              #hostname = "delite.wg.pub.solar";
+              hostname = "delite.wg.pub.solar";
               sshUser = username;
             };
             blue-shell = {
-              #hostname = "delite.wg.pub.solar";
+              hostname = "blue-shell.wg.pub.solar";
               sshUser = username;
             };
           };

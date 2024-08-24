@@ -25,6 +25,21 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "10.7.6.4"
   }
   record {
+    hostname = "trinkgenossin.wg"
+    type     = "A"
+    address  = "10.7.6.5"
+  }
+  record {
+    hostname = "delite.wg"
+    type     = "A"
+    address  = "10.7.6.6"
+  }
+  record {
+    hostname = "blue-shell.wg"
+    type     = "A"
+    address  = "10.7.6.7"
+  }
+  record {
     hostname = "nachtigall.wg"
     type     = "AAAA"
     address  = "fd00:fae:fae:fae:fae:1::"
@@ -43,6 +58,21 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "tankstelle.wg"
     type     = "AAAA"
     address  = "fd00:fae:fae:fae:fae:4::"
+  }
+  record {
+    hostname = "trinkgenossin.wg"
+    type     = "AAAA"
+    address  = "fd00:fae:fae:fae:fae:5::"
+  }
+  record {
+    hostname = "delite.wg"
+    type     = "AAAA"
+    address  = "fd00:fae:fae:fae:fae:6::"
+  }
+  record {
+    hostname = "blue-shell.wg"
+    type     = "AAAA"
+    address  = "fd00:fae:fae:fae:fae:7::"
   }
   record {
     hostname = "flora-6"

@@ -6,7 +6,7 @@
     ./configuration.nix
 
     ./networking.nix
-    #./wireguard.nix
+    ./wireguard.nix
     #./backups.nix
   ];
 }
