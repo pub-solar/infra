@@ -100,6 +100,7 @@
           #self.nixosModules.promtail
 
           self.nixosModules.garage
+          self.nixosModules.nginx
         ];
       };
 
@@ -116,6 +117,7 @@
           #self.nixosModules.promtail
 
           self.nixosModules.garage
+          self.nixosModules.nginx
         ];
       };
 
@@ -132,6 +134,7 @@
           #self.nixosModules.promtail
 
           self.nixosModules.garage
+          self.nixosModules.nginx
         ];
       };
     };

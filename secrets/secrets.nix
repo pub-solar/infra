@@ -100,4 +100,6 @@ in
   # garage
   "garage-rpc-secret.age".publicKeys = garageKeys ++ adminKeys;
   "garage-admin-token.age".publicKeys = garageKeys ++ adminKeys;
+
+  "acme-namecheap-env.age".publicKeys = garageKeys ++ adminKeys;
 }

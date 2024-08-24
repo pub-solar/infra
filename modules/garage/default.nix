@@ -16,11 +16,72 @@
     mode = "400";
   };
 
+  age.secrets."acme-namecheap-env" = {
+    file = "${flake.self}/secrets/acme-namecheap-env.age";
+    mode = "400";
+  };
+
   networking.firewall.allowedTCPPorts = [
     3900
     3901
     3902
   ];
+
+  security.acme = {
+    defaults = {
+      environmentFile = config.age.secrets.acme-namecheap-env.path;
+    };
+    certs = {
+      # Wildcard certificate gets created automatically
+      "buckets.${config.pub-solar-os.networking.domain}" = {
+        # disable http challenge
+        webroot = null;
+        # enable dns challenge
+        dnsProvider = "namecheap";
+        dnsPropagationCheck = false;
+      };
+      # Wildcard certificate gets created automatically
+      "web.${config.pub-solar-os.networking.domain}" = {
+        # disable http challenge
+        webroot = null;
+        # enable dns challenge
+        dnsProvider = "namecheap";
+        dnsPropagationCheck = false;
+      };
+    };
+  };
+
+  services.nginx = {
+    upstreams.s3_backend.servers = {
+      "[::1]:3900" = { };
+    };
+    upstreams.web_backend.servers = {
+      "[::1]:3902" = { };
+    };
+    virtualHosts."buckets.${config.pub-solar-os.networking.domain}" = {
+      serverAliases = ["*.buckets.${config.pub-solar-os.networking.domain}"];
+
+      enableACME = true;
+      forceSSL = true;
+
+      locations."/" = {
+        proxyPass = "http://s3_backend";
+        extraConfig = ''
+          proxy_max_temp_file_size 0;
+        '';
+      };
+    };
+    virtualHosts."web.${config.pub-solar-os.networking.domain}" = {
+      serverAliases = ["*.web.${config.pub-solar-os.networking.domain}"];
+
+      enableACME = true;
+      forceSSL = true;
+
+      locations."/" = {
+        proxyPass = "http://web_backend";
+      };
+    };
+  };
 
   services.garage = {
     enable = true;
