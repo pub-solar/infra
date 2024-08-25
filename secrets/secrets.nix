@@ -36,6 +36,8 @@ in
 {
   # ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBB5XaH02a6+TchnyQED2VwaltPgeFCbildbE2h6nF5e root@nachtigall
   "nachtigall-root-ssh-key.age".publicKeys = nachtigallKeys ++ adminKeys;
+  # ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPDeKXqbhNzbXk15h2k8wGBByxMDCC6HE1/fwa4j6ECu root@metronom
+  "metronom-root-ssh-key.age".publicKeys = metronomKeys ++ adminKeys;
 
   "nachtigall-wg-private-key.age".publicKeys = nachtigallKeys ++ adminKeys;
   "tankstelle-wg-private-key.age".publicKeys = tankstelleKeys ++ adminKeys;
@@ -70,8 +72,11 @@ in
 
   "searx-environment.age".publicKeys = nachtigallKeys ++ adminKeys;
 
+  "restic-repo-garage-metronom.age".publicKeys = metronomKeys ++ adminKeys;
+  "restic-repo-garage-metronom-env.age".publicKeys = metronomKeys ++ adminKeys;
   "restic-repo-droppie.age".publicKeys = nachtigallKeys ++ adminKeys;
-  "restic-repo-storagebox.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "restic-repo-storagebox.age".publicKeys = metronomKeys ++ nachtigallKeys ++ adminKeys;
+  "restic-repo-storagebox-metronom.age".publicKeys = metronomKeys ++ adminKeys;
   "restic-repo-garage-nachtigall.age".publicKeys = nachtigallKeys ++ adminKeys;
   "restic-repo-garage-nachtigall-env.age".publicKeys = nachtigallKeys ++ adminKeys;
 

@@ -24,6 +24,14 @@
   };
 
   # Declarative SSH private key
+  age.secrets."metronom-root-ssh-key" = {
+    file = "${flake.self}/secrets/metronom-root-ssh-key.age";
+    path = "/root/.ssh/id_ed25519";
+    mode = "400";
+    owner = "root";
+  };
+
+  # Declarative SSH private key
   #age.secrets."metronom-root-ssh-key" = {
   #  file = "${flake.self}/secrets/metronom-root-ssh-key.age";
   #  path = "/root/.ssh/id_ed25519";
