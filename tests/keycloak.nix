@@ -63,8 +63,6 @@ in
     };
   };
 
-  enableOCR = true;
-
   testScript =
     { nodes, ... }:
     let
