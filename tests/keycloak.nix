@@ -4,8 +4,10 @@
   lib,
   config,
   ...
-}: let
-in {
+}:
+let
+in
+{
   name = "keycloak";
 
   hostPkgs = pkgs;
@@ -42,9 +44,7 @@ in {
         ./support/global.nix
       ];
 
-      systemd.tmpfiles.rules = [
-        "f /tmp/dbf 1777 root root 10d password"
-      ];
+      systemd.tmpfiles.rules = [ "f /tmp/dbf 1777 root root 10d password" ];
 
       virtualisation.memorySize = 4096;
 
@@ -65,27 +65,30 @@ in {
 
   enableOCR = true;
 
-  testScript = {nodes, ...}: let
-    user = nodes.client.users.users.${nodes.client.pub-solar-os.authentication.username};
-    #uid = toString user.uid;
-    bus = "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u ${user.name})/bus";
-    gdbus = "${bus} gdbus";
-    su = command: "su - ${user.name} -c '${command}'";
-    gseval = "call --session -d org.gnome.Shell -o /org/gnome/Shell -m org.gnome.Shell.Eval";
-    wmClass = su "${gdbus} ${gseval} global.display.focus_window.wm_class";
-  in ''
-    start_all()
+  testScript =
+    { nodes, ... }:
+    let
+      user = nodes.client.users.users.${nodes.client.pub-solar-os.authentication.username};
+      #uid = toString user.uid;
+      bus = "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u ${user.name})/bus";
+      gdbus = "${bus} gdbus";
+      su = command: "su - ${user.name} -c '${command}'";
+      gseval = "call --session -d org.gnome.Shell -o /org/gnome/Shell -m org.gnome.Shell.Eval";
+      wmClass = su "${gdbus} ${gseval} global.display.focus_window.wm_class";
+    in
+    ''
+      start_all()
 
-    nachtigall.wait_for_unit("system.slice")
-    nachtigall.succeed("ping 127.0.0.1 -c 2")
-    nachtigall.wait_for_unit("nginx.service")
-    nachtigall.wait_for_unit("keycloak.service")
-    nachtigall.wait_until_succeeds("curl http://127.0.0.1:8080/")
-    nachtigall.wait_until_succeeds("curl https://auth.test.pub.solar/")
+      nachtigall.wait_for_unit("system.slice")
+      nachtigall.succeed("ping 127.0.0.1 -c 2")
+      nachtigall.wait_for_unit("nginx.service")
+      nachtigall.wait_for_unit("keycloak.service")
+      nachtigall.wait_until_succeeds("curl http://127.0.0.1:8080/")
+      nachtigall.wait_until_succeeds("curl https://auth.test.pub.solar/")
 
-    client.wait_for_unit("system.slice")
-    client.sleep(30)
-    # client.wait_until_succeeds("${wmClass} | grep -q 'firefox'")
-    client.screenshot("screen")
-  '';
+      client.wait_for_unit("system.slice")
+      client.sleep(30)
+      # client.wait_until_succeeds("${wmClass} | grep -q 'firefox'")
+      client.screenshot("screen")
+    '';
 }

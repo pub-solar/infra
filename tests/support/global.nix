@@ -3,14 +3,13 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   pub-solar-os.networking.domain = "test.pub.solar";
 
   security.acme.defaults.server = "https://ca.${config.pub-solar-os.networking.domain}/acme/acme/directory";
 
-  security.pki.certificates = [
-    (builtins.readFile ./step/certs/root_ca.crt)
-  ];
+  security.pki.certificates = [ (builtins.readFile ./step/certs/root_ca.crt) ];
 
   services.openssh = {
     enable = true;
@@ -24,16 +23,18 @@
 
   security.pam.services.sshd.allowNullPassword = true;
 
-  virtualisation.forwardPorts = let
-    address = (builtins.elemAt config.networking.interfaces.eth0.ipv4.addresses 0).address;
-    lastAddressPart = builtins.elemAt (lib.strings.splitString "." address) 3;
-  in [
-    {
-      from = "host";
-      host.port = 2000 + (lib.strings.toInt lastAddressPart);
-      guest.port = 22;
-    }
-  ];
+  virtualisation.forwardPorts =
+    let
+      address = (builtins.elemAt config.networking.interfaces.eth0.ipv4.addresses 0).address;
+      lastAddressPart = builtins.elemAt (lib.strings.splitString "." address) 3;
+    in
+    [
+      {
+        from = "host";
+        host.port = 2000 + (lib.strings.toInt lastAddressPart);
+        guest.port = 22;
+      }
+    ];
 
   networking.interfaces.eth0.useDHCP = false;
 

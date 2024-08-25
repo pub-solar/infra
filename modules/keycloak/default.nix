@@ -42,9 +42,7 @@
       };
     };
 
-    nixpkgs.config = lib.mkDefault {
-      permittedInsecurePackages = [ "keycloak-23.0.6" ];
-    };
+    nixpkgs.config = lib.mkDefault { permittedInsecurePackages = [ "keycloak-23.0.6" ]; };
 
     # keycloak
     services.keycloak = {

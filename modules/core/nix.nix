@@ -6,9 +6,7 @@
   ...
 }:
 {
-  nixpkgs.config = lib.mkDefault {
-    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ ];
-  };
+  nixpkgs.config = lib.mkDefault { allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ ]; };
 
   nix = {
     # Use default version alias for nix package

@@ -1,6 +1,6 @@
 {
-	"ca-url": "https://ca.test.pub.solar",
-	"ca-config": "/home/b12f/.step/config/ca.json",
-	"fingerprint": "4d6a1a918355380acbd0256a2203d0a0da8436bb788e8f19326589045c3cd842",
-	"root": "/home/b12f/.step/certs/root_ca.crt"
+  "ca-url": "https://ca.test.pub.solar",
+  "ca-config": "/home/b12f/.step/config/ca.json",
+  "fingerprint": "4d6a1a918355380acbd0256a2203d0a0da8436bb788e8f19326589045c3cd842",
+  "root": "/home/b12f/.step/certs/root_ca.crt"
 }
