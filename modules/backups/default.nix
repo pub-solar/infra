@@ -4,8 +4,11 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: let
+  utils = import "${flake.inputs.nixpkgs}/nixos/lib/utils.nix" { inherit lib; inherit config; inherit pkgs; };
+  # Type for a valid systemd unit option. Needed for correctly passing "timerConfig" to "systemd.timers"
+  inherit (utils.systemdUtils.unitOptions) unitOption;
+in {
   options.pub-solar-os.backups = {
     stores =
       with lib;
@@ -163,7 +166,7 @@
 
                 runCheck = mkOption {
                   type = types.bool;
-                  default = (builtins.length config.services.restic.backups.${name}.checkOpts > 0);
+                  default = (builtins.length config.pub-solar-os.backups.backups.${name}.checkOpts > 0);
                   defaultText = literalExpression ''builtins.length config.services.backups.${name}.checkOpts > 0'';
                   description = "Whether to run the `check` command with the provided `checkOpts` options.";
                   example = true;
