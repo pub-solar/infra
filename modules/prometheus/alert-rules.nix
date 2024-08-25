@@ -198,10 +198,10 @@ lib.mapAttrsToList
       description = "{{$labels.instance}}: healtcheck {{$labels.job}} fails!";
       };
     */
-    #cert_expiry = {
-    #  condition = "(probe_ssl_earliest_cert_expiry - time())/(3600*24) < 30";
-    #  description = "{{$labels.instance}}: The TLS certificate will expire in less than 30 days: {{$value}}s";
-    #};
+    cert_expiry = {
+     condition = "(probe_ssl_earliest_cert_expiry - time())/(3600*24) < 30";
+     description = "{{$labels.instance}}: The TLS certificate will expire in less than 30 days: {{$value}}s";
+    };
 
     # ignore devices that disabled S.M.A.R.T (example if attached via USB)
 

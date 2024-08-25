@@ -5,6 +5,10 @@
   flake,
   ...
 }:
+let
+  # TODO add hosts here
+  blackboxTargets = [ "https://pablo.tools" ];
+in
 {
   age.secrets.alertmanager-envfile = {
     file = "${flake.self}/secrets/alertmanager-envfile.age";
@@ -39,6 +43,33 @@
     enable = true;
     port = 9001;
     exporters = {
+      blackbox = {
+        enable = true;
+        # Default port is 9115
+        # Listen on 0.0.0.0, bet we only open the firewall for wg0
+        openFirewall = false;
+
+        configFile = pkgs.writeTextFile {
+          name = "blackbox-exporter-config";
+          text = ''
+            modules:
+              http_2xx:
+                prober: http
+                timeout: 5s
+                http:
+                  valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+                  valid_status_codes: []  # Defaults to 2xx
+                  method: GET
+                  no_follow_redirects: false
+                  fail_if_ssl: false
+                  fail_if_not_ssl: false
+                  tls_config:
+                    insecure_skip_verify: false
+                  preferred_ip_protocol: "ip4" # defaults to "ip6"
+                  ip_protocol_fallback: true  # fallback to "ip6"
+          '';
+        };
+      };
       node = {
         enable = true;
         enabledCollectors = [ "systemd" ];
@@ -50,6 +81,30 @@
       scrape_timeout = "9s";
     };
     scrapeConfigs = [
+      {
+        job_name = "blackbox";
+        scrape_interval = "2m";
+        metrics_path = "/probe";
+        params = {
+          module = [ "http_2xx" ];
+        };
+        static_configs = [ { targets = blackboxTargets; } ];
+
+        relabel_configs = [
+          {
+            source_labels = [ "__address__" ];
+            target_label = "__param_target";
+          }
+          {
+            source_labels = [ "__param_target" ];
+            target_label = "instance";
+          }
+          {
+            target_label = "__address__";
+            replacement = "127.0.0.1:9115"; # The blackbox exporter's real hostname:port.
+          }
+        ];
+      }
       {
         job_name = "node-exporter";
         static_configs = [
