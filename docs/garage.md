@@ -1,6 +1,9 @@
 ```
+ssh barkeeper@trinkgenossin.wg.pub.solar
+
 export GARAGE_RPC_SECRET=<secret-in-keepass>
 
+# Uses the default config /etc/garage.toml
 garage node id
 
 garage node connect <node-id2>
@@ -17,3 +20,5 @@ garage layout assign 73da -z NL-1 -c 800G -t delite
 garage layout show
 garage layout apply --version 1
 ```
+
+Source: https://garagehq.deuxfleurs.fr/documentation/cookbook/real-world/#creating-a-cluster-layout
