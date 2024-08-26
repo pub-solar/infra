@@ -28,6 +28,11 @@
       group = "grafana";
       user = "grafana";
     };
+    "grafana-dashboards/blackbox-exporter_rev3.json" = {
+      source = ./grafana-dashboards/blackbox-exporter_rev3.json;
+      group = "grafana";
+      user = "grafana";
+    };
     "grafana-dashboards/synapse.json" = {
       source = ./grafana-dashboards/synapse.json;
       group = "grafana";
