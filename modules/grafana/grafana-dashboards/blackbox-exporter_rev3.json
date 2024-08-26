@@ -159,11 +159,7 @@
       "cacheTimeout": null,
       "colorBackground": true,
       "colorValue": false,
-      "colors": [
-        "#d44a3a",
-        "rgba(237, 129, 40, 0.89)",
-        "#299c46"
-      ],
+      "colors": ["#d44a3a", "rgba(237, 129, 40, 0.89)", "#299c46"],
       "datasource": "${DS_PROMETHEUS}",
       "format": "none",
       "gauge": {
@@ -424,11 +420,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
       "format": "none",
@@ -520,11 +512,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_PROMETHEUS}",
       "format": "none",
       "gauge": {
@@ -600,11 +588,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": true,
-      "colors": [
-        "#d44a3a",
-        "rgba(237, 129, 40, 0.89)",
-        "#299c46"
-      ],
+      "colors": ["#d44a3a", "rgba(237, 129, 40, 0.89)", "#299c46"],
       "datasource": "${DS_PROMETHEUS}",
       "format": "none",
       "gauge": {
@@ -694,11 +678,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": true,
-      "colors": [
-        "#d44a3a",
-        "rgba(237, 129, 40, 0.89)",
-        "#299c46"
-      ],
+      "colors": ["#d44a3a", "rgba(237, 129, 40, 0.89)", "#299c46"],
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 2,
       "format": "dtdurations",
@@ -791,11 +771,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_PROMETHEUS}",
       "format": "s",
       "gauge": {
@@ -873,11 +849,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_PROMETHEUS}",
       "format": "s",
       "gauge": {
@@ -956,10 +928,7 @@
   "refresh": "10s",
   "schemaVersion": 16,
   "style": "dark",
-  "tags": [
-    "blackbox",
-    "prometheus"
-  ],
+  "tags": ["blackbox", "prometheus"],
   "templating": {
     "list": [
       {
@@ -1107,17 +1076,7 @@
       "2h",
       "1d"
     ],
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ]
+    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
   },
   "timezone": "",
   "title": "Prometheus Blackbox Exporter",
