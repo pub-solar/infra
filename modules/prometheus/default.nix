@@ -46,7 +46,6 @@ in
       blackbox = {
         enable = true;
         # Default port is 9115
-        # Listen on 0.0.0.0, bet we only open the firewall for wg0
         openFirewall = false;
 
         configFile = pkgs.writeTextFile {
@@ -83,7 +82,7 @@ in
     scrapeConfigs = [
       {
         job_name = "blackbox";
-        scrape_interval = "2m";
+        scrape_interval = "5m";
         metrics_path = "/probe";
         params = {
           module = [ "http_2xx" ];
