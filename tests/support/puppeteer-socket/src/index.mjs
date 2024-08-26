@@ -16,6 +16,13 @@ const EXECUTABLE = process.env.EXECUTABLE || 'firefox';
   });
 
   const page = await firefoxBrowser.newPage();
+  page.on('request', request => {
+    console.log(request.url());
+  });
+
+  page.on('response', response => {
+    console.log(response.url());
+  });
   const actions = [];
 
   const server = http.createServer({}, (req, res) => {

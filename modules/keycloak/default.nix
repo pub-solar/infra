@@ -6,6 +6,9 @@
   ...
 }:
 {
+  disabledModules = [ "services/web-apps/keycloak.nix" ];
+  imports = [ ./keycloak.nix ];
+
   options.pub-solar-os.auth = with lib; {
     enable = mkEnableOption "Enable keycloak to run on the node";
 

@@ -6,6 +6,10 @@
   ...
 }:
 let
+  realm-export = pkgs.writeTextFile {
+    name = "realm-export.json";
+    text = builtins.readFile ./support/keycloak-realm-export/realm-export.json;
+  };
 in
 {
   name = "keycloak";
@@ -53,6 +57,10 @@ in
         database-password-file = "/tmp/dbf";
       };
       services.keycloak.database.createLocally = true;
+      services.keycloak.extraStartupFlags = [
+        "--import-realm"
+        "--file=${realm-export}"
+      ];
 
       networking.interfaces.eth0.ipv4.addresses = [
         {
@@ -75,6 +83,9 @@ in
       wmClass = su "${gdbus} ${gseval} global.display.focus_window.wm_class";
     in
     ''
+      def puppeteer_run(cmd):
+          client.succeed(f'puppeteer-run \'{cmd}\' ')
+
       start_all()
 
       nachtigall.wait_for_unit("system.slice")
@@ -86,9 +97,22 @@ in
 
       client.wait_for_unit("system.slice")
       client.wait_for_file("/tmp/puppeteer.sock")
-      client.succeed("puppeteer-run 'console.log(1234)'")
-      client.succeed("puppeteer-run 'page.goto(\"https://auth.test.pub.solar\")'")
-      client.succeed("puppeteer-run 'page.waitForSelector(\"body\")'")
-      client.screenshot("screen")
+      puppeteer_run('page.goto("https://auth.test.pub.solar")')
+      puppeteer_run('page.waitForNetworkIdle()')
+      client.screenshot("initial")
+      puppeteer_run('page.locator("::-p-text(Sign in)").click()')
+      puppeteer_run('page.waitForNetworkIdle()')
+      client.screenshot("sign-in")
+      puppeteer_run('page.locator("::-p-text(Register)").click()')
+      puppeteer_run('page.waitForNetworkIdle()')
+      client.screenshot("register")
+      puppeteer_run('page.locator("[name=username]").fill("test-user")')
+      puppeteer_run('page.locator("[name=email]").fill("test-user@test.pub.solar")')
+      puppeteer_run('page.locator("[name=password]").fill("Password1234")')
+      puppeteer_run('page.locator("[name=password-confirm]").fill("Password1234")')
+      client.screenshot("register-filled-in")
+      puppeteer_run('page.locator("button::-p-text(Register)").click()')
+      puppeteer_run('page.waitForNetworkIdle()')
+      client.screenshot("after-register")
     '';
 }
