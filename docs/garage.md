@@ -1,3 +1,28 @@
+# Garage
+
+### How-To create a new bucket + keys
+
+Requirements:
+
+- [Setup WireGuard](./administrative-access.md#ssh-access) for hosts: `trinkgenossin`, optionally: `delite`, `blue-shell`
+
+```
+ssh barkeeper@trinkgenossin.wg.pub.solar
+
+export GARAGE_RPC_SECRET=<secret-in-keepass>
+
+garage bucket create <bucket-name>
+garage key create <bucket-name>-key
+garage bucket allow <bucket-name> --read --write --key <bucket-name>-key
+```
+
+Docs: https://garagehq.deuxfleurs.fr/documentation/quick-start/#creating-buckets-and-keys
+
+Then [setup your favourite S3 client](https://garagehq.deuxfleurs.fr/documentation/connect/cli/)
+or use the bucket with any [S3 compatible software](https://garagehq.deuxfleurs.fr/documentation/connect/).
+
+### Notes on manual setup steps
+
 ```
 ssh barkeeper@trinkgenossin.wg.pub.solar
 
