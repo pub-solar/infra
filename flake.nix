@@ -100,6 +100,11 @@
               nixos-generators
               inputs.nixpkgs-2205.legacyPackages.${system}.terraform
               jq
+
+              # For the tests puppeteer-socket pkg
+              nodejs
+              nodePackages.typescript
+              nodePackages.typescript-language-server
             ];
           };
 

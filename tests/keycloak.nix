@@ -85,8 +85,10 @@ in
       nachtigall.wait_until_succeeds("curl https://auth.test.pub.solar/")
 
       client.wait_for_unit("system.slice")
-      client.sleep(30)
-      # client.wait_until_succeeds("${wmClass} | grep -q 'firefox'")
+      client.wait_for_file("/tmp/puppeteer.sock")
+      client.succeed("puppeteer-run 'console.log(1234)'")
+      client.succeed("puppeteer-run 'page.goto(\"https://auth.test.pub.solar\")'")
+      client.succeed("puppeteer-run 'page.waitForSelector(\"body\")'")
       client.screenshot("screen")
     '';
 }
