@@ -111,7 +111,8 @@
           devShells.ci = pkgs.mkShell { buildInputs = with pkgs; [ nodejs ]; };
         };
 
-      flake = let
+      flake =
+        let
           username = "barkeeper";
         in
         {

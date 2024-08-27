@@ -7,7 +7,8 @@
 {
   # Configuration common to all Linux systems
   flake = {
-    lib = let
+    lib =
+      let
         callLibs = file: import file { inherit lib; };
       in
       rec {

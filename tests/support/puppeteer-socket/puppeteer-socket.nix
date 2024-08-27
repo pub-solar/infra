@@ -1,7 +1,4 @@
-{
-  buildNpmPackage,
-  nodejs,
-}:
+{ buildNpmPackage, nodejs }:
 buildNpmPackage rec {
   src = ./.;
   name = "puppeteer-socket";

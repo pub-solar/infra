@@ -4,11 +4,17 @@
   lib,
   pkgs,
   ...
-}: let
-  utils = import "${flake.inputs.nixpkgs}/nixos/lib/utils.nix" { inherit lib; inherit config; inherit pkgs; };
+}:
+let
+  utils = import "${flake.inputs.nixpkgs}/nixos/lib/utils.nix" {
+    inherit lib;
+    inherit config;
+    inherit pkgs;
+  };
   # Type for a valid systemd unit option. Needed for correctly passing "timerConfig" to "systemd.timers"
   inherit (utils.systemdUtils.unitOptions) unitOption;
-in {
+in
+{
   options.pub-solar-os.backups = {
     stores =
       with lib;

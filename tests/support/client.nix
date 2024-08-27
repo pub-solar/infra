@@ -3,10 +3,12 @@
   lib,
   config,
   ...
-}: let
-  puppeteer-socket = (pkgs.callPackage (import ./puppeteer-socket/puppeteer-socket.nix) {});
-  puppeteer-run = (pkgs.callPackage (import ./puppeteer-socket/puppeteer-run.nix) {});
-in {
+}:
+let
+  puppeteer-socket = (pkgs.callPackage (import ./puppeteer-socket/puppeteer-socket.nix) { });
+  puppeteer-run = (pkgs.callPackage (import ./puppeteer-socket/puppeteer-run.nix) { });
+in
+{
   imports = [ ./global.nix ];
 
   security.polkit.enable = true;
@@ -18,9 +20,7 @@ in {
 
   services.getty.autologinUser = config.pub-solar-os.authentication.username;
 
-  virtualisation.qemu.options = [
-    "-vga std"
-  ];
+  virtualisation.qemu.options = [ "-vga std" ];
 
   home-manager.users.${config.pub-solar-os.authentication.username} = {
     programs.bash.profileExtra = ''
@@ -34,9 +34,9 @@ in {
       '';
       config = {
         modifier = "Mod4";
-        terminal = "${pkgs.alacritty}/bin/alacritty"; 
+        terminal = "${pkgs.alacritty}/bin/alacritty";
         startup = [
-          {command = "EXECUTABLE=${pkgs.firefox}/bin/firefox ${puppeteer-socket}/bin/puppeteer-socket";}
+          { command = "EXECUTABLE=${pkgs.firefox}/bin/firefox ${puppeteer-socket}/bin/puppeteer-socket"; }
         ];
       };
     };

@@ -44,15 +44,15 @@
       };
 
       nachtigall-test = {
-				imports = [
-					self.inputs.agenix.nixosModules.default
-					self.nixosModules.home-manager
-					./nachtigall/test-vm.nix
-					self.nixosModules.overlays
-					self.nixosModules.core
-					self.nixosModules.docker
-				];
-			};
+        imports = [
+          self.inputs.agenix.nixosModules.default
+          self.nixosModules.home-manager
+          ./nachtigall/test-vm.nix
+          self.nixosModules.overlays
+          self.nixosModules.core
+          self.nixosModules.docker
+        ];
+      };
 
       flora-6 = self.nixos-flake.lib.mkLinuxSystem {
         imports = [
