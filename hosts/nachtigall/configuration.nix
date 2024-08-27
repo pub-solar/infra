@@ -48,9 +48,21 @@
     owner = "root";
   };
 
-  pub-solar-os.auth.enable = true;
+  age.secrets.keycloak-database-password = {
+    file = "${flake.self}/secrets/keycloak-database-password.age";
+    mode = "600";
+    #owner = "keycloak";
+  };
 
-  nixpkgs.config.permittedInsecurePackages = [ "keycloak-23.0.6" ];
+  pub-solar-os.auth = {
+    enable = true;
+    database-password-file = config.age.secrets.keycloak-database-password.path;
+  };
+
+  pub-solar-os.backups.repos.storagebox = {
+    passwordFile = config.age.secrets."restic-repo-storagebox".path;
+    repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
+  };
 
   systemd.services.postgresql = {
     after = [ "var-lib-postgresql.mount" ];
