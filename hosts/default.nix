@@ -11,6 +11,7 @@
           self.nixosModules.unlock-zfs-on-boot
           self.nixosModules.core
           self.nixosModules.docker
+          self.nixosModules.backups
 
           self.nixosModules.nginx
           self.nixosModules.collabora
@@ -49,6 +50,7 @@
           ./flora-6
           self.nixosModules.overlays
           self.nixosModules.core
+          self.nixosModules.backups
 
           self.nixosModules.keycloak
           self.nixosModules.caddy
@@ -68,6 +70,7 @@
           self.nixosModules.overlays
           self.nixosModules.unlock-zfs-on-boot
           self.nixosModules.core
+          self.nixosModules.backups
           self.nixosModules.mail
           self.nixosModules.prometheus-exporters
           self.nixosModules.promtail
@@ -83,6 +86,7 @@
           ./tankstelle
           self.nixosModules.overlays
           self.nixosModules.core
+          self.nixosModules.backups
           self.nixosModules.prometheus-exporters
           self.nixosModules.promtail
         ];

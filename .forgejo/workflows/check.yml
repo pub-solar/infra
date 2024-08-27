@@ -18,14 +18,20 @@ jobs:
           # Prevent cache garbage collection by creating GC roots
           mkdir -p /var/lib/gitea-runner/tankstelle/.local/state/nix/results
 
-          for target in $(nix flake show --json --all-systems | jq '
+          for target in $(nix flake show --json --all-systems | jq --raw-output '
             .["nixosConfigurations"] |
             to_entries[] |
-            .key
-            ' | tr -d '"'
+            .key'
           ); do
             nix --print-build-logs --verbose --accept-flake-config --access-tokens '' \
               build --out-link /var/lib/gitea-runner/tankstelle/.local/state/nix/results/"$target" ".#nixosConfigurations.${target}.config.system.build.toplevel"
           done
 
-          nix --print-build-logs --verbose --accept-flake-config --access-tokens '' flake check
+          for check in $(nix flake show --json --all-systems | jq --raw-output '
+            .checks."x86_64-linux" |
+            to_entries[] |
+            .key'
+          ); do
+            nix --print-build-logs --verbose --accept-flake-config --access-tokens '' \
+              build --out-link /var/lib/gitea-runner/tankstelle/.local/state/nix/results/"$check" ".#checks.x86_64-linux.${check}"
+          done
