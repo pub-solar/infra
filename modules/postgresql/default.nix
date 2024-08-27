@@ -25,9 +25,4 @@
       full_page_writes = false;
     };
   };
-
-  systemd.services.postgresql = {
-    after = [ "var-lib-postgresql.mount" ];
-    requisite = [ "var-lib-postgresql.mount" ];
-  };
 }
