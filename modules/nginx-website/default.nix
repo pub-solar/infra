@@ -7,7 +7,7 @@
   services.nginx.virtualHosts = {
     "www.${config.pub-solar-os.networking.domain}" = {
       enableACME = true;
-      addSSL = true;
+      forceSSL = true;
 
       extraConfig = ''
         error_log /dev/null;
