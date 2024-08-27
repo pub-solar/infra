@@ -57,10 +57,6 @@ in
         database-password-file = "/tmp/dbf";
       };
       services.keycloak.database.createLocally = true;
-      services.keycloak.extraStartupFlags = [
-        "--import-realm"
-        "--file=${realm-export}"
-      ];
 
       networking.interfaces.eth0.ipv4.addresses = [
         {
@@ -81,12 +77,43 @@ in
       nachtigall.wait_for_unit("system.slice")
       nachtigall.succeed("ping 127.0.0.1 -c 2")
       nachtigall.wait_for_unit("nginx.service")
-      nachtigall.wait_for_unit("keycloak.service")
+
+      nachtigall.systemctl("stop keycloak.service")
+      nachtigall.wait_until_succeeds("if (($(ps aux | grep 'Dkc.home.dir=/run/keycloak' | grep -v grep | wc -l) == 0)); then true; else false; fi")
+      nachtigall.succeed("${pkgs.keycloak}/bin/kc.sh --verbose import --optimized --file=${realm-export}")
+      nachtigall.systemctl("start keycloak.service")
+      nachtigall.sleep(30)
       nachtigall.wait_until_succeeds("curl http://127.0.0.1:8080/")
       nachtigall.wait_until_succeeds("curl https://auth.test.pub.solar/")
 
       client.wait_for_unit("system.slice")
       client.wait_for_file("/tmp/puppeteer.sock")
+
+      puppeteer_run('page.goto("https://auth.test.pub.solar/admin/master/console")')
+      puppeteer_run('page.waitForNetworkIdle()')
+      client.screenshot("admin-initial")
+      puppeteer_run('page.locator("[name=username]").fill("admin")')
+      puppeteer_run('page.locator("::-p-text(Sign In)").click()')
+      puppeteer_run('page.waitForNetworkIdle()')
+      client.screenshot("admin-password")
+      puppeteer_run('page.locator("[name=password]").fill("password")')
+      puppeteer_run('page.locator("::-p-text(Sign In)").click()')
+      puppeteer_run('page.waitForNetworkIdle()')
+      client.screenshot("admin-login")
+      puppeteer_run('page.locator("::-p-text(Realm settings)").click()')
+      puppeteer_run('page.waitForNetworkIdle()')
+      client.screenshot("admin-theme")
+      puppeteer_run('page.locator("::-p-text(Themes)").click()')
+      puppeteer_run('page.waitForNetworkIdle()')
+      puppeteer_run('page.locator("#kc-login-theme").click()')
+      client.screenshot("admin-theme-changed")
+      puppeteer_run('page.locator("li button::-p-text(pub.solar)").click()')
+      puppeteer_run('page.locator("::-p-text(Save)").click()')
+      puppeteer_run('page.waitForNetworkIdle()')
+      client.screenshot("admin-theme-saved")
+
+
+
       puppeteer_run('page.goto("https://auth.test.pub.solar")')
       puppeteer_run('page.waitForNetworkIdle()')
       client.screenshot("initial")

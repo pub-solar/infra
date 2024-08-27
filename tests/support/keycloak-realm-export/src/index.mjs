@@ -14,10 +14,11 @@ const ID_KEYS = [
 
 const renameDomain = (s) => s.replace(/pub.solar/g, 'test.pub.solar');
 
-const changeClientSecrets = (data) => ({
+const cleanClients = (data) => ({
   ...data,
   clients: data.clients.map(c => ({
     ...c,
+    authorizationSettings: undefined,
     ...(c.secret ? {
       secret: 'secret',
       attributes: {
@@ -44,7 +45,7 @@ const changeIds = (node) => {
       ...acc,
       [key]: shouldChangeId(node, key)
         ? (() => {
-          const oldId = node[key]; 
+          const oldId = node[key];
           if (newIds[oldId]) {
             return newIds[oldId];
           }
@@ -63,7 +64,7 @@ const changeIds = (node) => {
   const fileContents = await readFile(filePath, { encoding: 'utf8' });
   const data = JSON.parse(renameDomain(fileContents));
 
-  const newData = changeIds(changeClientSecrets(data));
+  const newData = changeIds(cleanClients(data));
 
   console.log(JSON.stringify(newData, null, 2));
 })();
