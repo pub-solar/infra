@@ -59,9 +59,14 @@
     database-password-file = config.age.secrets.keycloak-database-password.path;
   };
 
-  pub-solar-os.backups.stores.storagebox = {
+  pub-solar-os.backups.repos.storagebox = {
     passwordFile = config.age.secrets."restic-repo-storagebox".path;
     repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
+  };
+
+  systemd.services.postgresql = {
+    after = [ "var-lib-postgresql.mount" ];
+    requisite = [ "var-lib-postgresql.mount" ];
   };
 
   # This value determines the NixOS release with which your system is to be

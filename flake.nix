@@ -82,7 +82,7 @@
             master = import inputs.master { inherit system; };
           };
 
-          packages = import ./tests ({ inherit inputs self; } // args);
+          checks = import ./tests ({ inherit inputs self; } // args);
 
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs; [

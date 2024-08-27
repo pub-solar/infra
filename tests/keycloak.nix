@@ -83,9 +83,12 @@ in
       wmClass = su "${gdbus} ${gseval} global.display.focus_window.wm_class";
     in
     ''
+<<<<<<< HEAD
       def puppeteer_run(cmd):
           client.succeed(f'puppeteer-run \'{cmd}\' ')
 
+=======
+>>>>>>> main
       start_all()
 
       nachtigall.wait_for_unit("system.slice")
@@ -96,6 +99,7 @@ in
       nachtigall.wait_until_succeeds("curl https://auth.test.pub.solar/")
 
       client.wait_for_unit("system.slice")
+<<<<<<< HEAD
       client.wait_for_file("/tmp/puppeteer.sock")
       puppeteer_run('page.goto("https://auth.test.pub.solar")')
       puppeteer_run('page.waitForNetworkIdle()')
@@ -114,5 +118,10 @@ in
       puppeteer_run('page.locator("button::-p-text(Register)").click()')
       puppeteer_run('page.waitForNetworkIdle()')
       client.screenshot("after-register")
+=======
+      client.sleep(30)
+      # client.wait_until_succeeds("${wmClass} | grep -q 'firefox'")
+      client.screenshot("screen")
+>>>>>>> main
     '';
 }
