@@ -1,5 +1,6 @@
 {
   self,
+  system,
   pkgs,
   lib,
   config,
@@ -20,21 +21,10 @@ in
   node.specialArgs = self.outputs.nixosConfigurations.nachtigall._module.specialArgs;
 
   nodes = {
-    acme-server = {
-      imports = [
-        self.nixosModules.home-manager
-        self.nixosModules.core
-        ./support/ca.nix
-      ];
-    };
-
-    client = {
-      imports = [
-        self.nixosModules.home-manager
-        self.nixosModules.core
-        ./support/client.nix
-      ];
-    };
+    dns-server.imports = [ ./support/dns-server.nix ];
+    acme-server.imports = [ ./support/acme-server.nix ];
+    mail-server.imports = [ ./support/mail-server.nix ];
+    client.imports = [ ./support/client.nix ];
 
     nachtigall = {
       imports = [
@@ -57,62 +47,29 @@ in
         database-password-file = "/tmp/dbf";
       };
       services.keycloak.database.createLocally = true;
-
-      networking.interfaces.eth0.ipv4.addresses = [
-        {
-          address = "192.168.1.3";
-          prefixLength = 32;
-        }
-      ];
+      services.keycloak.initialAdminPassword = "password";
     };
   };
 
-  testScript =
-    { ... }: ''
+  testScript = { ... }: ''
       def puppeteer_run(cmd):
           client.succeed(f'puppeteer-run \'{cmd}\' ')
 
       start_all()
 
+      acme_server.wait_for_unit("system.slice")
+      mail_server.wait_for_unit("dovecot2.service")
+      mail_server.wait_for_unit("postfix.service")
       nachtigall.wait_for_unit("system.slice")
       nachtigall.succeed("ping 127.0.0.1 -c 2")
       nachtigall.wait_for_unit("nginx.service")
 
-      nachtigall.systemctl("stop keycloak.service")
-      nachtigall.wait_until_succeeds("if (($(ps aux | grep 'Dkc.home.dir=/run/keycloak' | grep -v grep | wc -l) == 0)); then true; else false; fi")
-      nachtigall.succeed("${pkgs.keycloak}/bin/kc.sh --verbose import --optimized --file=${realm-export}")
-      nachtigall.systemctl("start keycloak.service")
-      nachtigall.sleep(30)
       nachtigall.wait_until_succeeds("curl http://127.0.0.1:8080/")
       nachtigall.wait_until_succeeds("curl https://auth.test.pub.solar/")
+      nachtigall.succeed("${pkgs.keycloak}/bin/kcadm.sh create realms -f ${realm-export} --server http://localhost:8080 --realm master --user admin --password password --no-config")
 
       client.wait_for_unit("system.slice")
       client.wait_for_file("/tmp/puppeteer.sock")
-
-      puppeteer_run('page.goto("https://auth.test.pub.solar/admin/master/console")')
-      puppeteer_run('page.waitForNetworkIdle()')
-      client.screenshot("admin-initial")
-      puppeteer_run('page.locator("[name=username]").fill("admin")')
-      puppeteer_run('page.locator("::-p-text(Sign In)").click()')
-      puppeteer_run('page.waitForNetworkIdle()')
-      client.screenshot("admin-password")
-      puppeteer_run('page.locator("[name=password]").fill("password")')
-      puppeteer_run('page.locator("::-p-text(Sign In)").click()')
-      puppeteer_run('page.waitForNetworkIdle()')
-      client.screenshot("admin-login")
-      puppeteer_run('page.locator("::-p-text(Realm settings)").click()')
-      puppeteer_run('page.waitForNetworkIdle()')
-      client.screenshot("admin-theme")
-      puppeteer_run('page.locator("::-p-text(Themes)").click()')
-      puppeteer_run('page.waitForNetworkIdle()')
-      puppeteer_run('page.locator("#kc-login-theme").click()')
-      client.screenshot("admin-theme-changed")
-      puppeteer_run('page.locator("li button::-p-text(pub.solar)").click()')
-      puppeteer_run('page.locator("::-p-text(Save)").click()')
-      puppeteer_run('page.waitForNetworkIdle()')
-      client.screenshot("admin-theme-saved")
-
-
 
       puppeteer_run('page.goto("https://auth.test.pub.solar")')
       puppeteer_run('page.waitForNetworkIdle()')

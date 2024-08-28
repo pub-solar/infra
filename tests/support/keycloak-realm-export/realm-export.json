@@ -1,6 +1,6 @@
 {
   "id": "8cd6ddbb-d0d3-40ff-9f1e-efdfce05fa6e",
-  "realm": "test.test.pub.solar",
+  "realm": "test.pub.solar",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
@@ -57,7 +57,7 @@
       },
       {
         "id": "2e271b49-ed2b-4dc0-a578-47e7571a2934",
-        "name": "default-roles-test.test.pub.solar",
+        "name": "default-roles-test.pub.solar",
         "description": "${role_default-roles}",
         "composite": true,
         "composites": {
@@ -434,7 +434,7 @@
   "groups": [],
   "defaultRole": {
     "id": "2e271b49-ed2b-4dc0-a578-47e7571a2934",
-    "name": "default-roles-test.test.pub.solar",
+    "name": "default-roles-test.pub.solar",
     "description": "${role_default-roles}",
     "composite": true,
     "clientRole": false,
@@ -494,7 +494,7 @@
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
-        "default-roles-test.test.pub.solar"
+        "default-roles-test.pub.solar"
       ],
       "clientRoles": {
         "realm-management": [
@@ -533,7 +533,7 @@
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
-        "default-roles-test.test.pub.solar"
+        "default-roles-test.pub.solar"
       ],
       "clientRoles": {
         "matrix": [
@@ -571,13 +571,13 @@
       "description": "",
       "rootUrl": "${authBaseUrl}",
       "adminUrl": "",
-      "baseUrl": "/realms/test.test.pub.solar/account/",
+      "baseUrl": "/realms/test.pub.solar/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/realms/test.test.pub.solar/account/*"
+        "/realms/test.pub.solar/account/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -628,13 +628,13 @@
       "description": "",
       "rootUrl": "${authBaseUrl}",
       "adminUrl": "",
-      "baseUrl": "/realms/test.test.pub.solar/account/",
+      "baseUrl": "/realms/test.pub.solar/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/realms/test.test.pub.solar/account/*"
+        "/realms/test.pub.solar/account/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -829,19 +829,19 @@
       "clientId": "gitea",
       "name": "",
       "description": "",
-      "rootUrl": "https://git.test.test.pub.solar",
-      "adminUrl": "https://git.test.test.pub.solar",
-      "baseUrl": "https://git.test.test.pub.solar",
+      "rootUrl": "https://git.test.pub.solar",
+      "adminUrl": "https://git.test.pub.solar",
+      "baseUrl": "https://git.test.pub.solar",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "secret",
       "redirectUris": [
-        "https://git.test.test.pub.solar/*"
+        "https://git.test.pub.solar/*"
       ],
       "webOrigins": [
-        "https://git.test.test.pub.solar"
+        "https://git.test.pub.solar"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -889,9 +889,9 @@
       "id": "b016fab5-bced-404a-93ba-c084d360701f",
       "clientId": "grafana",
       "name": "",
-      "description": "https://grafana.test.test.pub.solar",
-      "rootUrl": "https://grafana.test.test.pub.solar",
-      "adminUrl": "https://grafana.test.test.pub.solar",
+      "description": "https://grafana.test.pub.solar",
+      "rootUrl": "https://grafana.test.pub.solar",
+      "adminUrl": "https://grafana.test.pub.solar",
       "baseUrl": "/login/generic_oauth",
       "surrogateAuthRequired": false,
       "enabled": true,
@@ -899,10 +899,10 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "secret",
       "redirectUris": [
-        "https://grafana.test.test.pub.solar/login/generic_oauth"
+        "https://grafana.test.pub.solar/login/generic_oauth"
       ],
       "webOrigins": [
-        "https://grafana.test.test.pub.solar"
+        "https://grafana.test.pub.solar"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -945,9 +945,9 @@
       "clientId": "mastodon",
       "name": "mastodon",
       "description": "",
-      "rootUrl": "https://mastodon.test.test.pub.solar",
+      "rootUrl": "https://mastodon.test.pub.solar",
       "adminUrl": "",
-      "baseUrl": "https://mastodon.test.test.pub.solar",
+      "baseUrl": "https://mastodon.test.pub.solar",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
@@ -955,10 +955,10 @@
       "secret": "secret",
       "redirectUris": [
         "",
-        "https://mastodon.test.test.pub.solar/auth/auth/openid_connect/callback"
+        "https://mastodon.test.pub.solar/auth/auth/openid_connect/callback"
       ],
       "webOrigins": [
-        "https://mastodon.test.test.pub.solar/auth/openid_connect/callback"
+        "https://mastodon.test.pub.solar/auth/openid_connect/callback"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -1006,17 +1006,17 @@
       "clientId": "matrix",
       "name": "",
       "description": "",
-      "rootUrl": "https://chat.test.test.pub.solar",
+      "rootUrl": "https://chat.test.pub.solar",
       "adminUrl": "",
-      "baseUrl": "https://chat.test.test.pub.solar",
+      "baseUrl": "https://chat.test.pub.solar",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "secret",
       "redirectUris": [
-        "https://matrix.test.test.pub.solar/_synapse/client/oidc/callback",
-        "https://matrix.test.test.test.pub.solar/_synapse/client/oidc/callback"
+        "https://matrix.test.pub.solar/_synapse/client/oidc/callback",
+        "https://matrix.test.test.pub.solar/_synapse/client/oidc/callback"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -1038,7 +1038,7 @@
         "tls-client-certificate-bound-access-tokens": "false",
         "oidc.ciba.grant.enabled": "false",
         "backchannel.logout.session.required": "true",
-        "backchannel.logout.url": "https://chat.test.test.pub.solar/_synapse/client/oidc/backchannel_logout",
+        "backchannel.logout.url": "https://chat.test.pub.solar/_synapse/client/oidc/backchannel_logout",
         "client_credentials.use_refresh_token": "false",
         "acr.loa.map": "{}",
         "require.pushed.authorization.requests": "false",
@@ -1111,9 +1111,9 @@
       "clientId": "matrix-authentication-service",
       "name": "",
       "description": "Used for our  hosted https://github.com/matrix-org/matrix-authentication-service",
-      "rootUrl": "https://matrix.test.test.pub.solar/",
-      "adminUrl": "https://matrix.test.test.pub.solar/",
-      "baseUrl": "https://matrix.test.test.pub.solar/",
+      "rootUrl": "https://matrix.test.pub.solar/",
+      "adminUrl": "https://matrix.test.pub.solar/",
+      "baseUrl": "https://matrix.test.pub.solar/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
@@ -1166,19 +1166,19 @@
       "clientId": "mediawiki",
       "name": "",
       "description": "",
-      "rootUrl": "https://wiki.test.test.pub.solar",
-      "adminUrl": "https://wiki.test.test.pub.solar",
-      "baseUrl": "https://wiki.test.test.pub.solar",
+      "rootUrl": "https://wiki.test.pub.solar",
+      "adminUrl": "https://wiki.test.pub.solar",
+      "baseUrl": "https://wiki.test.pub.solar",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "secret",
       "redirectUris": [
-        "https://wiki.test.test.pub.solar/*"
+        "https://wiki.test.pub.solar/*"
       ],
       "webOrigins": [
-        "https://wiki.test.test.pub.solar"
+        "https://wiki.test.pub.solar"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -1221,19 +1221,19 @@
       "clientId": "nextcloud",
       "name": "",
       "description": "",
-      "rootUrl": "https://cloud.test.test.pub.solar",
-      "adminUrl": "https://cloud.test.test.pub.solar",
-      "baseUrl": "https://cloud.test.test.pub.solar",
+      "rootUrl": "https://cloud.test.pub.solar",
+      "adminUrl": "https://cloud.test.pub.solar",
+      "baseUrl": "https://cloud.test.pub.solar",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "secret",
       "redirectUris": [
-        "https://cloud.test.test.pub.solar/apps/user_oidc/code"
+        "https://cloud.test.pub.solar/apps/user_oidc/code"
       ],
       "webOrigins": [
-        "https://cloud.test.test.pub.solar"
+        "https://cloud.test.pub.solar"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -1247,14 +1247,14 @@
       "protocol": "openid-connect",
       "attributes": {
         "client.secret.creation.time": 1724762383467,
-        "post.logout.redirect.uris": "https://cloud.test.test.pub.solar##https://cloud.test.test.pub.solar/##https://cloud.test.test.pub.solar/*",
+        "post.logout.redirect.uris": "https://cloud.test.pub.solar##https://cloud.test.pub.solar/##https://cloud.test.pub.solar/*",
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false",
         "use.refresh.tokens": "true",
         "tls-client-certificate-bound-access-tokens": "false",
         "oidc.ciba.grant.enabled": "false",
         "backchannel.logout.session.required": "true",
-        "backchannel.logout.url": "https://cloud.test.test.pub.solar/apps/user_oidc/backchannel-logout/test.test.pub.solar%20ID",
+        "backchannel.logout.url": "https://cloud.test.pub.solar/apps/user_oidc/backchannel-logout/test.pub.solar%20ID",
         "client_credentials.use_refresh_token": "false",
         "require.pushed.authorization.requests": "false",
         "acr.loa.map": "{}",
@@ -1283,16 +1283,16 @@
       "clientId": "openbikesensor-portal",
       "name": "",
       "description": "",
-      "rootUrl": "https://obs-portal.test.test.pub.solar",
+      "rootUrl": "https://obs-portal.test.pub.solar",
       "adminUrl": "",
-      "baseUrl": "https://obs-portal.test.test.pub.solar",
+      "baseUrl": "https://obs-portal.test.pub.solar",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "secret",
       "redirectUris": [
-        "https://obs-portal.test.test.pub.solar/*"
+        "https://obs-portal.test.pub.solar/*"
       ],
       "webOrigins": [
         "+"
@@ -1382,13 +1382,13 @@
       "clientId": "security-admin-console",
       "name": "${client_security-admin-console}",
       "rootUrl": "${authAdminUrl}",
-      "baseUrl": "/admin/test.test.pub.solar/console/",
+      "baseUrl": "/admin/test.pub.solar/console/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/admin/test.test.pub.solar/console/*"
+        "/admin/test.pub.solar/console/*"
       ],
       "webOrigins": [
         "+"
@@ -1498,19 +1498,19 @@
       "clientId": "tt-rss",
       "name": "tt-rss",
       "description": "",
-      "rootUrl": "https://rss.test.test.pub.solar",
-      "adminUrl": "https://rss.test.test.pub.solar",
-      "baseUrl": "https://rss.test.test.pub.solar",
+      "rootUrl": "https://rss.test.pub.solar",
+      "adminUrl": "https://rss.test.pub.solar",
+      "baseUrl": "https://rss.test.pub.solar",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "secret",
       "redirectUris": [
-        "https://rss.test.test.pub.solar"
+        "https://rss.test.pub.solar"
       ],
       "webOrigins": [
-        "https://rss.test.test.pub.solar"
+        "https://rss.test.pub.solar"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -2095,23 +2095,23 @@
     "strictTransportSecurity": "max-age=31536000; includeSubDomains"
   },
   "smtpServer": {
-    "password": "**********",
-    "replyToDisplayName": "test.test.pub.solar Support",
+    "password": "password",
+    "replyToDisplayName": "test.pub.solar Support",
     "starttls": "false",
     "auth": "true",
     "port": "465",
-    "replyTo": "admins@test.test.pub.solar",
-    "host": "mail.test.test.pub.solar",
-    "from": "keycloak@test.test.pub.solar",
-    "fromDisplayName": "test.test.pub.solar ID",
+    "replyTo": "admins@test.pub.solar",
+    "host": "mail.test.pub.solar",
+    "from": "keycloak@test.pub.solar",
+    "fromDisplayName": "test.pub.solar ID",
     "envelopeFrom": "",
     "ssl": "true",
-    "user": "admins@test.test.pub.solar"
+    "user": "admins@test.pub.solar"
   },
-  "loginTheme": "test.test.pub.solar",
-  "accountTheme": "test.test.pub.solar",
-  "adminTheme": "test.test.pub.solar",
-  "emailTheme": "test.test.pub.solar",
+  "loginTheme": "pub.solar",
+  "accountTheme": "pub.solar",
+  "adminTheme": "pub.solar",
+  "emailTheme": "pub.solar",
   "eventsEnabled": false,
   "eventsListeners": [
     "jboss-logging"

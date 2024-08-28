@@ -1,20 +1,18 @@
 {
+  flake,
   pkgs,
   lib,
   config,
   ...
 }:
 {
-  imports = [ ./global.nix ];
+  imports = [
+    flake.self.nixosModules.home-manager
+    flake.self.nixosModules.core
+    ./global.nix
+  ];
 
   systemd.tmpfiles.rules = [ "f /tmp/step-ca-intermediate-pw 1777 root root 10d password" ];
-
-  networking.interfaces.eth0.ipv4.addresses = [
-    {
-      address = "192.168.1.1";
-      prefixLength = 32;
-    }
-  ];
 
   services.step-ca =
     let

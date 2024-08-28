@@ -60,11 +60,23 @@ const changeIds = (node) => {
   return node;
 };
 
+const setExtra = (data) => ({
+  ...data,
+  loginTheme: "pub.solar",
+  accountTheme: "pub.solar",
+  adminTheme: "pub.solar",
+  emailTheme: "pub.solar",
+  smtpServer: {
+    ...data.smtpServer,
+    password: "password",
+  },
+});
+
 (async () => {
   const fileContents = await readFile(filePath, { encoding: 'utf8' });
   const data = JSON.parse(renameDomain(fileContents));
 
-  const newData = changeIds(cleanClients(data));
+  const newData = setExtra(changeIds(cleanClients(data)));
 
   console.log(JSON.stringify(newData, null, 2));
 })();

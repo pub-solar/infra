@@ -14,13 +14,7 @@
   node.specialArgs = self.outputs.nixosConfigurations.nachtigall._module.specialArgs;
 
   nodes = {
-    acme-server = {
-      imports = [
-        self.nixosModules.home-manager
-        self.nixosModules.core
-        ./support/ca.nix
-      ];
-    };
+    acme-server.imports = [ ./support/acme-server.nix ];
 
     nachtigall = {
       imports = [

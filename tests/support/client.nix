@@ -1,4 +1,5 @@
 {
+  flake,
   pkgs,
   lib,
   config,
@@ -9,7 +10,11 @@ let
   puppeteer-run = (pkgs.callPackage (import ./puppeteer-socket/puppeteer-run.nix) { });
 in
 {
-  imports = [ ./global.nix ];
+  imports = [
+    flake.self.nixosModules.home-manager
+    flake.self.nixosModules.core
+    ./global.nix
+  ];
 
   security.polkit.enable = true;
 
@@ -41,11 +46,4 @@ in
       };
     };
   };
-
-  networking.interfaces.eth0.ipv4.addresses = [
-    {
-      address = "192.168.1.2";
-      prefixLength = 32;
-    }
-  ];
 }
