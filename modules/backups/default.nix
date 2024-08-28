@@ -258,15 +258,15 @@ in
         repos = config.pub-solar-os.backups.repos;
         restic = config.pub-solar-os.backups.restic;
 
-        storeNames = builtins.attrNames repos;
+        repoNames = builtins.attrNames repos;
         backupNames = builtins.attrNames restic;
 
         createBackups =
           backupName:
-          map (storeName: {
-            name = "${backupName}-${storeName}";
-            value = repos."${storeName}" // restic."${backupName}";
-          }) storeNames;
+          map (repoName: {
+            name = "${backupName}-${repoName}";
+            value = repos."${repoName}" // restic."${backupName}";
+          }) repoNames;
 
       in
       builtins.listToAttrs (lib.lists.flatten (map createBackups backupNames));
