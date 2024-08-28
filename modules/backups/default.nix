@@ -39,6 +39,15 @@ in
                 example = "/etc/nixos/restic-password";
               };
 
+              environmentFile = mkOption {
+                type = with types; nullOr str;
+                default = null;
+                description = ''
+                  Read repository secrets as environment variables from a file.
+                '';
+                example = "/etc/nixos/restic-env";
+              };
+
               repository = mkOption {
                 type = with types; nullOr str;
                 default = null;
@@ -57,6 +66,7 @@ in
         remotebackup = {
           repository = "sftp:backup@host:/backups/home";
           passwordFile = "/etc/nixos/secrets/restic-password";
+          environmentFile = "/etc/nixos/secrets/restic-env";
         };
       };
     };
