@@ -61,7 +61,7 @@ in
       };
     };
 
-    backups = mkOption {
+    restic = mkOption {
       description = ''
         Periodic backups to create with Restic.
       '';
@@ -174,7 +174,7 @@ in
 
               runCheck = mkOption {
                 type = types.bool;
-                default = (builtins.length config.pub-solar-os.backups.backups.${name}.checkOpts > 0);
+                default = (builtins.length config.pub-solar-os.backups.restic.${name}.checkOpts > 0);
                 defaultText = literalExpression ''builtins.length config.services.backups.${name}.checkOpts > 0'';
                 description = "Whether to run the `check` command with the provided `checkOpts` options.";
                 example = true;
@@ -256,16 +256,16 @@ in
     services.restic.backups =
       let
         repos = config.pub-solar-os.backups.repos;
-        backups = config.pub-solar-os.backups.backups;
+        restic = config.pub-solar-os.backups.restic;
 
         storeNames = builtins.attrNames repos;
-        backupNames = builtins.attrNames backups;
+        backupNames = builtins.attrNames restic;
 
         createBackups =
           backupName:
           map (storeName: {
             name = "${backupName}-${storeName}";
-            value = repos."${storeName}" // backups."${backupName}";
+            value = repos."${storeName}" // restic."${backupName}";
           }) storeNames;
 
       in
