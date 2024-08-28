@@ -117,6 +117,7 @@
               treefmt
               nixos-generators
               inputs.nixpkgs-2205.legacyPackages.${system}.terraform
+              terraform-ls
               jq
             ];
           };
