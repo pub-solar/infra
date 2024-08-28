@@ -91,6 +91,56 @@
           self.nixosModules.promtail
         ];
       };
+
+      trinkgenossin = self.nixos-flake.lib.mkLinuxSystem {
+        imports = [
+          self.inputs.agenix.nixosModules.default
+          self.nixosModules.home-manager
+          ./trinkgenossin
+          self.nixosModules.overlays
+          self.nixosModules.unlock-luks-on-boot
+          self.nixosModules.core
+          self.nixosModules.prometheus-exporters
+          self.nixosModules.promtail
+
+          self.nixosModules.garage
+          self.nixosModules.nginx
+        ];
+      };
+
+      delite = self.nixos-flake.lib.mkLinuxSystem {
+        imports = [
+          self.inputs.agenix.nixosModules.default
+          self.inputs.disko.nixosModules.disko
+          self.nixosModules.home-manager
+          ./delite
+          self.nixosModules.overlays
+          self.nixosModules.unlock-luks-on-boot
+          self.nixosModules.core
+          #self.nixosModules.prometheus-exporters
+          #self.nixosModules.promtail
+
+          self.nixosModules.garage
+          self.nixosModules.nginx
+        ];
+      };
+
+      blue-shell = self.nixos-flake.lib.mkLinuxSystem {
+        imports = [
+          self.inputs.agenix.nixosModules.default
+          self.inputs.disko.nixosModules.disko
+          self.nixosModules.home-manager
+          ./blue-shell
+          self.nixosModules.overlays
+          self.nixosModules.unlock-luks-on-boot
+          self.nixosModules.core
+          #self.nixosModules.prometheus-exporters
+          #self.nixosModules.promtail
+
+          self.nixosModules.garage
+          self.nixosModules.nginx
+        ];
+      };
     };
   };
 }

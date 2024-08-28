@@ -33,6 +33,11 @@
       group = "grafana";
       user = "grafana";
     };
+    "grafana-dashboards/grafana-garage-dashboard-prometheus.json" = {
+      source = ./grafana-dashboards/grafana-garage-dashboard-prometheus.json;
+      group = "grafana";
+      user = "grafana";
+    };
   };
 
   services.caddy.virtualHosts."grafana.${config.pub-solar-os.networking.domain}" = {
