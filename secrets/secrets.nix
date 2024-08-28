@@ -54,6 +54,8 @@ in
 
   "restic-repo-droppie.age".publicKeys = nachtigallKeys ++ adminKeys;
   "restic-repo-storagebox.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "restic-repo-garage-nachtigall.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "restic-repo-garage-nachtigall-env.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "drone-db-secrets.age".publicKeys = flora6Keys ++ adminKeys;
   "drone-secrets.age".publicKeys = flora6Keys ++ adminKeys;

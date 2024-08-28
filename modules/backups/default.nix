@@ -39,6 +39,15 @@ in
                 example = "/etc/nixos/restic-password";
               };
 
+              environmentFile = mkOption {
+                type = with types; nullOr str;
+                default = null;
+                description = ''
+                  Read repository secrets as environment variables from a file.
+                '';
+                example = "/etc/nixos/restic-env";
+              };
+
               repository = mkOption {
                 type = with types; nullOr str;
                 default = null;
@@ -57,11 +66,12 @@ in
         remotebackup = {
           repository = "sftp:backup@host:/backups/home";
           passwordFile = "/etc/nixos/secrets/restic-password";
+          environmentFile = "/etc/nixos/secrets/restic-env";
         };
       };
     };
 
-    backups = mkOption {
+    restic = mkOption {
       description = ''
         Periodic backups to create with Restic.
       '';
@@ -174,7 +184,7 @@ in
 
               runCheck = mkOption {
                 type = types.bool;
-                default = (builtins.length config.pub-solar-os.backups.backups.${name}.checkOpts > 0);
+                default = (builtins.length config.pub-solar-os.backups.restic.${name}.checkOpts > 0);
                 defaultText = literalExpression ''builtins.length config.services.backups.${name}.checkOpts > 0'';
                 description = "Whether to run the `check` command with the provided `checkOpts` options.";
                 example = true;
@@ -256,17 +266,17 @@ in
     services.restic.backups =
       let
         repos = config.pub-solar-os.backups.repos;
-        backups = config.pub-solar-os.backups.backups;
+        restic = config.pub-solar-os.backups.restic;
 
-        storeNames = builtins.attrNames repos;
-        backupNames = builtins.attrNames backups;
+        repoNames = builtins.attrNames repos;
+        backupNames = builtins.attrNames restic;
 
         createBackups =
           backupName:
-          map (storeName: {
-            name = "${backupName}-${storeName}";
-            value = repos."${storeName}" // backups."${backupName}";
-          }) storeNames;
+          map (repoName: {
+            name = "${backupName}-${repoName}";
+            value = repos."${repoName}" // restic."${backupName}";
+          }) repoNames;
 
       in
       builtins.listToAttrs (lib.lists.flatten (map createBackups backupNames));

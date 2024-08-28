@@ -58,7 +58,7 @@
       };
     };
 
-    pub-solar-os.backups.backups.keycloak = {
+    pub-solar-os.backups.restic.keycloak = {
       paths = [ "/tmp/keycloak-backup.sql" ];
       timerConfig = {
         OnCalendar = "*-*-* 03:00:00 Etc/UTC";

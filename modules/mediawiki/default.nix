@@ -232,4 +232,27 @@ in
       };
     };
   };
+
+  pub-solar-os.backups.restic.mediawiki = {
+    paths = [
+      "/var/lib/mediawiki/images"
+      "/var/lib/mediawiki/uploads"
+      "/tmp/mediawiki-backup.sql"
+    ];
+    timerConfig = {
+      OnCalendar = "*-*-* 00:30:00 Etc/UTC";
+    };
+    initialize = true;
+    backupPrepareCommand = ''
+      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d mediawiki > /tmp/mediawiki-backup.sql
+    '';
+    backupCleanupCommand = ''
+      rm /tmp/mediawiki-backup.sql
+    '';
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 3"
+    ];
+  };
 }
