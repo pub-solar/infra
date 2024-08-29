@@ -5,8 +5,8 @@
     mode = "400";
     owner = "root";
   };
-  age.secrets."restic-repo-storagebox" = {
-    file = "${flake.self}/secrets/restic-repo-storagebox.age";
+  age.secrets."restic-repo-storagebox-nachtigall" = {
+    file = "${flake.self}/secrets/restic-repo-storagebox-nachtigall.age";
     mode = "400";
     owner = "root";
   };
@@ -22,7 +22,7 @@
   };
 
   pub-solar-os.backups.repos.storagebox = {
-    passwordFile = config.age.secrets."restic-repo-storagebox".path;
+    passwordFile = config.age.secrets."restic-repo-storagebox-nachtigall".path;
     repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
   };
 

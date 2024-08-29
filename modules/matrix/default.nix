@@ -295,7 +295,7 @@ in
       OnCalendar = "*-*-* 05:00:00 Etc/UTC";
     };
     initialize = true;
-    passwordFile = config.age.secrets."restic-repo-storagebox".path;
+    passwordFile = config.age.secrets."restic-repo-storagebox-nachtigall".path;
     repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
     backupPrepareCommand = ''
       ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix > /tmp/matrix-synapse-backup.sql

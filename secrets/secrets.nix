@@ -75,7 +75,7 @@ in
   "restic-repo-garage-metronom.age".publicKeys = metronomKeys ++ adminKeys;
   "restic-repo-garage-metronom-env.age".publicKeys = metronomKeys ++ adminKeys;
   "restic-repo-droppie.age".publicKeys = nachtigallKeys ++ adminKeys;
-  "restic-repo-storagebox.age".publicKeys = metronomKeys ++ nachtigallKeys ++ adminKeys;
+  "restic-repo-storagebox-nachtigall.age".publicKeys = nachtigallKeys ++ adminKeys;
   "restic-repo-storagebox-metronom.age".publicKeys = metronomKeys ++ adminKeys;
   "restic-repo-garage-nachtigall.age".publicKeys = nachtigallKeys ++ adminKeys;
   "restic-repo-garage-nachtigall-env.age".publicKeys = nachtigallKeys ++ adminKeys;

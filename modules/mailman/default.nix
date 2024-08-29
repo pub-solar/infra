@@ -91,7 +91,7 @@
       OnCalendar = "*-*-* 02:00:00 Etc/UTC";
     };
     initialize = true;
-    passwordFile = config.age.secrets."restic-repo-storagebox".path;
+    passwordFile = config.age.secrets."restic-repo-storagebox-nachtigall".path;
     repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
     pruneOpts = [
       "--keep-daily 7"
