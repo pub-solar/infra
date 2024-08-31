@@ -7,6 +7,6 @@
 
     ./networking.nix
     ./wireguard.nix
-    #./backups.nix
+    ./backups.nix
   ];
 }

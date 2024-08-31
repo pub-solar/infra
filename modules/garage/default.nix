@@ -69,6 +69,7 @@
       locations."/" = {
         proxyPass = "http://s3_backend";
         extraConfig = ''
+          client_max_body_size 64m;
           proxy_max_temp_file_size 0;
         '';
       };
