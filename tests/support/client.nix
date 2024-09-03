@@ -45,5 +45,25 @@ in
         ];
       };
     };
+
+    accounts.email.accounts."test-user@${config.pub-solar-os.networking.domain}" = {
+      primary = true;
+      address = "test-user@${config.pub-solar-os.networking.domain}";
+      userName = "test-user@${config.pub-solar-os.networking.domain}";
+      passwordCommand = "echo password";
+      realName = "Test User";
+      imap = {
+        host = "mail.${config.pub-solar-os.networking.domain}";
+        port = 993;
+      };
+      smtp = {
+        host = "mail.${config.pub-solar-os.networking.domain}";
+        port = 587;
+        tls.useStartTls = true;
+      };
+      getmail.enable = true;
+      getmail.mailboxes = [ "ALL" ];
+      msmtp.enable = true;
+    };
   };
 }

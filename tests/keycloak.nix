@@ -88,5 +88,7 @@ in
       puppeteer_run('page.locator("button::-p-text(Register)").click()')
       puppeteer_run('page.waitForNetworkIdle()')
       client.screenshot("after-register")
+
+      client.succeed("offlineimap")
     '';
 }

@@ -22,6 +22,10 @@
       "hakkonaut@${config.pub-solar-os.networking.domain}" = {
         hashedPasswordFile = "/tmp/emailpw";
       };
+      "test-user@${config.pub-solar-os.networking.domain}" = {
+        quota = "1G";
+        hashedPasswordFile = "/tmp/emailpw";
+      };
     };
   };
 }
