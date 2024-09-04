@@ -25,6 +25,21 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "10.7.6.4"
   }
   record {
+    hostname = "trinkgenossin.wg"
+    type     = "A"
+    address  = "10.7.6.5"
+  }
+  record {
+    hostname = "delite.wg"
+    type     = "A"
+    address  = "10.7.6.6"
+  }
+  record {
+    hostname = "blue-shell.wg"
+    type     = "A"
+    address  = "10.7.6.7"
+  }
+  record {
     hostname = "nachtigall.wg"
     type     = "AAAA"
     address  = "fd00:fae:fae:fae:fae:1::"
@@ -45,6 +60,21 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "fd00:fae:fae:fae:fae:4::"
   }
   record {
+    hostname = "trinkgenossin.wg"
+    type     = "AAAA"
+    address  = "fd00:fae:fae:fae:fae:5::"
+  }
+  record {
+    hostname = "delite.wg"
+    type     = "AAAA"
+    address  = "fd00:fae:fae:fae:fae:6::"
+  }
+  record {
+    hostname = "blue-shell.wg"
+    type     = "AAAA"
+    address  = "fd00:fae:fae:fae:fae:7::"
+  }
+  record {
     hostname = "flora-6"
     type     = "A"
     address  = "80.71.153.210"
@@ -60,6 +90,36 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "49.13.236.167"
   }
   record {
+    hostname = "trinkgenossin"
+    type     = "A"
+    address  = "85.215.152.22"
+  }
+  record {
+    hostname = "trinkgenossin"
+    type     = "AAAA"
+    address  = "2a01:239:35d:f500::1"
+  }
+  record {
+    hostname = "delite"
+    type     = "A"
+    address  = "5.255.119.132"
+  }
+  record {
+    hostname = "delite"
+    type     = "AAAA"
+    address  = "2a04:52c0:124:9d8c::2"
+  }
+  record {
+    hostname = "blue-shell"
+    type     = "A"
+    address  = "194.13.83.205"
+  }
+  record {
+    hostname = "blue-shell"
+    type     = "AAAA"
+    address  = "2a03:4000:43:24e::1"
+  }
+  record {
     hostname = "auth"
     type     = "CNAME"
     address  = "nachtigall.pub.solar."
@@ -68,6 +128,51 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "ci"
     type     = "A"
     address  = "80.71.153.210"
+  }
+  record {
+    hostname = "buckets"
+    type     = "A"
+    address  = "85.215.152.22"
+  }
+  record {
+    hostname = "buckets"
+    type     = "A"
+    address  = "5.255.119.132"
+  }
+  record {
+    hostname = "buckets"
+    type     = "A"
+    address  = "194.13.83.205"
+  }
+  record {
+    hostname = "buckets"
+    type     = "AAAA"
+    address  = "2a01:239:35d:f500::1"
+  }
+  record {
+    hostname = "buckets"
+    type     = "AAAA"
+    address  = "2a04:52c0:124:9d8c::2"
+  }
+  record {
+    hostname = "buckets"
+    type     = "AAAA"
+    address  = "2a03:4000:43:24e::1"
+  }
+  record {
+    hostname = "*.buckets"
+    type     = "CNAME"
+    address  = "buckets.pub.solar."
+  }
+  record {
+    hostname = "web"
+    type     = "CNAME"
+    address  = "buckets.pub.solar."
+  }
+  record {
+    hostname = "*.web"
+    type     = "CNAME"
+    address  = "buckets.pub.solar."
   }
   record {
     hostname = "tankstelle"

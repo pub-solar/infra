@@ -33,4 +33,20 @@
   };
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "security@${config.pub-solar-os.networking.domain}";
+
+  pub-solar-os.backups.restic.mail = {
+    paths = [
+      "/var/vmail"
+      "/var/dkim"
+    ];
+    timerConfig = {
+      OnCalendar = "*-*-* 02:00:00 Etc/UTC";
+    };
+    initialize = true;
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 3"
+    ];
+  };
 }

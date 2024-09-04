@@ -47,6 +47,33 @@
             "fd00:fae:fae:fae:fae:4::/96"
           ];
         }
+        {
+          # trinkgenossin.pub.solar
+          endpoint = "85.215.152.22:51820";
+          publicKey = "QWgHovHxtqiQhnHLouSWiT6GIoQDmuvnThYL5c/rvU4=";
+          allowedIPs = [
+            "10.7.6.5/32"
+            "fd00:fae:fae:fae:fae:5::/96"
+          ];
+        }
+        {
+          # delite.pub.solar
+          endpoint = "5.255.119.132:51820";
+          publicKey = "ZT2qGWgMPwHRUOZmTQHWCRX4m14YwOsiszjsA5bpc2k=";
+          allowedIPs = [
+            "10.7.6.6/32"
+            "fd00:fae:fae:fae:fae:6::/96"
+          ];
+        }
+        {
+          # blue-shell.pub.solar
+          endpoint = "194.13.83.205:51820";
+          publicKey = "bcrIpWrKc1M+Hq4ds3aN1lTaKE26f2rvXhd+93QrzR8=";
+          allowedIPs = [
+            "10.7.6.7/32"
+            "fd00:fae:fae:fae:fae:7::/96"
+          ];
+        }
       ];
     };
   };

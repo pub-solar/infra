@@ -69,6 +69,14 @@
               instance = "tankstelle";
             };
           }
+          {
+            targets = [
+              "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}"
+            ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
         ];
       }
       {
@@ -80,6 +88,18 @@
             labels = {
               instance = "nachtigall";
             };
+          }
+        ];
+      }
+      {
+        job_name = "garage";
+        static_configs = [
+          {
+            targets = [
+              "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:3903"
+              "delite.wg.${config.pub-solar-os.networking.domain}:3903"
+              "blue-shell.wg.${config.pub-solar-os.networking.domain}:3903"
+            ];
           }
         ];
       }

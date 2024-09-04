@@ -39,6 +39,15 @@ in
                 example = "/etc/nixos/restic-password";
               };
 
+              environmentFile = mkOption {
+                type = with types; nullOr str;
+                default = null;
+                description = ''
+                  Read repository secrets as environment variables from a file.
+                '';
+                example = "/etc/nixos/restic-env";
+              };
+
               repository = mkOption {
                 type = with types; nullOr str;
                 default = null;
@@ -57,11 +66,12 @@ in
         remotebackup = {
           repository = "sftp:backup@host:/backups/home";
           passwordFile = "/etc/nixos/secrets/restic-password";
+          environmentFile = "/etc/nixos/secrets/restic-env";
         };
       };
     };
 
-    backups = mkOption {
+    restic = mkOption {
       description = ''
         Periodic backups to create with Restic.
       '';
@@ -174,7 +184,7 @@ in
 
               runCheck = mkOption {
                 type = types.bool;
-                default = (builtins.length config.pub-solar-os.backups.backups.${name}.checkOpts > 0);
+                default = (builtins.length config.pub-solar-os.backups.restic.${name}.checkOpts > 0);
                 defaultText = literalExpression ''builtins.length config.services.backups.${name}.checkOpts > 0'';
                 description = "Whether to run the `check` command with the provided `checkOpts` options.";
                 example = true;
@@ -256,19 +266,25 @@ in
     services.restic.backups =
       let
         repos = config.pub-solar-os.backups.repos;
-        backups = config.pub-solar-os.backups.backups;
+        restic = config.pub-solar-os.backups.restic;
 
-        storeNames = builtins.attrNames repos;
-        backupNames = builtins.attrNames backups;
+        repoNames = builtins.attrNames repos;
+        backupNames = builtins.attrNames restic;
 
         createBackups =
           backupName:
-          map (storeName: {
-            name = "${backupName}-${storeName}";
-            value = repos."${storeName}" // backups."${backupName}";
-          }) storeNames;
+          map (repoName: {
+            name = "${backupName}-${repoName}";
+            value = repos."${repoName}" // restic."${backupName}";
+          }) repoNames;
 
       in
       builtins.listToAttrs (lib.lists.flatten (map createBackups backupNames));
+
+    # Used for pub-solar-os.backups.repos.storagebox
+    programs.ssh.knownHosts = {
+      "u377325.your-storagebox.de".publicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA5EB5p/5Hp3hGW1oHok+PIOH9Pbn7cnUiGmUEBrCVjnAw+HrKyN8bYVV0dIGllswYXwkG/+bgiBlE6IVIBAq+JwVWu1Sss3KarHY3OvFJUXZoZyRRg/Gc/+LRCE7lyKpwWQ70dbelGRyyJFH36eNv6ySXoUYtGkwlU5IVaHPApOxe4LHPZa/qhSRbPo2hwoh0orCtgejRebNtW5nlx00DNFgsvn8Svz2cIYLxsPVzKgUxs8Zxsxgn+Q/UvR7uq4AbAhyBMLxv7DjJ1pc7PJocuTno2Rw9uMZi1gkjbnmiOh6TTXIEWbnroyIhwc8555uto9melEUmWNQ+C+PwAK+MPw==";
+      "[u377325.your-storagebox.de]:23".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
+    };
   };
 }

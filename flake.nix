@@ -18,6 +18,9 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
 
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.darwin.follows = "nix-darwin";
@@ -99,6 +102,7 @@
               treefmt
               nixos-generators
               inputs.nixpkgs-2205.legacyPackages.${system}.terraform
+              terraform-ls
               jq
 
               # For the tests puppeteer-socket pkg
@@ -146,6 +150,18 @@
             };
             tankstelle = {
               hostname = "tankstelle.wg.pub.solar";
+              sshUser = username;
+            };
+            trinkgenossin = {
+              hostname = "trinkgenossin.wg.pub.solar";
+              sshUser = username;
+            };
+            delite = {
+              hostname = "delite.wg.pub.solar";
+              sshUser = username;
+            };
+            blue-shell = {
+              hostname = "blue-shell.wg.pub.solar";
               sshUser = username;
             };
           };
