@@ -43,25 +43,6 @@
         ];
       };
 
-      flora-6 = self.nixos-flake.lib.mkLinuxSystem {
-        imports = [
-          self.inputs.agenix.nixosModules.default
-          self.nixosModules.home-manager
-          ./flora-6
-          self.nixosModules.overlays
-          self.nixosModules.core
-          self.nixosModules.backups
-
-          self.nixosModules.keycloak
-          self.nixosModules.caddy
-          self.nixosModules.drone
-          self.nixosModules.forgejo-actions-runner
-          self.nixosModules.grafana
-          self.nixosModules.prometheus
-          self.nixosModules.loki
-        ];
-      };
-
       metronom = self.nixos-flake.lib.mkLinuxSystem {
         imports = [
           self.inputs.agenix.nixosModules.default
@@ -97,6 +78,7 @@
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
           ./trinkgenossin
+          self.nixosModules.backups
           self.nixosModules.overlays
           self.nixosModules.unlock-luks-on-boot
           self.nixosModules.core
@@ -105,6 +87,12 @@
 
           self.nixosModules.garage
           self.nixosModules.nginx
+
+          # This module is already using options, and those options are used by the grafana module
+          self.nixosModules.keycloak
+          self.nixosModules.grafana
+          self.nixosModules.prometheus
+          self.nixosModules.loki
         ];
       };
 

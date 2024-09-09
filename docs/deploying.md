@@ -13,12 +13,6 @@ For nachtigall.pub.solar:
 deploy --targets '.#nachtigall' --magic-rollback false --auto-rollback false --keep-result --result-path ./results
 ```
 
-For flora-6.pub.solar:
-
-```
-deploy --targets '.#flora-6' --magic-rollback false --auto-rollback false --keep-result --result-path ./results
-```
-
 For metronom.pub.solar (aarch64-linux):
 
 ```

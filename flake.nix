@@ -150,10 +150,6 @@
               hostname = "nachtigall.wg.pub.solar";
               sshUser = username;
             };
-            flora-6 = {
-              hostname = "flora-6.wg.pub.solar";
-              sshUser = username;
-            };
             metronom = {
               hostname = "metronom.wg.pub.solar";
               sshUser = username;

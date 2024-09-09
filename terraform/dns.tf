@@ -10,11 +10,6 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "10.7.6.1"
   }
   record {
-    hostname = "flora-6.wg"
-    type     = "A"
-    address  = "10.7.6.2"
-  }
-  record {
     hostname = "metronom.wg"
     type     = "A"
     address  = "10.7.6.3"
@@ -45,11 +40,6 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "fd00:fae:fae:fae:fae:1::"
   }
   record {
-    hostname = "flora-6.wg"
-    type     = "AAAA"
-    address  = "fd00:fae:fae:fae:fae:2::"
-  }
-  record {
     hostname = "metronom.wg"
     type     = "AAAA"
     address  = "fd00:fae:fae:fae:fae:3::"
@@ -73,11 +63,6 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "blue-shell.wg"
     type     = "AAAA"
     address  = "fd00:fae:fae:fae:fae:7::"
-  }
-  record {
-    hostname = "flora-6"
-    type     = "A"
-    address  = "80.71.153.210"
   }
   record {
     hostname = "metronom"
@@ -181,8 +166,8 @@ resource "namecheap_domain_records" "pub-solar" {
   }
   record {
     hostname = "alerts"
-    type     = "A"
-    address  = "10.7.6.2"
+    type     = "CNAME"
+    address  = "trinkgenossin.wg.pub.solar"
   }
   record {
     hostname = "git"
@@ -252,8 +237,8 @@ resource "namecheap_domain_records" "pub-solar" {
   }
   record {
     hostname = "grafana"
-    type     = "A"
-    address  = "80.71.153.210"
+    type     = "CNAME"
+    address  = "trinkgenossin.pub.solar"
   }
   record {
     hostname = "hpb"

@@ -12,15 +12,18 @@
     owner = "alertmanager";
   };
 
-  services.caddy.virtualHosts."alerts.${config.pub-solar-os.networking.domain}" = {
-    logFormat = lib.mkForce ''
-      output discard
-    '';
-    extraConfig = ''
-      bind 10.7.6.2 fd00:fae:fae:fae:fae:2::
-      tls internal
-      reverse_proxy :${toString config.services.prometheus.alertmanager.port}
-    '';
+  services.nginx.virtualHosts."alerts.${config.pub-solar-os.networking.domain}" = {
+    enableACME = true;
+    forceSSL = true;
+
+    listenAddresses = [
+      "10.7.6.5"
+      "[fd00:fae:fae:fae:fae:5::]"
+    ];
+
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";
+    };
   };
 
   services.prometheus = {
@@ -41,12 +44,6 @@
       {
         job_name = "node-exporter";
         static_configs = [
-          {
-            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-            labels = {
-              instance = "flora-6";
-            };
-          }
           {
             targets = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}" ];
             labels = {

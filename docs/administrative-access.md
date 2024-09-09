@@ -63,12 +63,6 @@ Example NixOS snippet for WireGuard client config
             #endpoint = "138.201.80.102:51820";
             persistentKeepalive = 15;
           }
-          { # flora-6.pub.solar
-            publicKey = "jtSR5G2P/nm9s8WrVc26Xc/SQLupRxyXE+5eIeqlsTU=";
-            allowedIPs = [ "10.7.6.2/32" "fd00:fae:fae:fae:fae:2::/96" ];
-            endpoint = "80.71.153.210:51820";
-            persistentKeepalive = 15;
-          }
           { # metronom.pub.solar
             publicKey = "zOSYGO7MfnOOUnzaTcWiKRQM0qqxR3JQrwx/gtEtHmo=";
             allowedIPs = [ "10.7.6.3/32" "fd00:fae:fae:fae:fae:3::/96" ];

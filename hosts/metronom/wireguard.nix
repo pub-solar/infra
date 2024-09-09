@@ -20,15 +20,6 @@
       privateKeyFile = config.age.secrets.wg-private-key.path;
       peers = flake.self.logins.admins.wireguardDevices ++ [
         {
-          # flora-6.pub.solar
-          endpoint = "80.71.153.210:51820";
-          publicKey = "jtSR5G2P/nm9s8WrVc26Xc/SQLupRxyXE+5eIeqlsTU=";
-          allowedIPs = [
-            "10.7.6.2/32"
-            "fd00:fae:fae:fae:fae:2::/96"
-          ];
-        }
-        {
           # nachtigall.pub.solar
           endpoint = "138.201.80.102:51820";
           publicKey = "qzNywKY9RvqTnDO8eLik75/SHveaSk9OObilDzv+xkk=";
@@ -36,6 +27,17 @@
             "10.7.6.1/32"
             "fd00:fae:fae:fae:fae:1::/96"
           ];
+        }
+        {
+          # trinkgenossin.pub.solar
+          publicKey = "QWgHovHxtqiQhnHLouSWiT6GIoQDmuvnThYL5c/rvU4=";
+          allowedIPs = [
+            "10.7.6.5/32"
+            "fd00:fae:fae:fae:fae:5::/96"
+          ];
+          #endpoint = "80.244.242.5:51820";
+          endpoint = "[2a01:239:35d:f500::1]:51820";
+          persistentKeepalive = 15;
         }
       ];
     };

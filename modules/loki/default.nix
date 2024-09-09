@@ -108,7 +108,7 @@
       };
       clients = [
         {
-          url = "http://flora-6.wg.pub.solar:${toString config.services.loki.configuration.server.http_listen_port}/loki/api/v1/push";
+          url = "http://trinkgenossin.wg.pub.solar:${toString config.services.loki.configuration.server.http_listen_port}/loki/api/v1/push";
         }
       ];
       scrape_configs = [
@@ -118,7 +118,7 @@
             max_age = "24h";
             labels = {
               job = "systemd-journal";
-              host = "flora-6";
+              host = "trinkgenossin";
             };
           };
           relabel_configs = [
