@@ -154,11 +154,11 @@ in
       "/tmp/obs-portal-backup.sql"
     ];
     timerConfig = {
-      OnCalendar = "*-*-* 00:30:00 Etc/UTC";
+      OnCalendar = "*-*-* 01:30:00 Etc/UTC";
     };
     initialize = true;
     backupPrepareCommand = ''
-      ${pkgs.docker}/bin/docker exec -ti --user postgres obs-portal-db pg_dump obs > /tmp/obs-portal-backup.sql
+      ${pkgs.docker}/bin/docker exec -i --user postgres obs-portal-db pg_dump obs > /tmp/obs-portal-backup.sql
     '';
     backupCleanupCommand = ''
       rm /tmp/obs-portal-backup.sql
