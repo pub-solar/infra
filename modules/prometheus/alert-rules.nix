@@ -252,7 +252,7 @@ lib.mapAttrsToList
     # };
 
     garage_cluster_healthy = {
-      condition = "cluster_healthy = 0";
+      condition = "cluster_healthy == 0";
       time = "15m";
       description = "garage cluster on {{$labels.instance}} is not healthy: {{$labels.result}}!";
     };
