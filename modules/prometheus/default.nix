@@ -12,6 +12,15 @@
     owner = "alertmanager";
   };
 
+  security.acme.certs = {
+    "alerts.${config.pub-solar-os.networking.domain}" = {
+      # disable http challenge
+      webroot = null;
+      # enable dns challenge
+      dnsProvider = "namecheap";
+    };
+  };
+
   services.nginx.virtualHosts."alerts.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
