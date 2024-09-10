@@ -74,6 +74,22 @@
               instance = "trinkgenossin";
             };
           }
+          {
+            targets = [
+              "delite.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}"
+            ];
+            labels = {
+              instance = "delite";
+            };
+          }
+          {
+            targets = [
+              "blue-shell.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}"
+            ];
+            labels = {
+              instance = "blue-shell";
+            };
+          }
         ];
       }
       {
@@ -94,9 +110,26 @@
           {
             targets = [
               "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:3903"
+            ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+          {
+            targets = [
               "delite.wg.${config.pub-solar-os.networking.domain}:3903"
+            ];
+            labels = {
+              instance = "delite";
+            };
+          }
+          {
+            targets = [
               "blue-shell.wg.${config.pub-solar-os.networking.domain}:3903"
             ];
+            labels = {
+              instance = "blue-shell";
+            };
           }
         ];
       }
