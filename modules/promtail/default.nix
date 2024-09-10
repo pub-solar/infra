@@ -18,7 +18,7 @@
       };
       clients = [
         {
-          url = "http://flora-6.wg.pub.solar:${toString flake.self.nixosConfigurations.flora-6.config.services.loki.configuration.server.http_listen_port}/loki/api/v1/push";
+          url = "http://trinkgenossin.wg.pub.solar:${toString flake.self.nixosConfigurations.trinkgenossin.config.services.loki.configuration.server.http_listen_port}/loki/api/v1/push";
         }
       ];
       scrape_configs = [

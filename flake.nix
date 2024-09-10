@@ -4,8 +4,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixpkgs-2205.url = "github:nixos/nixpkgs/nixos-22.05";
-
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -28,9 +26,6 @@
 
     keycloak-theme-pub-solar.url = "git+https://git.pub.solar/pub-solar/keycloak-theme?ref=main";
     keycloak-theme-pub-solar.inputs.nixpkgs.follows = "nixpkgs";
-
-    triton-vmtools.url = "git+https://git.pub.solar/pub-solar/infra-vintage?ref=main&dir=vmtools";
-    triton-vmtools.inputs.nixpkgs.follows = "nixpkgs";
 
     element-themes.url = "github:aaronraimist/element-themes/master";
     element-themes.flake = false;
@@ -116,7 +111,8 @@
               shfmt
               treefmt
               nixos-generators
-              inputs.nixpkgs-2205.legacyPackages.${system}.terraform
+              inputs.unstable.legacyPackages.${system}.opentofu
+              terraform-backend-git
               terraform-ls
               jq
             ];
@@ -148,10 +144,6 @@
           deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
             nachtigall = {
               hostname = "nachtigall.wg.pub.solar";
-              sshUser = username;
-            };
-            flora-6 = {
-              hostname = "flora-6.wg.pub.solar";
               sshUser = username;
             };
             metronom = {

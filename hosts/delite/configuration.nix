@@ -9,7 +9,7 @@
 
   boot.kernelParams = [
     "boot.shell_on_fail=1"
-    "ip=dhcp"
+    "ip=5.255.119.132::5.255.119.1:255.255.255.0:delite::off"
   ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,

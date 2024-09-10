@@ -250,4 +250,10 @@ lib.mapAttrsToList
     #   description =
     #     "alertmanager: number of active silences has changed: {{$value}}";
     # };
+
+    garage_cluster_healthy = {
+      condition = "cluster_healthy == 0";
+      time = "15m";
+      description = "garage cluster on {{$labels.instance}} is not healthy: {{$labels.result}}!";
+    };
   })

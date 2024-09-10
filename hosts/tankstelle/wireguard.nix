@@ -29,13 +29,15 @@
           ];
         }
         {
-          # flora-6.pub.solar
-          endpoint = "80.71.153.210:51820";
-          publicKey = "jtSR5G2P/nm9s8WrVc26Xc/SQLupRxyXE+5eIeqlsTU=";
+          # trinkgenossin.pub.solar
+          publicKey = "QWgHovHxtqiQhnHLouSWiT6GIoQDmuvnThYL5c/rvU4=";
           allowedIPs = [
-            "10.7.6.2/32"
-            "fd00:fae:fae:fae:fae:2::/96"
+            "10.7.6.5/32"
+            "fd00:fae:fae:fae:fae:5::/96"
           ];
+          #endpoint = "80.244.242.5:51820";
+          endpoint = "[2a01:239:35d:f500::1]:51820";
+          persistentKeepalive = 15;
         }
       ];
     };

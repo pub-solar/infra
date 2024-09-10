@@ -2,7 +2,6 @@ let
   admins = import ../logins/admins.nix;
 
   nachtigall-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7G0ufi+MNvaAZLDgpieHrABPGN7e/kD5kMFwSk4ABj root@nachtigall";
-  flora-6-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGP1InpTBN4AlF/4V8HHumAMLJzeO8DpzjUv9Co/+J09 root@flora-6";
   metronom-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICLX6UvvrKALKL0xsNnytLPHryzZF5evUnxAgGokf14i root@metronom";
   tankstelle-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdF6cJKPDiloWiDja1ZtqkXDdXOCHPs10HD+JMzgeU4 root@tankstelle";
   trinkgenossin-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDZXRDpom/LtyoCxvRuoONARKxIT6wNUwEyUjzHRE7DG root@trinkgenossin";
@@ -16,8 +15,6 @@ let
   nachtigallKeys = [ nachtigall-host ];
 
   tankstelleKeys = [ tankstelle-host ];
-
-  flora6Keys = [ flora-6-host ];
 
   metronomKeys = [ metronom-host ];
 
@@ -41,7 +38,6 @@ in
 
   "nachtigall-wg-private-key.age".publicKeys = nachtigallKeys ++ adminKeys;
   "tankstelle-wg-private-key.age".publicKeys = tankstelleKeys ++ adminKeys;
-  "flora6-wg-private-key.age".publicKeys = flora6Keys ++ adminKeys;
   "metronom-wg-private-key.age".publicKeys = metronomKeys ++ adminKeys;
   "trinkgenossin-wg-private-key.age".publicKeys = trinkgenossinKeys ++ adminKeys;
   "delite-wg-private-key.age".publicKeys = deliteKeys ++ adminKeys;
@@ -56,7 +52,6 @@ in
 
   "keycloak-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
 
-  "forgejo-actions-runner-token.age".publicKeys = flora6Keys ++ adminKeys;
   "tankstelle-forgejo-actions-runner-token.age".publicKeys = tankstelleKeys ++ adminKeys;
   "forgejo-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
   "forgejo-mailer-password.age".publicKeys = nachtigallKeys ++ adminKeys;
@@ -80,9 +75,6 @@ in
   "restic-repo-garage-nachtigall.age".publicKeys = nachtigallKeys ++ adminKeys;
   "restic-repo-garage-nachtigall-env.age".publicKeys = nachtigallKeys ++ adminKeys;
 
-  "drone-db-secrets.age".publicKeys = flora6Keys ++ adminKeys;
-  "drone-secrets.age".publicKeys = flora6Keys ++ adminKeys;
-
   "mediawiki-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mediawiki-admin-password.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mediawiki-oidc-client-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
@@ -90,11 +82,11 @@ in
 
   "coturn-static-auth-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
 
-  "grafana-admin-password.age".publicKeys = flora6Keys ++ adminKeys;
-  "grafana-keycloak-client-secret.age".publicKeys = flora6Keys ++ adminKeys;
-  "grafana-smtp-password.age".publicKeys = flora6Keys ++ adminKeys;
+  "grafana-admin-password.age".publicKeys = trinkgenossinKeys ++ adminKeys;
+  "grafana-keycloak-client-secret.age".publicKeys = trinkgenossinKeys ++ adminKeys;
+  "grafana-smtp-password.age".publicKeys = trinkgenossinKeys ++ adminKeys;
 
-  "alertmanager-envfile.age".publicKeys = flora6Keys ++ adminKeys;
+  "alertmanager-envfile.age".publicKeys = trinkgenossinKeys ++ adminKeys;
 
   "obs-portal-env.age".publicKeys = nachtigallKeys ++ adminKeys;
   "obs-portal-database-env.age".publicKeys = nachtigallKeys ++ adminKeys;
