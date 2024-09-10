@@ -117,25 +117,19 @@
         job_name = "garage";
         static_configs = [
           {
-            targets = [
-              "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:3903"
-            ];
+            targets = [ "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:3903" ];
             labels = {
               instance = "trinkgenossin";
             };
           }
           {
-            targets = [
-              "delite.wg.${config.pub-solar-os.networking.domain}:3903"
-            ];
+            targets = [ "delite.wg.${config.pub-solar-os.networking.domain}:3903" ];
             labels = {
               instance = "delite";
             };
           }
           {
-            targets = [
-              "blue-shell.wg.${config.pub-solar-os.networking.domain}:3903"
-            ];
+            targets = [ "blue-shell.wg.${config.pub-solar-os.networking.domain}:3903" ];
             labels = {
               instance = "blue-shell";
             };
