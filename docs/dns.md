@@ -1,17 +1,9 @@
 # Changing DNS entries
 
 Our current DNS provider is [namecheap](https://www.namecheap.com/).
-We use [Terraform](https://www.terraform.io) to declaratively manage our pub.solar DNS records.
+We use [OpenTofu](https://opentofu.org) to declaratively manage our pub.solar DNS records.
 
 ### Initial setup
-
-Skip this step if you already have a `triton` profile setup.
-
-```
-triton profile create
-```
-
-Please follow https://docs.greenbaum.cloud/en/devops/triton-cli.html for the details.
 
 You will need to setup the following [namecheap API credentials](https://www.namecheap.com/support/api/intro),
 look for "namecheap API key" in the pub.solar Keepass database.
@@ -28,13 +20,15 @@ You will probably also need to add your external IP to the [API allow list](http
 dig -4 ip @dns.toys
 ```
 
-Now, change into the terraform directory and initialize the terraform providers.
+Now, change into the terraform directory and initialize the terraform providers. To decrypt existing state,
+search for "terraform state passphrase" in the pub.solar Keepass database.
 
 ```
 cd terraform
-export TRITON_KEY_ID=$(cat ~/.config/triton/profiles.d/lev-1-pub_solar.json | jq --raw-output .keyId)
+export TF_VAR_state_passphrase=$(secret-tool lookup pub.solar terraform-state-passphrase-dns)
 
-terraform init
+alias tofu="terraform-backend-git --access-logs --tf tofu git terraform"
+tofu init
 ```
 
 Make your changes, e.g. in `dns.tf`.
@@ -46,20 +40,21 @@ $EDITOR dns.tf
 Plan your changes using:
 
 ```
-terraform plan -out pub-solar-infra.plan
+tofu plan -out pub-solar-infra.plan
 ```
 
 After verification, apply your changes with:
 
 ```
-terraform apply "pub-solar-infra.plan"
+tofu apply "pub-solar-infra.plan"
 ```
 
 ### Useful links
 
-We use the Manta remote backend to save the terraform state for collaboration.
+We use terraform-backend-git remote backend with opentofu state encryption for collaboration.
 
-- https://www.terraform.io/language/v1.2.x/settings/backends/manta
+- https://github.com/plumber-cd/terraform-backend-git
+- https://opentofu.org/docs/language/state/encryption
 
 Namecheap Terraform provider docs:
 
