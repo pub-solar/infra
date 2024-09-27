@@ -30,7 +30,7 @@ in
             "10.7.6.5/32"
             "fd00:fae:fae:fae:fae:5::/96"
           ];
-          #endpoint = "80.244.242.5:51820";
+          #endpoint = "85.215.152.22:51820";
           endpoint = "[2a01:239:35d:f500::1]:51820";
           persistentKeepalive = 15;
         }
