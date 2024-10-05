@@ -318,21 +318,6 @@
         "type": "github"
       }
     },
-    "nixos-flake": {
-      "locked": {
-        "lastModified": 1728073820,
-        "narHash": "sha256-H6DC2OCW8BKzja+1oHGTjw9EN5w+4Op9PnVjKL8EJbI=",
-        "owner": "srid",
-        "repo": "nixos-flake",
-        "rev": "47a26bc9118d17500bbe0c4adb5ebc26f776cc36",
-        "type": "github"
-      },
-      "original": {
-        "owner": "srid",
-        "repo": "nixos-flake",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1728067476,
@@ -373,7 +358,6 @@
         "keycloak-theme-pub-solar": "keycloak-theme-pub-solar",
         "maunium-stickerpicker": "maunium-stickerpicker",
         "nix-darwin": "nix-darwin",
-        "nixos-flake": "nixos-flake",
         "nixpkgs": "nixpkgs",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "unstable": "unstable"

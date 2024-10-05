@@ -1,9 +1,35 @@
-{ self, ... }:
+{
+  self,
+  inputs,
+  config,
+  ...
+}:
 {
   flake = {
-    nixosConfigurations = {
-      nachtigall = self.nixos-flake.lib.mkLinuxSystem {
+    nixosModules = {
+      home-manager = {
         imports = [
+          inputs.home-manager.nixosModules.home-manager
+          ({
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              flake = {
+                inherit self inputs config;
+              };
+            };
+          })
+        ];
+      };
+    };
+    nixosConfigurations = {
+      nachtigall = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
           ./nachtigall
@@ -43,8 +69,13 @@
         ];
       };
 
-      metronom = self.nixos-flake.lib.mkLinuxSystem {
-        imports = [
+      metronom = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
           ./metronom
@@ -60,8 +91,13 @@
         ];
       };
 
-      tankstelle = self.nixos-flake.lib.mkLinuxSystem {
-        imports = [
+      tankstelle = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
           ./tankstelle
@@ -73,8 +109,13 @@
         ];
       };
 
-      trinkgenossin = self.nixos-flake.lib.mkLinuxSystem {
-        imports = [
+      trinkgenossin = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
           ./trinkgenossin
@@ -94,8 +135,13 @@
         ];
       };
 
-      delite = self.nixos-flake.lib.mkLinuxSystem {
-        imports = [
+      delite = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
           self.inputs.agenix.nixosModules.default
           self.inputs.disko.nixosModules.disko
           self.nixosModules.home-manager
@@ -111,8 +157,13 @@
         ];
       };
 
-      blue-shell = self.nixos-flake.lib.mkLinuxSystem {
-        imports = [
+      blue-shell = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
           self.inputs.agenix.nixosModules.default
           self.inputs.disko.nixosModules.disko
           self.nixosModules.home-manager
