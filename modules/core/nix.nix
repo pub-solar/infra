@@ -6,7 +6,10 @@
   ...
 }:
 {
-  nixpkgs.config = lib.mkDefault { allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ ]; };
+  nixpkgs.config = lib.mkDefault {
+    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ ];
+    permittedInsecurePackages = [ "olm-3.2.16" ];
+  };
 
   nix = {
     # Use default version alias for nix package

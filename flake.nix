@@ -11,7 +11,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixos-flake.url = "github:srid/nixos-flake";
 
     deploy-rs.url = "github:serokell/deploy-rs";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
@@ -51,7 +50,6 @@
       ];
 
       imports = [
-        inputs.nixos-flake.flakeModule
         ./logins
         ./lib
         ./overlays
