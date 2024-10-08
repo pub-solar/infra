@@ -63,6 +63,7 @@
   teutat3s = {
     sshPubKeys = {
       teutat3s-1 = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFro/k4Mgqyh8yV/7Zwjc0dv60ZM7bROBU9JNd99P/4co6fxPt1pJiU/pEz2Dax/HODxgcO+jFZfvPEuLMCeAl0= YubiKey #10593996 PIV Slot 9a";
+      teutat3s-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHcU6KPy4b1MQXd6EJhcYwbJu7E+0IrBZF/IP6T7gbMf teutat3s@dumpyourvms";
     };
 
     secretEncryptionKeys = {
