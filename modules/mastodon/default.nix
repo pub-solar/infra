@@ -67,14 +67,14 @@
       passwordFile = "/run/agenix/mastodon-smtp-password";
       fromAddress = "mastodon-notifications@pub.solar";
     };
+    # Defined in ./opensearch.nix
+    elasticsearch.host = "127.0.0.1";
     mediaAutoRemove = {
       olderThanDays = 7;
     };
     extraEnvFiles = [ "/run/agenix/mastodon-extra-env-secrets" ];
     extraConfig = {
       WEB_DOMAIN = "mastodon.${config.pub-solar-os.networking.domain}";
-      # Defined in ./opensearch.nix
-      ES_HOST = "127.0.0.1";
       # S3 File storage (optional)
       # -----------------------
       S3_ENABLED = "true";
