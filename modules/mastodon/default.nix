@@ -96,9 +96,9 @@
       # S3 File storage (optional)
       # -----------------------
       S3_ENABLED = "true";
-      S3_BUCKET = "pub-solar-mastodon";
-      S3_REGION = "europe-west-1";
-      S3_ENDPOINT = "https://gateway.tardigradeshare.io";
+      S3_BUCKET = "mastodon";
+      S3_REGION = "eu-central";
+      S3_ENDPOINT = "https://buckets.pub.solar";
       S3_ALIAS_HOST = "files.${config.pub-solar-os.networking.domain}";
       # Translation (optional)
       # -----------------------

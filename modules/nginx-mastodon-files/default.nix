@@ -1,14 +1,19 @@
 { config, ... }:
 
 let
-  objStorHost = "link.tardigradeshare.io";
-  objStorBucket = "s/jw24ad6l4a6zxsnd32cmf5hp5nsq/pub-solar-mastodon";
+  objStorHost = "mastodon.web.pub.solar";
 in
 {
   services.nginx.virtualHosts = {
     "files.${config.pub-solar-os.networking.domain}" = {
       enableACME = true;
       forceSSL = true;
+
+      # Use variable to force nginx to perform a DNS resolution on its value,
+      # the IP of the object storage provider may not always remain the same.
+      extraConfig = ''
+        set $s3_backend 'https://${objStorHost}';
+      '';
 
       locations = {
         "= /" = {
@@ -25,7 +30,6 @@ in
               deny all;
             }
 
-            resolver 8.8.8.8;
             proxy_set_header Host ${objStorHost};
             proxy_set_header Connection \'\';
             proxy_set_header Authorization \'\';
@@ -40,7 +44,7 @@ in
             proxy_hide_header x-amz-bucket-region;
             proxy_hide_header x-amzn-requestid;
             proxy_ignore_headers Set-Cookie;
-            proxy_pass https://${objStorHost}/${objStorBucket}$request_uri?download;
+            proxy_pass $s3_backend$uri;
             proxy_intercept_errors off;
             proxy_ssl_protocols TLSv1.2 TLSv1.3;
             proxy_ssl_server_name on;
