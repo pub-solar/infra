@@ -9,5 +9,10 @@
     ./networking.nix
     ./wireguard.nix
     ./backups.nix
-  ];
+   "${flake.inputs.unstable}/nixos/modules/services/web-apps/mastodon.nix"
+    ];
+
+    disabledModules = [
+      "services/web-apps/mastodon.nix"
+    ];
 }

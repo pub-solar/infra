@@ -7,6 +7,21 @@
 }:
 
 {
+  age.secrets."mastodon-active-record-encryption-deterministic-key" = {
+    file = "${flake.self}/secrets//mastodon-active-record-encryption-deterministic-key.age";
+    mode = "400";
+    owner = config.services.mastodon.user;
+  };
+  age.secrets."mastodon-active-record-encryption-key-derivation-salt" = {
+    file = "${flake.self}/secrets//mastodon-active-record-encryption-key-derivation-salt.age";
+    mode = "400";
+    owner = config.services.mastodon.user;
+  };
+  age.secrets."mastodon-active-record-encryption-primary-key" = {
+    file = "${flake.self}/secrets//mastodon-active-record-encryption-primary-key.age";
+    mode = "400";
+    owner = config.services.mastodon.user;
+  };
   age.secrets."mastodon-secret-key-base" = {
     file = "${flake.self}/secrets/mastodon-secret-key-base.age";
     mode = "400";
@@ -54,6 +69,9 @@
     webProcesses = 2;
     # Threads per process used by the mastodon-web service
     webThreads = 5;
+    activeRecordEncryptionDeterministicKeyFile = "/run/agenix/mastodon-active-record-encryption-deterministic-key";
+    activeRecordEncryptionKeyDerivationSaltFile = "/run/agenix/mastodon-active-record-encryption-key-derivation-salt";
+    activeRecordEncryptionPrimaryKeyFile = "/run/agenix/mastodon-active-record-encryption-primary-key";
     secretKeyBaseFile = "/run/agenix/mastodon-secret-key-base";
     otpSecretFile = "/run/agenix/mastodon-otp-secret";
     vapidPrivateKeyFile = "/run/agenix/mastodon-vapid-private-key";
