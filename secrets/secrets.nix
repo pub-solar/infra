@@ -44,7 +44,8 @@ in
   "blue-shell-wg-private-key.age".publicKeys = blueshellKeys ++ adminKeys;
 
   "mastodon-active-record-encryption-deterministic-key.age".publicKeys = nachtigallKeys ++ adminKeys;
-  "mastodon-active-record-encryption-key-derivation-salt.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "mastodon-active-record-encryption-key-derivation-salt.age".publicKeys =
+    nachtigallKeys ++ adminKeys;
   "mastodon-active-record-encryption-primary-key.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mastodon-secret-key-base.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mastodon-otp-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
