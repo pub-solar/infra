@@ -44,7 +44,7 @@ in
             proxy_hide_header x-amz-bucket-region;
             proxy_hide_header x-amzn-requestid;
             proxy_ignore_headers Set-Cookie;
-            proxy_pass $s3_backend$uri;
+            proxy_pass $s3_backend$request_uri;
             proxy_intercept_errors off;
             proxy_ssl_protocols TLSv1.2 TLSv1.3;
             proxy_ssl_server_name on;
