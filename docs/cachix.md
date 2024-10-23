@@ -5,7 +5,7 @@ URL: https://pub-solar.cachix.org
 Requirements:
 
 - [Install cachix](https://docs.cachix.org/installation)
-- Optional: To push to the cache, you need to set `CACHIX_AUTH_TOKEN` in your environment
+- Optional: To push to the cache, you need to set `CACHIX_AUTH_TOKEN` in your environment. To generate one for you, follow the [Getting Started](https://docs.cachix.org/getting-started#authenticating) docs and login with your GitHub account.
 - Add our binary cache [to your nix config](https://docs.cachix.org/faq#cachix-use-effects). To add the pub-solar cache, run:
 
 ```
