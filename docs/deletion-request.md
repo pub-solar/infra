@@ -50,7 +50,7 @@ Docs: https://forgejo.org/docs/latest/admin/command-line/#delete
 ### Matrix
 
 ```
-curl --header "Authorization: Bearer <admin-access-token>" --request POST http://172.18.0.3:8008/_synapse/admin/v1/deactivate/@<username>:pub.solar --data '{"erase": true}'
+curl --header "Authorization: Bearer <admin-access-token>" --request POST http://127.0.0.1:8008/_synapse/admin/v1/deactivate/@<username>:pub.solar --data '{"erase": true}'
 ```
 
 Docs: https://matrix-org.github.io/synapse/latest/admin_api/user_admin_api.html#deactivate-account
