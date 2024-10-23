@@ -18,6 +18,7 @@
     "virtio_pci"
     "sr_mod"
     "virtio_blk"
+    "virtio_net"
   ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-amd" ];
@@ -50,5 +51,4 @@
   swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  virtualisation.hypervGuest.enable = true;
 }
