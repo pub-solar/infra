@@ -99,7 +99,7 @@
       s3_api = {
         s3_region = "eu-central";
         api_bind_addr = "[::]:3900";
-        root_domain = ".s3.${config.pub-solar-os.networking.domain}";
+        root_domain = ".buckets.${config.pub-solar-os.networking.domain}";
       };
       s3_web = {
         bind_addr = "[::]:3902";
