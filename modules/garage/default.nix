@@ -31,6 +31,8 @@
 
   security.acme = {
     defaults = {
+      # LEGO_DISABLE_CNAME_SUPPORT=true set here to fix issues with CNAME
+      # detection, as we use wildcard DNS for garage
       environmentFile = config.age.secrets.acme-namecheap-env.path;
     };
     certs = {
@@ -40,7 +42,6 @@
         webroot = null;
         # enable dns challenge
         dnsProvider = "namecheap";
-        dnsPropagationCheck = false;
       };
       # Wildcard certificate gets created automatically
       "web.${config.pub-solar-os.networking.domain}" = {
@@ -48,7 +49,6 @@
         webroot = null;
         # enable dns challenge
         dnsProvider = "namecheap";
-        dnsPropagationCheck = false;
       };
     };
   };
