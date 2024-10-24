@@ -10,7 +10,7 @@ jobs:
 
       - name: Check formatting
         run: |
-          nix --accept-flake-config --access-tokens '' develop --command treefmt --fail-on-change
+          nix --accept-flake-config --access-tokens '' develop --command treefmt --ci
 
       - name: Run flake checks
         run: |

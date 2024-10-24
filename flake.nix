@@ -107,7 +107,7 @@
               nvfetcher
               shellcheck
               shfmt
-              treefmt
+              inputs.unstable.legacyPackages.${system}.treefmt2
               nixos-generators
               inputs.unstable.legacyPackages.${system}.opentofu
               terraform-backend-git
