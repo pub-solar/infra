@@ -10,11 +10,14 @@ let
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     add_header X-XSS-Protection "1; mode=block";
   '';
-  clientConfig = import ./element-client-config.nix { inherit lib pkgs; };
+  clientConfig = import ./element-client-config.nix { inherit config lib pkgs; };
   wellKnownClient = domain: {
     "m.homeserver".base_url = "https://matrix.${domain}";
     "m.identity_server".base_url = "https://matrix.${domain}";
-    "org.matrix.msc3575.proxy".url = "https://matrix.${domain}";
+    "org.matrix.msc2965.authentication" = {
+      issuer = "https://mas.${domain}/";
+      account = "https://mas.${domain}/account";
+    };
     "im.vector.riot.e2ee".default = true;
     "io.element.e2ee" = {
       default = true;
@@ -85,6 +88,27 @@ in
       root = pkgs.element-stickerpicker;
     };
 
+    "mas.${config.pub-solar-os.networking.domain}" = {
+      root = "/dev/null";
+
+      forceSSL = lib.mkDefault true;
+      enableACME = lib.mkDefault true;
+
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:8090";
+
+          extraConfig = ''
+            ${commonHeaders}
+            proxy_http_version 1.1;
+
+            # Forward the client IP address
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          '';
+        };
+      };
+    };
+
     "matrix.${config.pub-solar-os.networking.domain}" = {
       root = "/dev/null";
 
@@ -99,28 +123,41 @@ in
       locations = {
         # For telegram
         "/c3c3f34b-29fb-5feb-86e5-98c75ec8214b" = {
+          priority = 100;
           proxyPass = "http://127.0.0.1:8009";
           extraConfig = commonHeaders;
         };
 
-        # sliding-sync
-        "~ ^/(client/|_matrix/client/unstable/org.matrix.msc3575/sync)" = {
-          proxyPass = "http://127.0.0.1:8011";
-          extraConfig = commonHeaders;
+        # Forward to the auth service
+        "~ ^/_matrix/client/(.*)/(login|logout|refresh)" = {
+          priority = 100;
+          proxyPass = "http://127.0.0.1:8090";
+
+          extraConfig = ''
+            ${commonHeaders}
+            proxy_http_version 1.1;
+
+            # Forward the client IP address
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          '';
         };
 
-        "~* ^(/_matrix|/_synapse/client|/_synapse/oidc)" = {
+        # Forward to Synapse
+        # as per https://element-hq.github.io/synapse/latest/reverse_proxy.html#nginx
+        "~ ^(/_matrix|/_synapse/client)" = {
+          priority = 200;
           proxyPass = "http://127.0.0.1:8008";
 
           extraConfig = ''
             ${commonHeaders}
+            proxy_set_header X-Forwarded-For $remote_addr;
+            proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
 
             client_body_buffer_size 25M;
             client_max_body_size 50M;
             proxy_max_temp_file_size 0;
+            proxy_http_version 1.1;
           '';
         };
       };

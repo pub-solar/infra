@@ -48,6 +48,7 @@
     owner = "root";
   };
 
+  # keycloak
   age.secrets.keycloak-database-password = {
     file = "${flake.self}/secrets/keycloak-database-password.age";
     mode = "600";
@@ -57,6 +58,50 @@
   pub-solar-os.auth = {
     enable = true;
     database-password-file = config.age.secrets.keycloak-database-password.path;
+  };
+
+  # matrix-synapse
+  age.secrets."nachtigall-matrix-synapse-signing-key" = {
+    file = "${flake.self}/secrets/nachtigall-matrix-synapse-signing-key.age";
+    mode = "400";
+    owner = "matrix-synapse";
+  };
+
+  age.secrets."nachtigall-matrix-synapse-secret-config.yaml" = {
+    file = "${flake.self}/secrets/nachtigall-matrix-synapse-secret-config.yaml.age";
+    mode = "400";
+    owner = "matrix-synapse";
+  };
+
+  age.secrets."nachtigall-matrix-synapse-sliding-sync-secret" = {
+    file = "${flake.self}/secrets/nachtigall-matrix-synapse-sliding-sync-secret.age";
+    mode = "400";
+    owner = "matrix-synapse";
+  };
+
+
+  pub-solar-os.matrix-synapse = {
+    enable = true;
+    signing_key_path = config.age.secrets."nachtigall-matrix-synapse-signing-key".path;
+    extra-config-files = [
+      config.age.secrets."nachtigall-matrix-synapse-secret-config.yaml".path
+
+      # The registration file is automatically generated after starting the
+      # appservice for the first time.
+      # cp /var/lib/mautrix-telegram/telegram-registration.yaml \
+      #   /var/lib/matrix-synapse/
+      # chown matrix-synapse:matrix-synapse \
+      #   /var/lib/matrix-synapse/telegram-registration.yaml
+      "/var/lib/matrix-synapse/telegram-registration.yaml"
+    ];
+    app-service-config-files = [
+      "/var/lib/matrix-synapse/telegram-registration.yaml"
+      "/var/lib/matrix-appservice-irc/registration.yml"
+      # "/matrix-appservice-slack-registration.yaml"
+      # "/hookshot-registration.yml"
+      # "/matrix-mautrix-signal-registration.yaml"
+      # "/matrix-mautrix-telegram-registration.yaml"
+    ];
   };
 
   systemd.services.postgresql = {

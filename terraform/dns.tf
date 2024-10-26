@@ -333,9 +333,39 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "2a01:4f8:172:1c25::1"
   }
   record {
+    hostname = "underground"
+    type     = "A"
+    address  = "80.244.242.3"
+  }
+  record {
+    hostname = "test"
+    type     = "CNAME"
+    address  = "underground.pub.solar."
+  }
+  record {
+    hostname = "mas.test"
+    type     = "CNAME"
+    address  = "underground.pub.solar."
+  }
+  record {
     hostname = "matrix.test"
     type     = "CNAME"
-    address  = "nachtigall.pub.solar."
+    address  = "underground.pub.solar."
+  }
+  record {
+    hostname = "chat.test"
+    type     = "CNAME"
+    address  = "underground.pub.solar."
+  }
+  record {
+    hostname = "stickers.chat.test"
+    type     = "CNAME"
+    address  = "underground.pub.solar."
+  }
+  record {
+    hostname = "auth.test"
+    type     = "CNAME"
+    address  = "underground.pub.solar."
   }
   # SRV records can only be changed via NameCheap Web UI
   # add comment

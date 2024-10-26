@@ -5,8 +5,8 @@
   ...
 }:
 {
-  age.secrets."coturn-static-auth-secret" = {
-    file = "${flake.self}/secrets/coturn-static-auth-secret.age";
+  age.secrets."nachtigall-coturn-static-auth-secret" = {
+    file = "${flake.self}/secrets/nachtigall-coturn-static-auth-secret.age";
     mode = "400";
     owner = "turnserver";
   };
@@ -18,7 +18,7 @@
     min-port = 49000;
     max-port = 50000;
     use-auth-secret = true;
-    static-auth-secret-file = "/run/agenix/coturn-static-auth-secret";
+    static-auth-secret-file = "/run/agenix/nachtigall-coturn-static-auth-secret";
     realm = "turn.${config.pub-solar-os.networking.domain}";
     cert = "${config.security.acme.certs.${realm}.directory}/full.pem";
     pkey = "${config.security.acme.certs.${realm}.directory}/key.pem";

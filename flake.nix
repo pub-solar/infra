@@ -3,6 +3,7 @@
     # Track channels with commits tested and built by hydra
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -150,6 +151,10 @@
             };
             tankstelle = {
               hostname = "tankstelle.wg.pub.solar";
+              sshUser = username;
+            };
+            underground = {
+              hostname = "80.244.242.3";
               sshUser = username;
             };
             trinkgenossin = {

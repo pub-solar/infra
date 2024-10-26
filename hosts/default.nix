@@ -178,6 +178,30 @@
           self.nixosModules.nginx
         ];
       };
+
+      underground = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
+          self.inputs.agenix.nixosModules.default
+          self.nixosModules.home-manager
+          ./underground
+          self.nixosModules.overlays
+          self.nixosModules.unlock-luks-on-boot
+          self.nixosModules.core
+
+          self.nixosModules.backups
+          self.nixosModules.keycloak
+          self.nixosModules.postgresql
+          self.nixosModules.matrix
+          self.nixosModules.matrix-irc
+          self.nixosModules.nginx
+          self.nixosModules.nginx-matrix
+        ];
+      };
     };
   };
 }

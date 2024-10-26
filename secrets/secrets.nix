@@ -7,6 +7,7 @@ let
   trinkgenossin-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDZXRDpom/LtyoCxvRuoONARKxIT6wNUwEyUjzHRE7DG root@trinkgenossin";
   delite-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAKo7zlfQhcJ5/okFTOoOstZtmEL1iNlHxQ4q2baEcWT root@delite";
   blue-shell-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP9g9X0a/MaVtbh44IeLxcq+McuYec0GYAdLsseBpk5f root@blue-shell";
+  underground-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGF3PtA89yhVkmN7aJI6gqXK8DW9L7kI71IgiK4TAEwI root@underground";
 
   adminKeys = builtins.foldl' (
     keys: login: keys ++ (builtins.attrValues login.secretEncryptionKeys)
@@ -23,6 +24,8 @@ let
   deliteKeys = [ delite-host ];
 
   blueshellKeys = [ blue-shell-host ];
+
+  undergroundKeys = [ underground-host ];
 
   garageKeys = [
     trinkgenossin-host
@@ -62,9 +65,12 @@ in
   "forgejo-ssh-private-key.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "matrix-mautrix-telegram-env-file.age".publicKeys = nachtigallKeys ++ adminKeys;
-  "matrix-synapse-signing-key.age".publicKeys = nachtigallKeys ++ adminKeys;
-  "matrix-synapse-secret-config.yaml.age".publicKeys = nachtigallKeys ++ adminKeys;
-  "matrix-synapse-sliding-sync-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "nachtigall-matrix-synapse-signing-key.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "nachtigall-matrix-synapse-secret-config.yaml.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "nachtigall-matrix-synapse-sliding-sync-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
+
+  "underground-matrix-synapse-secret-config.yaml.age".publicKeys = undergroundKeys ++ adminKeys;
+  "underground-matrix-authentication-service-secret-config.yml.age".publicKeys = undergroundKeys ++ adminKeys;
 
   "nextcloud-secrets.age".publicKeys = nachtigallKeys ++ adminKeys;
   "nextcloud-admin-pass.age".publicKeys = nachtigallKeys ++ adminKeys;
@@ -84,7 +90,7 @@ in
   "mediawiki-oidc-client-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mediawiki-secret-key.age".publicKeys = nachtigallKeys ++ adminKeys;
 
-  "coturn-static-auth-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "nachtigall-coturn-static-auth-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "grafana-admin-password.age".publicKeys = trinkgenossinKeys ++ adminKeys;
   "grafana-keycloak-client-secret.age".publicKeys = trinkgenossinKeys ++ adminKeys;

@@ -234,6 +234,22 @@
         "type": "github"
       }
     },
+    "fork": {
+      "locked": {
+        "lastModified": 1729963002,
+        "narHash": "sha256-2zrYfd/qdfExU5zVwvH80uJnKc/dMeK6zp3O1UtW2Mo=",
+        "owner": "teutat3s",
+        "repo": "nixpkgs",
+        "rev": "005faaacbeede0296dec5c844f508027ab8a3ff6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "teutat3s",
+        "ref": "init-matrix-authentication-service-module",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -354,6 +370,7 @@
         "element-stickers": "element-stickers",
         "element-themes": "element-themes",
         "flake-parts": "flake-parts",
+        "fork": "fork",
         "home-manager": "home-manager",
         "keycloak-theme-pub-solar": "keycloak-theme-pub-solar",
         "maunium-stickerpicker": "maunium-stickerpicker",
