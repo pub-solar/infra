@@ -70,7 +70,8 @@ in
   "nachtigall-matrix-synapse-sliding-sync-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "underground-matrix-synapse-secret-config.yaml.age".publicKeys = undergroundKeys ++ adminKeys;
-  "underground-matrix-authentication-service-secret-config.yml.age".publicKeys = undergroundKeys ++ adminKeys;
+  "underground-matrix-authentication-service-secret-config.yml.age".publicKeys =
+    undergroundKeys ++ adminKeys;
 
   "nextcloud-secrets.age".publicKeys = nachtigallKeys ++ adminKeys;
   "nextcloud-admin-pass.age".publicKeys = nachtigallKeys ++ adminKeys;

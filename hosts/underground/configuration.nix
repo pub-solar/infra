@@ -79,10 +79,16 @@
             { name = "oauth"; }
             { name = "compat"; }
             { name = "graphql"; }
-            { name = "assets"; path = "${config.services.matrix-authentication-service.package}/share/matrix-authentication-service/assets"; }
+            {
+              name = "assets";
+              path = "${config.services.matrix-authentication-service.package}/share/matrix-authentication-service/assets";
+            }
           ];
           binds = [
-            { host = "0.0.0.0"; port = 8090; }
+            {
+              host = "0.0.0.0";
+              port = 8090;
+            }
           ];
           proxy_protocol = false;
         }
@@ -92,7 +98,10 @@
             { name = "health"; }
           ];
           binds = [
-            { host = "0.0.0.0"; port = 8081; }
+            {
+              host = "0.0.0.0";
+              port = 8081;
+            }
           ];
           proxy_protocol = false;
         }

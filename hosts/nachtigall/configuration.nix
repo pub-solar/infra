@@ -82,7 +82,6 @@
     owner = "matrix-synapse";
   };
 
-
   pub-solar-os.matrix-synapse = {
     enable = true;
     sliding-sync.enable = true;

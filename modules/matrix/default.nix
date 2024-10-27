@@ -16,13 +16,13 @@ in
     app-service-config-files = lib.mkOption {
       description = "List of app service config files";
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
     };
 
     extra-config-files = lib.mkOption {
       description = "List of extra synapse config files";
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
     };
 
     signing_key_path = lib.mkOption {
