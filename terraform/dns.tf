@@ -110,6 +110,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "nachtigall.pub.solar."
   }
   record {
+    hostname = "mas"
+    type     = "CNAME"
+    address  = "nachtigall.pub.solar."
+  }
+  record {
     hostname = "ci"
     type     = "A"
     address  = "80.71.153.210"
