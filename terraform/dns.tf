@@ -190,11 +190,6 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "nachtigall.pub.solar."
   }
   record {
-    hostname = "list"
-    type     = "CNAME"
-    address  = "nachtigall.pub.solar."
-  }
-  record {
     hostname = "obs-portal"
     type     = "CNAME"
     address  = "nachtigall.pub.solar."
@@ -326,6 +321,16 @@ resource "namecheap_domain_records" "pub-solar" {
     type     = "MX"
     address  = "list.pub.solar."
     mx_pref  = "0"
+  }
+  record {
+    hostname = "list"
+    type     = "A"
+    address  = "138.201.80.102"
+  }
+  record {
+    hostname = "list"
+    type     = "AAAA"
+    address  = "2a01:4f8:172:1c25::1"
   }
   record {
     hostname = "nachtigall"
