@@ -10,33 +10,46 @@ let
   serverDomain = "${config.pub-solar-os.networking.domain}";
 in
 {
-  options.pub-solar-os.matrix-synapse = {
-    enable = lib.mkEnableOption "Enable matrix-synapse to run on the node";
+  options.pub-solar-os = {
+    matrix = {
+      enable = lib.mkEnableOption "Enable matrix-synapse and matrix-authentication-service to run on the node";
 
-    app-service-config-files = lib.mkOption {
-      description = "List of app service config files";
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-    };
+      synapse = {
+        app-service-config-files = lib.mkOption {
+          description = "List of app service config files";
+          type = lib.types.listOf lib.types.str;
+          default = [ ];
+        };
 
-    extra-config-files = lib.mkOption {
-      description = "List of extra synapse config files";
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-    };
+        extra-config-files = lib.mkOption {
+          description = "List of extra synapse config files";
+          type = lib.types.listOf lib.types.str;
+          default = [ ];
+        };
 
-    signing_key_path = lib.mkOption {
-      description = "Path to file containing the signing key";
-      type = lib.types.str;
-      default = "${config.services.matrix-synapse.dataDir}/homeserver.signing.key";
-    };
-    sliding-sync.enable = lib.mkEnableOption {
-      description = "Whether to enable a sliding-sync proxy, no longer needed with synapse version 1.114+";
-      default = false;
+        signing_key_path = lib.mkOption {
+          description = "Path to file containing the signing key";
+          type = lib.types.str;
+          default = "${config.services.matrix-synapse.dataDir}/homeserver.signing.key";
+        };
+
+        sliding-sync.enable = lib.mkEnableOption {
+          description = "Whether to enable a sliding-sync proxy, no longer needed with synapse version 1.114+";
+          default = false;
+        };
+      };
+
+      matrix-authentication-service = {
+        extra-config-files = lib.mkOption {
+          description = "List of extra mas config files";
+          type = lib.types.listOf lib.types.str;
+          default = [ ];
+        };
+      };
     };
   };
 
-  config = lib.mkIf config.pub-solar-os.matrix-synapse.enable {
+  config = lib.mkIf config.pub-solar-os.matrix.enable {
     services.matrix-synapse = {
       enable = true;
       settings = {
@@ -263,6 +276,54 @@ in
       ];
 
       plugins = [ config.services.matrix-synapse.package.plugins.matrix-synapse-shared-secret-auth ];
+    };
+
+    services.matrix-authentication-service = {
+      enable = true;
+      createDatabase = true;
+      extraConfigFiles = config.pub-solar-os.matrix.matrix-authentication-service.extra-config-files;
+
+      settings = {
+        http.public_base = "https://mas.${config.pub-solar-os.networking.domain}";
+        http.issuer = "https://mas.${config.pub-solar-os.networking.domain}";
+        http.listeners = [
+          {
+            name = "web";
+            resources = [
+              { name = "discovery"; }
+              { name = "human"; }
+              { name = "oauth"; }
+              { name = "compat"; }
+              { name = "graphql"; }
+              {
+                name = "assets";
+                path = "${config.services.matrix-authentication-service.package}/share/matrix-authentication-service/assets";
+              }
+            ];
+            binds = [
+              {
+                host = "0.0.0.0";
+                port = 8090;
+              }
+            ];
+            proxy_protocol = false;
+          }
+          {
+            name = "internal";
+            resources = [
+              { name = "health"; }
+            ];
+            binds = [
+              {
+                host = "0.0.0.0";
+                port = 8081;
+              }
+            ];
+            proxy_protocol = false;
+          }
+        ];
+        passwords.enabled = false;
+      };
     };
 
     services.matrix-sliding-sync = {

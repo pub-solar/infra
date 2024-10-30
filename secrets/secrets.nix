@@ -68,6 +68,7 @@ in
   "matrix-synapse-signing-key.age".publicKeys = nachtigallKeys ++ adminKeys;
   "matrix-synapse-secret-config.yaml.age".publicKeys = nachtigallKeys ++ adminKeys;
   "matrix-synapse-sliding-sync-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "matrix-authentication-service-secret-config.yml.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "staging-matrix-synapse-secret-config.yaml.age".publicKeys = undergroundKeys ++ adminKeys;
   "staging-matrix-authentication-service-secret-config.yml.age".publicKeys =
