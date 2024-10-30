@@ -10,6 +10,7 @@ let
     version = "7ebfbc91e92bb133beb907c6bde79279ee5156df";
     src = pkgs.fetchgit {
       url = "https://git.tt-rss.org/fox/ttrss-auth-oidc.git";
+      rev = "7ebfbc91e92bb133beb907c6bde79279ee5156df";
       hash = "sha256-G6vZBvSWms6s6nHZWsxJjMGuubt/imiBvbp6ykwrZbg=";
     };
     installPhase = ''
