@@ -30,14 +30,14 @@
     forceSSL = true;
   };
 
-  age.secrets."underground-matrix-synapse-secret-config.yaml" = {
-    file = "${flake.self}/secrets/underground-matrix-synapse-secret-config.yaml.age";
+  age.secrets."staging-matrix-synapse-secret-config.yaml" = {
+    file = "${flake.self}/secrets/staging-matrix-synapse-secret-config.yaml.age";
     mode = "400";
     owner = "matrix-synapse";
   };
 
-  age.secrets."underground-matrix-authentication-service-secret-config.yml" = {
-    file = "${flake.self}/secrets/underground-matrix-authentication-service-secret-config.yml.age";
+  age.secrets."staging-matrix-authentication-service-secret-config.yml" = {
+    file = "${flake.self}/secrets/staging-matrix-authentication-service-secret-config.yml.age";
     mode = "400";
     owner = "matrix-authentication-service";
   };
@@ -45,7 +45,7 @@
   pub-solar-os.matrix-synapse = {
     enable = true;
     extra-config-files = [
-      config.age.secrets."underground-matrix-synapse-secret-config.yaml".path
+      config.age.secrets."staging-matrix-synapse-secret-config.yaml".path
 
       # The registration file is automatically generated after starting the
       # appservice for the first time.
@@ -65,7 +65,7 @@
     enable = true;
     createDatabase = true;
     extraConfigFiles = [
-      config.age.secrets."underground-matrix-authentication-service-secret-config.yml".path
+      config.age.secrets."staging-matrix-authentication-service-secret-config.yml".path
     ];
     settings = {
       http.public_base = "https://mas.${config.pub-solar-os.networking.domain}";

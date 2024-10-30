@@ -61,22 +61,22 @@
   };
 
   # matrix-synapse
-  age.secrets."nachtigall-matrix-synapse-signing-key" = {
-    file = "${flake.self}/secrets/nachtigall-matrix-synapse-signing-key.age";
+  age.secrets."matrix-synapse-signing-key" = {
+    file = "${flake.self}/secrets/matrix-synapse-signing-key.age";
     path = "/run/agenix/matrix-synapse-signing-key";
     mode = "400";
     owner = "matrix-synapse";
   };
 
-  age.secrets."nachtigall-matrix-synapse-secret-config.yaml" = {
-    file = "${flake.self}/secrets/nachtigall-matrix-synapse-secret-config.yaml.age";
+  age.secrets."matrix-synapse-secret-config.yaml" = {
+    file = "${flake.self}/secrets/matrix-synapse-secret-config.yaml.age";
     path = "/run/agenix/matrix-synapse-secret-config.yaml";
     mode = "400";
     owner = "matrix-synapse";
   };
 
-  age.secrets."nachtigall-matrix-synapse-sliding-sync-secret" = {
-    file = "${flake.self}/secrets/nachtigall-matrix-synapse-sliding-sync-secret.age";
+  age.secrets."matrix-synapse-sliding-sync-secret" = {
+    file = "${flake.self}/secrets/matrix-synapse-sliding-sync-secret.age";
     path = "/run/agenix/matrix-synapse-sliding-sync-secret";
     mode = "400";
     owner = "matrix-synapse";
@@ -85,9 +85,9 @@
   pub-solar-os.matrix-synapse = {
     enable = true;
     sliding-sync.enable = true;
-    signing_key_path = config.age.secrets."nachtigall-matrix-synapse-signing-key".path;
+    signing_key_path = config.age.secrets."matrix-synapse-signing-key".path;
     extra-config-files = [
-      config.age.secrets."nachtigall-matrix-synapse-secret-config.yaml".path
+      config.age.secrets."matrix-synapse-secret-config.yaml".path
 
       # The registration file is automatically generated after starting the
       # appservice for the first time.

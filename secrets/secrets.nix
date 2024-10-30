@@ -65,12 +65,12 @@ in
   "forgejo-ssh-private-key.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "matrix-mautrix-telegram-env-file.age".publicKeys = nachtigallKeys ++ adminKeys;
-  "nachtigall-matrix-synapse-signing-key.age".publicKeys = nachtigallKeys ++ adminKeys;
-  "nachtigall-matrix-synapse-secret-config.yaml.age".publicKeys = nachtigallKeys ++ adminKeys;
-  "nachtigall-matrix-synapse-sliding-sync-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "matrix-synapse-signing-key.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "matrix-synapse-secret-config.yaml.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "matrix-synapse-sliding-sync-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
 
-  "underground-matrix-synapse-secret-config.yaml.age".publicKeys = undergroundKeys ++ adminKeys;
-  "underground-matrix-authentication-service-secret-config.yml.age".publicKeys =
+  "staging-matrix-synapse-secret-config.yaml.age".publicKeys = undergroundKeys ++ adminKeys;
+  "staging-matrix-authentication-service-secret-config.yml.age".publicKeys =
     undergroundKeys ++ adminKeys;
 
   "nextcloud-secrets.age".publicKeys = nachtigallKeys ++ adminKeys;
