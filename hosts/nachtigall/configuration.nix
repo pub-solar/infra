@@ -88,7 +88,7 @@
   pub-solar-os.matrix = {
     enable = true;
     synapse = {
-      sliding-sync.enable = true;
+      sliding-sync.enable = false;
       signing_key_path = config.age.secrets."matrix-synapse-signing-key".path;
       extra-config-files = [
         config.age.secrets."matrix-synapse-secret-config.yaml".path
