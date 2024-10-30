@@ -17,6 +17,7 @@
                   inherit (inputs) element-stickers maunium-stickerpicker;
                 };
                 mastodon = unstable.mastodon;
+                matrix-authentication-service = unstable.matrix-authentication-service;
               }
             )
           ];

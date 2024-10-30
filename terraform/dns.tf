@@ -110,6 +110,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "nachtigall.pub.solar."
   }
   record {
+    hostname = "mas"
+    type     = "CNAME"
+    address  = "nachtigall.pub.solar."
+  }
+  record {
     hostname = "ci"
     type     = "A"
     address  = "80.71.153.210"
@@ -181,11 +186,6 @@ resource "namecheap_domain_records" "pub-solar" {
   }
   record {
     hostname = "stream"
-    type     = "CNAME"
-    address  = "nachtigall.pub.solar."
-  }
-  record {
-    hostname = "list"
     type     = "CNAME"
     address  = "nachtigall.pub.solar."
   }
@@ -323,6 +323,16 @@ resource "namecheap_domain_records" "pub-solar" {
     mx_pref  = "0"
   }
   record {
+    hostname = "list"
+    type     = "A"
+    address  = "138.201.80.102"
+  }
+  record {
+    hostname = "list"
+    type     = "AAAA"
+    address  = "2a01:4f8:172:1c25::1"
+  }
+  record {
     hostname = "nachtigall"
     type     = "A"
     address  = "138.201.80.102"
@@ -333,9 +343,39 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "2a01:4f8:172:1c25::1"
   }
   record {
+    hostname = "underground"
+    type     = "A"
+    address  = "80.244.242.3"
+  }
+  record {
+    hostname = "test"
+    type     = "CNAME"
+    address  = "underground.pub.solar."
+  }
+  record {
+    hostname = "mas.test"
+    type     = "CNAME"
+    address  = "underground.pub.solar."
+  }
+  record {
     hostname = "matrix.test"
     type     = "CNAME"
-    address  = "nachtigall.pub.solar."
+    address  = "underground.pub.solar."
+  }
+  record {
+    hostname = "chat.test"
+    type     = "CNAME"
+    address  = "underground.pub.solar."
+  }
+  record {
+    hostname = "stickers.chat.test"
+    type     = "CNAME"
+    address  = "underground.pub.solar."
+  }
+  record {
+    hostname = "auth.test"
+    type     = "CNAME"
+    address  = "underground.pub.solar."
   }
   # SRV records can only be changed via NameCheap Web UI
   # add comment
