@@ -217,7 +217,7 @@ in
           }
         ];
 
-        signing_key_path = config.pub-solar-os.matrix-synapse.signing_key_path;
+        signing_key_path = config.pub-solar-os.matrix.synapse.signing_key_path;
 
         stream_writers = { };
         trusted_key_servers = [ { server_name = "matrix.org"; } ];
@@ -263,12 +263,12 @@ in
         };
         user_ips_max_age = "28d";
 
-        app_service_config_files = config.pub-solar-os.matrix-synapse.app-service-config-files;
+        app_service_config_files = config.pub-solar-os.matrix.synapse.app-service-config-files;
       };
 
       withJemalloc = true;
 
-      extraConfigFiles = config.pub-solar-os.matrix-synapse.extra-config-files;
+      extraConfigFiles = config.pub-solar-os.matrix.synapse.extra-config-files;
 
       extras = [
         "oidc"
@@ -327,7 +327,7 @@ in
     };
 
     services.matrix-sliding-sync = {
-      enable = config.pub-solar-os.matrix-synapse.sliding-sync.enable;
+      enable = config.pub-solar-os.matrix.synapse.sliding-sync.enable;
       settings = {
         SYNCV3_SERVER = "https://${publicDomain}";
         SYNCV3_BINDADDR = "127.0.0.1:8011";
@@ -335,7 +335,7 @@ in
         # /metrics at this address
         SYNCV3_PROM = "127.0.0.1:9100";
       };
-      environmentFile = config.age.secrets."nachtigall-matrix-synapse-sliding-sync-secret".path;
+      environmentFile =  config.age.secrets."matrix-synapse-sliding-sync-secret".path;
     };
 
     pub-solar-os.backups.restic.matrix-synapse = {

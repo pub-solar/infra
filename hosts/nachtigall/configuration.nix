@@ -63,21 +63,18 @@
   # matrix-synapse
   age.secrets."matrix-synapse-signing-key" = {
     file = "${flake.self}/secrets/matrix-synapse-signing-key.age";
-    path = "/run/agenix/matrix-synapse-signing-key";
     mode = "400";
     owner = "matrix-synapse";
   };
 
   age.secrets."matrix-synapse-secret-config.yaml" = {
     file = "${flake.self}/secrets/matrix-synapse-secret-config.yaml.age";
-    path = "/run/agenix/matrix-synapse-secret-config.yaml";
     mode = "400";
     owner = "matrix-synapse";
   };
 
   age.secrets."matrix-synapse-sliding-sync-secret" = {
     file = "${flake.self}/secrets/matrix-synapse-sliding-sync-secret.age";
-    path = "/run/agenix/matrix-synapse-sliding-sync-secret";
     mode = "400";
     owner = "matrix-synapse";
   };
