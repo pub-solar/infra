@@ -335,7 +335,7 @@ in
         # /metrics at this address
         SYNCV3_PROM = "127.0.0.1:9100";
       };
-      environmentFile =  config.age.secrets."matrix-synapse-sliding-sync-secret".path;
+      environmentFile = config.age.secrets."matrix-synapse-sliding-sync-secret".path;
     };
 
     pub-solar-os.backups.restic.matrix-synapse = {
