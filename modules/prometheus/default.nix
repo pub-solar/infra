@@ -6,8 +6,20 @@
   ...
 }:
 let
-  # TODO add hosts here
-  blackboxTargets = [ "https://pablo.tools" ];
+  blackboxTargets = [
+    "https://pub.solar"
+    "https://chat.pub.solar"
+    "https://cloud.pub.solar"
+    "https://collabora.pub.solar"
+    "https://git.pub.solar"
+    "https://grafana.pub.solar"
+    "https://list.pub.solar"
+    "https://mastodon.pub.solar"
+    "https://obs-portal.pub.solar"
+    "https://stream.pub.solar"
+    "https://wiki.pub.solar"
+    "https://www.pub.solar"
+  ];
 in
 {
   age.secrets.alertmanager-envfile = {
@@ -82,7 +94,7 @@ in
     scrapeConfigs = [
       {
         job_name = "blackbox";
-        scrape_interval = "5m";
+        scrape_interval = "60m";
         metrics_path = "/probe";
         params = {
           module = [ "http_2xx" ];
