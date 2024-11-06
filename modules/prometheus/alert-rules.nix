@@ -142,8 +142,8 @@ lib.mapAttrsToList
 
     cpu_using_90percent = {
       condition = ''100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) >= 90'';
-      time = "10m";
-      description = "{{$labels.instance}} is running with cpu usage > 90% for at least 10 minutes: {{$value}}";
+      time = "20m";
+      description = "{{$labels.instance}} is running with cpu usage > 90% for at least 20 minutes: {{$value}}";
     };
 
     reboot = {
