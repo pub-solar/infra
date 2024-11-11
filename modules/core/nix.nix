@@ -11,6 +11,17 @@
     permittedInsecurePackages = [ "olm-3.2.16" ];
   };
 
+  system.activationScripts.diff-closures = {
+    text = ''
+      if [[ -e /run/current-system ]]; then
+        ${config.nix.package}/bin/nix store diff-closures \
+          /run/current-system "$systemConfig" \
+          --extra-experimental-features nix-command
+      fi
+    '';
+    supportsDryActivation = true;
+  };
+
   nix = {
     # Use default version alias for nix package
     package = pkgs.nix;
