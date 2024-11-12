@@ -66,7 +66,7 @@ in
   testScript =
     { nodes, ... }:
     let
-      user = nodes.client.users.users.${nodes.client.pub-solar-os.authentication.username};
+      user = nodes.client.users.users.b12f;
       #uid = toString user.uid;
       bus = "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u ${user.name})/bus";
       gdbus = "${bus} gdbus";

@@ -50,7 +50,7 @@
       ) { } flake.self.logins.admins)
       // {
         # TODO: Remove when we stop locking ourselves out.
-        root.openssh.authorizedKeys.keys = config.pub-solar-os.authentication.sshPubKeys;
+        root.openssh.authorizedKeys.keys = flake.self.logins.sshPubKeys;
         root.initialHashedPassword = config.pub-solar-os.authentication.root.initialHashedPassword;
 
         ${config.pub-solar-os.authentication.robot.username} = {
@@ -64,6 +64,18 @@
           openssh.authorizedKeys.keys = config.pub-solar-os.authentication.robot.sshPubKeys;
         };
       };
+
+    home-manager.users = (
+      lib.attrsets.foldlAttrs (
+        acc: name: value:
+        acc
+        // {
+          ${name} = {
+            home.stateVersion = "23.05";
+          };
+        }
+      ) { } flake.self.logins.admins
+    );
 
     users.groups =
       (lib.attrsets.foldlAttrs (

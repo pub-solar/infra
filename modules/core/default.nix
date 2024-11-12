@@ -54,9 +54,5 @@
     };
 
     time.timeZone = "Etc/UTC";
-
-    home-manager.users.${config.pub-solar-os.authentication.username} = {
-      home.stateVersion = "23.05";
-    };
   };
 }
