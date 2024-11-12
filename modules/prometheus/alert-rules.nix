@@ -234,10 +234,10 @@ lib.mapAttrsToList
       };
     */
 
-    host_memory_under_memory_pressure = {
-      condition = "rate(node_vmstat_pgmajfault[1m]) > 1000";
-      description = "{{$labels.instance}}: The node is under heavy memory pressure. High rate of major page faults: {{$value}}";
-    };
+    #host_memory_under_memory_pressure = {
+    #  condition = "rate(node_vmstat_pgmajfault[1m]) > 1000";
+    #  description = "{{$labels.instance}}: The node is under heavy memory pressure. High rate of major page faults: {{$value}}";
+    #};
 
     # ext4_errors = {
     #   condition = "ext4_errors_value > 0";
