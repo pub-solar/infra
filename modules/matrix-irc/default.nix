@@ -35,7 +35,8 @@ in
           port = 1113;
         };
         logging = {
-          level = "debug";
+          # set to debug for debugging
+          level = "warn";
           maxFiles = 5;
           toCosole = true;
         };
