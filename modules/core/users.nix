@@ -31,42 +31,46 @@
     };
 
   config = {
-    users.users = (lib.attrsets.foldlAttrs
-      (acc: name: value: acc // { ${name} = {
-        name = name;
-        group = name;
-        extraGroups = [
-          "wheel"
-          "docker"
-        ];
-        isNormalUser = true;
-        openssh.authorizedKeys.keys = lib.attrsets.attrValues value.sshPubKeys;
+    users.users =
+      (lib.attrsets.foldlAttrs (
+        acc: name: value:
+        acc
+        // {
+          ${name} = {
+            name = name;
+            group = name;
+            extraGroups = [
+              "wheel"
+              "docker"
+            ];
+            isNormalUser = true;
+            openssh.authorizedKeys.keys = lib.attrsets.attrValues value.sshPubKeys;
+          };
+        }
+      ) { } flake.self.logins.admins)
+      // {
+        # TODO: Remove when we stop locking ourselves out.
+        root.openssh.authorizedKeys.keys = config.pub-solar-os.authentication.sshPubKeys;
+        root.initialHashedPassword = config.pub-solar-os.authentication.root.initialHashedPassword;
+
+        ${config.pub-solar-os.authentication.robot.username} = {
+          description = "CI and automation user";
+          home = "/home/${config.pub-solar-os.authentication.robot.username}";
+          createHome = true;
+          useDefaultShell = true;
+          uid = 998;
+          group = "${config.pub-solar-os.authentication.robot.username}";
+          isSystemUser = true;
+          openssh.authorizedKeys.keys = config.pub-solar-os.authentication.robot.sshPubKeys;
         };
-      })
-      { }
-      flake.self.logins.admins)
-    // {
-      # TODO: Remove when we stop locking ourselves out.
-      root.openssh.authorizedKeys.keys = config.pub-solar-os.authentication.sshPubKeys;
-      root.initialHashedPassword = config.pub-solar-os.authentication.root.initialHashedPassword;
-
-      ${config.pub-solar-os.authentication.robot.username} = {
-        description = "CI and automation user";
-        home = "/home/${config.pub-solar-os.authentication.robot.username}";
-        createHome = true;
-        useDefaultShell = true;
-        uid = 998;
-        group = "${config.pub-solar-os.authentication.robot.username}";
-        isSystemUser = true;
-        openssh.authorizedKeys.keys = config.pub-solar-os.authentication.robot.sshPubKeys;
       };
-    };
 
-    users.groups = (lib.attrsets.foldlAttrs
-      (acc: name: value: acc // { "${name}" = { }; })
-      { }
-      flake.self.logins.admins)
-    // {
+    users.groups =
+      (lib.attrsets.foldlAttrs (
+        acc: name: value:
+        acc // { "${name}" = { }; }
+      ) { } flake.self.logins.admins)
+      // {
         ${config.pub-solar-os.authentication.robot.username} = { };
       };
 
