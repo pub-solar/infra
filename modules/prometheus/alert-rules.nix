@@ -24,10 +24,10 @@ lib.mapAttrsToList
     #   description = "Configurations of AlertManager cluster instances are out of sync.";
     # };
 
-    #alert_manager_e2e_dead_man_switch = {
-    #  condition = "vector(1)";
-    #  description = "Prometheus DeadManSwitch is an always-firing alert. It's used as an end-to-end test of Prometheus through the Alertmanager.";
-    #};
+    alert_manager_e2e_dead_man_switch = {
+      condition = "vector(1)";
+      description = "Prometheus DeadManSwitch is an always-firing alert. It's used as an end-to-end test of Prometheus through the Alertmanager.";
+    };
 
     # prometheus_not_connected_to_alertmanager = {
     #   condition = "prometheus_notifications_alertmanagers_discovered < 1";
@@ -142,8 +142,8 @@ lib.mapAttrsToList
 
     cpu_using_90percent = {
       condition = ''100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) >= 90'';
-      time = "10m";
-      description = "{{$labels.instance}} is running with cpu usage > 90% for at least 10 minutes: {{$value}}";
+      time = "20m";
+      description = "{{$labels.instance}} is running with cpu usage > 90% for at least 20 minutes: {{$value}}";
     };
 
     reboot = {
@@ -234,10 +234,10 @@ lib.mapAttrsToList
       };
     */
 
-    host_memory_under_memory_pressure = {
-      condition = "rate(node_vmstat_pgmajfault[1m]) > 1000";
-      description = "{{$labels.instance}}: The node is under heavy memory pressure. High rate of major page faults: {{$value}}";
-    };
+    #host_memory_under_memory_pressure = {
+    #  condition = "rate(node_vmstat_pgmajfault[1m]) > 1000";
+    #  description = "{{$labels.instance}}: The node is under heavy memory pressure. High rate of major page faults: {{$value}}";
+    #};
 
     # ext4_errors = {
     #   condition = "ext4_errors_value > 0";
