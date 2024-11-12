@@ -18,7 +18,7 @@
         "fd00:fae:fae:fae:fae:3::/96"
       ];
       privateKeyFile = config.age.secrets.wg-private-key.path;
-      peers = flake.self.logins.admins.wireguardDevices ++ [
+      peers = flake.self.logins.wireguardDevices ++ [
         {
           # nachtigall.pub.solar
           endpoint = "138.201.80.102:51820";
