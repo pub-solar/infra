@@ -280,11 +280,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1730041422,
-        "narHash": "sha256-aEz5/yUJN/PSEXwPBuKMs2FbAmz68fDIQ9B0tVRVmTo=",
+        "lastModified": 1731518114,
+        "narHash": "sha256-h9Wb3VjmXBZwTO3prRweUKwp2H9hZHCQKrkbU+2WPQs=",
         "ref": "main",
-        "rev": "09f7b1ed16c99f5fb5c5f9a2a73ccc9ff0645b35",
-        "revCount": 32,
+        "rev": "060ecccc5f8c92a0705ab91ff047811efd559468",
+        "revCount": 36,
         "type": "git",
         "url": "https://git.pub.solar/pub-solar/keycloak-theme"
       },
