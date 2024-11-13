@@ -92,7 +92,7 @@ in
   "mediawiki-oidc-client-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mediawiki-secret-key.age".publicKeys = nachtigallKeys ++ adminKeys;
 
-  "nachtigall-coturn-static-auth-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "coturn-static-auth-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "grafana-admin-password.age".publicKeys = trinkgenossinKeys ++ adminKeys;
   "grafana-keycloak-client-secret.age".publicKeys = trinkgenossinKeys ++ adminKeys;
