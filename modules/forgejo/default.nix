@@ -141,6 +141,12 @@
         LOGIN_REMEMBER_DAYS = 365;
       };
 
+      # See https://docs.gitea.com/administration/config-cheat-sheet#migrations-migrations
+      migrations = {
+        # This allows migrations from the same forgejo instance
+        ALLOW_LOCALNETWORKS = true;
+      };
+
       # https://forgejo.org/docs/next/admin/config-cheat-sheet/#indexer-indexer
       indexer = {
         REPO_INDEXER_ENABLED = true;
