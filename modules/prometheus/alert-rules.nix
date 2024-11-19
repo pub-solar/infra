@@ -24,10 +24,10 @@ lib.mapAttrsToList
     #   description = "Configurations of AlertManager cluster instances are out of sync.";
     # };
 
-    alert_manager_e2e_dead_man_switch = {
-      condition = "vector(1)";
-      description = "Prometheus DeadManSwitch is an always-firing alert. It's used as an end-to-end test of Prometheus through the Alertmanager.";
-    };
+    #alert_manager_e2e_dead_man_switch = {
+    #  condition = "vector(1)";
+    #  description = "Prometheus DeadManSwitch is an always-firing alert. It's used as an end-to-end test of Prometheus through the Alertmanager.";
+    #};
 
     # prometheus_not_connected_to_alertmanager = {
     #   condition = "prometheus_notifications_alertmanagers_discovered < 1";
