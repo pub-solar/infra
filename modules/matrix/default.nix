@@ -283,7 +283,9 @@ in
       createDatabase = true;
       extraConfigFiles = config.pub-solar-os.matrix.matrix-authentication-service.extra-config-files;
 
+      # https://element-hq.github.io/matrix-authentication-service/reference/configuration.html
       settings = {
+        account.email_change_allowed = false;
         http.public_base = "https://mas.${config.pub-solar-os.networking.domain}";
         http.issuer = "https://mas.${config.pub-solar-os.networking.domain}";
         http.listeners = [
