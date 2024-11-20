@@ -265,12 +265,14 @@ in
 
         app_service_config_files = config.pub-solar-os.matrix.synapse.app-service-config-files;
 
-        modules = [{
-          module = "matrix_http_rendezvous_synapse.SynapseRendezvousModule";
-          config = {
-            prefix = "/_synapse/client/org.matrix.msc3886/rendezvous";
-          };
-        }];
+        modules = [
+          {
+            module = "matrix_http_rendezvous_synapse.SynapseRendezvousModule";
+            config = {
+              prefix = "/_synapse/client/org.matrix.msc3886/rendezvous";
+            };
+          }
+        ];
 
         experimental_features = {
           msc3886_endpoint = "/_synapse/client/org.matrix.msc3886/rendezvous";
