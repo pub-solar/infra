@@ -264,6 +264,17 @@ in
         user_ips_max_age = "28d";
 
         app_service_config_files = config.pub-solar-os.matrix.synapse.app-service-config-files;
+
+        modules = [{
+          module = "matrix_http_rendezvous_synapse.SynapseRendezvousModule";
+          config = {
+            prefix = "/_synapse/client/org.matrix.msc3886/rendezvous";
+          };
+        }];
+
+        experimental_features = {
+          msc3886_endpoint = "/_synapse/client/org.matrix.msc3886/rendezvous";
+        };
       };
 
       withJemalloc = true;
@@ -275,8 +286,13 @@ in
         "redis"
       ];
 
-      plugins = [ config.services.matrix-synapse.package.plugins.matrix-synapse-shared-secret-auth ];
+      plugins = with config.services.matrix-synapse.package.plugins; [
+        matrix-synapse-shared-secret-auth
+        matrix-http-rendezvous-synapse
+      ];
     };
+
+    systemd.services.matrix-synapse.environment.SYNAPSE_ASYNC_IO_REACTOR = "1";
 
     services.matrix-authentication-service = {
       enable = true;
