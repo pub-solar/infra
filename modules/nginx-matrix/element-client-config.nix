@@ -50,4 +50,15 @@
     # FUTUREWORK: Replace with pub.solar logo
     auth_header_logo_url = "themes/element/img/logos/element-logo.svg";
   };
+  # Enable Element Call Beta
+  features = {
+    feature_video_rooms = true;
+    feature_group_calls = true;
+    feature_element_call_video_rooms = true;
+  };
+  element_call = {
+    url = "https://call.element.io";
+    participant_limit = 50;
+    brand = "Element Call";
+  };
 }
