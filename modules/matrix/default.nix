@@ -124,6 +124,17 @@ in
         enable_room_list_search = true;
         encryption_enabled_by_default_for_room_type = "off";
         event_cache_size = "100K";
+
+        # https://github.com/element-hq/synapse/issues/11203
+        # No YAML deep-merge, so this needs to be in secret extraConfigFiles
+        # together with msc3861
+        #experimental_features = {
+        #  # Room summary API
+        #  msc3266_enabled = true;
+        #  # Rendezvous server for QR Code generation
+        #  msc4108_enabled = true;
+        #};
+
         federation_rr_transactions_per_room_per_second = 50;
         federation_client_minimum_tls_version = "1.2";
         forget_rooms_on_leave = true;
