@@ -24,14 +24,6 @@ let
       secure_backup_required = false;
       secure_backup_setup_methods = [ ];
     };
-    "m.integrations" = {
-      managers = [
-        {
-          api_url = "https://dimension.${domain}/api/v1/scalar";
-          ui_url = "https://dimension.${domain}/element";
-        }
-      ];
-    };
   };
   wellKnownServer = domain: { "m.server" = "matrix.${domain}:8448"; };
   wellKnownSupport = {
