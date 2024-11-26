@@ -120,13 +120,7 @@
           devShells.ci = pkgs.mkShell { buildInputs = with pkgs; [ nodejs ]; };
         };
 
-      flake =
-        let
-          username = "barkeeper";
-        in
-        {
-          inherit username;
-
+      flake = {
           nixosModules = builtins.listToAttrs (
             map (x: {
               name = x;
@@ -143,31 +137,24 @@
           deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
             nachtigall = {
               hostname = "nachtigall.wg.pub.solar";
-              sshUser = username;
             };
             metronom = {
               hostname = "metronom.wg.pub.solar";
-              sshUser = username;
             };
             tankstelle = {
               hostname = "tankstelle.wg.pub.solar";
-              sshUser = username;
             };
             underground = {
               hostname = "80.244.242.3";
-              sshUser = username;
             };
             trinkgenossin = {
               hostname = "trinkgenossin.wg.pub.solar";
-              sshUser = username;
             };
             delite = {
               hostname = "delite.wg.pub.solar";
-              sshUser = username;
             };
             blue-shell = {
               hostname = "blue-shell.wg.pub.solar";
-              sshUser = username;
             };
           };
         };
