@@ -121,42 +121,42 @@
         };
 
       flake = {
-          nixosModules = builtins.listToAttrs (
-            map (x: {
-              name = x;
-              value = import (./modules + "/${x}");
-            }) (builtins.attrNames (builtins.readDir ./modules))
-          );
+        nixosModules = builtins.listToAttrs (
+          map (x: {
+            name = x;
+            value = import (./modules + "/${x}");
+          }) (builtins.attrNames (builtins.readDir ./modules))
+        );
 
-          checks = builtins.mapAttrs (
-            system: deployLib: deployLib.deployChecks self.deploy
-          ) inputs.deploy-rs.lib;
+        checks = builtins.mapAttrs (
+          system: deployLib: deployLib.deployChecks self.deploy
+        ) inputs.deploy-rs.lib;
 
-          formatter."x86_64-linux" = inputs.unstable.legacyPackages."x86_64-linux".nixfmt-rfc-style;
+        formatter."x86_64-linux" = inputs.unstable.legacyPackages."x86_64-linux".nixfmt-rfc-style;
 
-          deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
-            nachtigall = {
-              hostname = "nachtigall.wg.pub.solar";
-            };
-            metronom = {
-              hostname = "metronom.wg.pub.solar";
-            };
-            tankstelle = {
-              hostname = "tankstelle.wg.pub.solar";
-            };
-            underground = {
-              hostname = "80.244.242.3";
-            };
-            trinkgenossin = {
-              hostname = "trinkgenossin.wg.pub.solar";
-            };
-            delite = {
-              hostname = "delite.wg.pub.solar";
-            };
-            blue-shell = {
-              hostname = "blue-shell.wg.pub.solar";
-            };
+        deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
+          nachtigall = {
+            hostname = "nachtigall.wg.pub.solar";
+          };
+          metronom = {
+            hostname = "metronom.wg.pub.solar";
+          };
+          tankstelle = {
+            hostname = "tankstelle.wg.pub.solar";
+          };
+          underground = {
+            hostname = "80.244.242.3";
+          };
+          trinkgenossin = {
+            hostname = "trinkgenossin.wg.pub.solar";
+          };
+          delite = {
+            hostname = "delite.wg.pub.solar";
+          };
+          blue-shell = {
+            hostname = "blue-shell.wg.pub.solar";
           };
         };
+      };
     };
 }
