@@ -8,7 +8,7 @@ Requirements:
 - [Setup WireGuard](./administrative-access.md#ssh-access) for hosts: `trinkgenossin`, optionally: `delite`, `blue-shell`
 
 ```
-ssh barkeeper@trinkgenossin.wg.pub.solar
+ssh <unix-username>@trinkgenossin.wg.pub.solar
 ```
 
 ```
@@ -58,7 +58,7 @@ Further reading:
 ### Notes on manual setup steps
 
 ```
-ssh barkeeper@trinkgenossin.wg.pub.solar
+ssh <unix-username>@trinkgenossin.wg.pub.solar
 
 # Add a few spaces to avoid leaking the secret to the shell history
     export GARAGE_RPC_SECRET=<secret-in-keepass>

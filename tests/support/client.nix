@@ -11,7 +11,7 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = config.pub-solar-os.authentication.username;
+  services.xserver.displayManager.autoLogin.user = "b12f";
 
   systemd.user.services = {
     "org.gnome.Shell@wayland" = {

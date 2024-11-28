@@ -10,7 +10,7 @@
 
       # Please create this manually the first time.
       hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
-      authorizedKeys = config.pub-solar-os.authentication.sshPubKeys;
+      authorizedKeys = flake.self.logins.sshPubKeys;
     };
     postCommands = ''
       # Automatically ask for the password on SSH login

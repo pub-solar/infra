@@ -22,7 +22,7 @@ in
         "${wireguardIPv6}/96"
       ];
       privateKeyFile = config.age.secrets.wg-private-key.path;
-      peers = flake.self.logins.admins.wireguardDevices ++ [
+      peers = flake.self.logins.wireguardDevices ++ [
         {
           # trinkgenossin.pub.solar
           publicKey = "QWgHovHxtqiQhnHLouSWiT6GIoQDmuvnThYL5c/rvU4=";
