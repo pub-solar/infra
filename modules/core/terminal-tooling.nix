@@ -8,7 +8,13 @@
         ${name} = {
           programs.git.enable = true;
           programs.starship.enable = true;
-          programs.bash.enable = true;
+          programs.bash = {
+            enable = true;
+            historyControl = [
+              "ignoredups"
+              "ignorespace"
+            ];
+          };
           programs.neovim = {
             enable = true;
             vimAlias = true;
