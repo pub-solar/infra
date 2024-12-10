@@ -38,6 +38,14 @@
           "fd00:fae:fae:fae:fae:200::/96"
         ];
       }
+      {
+        # chocolatebar
+        publicKey = "AS9w0zDUFLcH6IiF6T1vsyZPWPJ3p5fKsjIsM2AoZz8=";
+        allowedIPs = [
+          "10.7.6.205/32"
+          "fd00:fae:fae:fae:fae:205::/96"
+        ];
+      }
     ];
   };
 
