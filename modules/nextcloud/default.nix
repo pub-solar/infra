@@ -27,6 +27,8 @@
     home = "/var/lib/nextcloud";
 
     enable = true;
+    # When updating package, remember to update nextcloud30Packages in
+    # services.nextcloud.extraApps
     package = pkgs.nextcloud30;
     https = true;
     secretFile = config.age.secrets."nextcloud-secrets".path; # secret
@@ -131,7 +133,11 @@
     };
 
     caching.redis = true;
+    appstoreEnable = true;
     autoUpdateApps.enable = true;
+    extraApps = {
+      inherit (pkgs.nextcloud30Packages.apps) recognize;
+    };
     database.createLocally = true;
   };
 
