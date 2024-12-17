@@ -67,11 +67,13 @@ in
   "matrix-mautrix-telegram-env-file.age".publicKeys = nachtigallKeys ++ adminKeys;
   "matrix-synapse-signing-key.age".publicKeys = nachtigallKeys ++ adminKeys;
   "matrix-synapse-secret-config.yaml.age".publicKeys = nachtigallKeys ++ adminKeys;
-  "matrix-synapse-sliding-sync-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
   "matrix-authentication-service-secret-config.yml.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "matrix-appservice-irc-mediaproxy-signing-key.jwk.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "staging-matrix-synapse-secret-config.yaml.age".publicKeys = undergroundKeys ++ adminKeys;
   "staging-matrix-authentication-service-secret-config.yml.age".publicKeys =
+    undergroundKeys ++ adminKeys;
+  "staging-matrix-appservice-irc-mediaproxy-signing-key.jwk.age".publicKeys =
     undergroundKeys ++ adminKeys;
 
   "nextcloud-secrets.age".publicKeys = nachtigallKeys ++ adminKeys;

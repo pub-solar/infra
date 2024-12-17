@@ -120,6 +120,13 @@ in
           extraConfig = commonHeaders;
         };
 
+        # For IRC appservice media proxy
+        "/media" = {
+          priority = 100;
+          proxyPass = "http://127.0.0.1:${toString (config.services.matrix-appservice-irc.settings.ircService.mediaProxy.bindPort)}";
+          extraConfig = commonHeaders;
+        };
+
         # Forward to the auth service
         "~ ^/_matrix/client/(.*)/(login|logout|refresh)" = {
           priority = 100;

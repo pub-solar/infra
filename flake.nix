@@ -1,14 +1,14 @@
 {
   inputs = {
     # Track channels with commits tested and built by hydra
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -37,8 +37,8 @@
     element-stickers.inputs.maunium-stickerpicker.follows = "maunium-stickerpicker";
     element-stickers.inputs.nixpkgs.follows = "nixpkgs";
 
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.05";
-    simple-nixos-mailserver.inputs.nixpkgs-24_05.follows = "nixpkgs";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.11";
+    simple-nixos-mailserver.inputs.nixpkgs-24_11.follows = "nixpkgs";
     simple-nixos-mailserver.inputs.nixpkgs.follows = "unstable";
   };
 
@@ -108,9 +108,9 @@
               nvfetcher
               shellcheck
               shfmt
-              inputs.unstable.legacyPackages.${system}.treefmt2
+              treefmt2
               nixos-generators
-              inputs.unstable.legacyPackages.${system}.opentofu
+              opentofu
               terraform-backend-git
               terraform-ls
               jq
@@ -132,7 +132,7 @@
           system: deployLib: deployLib.deployChecks self.deploy
         ) inputs.deploy-rs.lib;
 
-        formatter."x86_64-linux" = inputs.unstable.legacyPackages."x86_64-linux".nixfmt-rfc-style;
+        formatter."x86_64-linux" = inputs.nixpkgs.legacyPackages."x86_64-linux".nixfmt-rfc-style;
 
         deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
           nachtigall = {
