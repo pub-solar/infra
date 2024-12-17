@@ -7,10 +7,10 @@
     ./configuration.nix
 
     ./networking.nix
-    "${flake.inputs.fork}/nixos/modules/services//matrix/matrix-authentication-service.nix"
+    "${flake.inputs.fork}/nixos/modules/services/matrix/matrix-authentication-service.nix"
   ];
 
   disabledModules = [
-    "services/matrix/matrix-authentication-service.nix "
+    "services/matrix/matrix-authentication-service.nix"
   ];
 }
