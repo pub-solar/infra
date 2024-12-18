@@ -81,6 +81,8 @@ in
       nachtigall.succeed("ping 127.0.0.1 -c 2")
       nachtigall.wait_for_unit("nginx.service")
       nachtigall.wait_for_unit("keycloak.service")
+      nachtigall.wait_for_open_port(8080)
+      nachtigall.wait_for_open_port(443)
       nachtigall.wait_until_succeeds("curl http://127.0.0.1:8080/")
       nachtigall.wait_until_succeeds("curl https://auth.test.pub.solar/")
 
