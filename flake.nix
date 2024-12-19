@@ -73,7 +73,6 @@
               overlays = [ inputs.agenix.overlays.default ];
             };
             unstable = import inputs.unstable { inherit system; };
-            master = import inputs.master { inherit system; };
           };
 
           checks =
