@@ -46,6 +46,14 @@
           "fd00:fae:fae:fae:fae:205::/96"
         ];
       }
+      {
+        # biolimo
+        publicKey = "gnLq6KikFVVGxLxPW+3ZnreokEKLDoso+cUepPOZsBA=";
+        allowedIPs = [
+          "10.7.6.206/32"
+          "fd00:fae:fae:fae:fae:206::/96"
+        ];
+      }
     ];
   };
 
