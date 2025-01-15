@@ -28,18 +28,18 @@ People with admin access to the infrastructure are added to [`logins/admins.nix`
 SSH is not reachable from the open internet. Instead, SSH Port 22 is protected by a wireguard VPN network. Thus, to get root access on the servers, at least two pieces of information have to be added to the admins config:
 
 1. **SSH Public key**: self-explanatory. Add your public key to your user attrset under `sshPubKeys`.
-2. **Wireguard device**: each wireguard device has two parts: the public key and the IP addresses it should have in the wireguard network. The pub.solar wireguard network is spaced under `10.7.6.0/24` and `fd00:fae:fae:fae:fae::/80`. To add your device, it's best to choose a free number between 200 and 255 and use that in both the ipv4 and ipv6 ranges: `10.7.6.<ip-address>/32` `fd00:fae:fae:fae:fae:<ip-address>::/96`. For more information on how to generate keypairs, see [the NixOS Wireguard docs](https://nixos.wiki/wiki/WireGuard#Generate_keypair).
+2. **Wireguard device**: each wireguard device has two parts: the public key and the IP addresses it should have in the wireguard network. The pub.solar wireguard network uses the subnets `10.7.6.0/24` and `fd00:fae:fae:fae:fae::/80`. To add your device, it's best to choose a free number between 200 and 255 and use that in both the ipv4 and ipv6 ranges: `10.7.6.<ip-address>/32` `fd00:fae:fae:fae:fae:<ip-address>::/96`. For more information on how to generate keypairs, see [the NixOS Wireguard docs](https://nixos.wiki/wiki/WireGuard#Generate_keypair).
 
 One can access our hosts using this domain scheme:
 
 ```
-ssh barkeeper@<hostname>.wg.pub.solar
+ssh <unix-username>@<hostname>.wg.pub.solar
 ```
 
 So, for example for `nachtigall`:
 
 ```
-ssh barkeeper@nachtigall.wg.pub.solar
+ssh teutat3s@nachtigall.wg.pub.solar
 ```
 
 Example NixOS snippet for WireGuard client config
@@ -61,12 +61,6 @@ Example NixOS snippet for WireGuard client config
             endpoint = "[2a01:4f8:172:1c25::1]:51820";
             # Use this endpoint in IPv4 only networks
             #endpoint = "138.201.80.102:51820";
-            persistentKeepalive = 15;
-          }
-          { # flora-6.pub.solar
-            publicKey = "jtSR5G2P/nm9s8WrVc26Xc/SQLupRxyXE+5eIeqlsTU=";
-            allowedIPs = [ "10.7.6.2/32" "fd00:fae:fae:fae:fae:2::/96" ];
-            endpoint = "80.71.153.210:51820";
             persistentKeepalive = 15;
           }
           { # metronom.pub.solar

@@ -12,15 +12,27 @@
     owner = "alertmanager";
   };
 
-  services.caddy.virtualHosts."alerts.${config.pub-solar-os.networking.domain}" = {
-    logFormat = lib.mkForce ''
-      output discard
-    '';
-    extraConfig = ''
-      bind 10.7.6.2 fd00:fae:fae:fae:fae:2::
-      tls internal
-      reverse_proxy :${toString config.services.prometheus.alertmanager.port}
-    '';
+  security.acme.certs = {
+    "alerts.${config.pub-solar-os.networking.domain}" = {
+      # disable http challenge
+      webroot = null;
+      # enable dns challenge
+      dnsProvider = "namecheap";
+    };
+  };
+
+  services.nginx.virtualHosts."alerts.${config.pub-solar-os.networking.domain}" = {
+    enableACME = true;
+    forceSSL = true;
+
+    listenAddresses = [
+      "10.7.6.5"
+      "[fd00:fae:fae:fae:fae:5::]"
+    ];
+
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";
+    };
   };
 
   services.prometheus = {
@@ -41,12 +53,6 @@
       {
         job_name = "node-exporter";
         static_configs = [
-          {
-            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-            labels = {
-              instance = "flora-6";
-            };
-          }
           {
             targets = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}" ];
             labels = {
@@ -77,6 +83,22 @@
               instance = "trinkgenossin";
             };
           }
+          {
+            targets = [
+              "delite.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}"
+            ];
+            labels = {
+              instance = "delite";
+            };
+          }
+          {
+            targets = [
+              "blue-shell.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}"
+            ];
+            labels = {
+              instance = "blue-shell";
+            };
+          }
         ];
       }
       {
@@ -95,11 +117,22 @@
         job_name = "garage";
         static_configs = [
           {
-            targets = [
-              "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:3903"
-              "delite.wg.${config.pub-solar-os.networking.domain}:3903"
-              "blue-shell.wg.${config.pub-solar-os.networking.domain}:3903"
-            ];
+            targets = [ "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:3903" ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+          {
+            targets = [ "delite.wg.${config.pub-solar-os.networking.domain}:3903" ];
+            labels = {
+              instance = "delite";
+            };
+          }
+          {
+            targets = [ "blue-shell.wg.${config.pub-solar-os.networking.domain}:3903" ];
+            labels = {
+              instance = "blue-shell";
+            };
           }
         ];
       }

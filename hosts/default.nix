@@ -1,9 +1,35 @@
-{ self, ... }:
+{
+  self,
+  inputs,
+  config,
+  ...
+}:
 {
   flake = {
-    nixosConfigurations = {
-      nachtigall = self.nixos-flake.lib.mkLinuxSystem {
+    nixosModules = {
+      home-manager = {
         imports = [
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              flake = {
+                inherit self inputs config;
+              };
+            };
+          }
+        ];
+      };
+    };
+    nixosConfigurations = {
+      nachtigall = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
           ./nachtigall
@@ -43,27 +69,13 @@
         ];
       };
 
-      flora-6 = self.nixos-flake.lib.mkLinuxSystem {
-        imports = [
-          self.inputs.agenix.nixosModules.default
-          self.nixosModules.home-manager
-          ./flora-6
-          self.nixosModules.overlays
-          self.nixosModules.core
-          self.nixosModules.backups
-
-          self.nixosModules.keycloak
-          self.nixosModules.caddy
-          self.nixosModules.drone
-          self.nixosModules.forgejo-actions-runner
-          self.nixosModules.grafana
-          self.nixosModules.prometheus
-          self.nixosModules.loki
-        ];
-      };
-
-      metronom = self.nixos-flake.lib.mkLinuxSystem {
-        imports = [
+      metronom = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
           ./metronom
@@ -79,8 +91,13 @@
         ];
       };
 
-      tankstelle = self.nixos-flake.lib.mkLinuxSystem {
-        imports = [
+      tankstelle = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
           ./tankstelle
@@ -92,11 +109,43 @@
         ];
       };
 
-      trinkgenossin = self.nixos-flake.lib.mkLinuxSystem {
-        imports = [
+      trinkgenossin = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
           ./trinkgenossin
+          self.nixosModules.backups
+          self.nixosModules.overlays
+          self.nixosModules.unlock-luks-on-boot
+          self.nixosModules.core
+
+          self.nixosModules.garage
+          self.nixosModules.nginx
+
+          # This module is already using options, and those options are used by the grafana module
+          self.nixosModules.keycloak
+          self.nixosModules.grafana
+          self.nixosModules.prometheus
+          self.nixosModules.loki
+        ];
+      };
+
+      delite = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
+          self.inputs.agenix.nixosModules.default
+          self.inputs.disko.nixosModules.disko
+          self.nixosModules.home-manager
+          ./delite
           self.nixosModules.overlays
           self.nixosModules.unlock-luks-on-boot
           self.nixosModules.core
@@ -108,25 +157,13 @@
         ];
       };
 
-      delite = self.nixos-flake.lib.mkLinuxSystem {
-        imports = [
-          self.inputs.agenix.nixosModules.default
-          self.inputs.disko.nixosModules.disko
-          self.nixosModules.home-manager
-          ./delite
-          self.nixosModules.overlays
-          self.nixosModules.unlock-luks-on-boot
-          self.nixosModules.core
-          #self.nixosModules.prometheus-exporters
-          #self.nixosModules.promtail
-
-          self.nixosModules.garage
-          self.nixosModules.nginx
-        ];
-      };
-
-      blue-shell = self.nixos-flake.lib.mkLinuxSystem {
-        imports = [
+      blue-shell = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
           self.inputs.agenix.nixosModules.default
           self.inputs.disko.nixosModules.disko
           self.nixosModules.home-manager
@@ -134,11 +171,35 @@
           self.nixosModules.overlays
           self.nixosModules.unlock-luks-on-boot
           self.nixosModules.core
-          #self.nixosModules.prometheus-exporters
-          #self.nixosModules.promtail
+          self.nixosModules.prometheus-exporters
+          self.nixosModules.promtail
 
           self.nixosModules.garage
           self.nixosModules.nginx
+        ];
+      };
+
+      underground = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
+          self.inputs.agenix.nixosModules.default
+          self.nixosModules.home-manager
+          ./underground
+          self.nixosModules.overlays
+          self.nixosModules.unlock-luks-on-boot
+          self.nixosModules.core
+
+          self.nixosModules.backups
+          self.nixosModules.keycloak
+          self.nixosModules.postgresql
+          self.nixosModules.matrix
+          self.nixosModules.matrix-irc
+          self.nixosModules.nginx
+          self.nixosModules.nginx-matrix
         ];
       };
     };

@@ -142,8 +142,8 @@ lib.mapAttrsToList
 
     cpu_using_90percent = {
       condition = ''100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) >= 90'';
-      time = "10m";
-      description = "{{$labels.instance}} is running with cpu usage > 90% for at least 10 minutes: {{$value}}";
+      time = "20m";
+      description = "{{$labels.instance}} is running with cpu usage > 90% for at least 20 minutes: {{$value}}";
     };
 
     reboot = {
@@ -234,10 +234,10 @@ lib.mapAttrsToList
       };
     */
 
-    host_memory_under_memory_pressure = {
-      condition = "rate(node_vmstat_pgmajfault[1m]) > 1000";
-      description = "{{$labels.instance}}: The node is under heavy memory pressure. High rate of major page faults: {{$value}}";
-    };
+    #host_memory_under_memory_pressure = {
+    #  condition = "rate(node_vmstat_pgmajfault[1m]) > 1000";
+    #  description = "{{$labels.instance}}: The node is under heavy memory pressure. High rate of major page faults: {{$value}}";
+    #};
 
     # ext4_errors = {
     #   condition = "ext4_errors_value > 0";
@@ -250,4 +250,10 @@ lib.mapAttrsToList
     #   description =
     #     "alertmanager: number of active silences has changed: {{$value}}";
     # };
+
+    garage_cluster_healthy = {
+      condition = "cluster_healthy == 0";
+      time = "15m";
+      description = "garage cluster on {{$labels.instance}} is not healthy: {{$labels.result}}!";
+    };
   })

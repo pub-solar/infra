@@ -51,10 +51,24 @@ in
     };
   };
 
-  testScript = { ... }: ''
-      def puppeteer_run(cmd):
-          client.succeed(f'puppeteer-run \'{cmd}\' ')
-
+# <<<<<<< HEAD
+#   testScript = { ... }: ''
+#       def puppeteer_run(cmd):
+#           client.succeed(f'puppeteer-run \'{cmd}\' ')
+#
+# =======
+  testScript =
+    { nodes, ... }:
+    let
+      user = nodes.client.users.users.b12f;
+      #uid = toString user.uid;
+      bus = "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u ${user.name})/bus";
+      gdbus = "${bus} gdbus";
+      su = command: "su - ${user.name} -c '${command}'";
+      gseval = "call --session -d org.gnome.Shell -o /org/gnome/Shell -m org.gnome.Shell.Eval";
+      wmClass = su "${gdbus} ${gseval} global.display.focus_window.wm_class";
+    in
+    ''
       start_all()
 
       acme_server.wait_for_unit("system.slice")
@@ -64,6 +78,9 @@ in
       nachtigall.succeed("ping 127.0.0.1 -c 2")
       nachtigall.wait_for_unit("nginx.service")
 
+      nachtigall.wait_for_unit("keycloak.service")
+      nachtigall.wait_for_open_port(8080)
+      nachtigall.wait_for_open_port(443)
       nachtigall.wait_until_succeeds("curl http://127.0.0.1:8080/")
       nachtigall.wait_until_succeeds("curl https://auth.test.pub.solar/")
       nachtigall.succeed("${pkgs.keycloak}/bin/kcadm.sh create realms -f ${realm-export} --server http://localhost:8080 --realm master --user admin --password password --no-config")

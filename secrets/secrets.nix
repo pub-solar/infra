@@ -2,12 +2,12 @@ let
   admins = import ../logins/admins.nix;
 
   nachtigall-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7G0ufi+MNvaAZLDgpieHrABPGN7e/kD5kMFwSk4ABj root@nachtigall";
-  flora-6-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGP1InpTBN4AlF/4V8HHumAMLJzeO8DpzjUv9Co/+J09 root@flora-6";
   metronom-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICLX6UvvrKALKL0xsNnytLPHryzZF5evUnxAgGokf14i root@metronom";
   tankstelle-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdF6cJKPDiloWiDja1ZtqkXDdXOCHPs10HD+JMzgeU4 root@tankstelle";
   trinkgenossin-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDZXRDpom/LtyoCxvRuoONARKxIT6wNUwEyUjzHRE7DG root@trinkgenossin";
   delite-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAKo7zlfQhcJ5/okFTOoOstZtmEL1iNlHxQ4q2baEcWT root@delite";
   blue-shell-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP9g9X0a/MaVtbh44IeLxcq+McuYec0GYAdLsseBpk5f root@blue-shell";
+  underground-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGF3PtA89yhVkmN7aJI6gqXK8DW9L7kI71IgiK4TAEwI root@underground";
 
   adminKeys = builtins.foldl' (
     keys: login: keys ++ (builtins.attrValues login.secretEncryptionKeys)
@@ -17,8 +17,6 @@ let
 
   tankstelleKeys = [ tankstelle-host ];
 
-  flora6Keys = [ flora-6-host ];
-
   metronomKeys = [ metronom-host ];
 
   trinkgenossinKeys = [ trinkgenossin-host ];
@@ -26,6 +24,8 @@ let
   deliteKeys = [ delite-host ];
 
   blueshellKeys = [ blue-shell-host ];
+
+  undergroundKeys = [ underground-host ];
 
   garageKeys = [
     trinkgenossin-host
@@ -41,12 +41,15 @@ in
 
   "nachtigall-wg-private-key.age".publicKeys = nachtigallKeys ++ adminKeys;
   "tankstelle-wg-private-key.age".publicKeys = tankstelleKeys ++ adminKeys;
-  "flora6-wg-private-key.age".publicKeys = flora6Keys ++ adminKeys;
   "metronom-wg-private-key.age".publicKeys = metronomKeys ++ adminKeys;
   "trinkgenossin-wg-private-key.age".publicKeys = trinkgenossinKeys ++ adminKeys;
   "delite-wg-private-key.age".publicKeys = deliteKeys ++ adminKeys;
   "blue-shell-wg-private-key.age".publicKeys = blueshellKeys ++ adminKeys;
 
+  "mastodon-active-record-encryption-deterministic-key.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "mastodon-active-record-encryption-key-derivation-salt.age".publicKeys =
+    nachtigallKeys ++ adminKeys;
+  "mastodon-active-record-encryption-primary-key.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mastodon-secret-key-base.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mastodon-otp-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mastodon-vapid-private-key.age".publicKeys = nachtigallKeys ++ adminKeys;
@@ -56,7 +59,6 @@ in
 
   "keycloak-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
 
-  "forgejo-actions-runner-token.age".publicKeys = flora6Keys ++ adminKeys;
   "tankstelle-forgejo-actions-runner-token.age".publicKeys = tankstelleKeys ++ adminKeys;
   "forgejo-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
   "forgejo-mailer-password.age".publicKeys = nachtigallKeys ++ adminKeys;
@@ -66,6 +68,11 @@ in
   "matrix-synapse-signing-key.age".publicKeys = nachtigallKeys ++ adminKeys;
   "matrix-synapse-secret-config.yaml.age".publicKeys = nachtigallKeys ++ adminKeys;
   "matrix-synapse-sliding-sync-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "matrix-authentication-service-secret-config.yml.age".publicKeys = nachtigallKeys ++ adminKeys;
+
+  "staging-matrix-synapse-secret-config.yaml.age".publicKeys = undergroundKeys ++ adminKeys;
+  "staging-matrix-authentication-service-secret-config.yml.age".publicKeys =
+    undergroundKeys ++ adminKeys;
 
   "nextcloud-secrets.age".publicKeys = nachtigallKeys ++ adminKeys;
   "nextcloud-admin-pass.age".publicKeys = nachtigallKeys ++ adminKeys;
@@ -80,9 +87,6 @@ in
   "restic-repo-garage-nachtigall.age".publicKeys = nachtigallKeys ++ adminKeys;
   "restic-repo-garage-nachtigall-env.age".publicKeys = nachtigallKeys ++ adminKeys;
 
-  "drone-db-secrets.age".publicKeys = flora6Keys ++ adminKeys;
-  "drone-secrets.age".publicKeys = flora6Keys ++ adminKeys;
-
   "mediawiki-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mediawiki-admin-password.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mediawiki-oidc-client-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
@@ -90,11 +94,11 @@ in
 
   "coturn-static-auth-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
 
-  "grafana-admin-password.age".publicKeys = flora6Keys ++ adminKeys;
-  "grafana-keycloak-client-secret.age".publicKeys = flora6Keys ++ adminKeys;
-  "grafana-smtp-password.age".publicKeys = flora6Keys ++ adminKeys;
+  "grafana-admin-password.age".publicKeys = trinkgenossinKeys ++ adminKeys;
+  "grafana-keycloak-client-secret.age".publicKeys = trinkgenossinKeys ++ adminKeys;
+  "grafana-smtp-password.age".publicKeys = trinkgenossinKeys ++ adminKeys;
 
-  "alertmanager-envfile.age".publicKeys = flora6Keys ++ adminKeys;
+  "alertmanager-envfile.age".publicKeys = trinkgenossinKeys ++ adminKeys;
 
   "obs-portal-env.age".publicKeys = nachtigallKeys ++ adminKeys;
   "obs-portal-database-env.age".publicKeys = nachtigallKeys ++ adminKeys;

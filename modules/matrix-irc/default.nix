@@ -16,11 +16,6 @@ let
   synapseClientPort = "${toString listenerWithClient.port}";
 in
 {
-  systemd.services.matrix-appservice-irc.serviceConfig.SystemCallFilter = lib.mkForce [
-    "@system-service @pkey"
-    "~@privileged @resources"
-    "@chown"
-  ];
   services.matrix-appservice-irc = {
     enable = true;
     localpart = "irc_bot";
@@ -40,7 +35,8 @@ in
           port = 1113;
         };
         logging = {
-          level = "debug";
+          # set to debug for debugging
+          level = "warn";
           maxFiles = 5;
           toCosole = true;
         };

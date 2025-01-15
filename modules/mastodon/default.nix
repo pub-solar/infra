@@ -7,6 +7,21 @@
 }:
 
 {
+  age.secrets."mastodon-active-record-encryption-deterministic-key" = {
+    file = "${flake.self}/secrets//mastodon-active-record-encryption-deterministic-key.age";
+    mode = "400";
+    owner = config.services.mastodon.user;
+  };
+  age.secrets."mastodon-active-record-encryption-key-derivation-salt" = {
+    file = "${flake.self}/secrets//mastodon-active-record-encryption-key-derivation-salt.age";
+    mode = "400";
+    owner = config.services.mastodon.user;
+  };
+  age.secrets."mastodon-active-record-encryption-primary-key" = {
+    file = "${flake.self}/secrets//mastodon-active-record-encryption-primary-key.age";
+    mode = "400";
+    owner = config.services.mastodon.user;
+  };
   age.secrets."mastodon-secret-key-base" = {
     file = "${flake.self}/secrets/mastodon-secret-key-base.age";
     mode = "400";
@@ -54,6 +69,9 @@
     webProcesses = 2;
     # Threads per process used by the mastodon-web service
     webThreads = 5;
+    activeRecordEncryptionDeterministicKeyFile = "/run/agenix/mastodon-active-record-encryption-deterministic-key";
+    activeRecordEncryptionKeyDerivationSaltFile = "/run/agenix/mastodon-active-record-encryption-key-derivation-salt";
+    activeRecordEncryptionPrimaryKeyFile = "/run/agenix/mastodon-active-record-encryption-primary-key";
     secretKeyBaseFile = "/run/agenix/mastodon-secret-key-base";
     otpSecretFile = "/run/agenix/mastodon-otp-secret";
     vapidPrivateKeyFile = "/run/agenix/mastodon-vapid-private-key";
@@ -67,20 +85,20 @@
       passwordFile = "/run/agenix/mastodon-smtp-password";
       fromAddress = "mastodon-notifications@pub.solar";
     };
+    # Defined in ./opensearch.nix
+    elasticsearch.host = "127.0.0.1";
     mediaAutoRemove = {
       olderThanDays = 7;
     };
     extraEnvFiles = [ "/run/agenix/mastodon-extra-env-secrets" ];
     extraConfig = {
       WEB_DOMAIN = "mastodon.${config.pub-solar-os.networking.domain}";
-      # Defined in ./opensearch.nix
-      ES_HOST = "127.0.0.1";
       # S3 File storage (optional)
       # -----------------------
       S3_ENABLED = "true";
-      S3_BUCKET = "pub-solar-mastodon";
-      S3_REGION = "europe-west-1";
-      S3_ENDPOINT = "https://gateway.tardigradeshare.io";
+      S3_BUCKET = "mastodon";
+      S3_REGION = "eu-central";
+      S3_ENDPOINT = "https://buckets.pub.solar";
       S3_ALIAS_HOST = "files.${config.pub-solar-os.networking.domain}";
       # Translation (optional)
       # -----------------------

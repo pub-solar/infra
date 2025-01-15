@@ -40,13 +40,11 @@
     };
   };
 
-  services.caddy.virtualHosts."grafana.${config.pub-solar-os.networking.domain}" = {
-    logFormat = lib.mkForce ''
-      output discard
-    '';
-    extraConfig = ''
-      reverse_proxy :${toString config.services.grafana.settings.server.http_port}
-    '';
+  services.nginx.virtualHosts."grafana.${config.pub-solar-os.networking.domain}" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/".proxyPass =
+      "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
   };
 
   services.grafana = {
@@ -69,7 +67,7 @@
         password = "\$__file{${config.age.secrets.grafana-smtp-password.path}}";
         from_address = "no-reply@pub.solar";
         from_name = "grafana.pub.solar";
-        ehlo_identity = "flora-6.pub.solar";
+        ehlo_identity = "grafana.pub.solar";
       };
       security = {
         admin_email = "crew@pub.solar";

@@ -31,6 +31,8 @@
 
   security.acme = {
     defaults = {
+      # LEGO_DISABLE_CNAME_SUPPORT=true set here to fix issues with CNAME
+      # detection, as we use wildcard DNS for garage
       environmentFile = config.age.secrets.acme-namecheap-env.path;
     };
     certs = {
@@ -40,7 +42,6 @@
         webroot = null;
         # enable dns challenge
         dnsProvider = "namecheap";
-        dnsPropagationCheck = false;
       };
       # Wildcard certificate gets created automatically
       "web.${config.pub-solar-os.networking.domain}" = {
@@ -48,7 +49,6 @@
         webroot = null;
         # enable dns challenge
         dnsProvider = "namecheap";
-        dnsPropagationCheck = false;
       };
     };
   };
@@ -88,7 +88,7 @@
 
   services.garage = {
     enable = true;
-    package = pkgs.garage_1_0_0;
+    package = pkgs.garage_1_0_1;
     settings = {
       data_dir = "/var/lib/garage/data";
       metadata_dir = "/var/lib/garage/meta";
@@ -99,7 +99,7 @@
       s3_api = {
         s3_region = "eu-central";
         api_bind_addr = "[::]:3900";
-        root_domain = ".s3.${config.pub-solar-os.networking.domain}";
+        root_domain = ".buckets.${config.pub-solar-os.networking.domain}";
       };
       s3_web = {
         bind_addr = "[::]:3902";

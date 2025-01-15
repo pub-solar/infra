@@ -22,6 +22,13 @@ in
     recommendedOptimisation = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
+    resolver.addresses = [
+      # quad9.net
+      "9.9.9.9"
+      "149.112.112.112"
+      "[2620:fe::fe]"
+      "[2620:fe::9]"
+    ];
     appendHttpConfig = ''
       # https://my.f5.com/manage/s/article/K51798430
       proxy_headers_hash_bucket_size 128;

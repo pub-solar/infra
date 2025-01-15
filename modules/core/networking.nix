@@ -31,13 +31,17 @@
 
     networking.hosts = {
       "10.7.6.1" = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}" ];
-      "10.7.6.2" = [ "flora-6.wg.${config.pub-solar-os.networking.domain}" ];
       "10.7.6.3" = [ "metronom.wg.${config.pub-solar-os.networking.domain}" ];
       "10.7.6.4" = [ "tankstelle.wg.${config.pub-solar-os.networking.domain}" ];
+      "10.7.6.5" = [ "trinkgenossin.wg.${config.pub-solar-os.networking.domain}" ];
+      "10.7.6.6" = [ "delite.wg.${config.pub-solar-os.networking.domain}" ];
+      "10.7.6.7" = [ "blue-shell.wg.${config.pub-solar-os.networking.domain}" ];
       "fd00:fae:fae:fae:fae:1::" = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}" ];
-      "fd00:fae:fae:fae:fae:2::" = [ "flora-6.wg.${config.pub-solar-os.networking.domain}" ];
       "fd00:fae:fae:fae:fae:3::" = [ "metronom.wg.${config.pub-solar-os.networking.domain}" ];
       "fd00:fae:fae:fae:fae:4::" = [ "tankstelle.wg.${config.pub-solar-os.networking.domain}" ];
+      "fd00:fae:fae:fae:fae:5::" = [ "trinkgenossin.wg.${config.pub-solar-os.networking.domain}" ];
+      "fd00:fae:fae:fae:fae:6::" = [ "delite.wg.${config.pub-solar-os.networking.domain}" ];
+      "fd00:fae:fae:fae:fae:7::" = [ "blue-shell.wg.${config.pub-solar-os.networking.domain}" ];
     };
 
     services.openssh = {

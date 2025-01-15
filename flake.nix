@@ -3,8 +3,7 @@
     # Track channels with commits tested and built by hydra
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    nixpkgs-2205.url = "github:nixos/nixpkgs/nixos-22.05";
+    fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -13,7 +12,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixos-flake.url = "github:srid/nixos-flake";
 
     deploy-rs.url = "github:serokell/deploy-rs";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
@@ -31,9 +29,6 @@
 
     keycloak-event-listener.url = "git+https://git.pub.solar/pub-solar/keycloak-event-listener?ref=main";
     keycloak-event-listener.inputs.nixpkgs.follows = "unstable";
-
-    triton-vmtools.url = "git+https://git.pub.solar/pub-solar/infra-vintage?ref=main&dir=vmtools";
-    triton-vmtools.inputs.nixpkgs.follows = "nixpkgs";
 
     element-themes.url = "github:aaronraimist/element-themes/master";
     element-themes.flake = false;
@@ -59,7 +54,6 @@
       ];
 
       imports = [
-        inputs.nixos-flake.flakeModule
         ./logins
         ./lib
         ./overlays
@@ -99,9 +93,10 @@
               nvfetcher
               shellcheck
               shfmt
-              treefmt
+              inputs.unstable.legacyPackages.${system}.treefmt2
               nixos-generators
-              inputs.nixpkgs-2205.legacyPackages.${system}.terraform
+              inputs.unstable.legacyPackages.${system}.opentofu
+              terraform-backend-git
               terraform-ls
               jq
 
@@ -115,56 +110,43 @@
           devShells.ci = pkgs.mkShell { buildInputs = with pkgs; [ nodejs ]; };
         };
 
-      flake =
-        let
-          username = "barkeeper";
-        in
-        {
-          inherit username;
+      flake = {
+        nixosModules = builtins.listToAttrs (
+          map (x: {
+            name = x;
+            value = import (./modules + "/${x}");
+          }) (builtins.attrNames (builtins.readDir ./modules))
+        );
 
-          nixosModules = builtins.listToAttrs (
-            map (x: {
-              name = x;
-              value = import (./modules + "/${x}");
-            }) (builtins.attrNames (builtins.readDir ./modules))
-          );
+        checks = builtins.mapAttrs (
+          system: deployLib: deployLib.deployChecks self.deploy
+        ) inputs.deploy-rs.lib;
 
-          checks = builtins.mapAttrs (
-            system: deployLib: deployLib.deployChecks self.deploy
-          ) inputs.deploy-rs.lib;
+        formatter."x86_64-linux" = inputs.unstable.legacyPackages."x86_64-linux".nixfmt-rfc-style;
 
-          formatter."x86_64-linux" = inputs.unstable.legacyPackages."x86_64-linux".nixfmt-rfc-style;
-
-          deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
-            nachtigall = {
-              hostname = "nachtigall.wg.pub.solar";
-              sshUser = username;
-            };
-            flora-6 = {
-              hostname = "flora-6.wg.pub.solar";
-              sshUser = username;
-            };
-            metronom = {
-              hostname = "metronom.wg.pub.solar";
-              sshUser = username;
-            };
-            tankstelle = {
-              hostname = "tankstelle.wg.pub.solar";
-              sshUser = username;
-            };
-            trinkgenossin = {
-              hostname = "trinkgenossin.wg.pub.solar";
-              sshUser = username;
-            };
-            delite = {
-              hostname = "delite.wg.pub.solar";
-              sshUser = username;
-            };
-            blue-shell = {
-              hostname = "blue-shell.wg.pub.solar";
-              sshUser = username;
-            };
+        deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
+          nachtigall = {
+            hostname = "nachtigall.wg.pub.solar";
+          };
+          metronom = {
+            hostname = "metronom.wg.pub.solar";
+          };
+          tankstelle = {
+            hostname = "tankstelle.wg.pub.solar";
+          };
+          underground = {
+            hostname = "80.244.242.3";
+          };
+          trinkgenossin = {
+            hostname = "trinkgenossin.wg.pub.solar";
+          };
+          delite = {
+            hostname = "delite.wg.pub.solar";
+          };
+          blue-shell = {
+            hostname = "blue-shell.wg.pub.solar";
           };
         };
+      };
     };
 }

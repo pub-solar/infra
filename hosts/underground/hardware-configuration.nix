@@ -8,45 +8,40 @@
   modulesPath,
   ...
 }:
+
 {
-  imports = [ ];
+  imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+  ];
 
   boot.initrd.availableKernelModules = [
     "ahci"
-    "virtio_pci"
     "xhci_pci"
+    "virtio_pci"
+    "virtio_scsi"
+    "sd_mod"
     "sr_mod"
-    "virtio_blk"
   ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  boot.initrd.luks.devices."cryptroot" = {
+    device = "/dev/disk/by-label/cryptroot";
+  };
+
   fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    autoResize = true;
+    device = "/dev/disk/by-label/root";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/boot";
-    fsType = "vfat";
-  };
-
-  fileSystems."/data" = {
-    device = "/dev/disk/by-label/ephemeral0";
     fsType = "ext4";
-    options = [
-      "defaults"
-      "nofail"
-    ];
   };
 
-  swapDevices = [ ];
-
-  networking.useDHCP = lib.mkDefault false;
-  networking.networkmanager.enable = lib.mkForce false;
+  swapDevices = [
+    { device = "/dev/disk/by-label/swap"; }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

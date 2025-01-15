@@ -42,12 +42,14 @@
     acme_server.wait_for_unit("system.slice")
     acme_server.wait_for_unit("step-ca.service")
     acme_server.succeed("ping ca.test.pub.solar -c 2")
+    acme_server.wait_for_open_port(443)
     acme_server.wait_until_succeeds("curl 127.0.0.1:443")
 
     nachtigall.wait_for_unit("system.slice")
     nachtigall.succeed("ping test.pub.solar -c 2")
     nachtigall.succeed("ping ca.test.pub.solar -c 2")
     nachtigall.wait_for_unit("nginx.service")
+    nachtigall.wait_for_open_port(443)
     nachtigall.wait_until_succeeds("curl https://test.pub.solar/")
   '';
 }

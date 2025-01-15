@@ -41,3 +41,7 @@ wrapped-ruby-mastodon-gems: 4.2.1 → 4.2.3
 zfs-kernel: 2.2.1-6.1.64 → 2.2.2-6.1.66
 zfs-user: 2.2.1 → 2.2.2
 ```
+
+### Deploying updates
+
+See [deploying.md](./deploying.md).
