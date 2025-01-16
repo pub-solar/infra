@@ -6,6 +6,7 @@
   imports = [
     flake.self.nixosModules.home-manager
     flake.self.nixosModules.core
+    flake.self.nixosModules.backups
     flake.self.nixosModules.mail
     flake.inputs.simple-nixos-mailserver.nixosModule
     ./global.nix

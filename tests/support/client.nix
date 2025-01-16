@@ -28,11 +28,11 @@ in
     pkgs.alacritty
   ];
 
-  services.getty.autologinUser = config.pub-solar-os.authentication.username;
+  services.getty.autologinUser = "b12f";
 
   virtualisation.qemu.options = [ "-vga std" ];
 
-  home-manager.users.${config.pub-solar-os.authentication.username} = {
+  home-manager.users.b12f = {
     programs.bash.profileExtra = ''
       [ "$(tty)" = "/dev/tty1" ] && exec systemd-cat --identifier=sway ${pkgs.sway}/bin/sway
     '';

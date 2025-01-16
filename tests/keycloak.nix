@@ -51,12 +51,6 @@ in
     };
   };
 
-# <<<<<<< HEAD
-#   testScript = { ... }: ''
-#       def puppeteer_run(cmd):
-#           client.succeed(f'puppeteer-run \'{cmd}\' ')
-#
-# =======
   testScript =
     { nodes, ... }:
     let
@@ -69,6 +63,8 @@ in
       wmClass = su "${gdbus} ${gseval} global.display.focus_window.wm_class";
     in
     ''
+      def puppeteer_run(cmd):
+        client.succeed(f'puppeteer-run \'{cmd}\' ')
       start_all()
 
       acme_server.wait_for_unit("system.slice")
