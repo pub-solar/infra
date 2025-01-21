@@ -250,6 +250,22 @@
         "type": "github"
       }
     },
+    "fork-irc": {
+      "locked": {
+        "lastModified": 1737465373,
+        "narHash": "sha256-PMfrJ/IL+mkrFBFhv2uZl8LbPPuSOFU8gBQH00fBia4=",
+        "owner": "teutat3s",
+        "repo": "nixpkgs",
+        "rev": "001492fe1715fc4d02c64824163ceeb2163c3d7b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "teutat3s",
+        "ref": "fix-irc-signing-key",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -371,6 +387,7 @@
         "element-themes": "element-themes",
         "flake-parts": "flake-parts",
         "fork": "fork",
+        "fork-irc": "fork-irc",
         "home-manager": "home-manager",
         "keycloak-theme-pub-solar": "keycloak-theme-pub-solar",
         "maunium-stickerpicker": "maunium-stickerpicker",

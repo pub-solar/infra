@@ -4,6 +4,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module";
+    fork-irc.url = "github:teutat3s/nixpkgs/fix-irc-signing-key";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
