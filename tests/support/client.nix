@@ -21,18 +21,20 @@ in
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "b12f";
+  services.xserver.displayManager.autoLogin.user = "test-user";
 
   environment.systemPackages = [
     puppeteer-run
     pkgs.alacritty
+    pkgs.mailutils
   ];
 
-  services.getty.autologinUser = "b12f";
+  services.getty.autologinUser = "test-user";
 
+  virtualisation.memorySize = 4096;
   virtualisation.qemu.options = [ "-vga std" ];
 
-  home-manager.users.b12f = {
+  home-manager.users.test-user = {
     programs.bash.profileExtra = ''
       [ "$(tty)" = "/dev/tty1" ] && exec systemd-cat --identifier=sway ${pkgs.sway}/bin/sway
     '';
@@ -50,6 +52,8 @@ in
         ];
       };
     };
+
+    programs.offlineimap.enable = true;
 
     accounts.email.accounts."test-user@${config.pub-solar-os.networking.domain}" = {
       primary = true;
@@ -69,6 +73,7 @@ in
       getmail.enable = true;
       getmail.mailboxes = [ "ALL" ];
       msmtp.enable = true;
+      offlineimap.enable = true;
     };
   };
 }

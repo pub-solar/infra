@@ -23,12 +23,12 @@ const EXECUTABLE = process.env.EXECUTABLE || 'firefox';
   page.on('response', response => {
     console.log(response.url());
   });
-  const actions = [];
 
-  const server = http.createServer({}, (req, res) => {
+  const server = http.createServer({});
+
+  server.on('request', (req, res) => {
     const chunks = [];
     req.on('data', (chunk) => {
-      console.log(`got data ${chunk}`);
       chunks.push(chunk);
     });
 
@@ -37,18 +37,17 @@ const EXECUTABLE = process.env.EXECUTABLE || 'firefox';
         const content = chunks.join('');
 
         console.log(`Executing ${content}`);
-        eval(`actions.push(${content})`);
+        const val = await eval(content);
 
-        const val = await actions[actions.length - 1];
+        const responseText = (() => {
+          try {
+            return JSON.stringify({ data: val });
+          } catch (err) {
+            return JSON.stringify({ data: val.toString() });
+          }
+        })();
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        let responseText;
-        try {
-          responseText = JSON.stringify({ data: val });
-        } catch (err) {
-          responseText = val.toString();
-        }
-
         res.end(responseText);
       } catch (err) {
         console.error(err);

@@ -45,9 +45,8 @@
         local-data = [
           "\"mail.${config.pub-solar-os.networking.domain}. 10800 IN CNAME mail-server\""
           "\"ca.${config.pub-solar-os.networking.domain}. 10800 IN CNAME acme-server\""
-          "\"${config.pub-solar-os.networking.domain}. 10800 IN CNAME nachtigall\""
-          "\"www.${config.pub-solar-os.networking.domain}. 10800 IN CNAME nachtigall\""
-          "\"auth.${config.pub-solar-os.networking.domain}. 10800 IN CNAME nachtigall\""
+          "\"www.${config.pub-solar-os.networking.domain}. 10800 IN CNAME auth-server\""
+          "\"auth.${config.pub-solar-os.networking.domain}. 10800 IN CNAME auth-server\""
         ];
 
         tls-cert-bundle = "/etc/ssl/certs/ca-certificates.crt";

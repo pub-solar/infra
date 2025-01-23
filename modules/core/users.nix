@@ -11,6 +11,40 @@
       inherit (lib) mkOption types;
     in
     {
+      users = mkOption {
+        description = "Administrative users to add";
+
+        type = types.attrsOf (types.submodule {
+          options = {
+            sshPubKeys = mkOption {
+              type = types.attrsOf types.str;
+              default = {};
+            };
+            secretEncryptionKeys = mkOption {
+              type = types.attrsOf types.str;
+              default = {};
+            };
+            wireguardDevices = mkOption {
+              type = types.listOf (types.submodule {
+                options = {
+                  publicKey = mkOption { type = types.str; };
+                  allowedIPs = mkOption { type = types.listOf types.str; };
+                };
+              });
+              default = {};
+            };
+          };
+        });
+
+        default = flake.self.logins.admins;
+      };
+
+      robot.sshPubKeys = mkOption {
+        description = "SSH Keys to use for the robot user";
+        type = types.listOf types.str;
+        default = flake.self.logins.robots.sshPubKeys;
+      };
+
       root.initialHashedPassword = mkOption {
         description = "Hashed password of the root account";
         type = types.str;
@@ -21,12 +55,6 @@
         description = "username for the robot user";
         type = types.str;
         default = "hakkonaut";
-      };
-
-      robot.sshPubKeys = mkOption {
-        description = "SSH Keys to use for the robot user";
-        type = types.listOf types.str;
-        default = flake.self.logins.robots.sshPubKeys;
       };
     };
 
@@ -47,10 +75,8 @@
             openssh.authorizedKeys.keys = lib.attrsets.attrValues value.sshPubKeys;
           };
         }
-      ) { } flake.self.logins.admins)
+      ) { } config.pub-solar-os.authentication.users)
       // {
-        # TODO: Remove when we stop locking ourselves out.
-        root.openssh.authorizedKeys.keys = flake.self.logins.sshPubKeys;
         root.initialHashedPassword = config.pub-solar-os.authentication.root.initialHashedPassword;
 
         ${config.pub-solar-os.authentication.robot.username} = {
@@ -74,14 +100,14 @@
             home.stateVersion = "23.05";
           };
         }
-      ) { } flake.self.logins.admins
+      ) { } config.pub-solar-os.authentication.users
     );
 
     users.groups =
       (lib.attrsets.foldlAttrs (
         acc: name: value:
         acc // { "${name}" = { }; }
-      ) { } flake.self.logins.admins)
+      ) { } config.pub-solar-os.authentication.users)
       // {
         ${config.pub-solar-os.authentication.robot.username} = { };
       };

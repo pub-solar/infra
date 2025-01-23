@@ -7,10 +7,10 @@
 }:
 {
   imports = [
+    ./users.nix
     ./nix.nix
     ./networking.nix
     ./terminal-tooling.nix
-    ./users.nix
   ];
 
   options.pub-solar-os =

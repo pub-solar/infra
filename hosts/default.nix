@@ -32,10 +32,10 @@
         modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
+          self.nixosModules.core
           ./nachtigall
           self.nixosModules.overlays
           self.nixosModules.unlock-zfs-on-boot
-          self.nixosModules.core
           self.nixosModules.docker
           self.nixosModules.backups
 
@@ -78,10 +78,10 @@
         modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
+          self.nixosModules.core
           ./metronom
           self.nixosModules.overlays
           self.nixosModules.unlock-zfs-on-boot
-          self.nixosModules.core
           self.nixosModules.backups
           self.nixosModules.mail
           self.nixosModules.prometheus-exporters
@@ -100,9 +100,9 @@
         modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
+          self.nixosModules.core
           ./tankstelle
           self.nixosModules.overlays
-          self.nixosModules.core
           self.nixosModules.backups
           self.nixosModules.prometheus-exporters
           self.nixosModules.promtail
@@ -118,11 +118,11 @@
         modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
+          self.nixosModules.core
           ./trinkgenossin
           self.nixosModules.backups
           self.nixosModules.overlays
           self.nixosModules.unlock-luks-on-boot
-          self.nixosModules.core
 
           self.nixosModules.garage
           self.nixosModules.nginx
@@ -145,10 +145,10 @@
           self.inputs.agenix.nixosModules.default
           self.inputs.disko.nixosModules.disko
           self.nixosModules.home-manager
+          self.nixosModules.core
           ./delite
           self.nixosModules.overlays
           self.nixosModules.unlock-luks-on-boot
-          self.nixosModules.core
           self.nixosModules.prometheus-exporters
           self.nixosModules.promtail
 
@@ -167,10 +167,10 @@
           self.inputs.agenix.nixosModules.default
           self.inputs.disko.nixosModules.disko
           self.nixosModules.home-manager
+          self.nixosModules.core
           ./blue-shell
           self.nixosModules.overlays
           self.nixosModules.unlock-luks-on-boot
-          self.nixosModules.core
           self.nixosModules.prometheus-exporters
           self.nixosModules.promtail
 
@@ -188,10 +188,10 @@
         modules = [
           self.inputs.agenix.nixosModules.default
           self.nixosModules.home-manager
+          self.nixosModules.core
           ./underground
           self.nixosModules.overlays
           self.nixosModules.unlock-luks-on-boot
-          self.nixosModules.core
 
           self.nixosModules.backups
           self.nixosModules.keycloak
