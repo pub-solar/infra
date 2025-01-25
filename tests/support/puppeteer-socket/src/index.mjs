@@ -16,13 +16,6 @@ const EXECUTABLE = process.env.EXECUTABLE || 'firefox';
   });
 
   const page = await firefoxBrowser.newPage();
-  // page.on('request', request => {
-  //   console.log(`[puppeteer req] ${request.url()}`);
-  // });
-
-  // page.on('response', response => {
-  //   console.log(`[puppeteer res] ${response.url()}`);
-  // });
 
   await page.setViewport({
     width: 1200,
@@ -41,10 +34,7 @@ const EXECUTABLE = process.env.EXECUTABLE || 'firefox';
     req.on('end', async () => {
       try {
         const content = chunks.join('');
-
-        console.log(`Executing ${content}`);
         const val = await eval(content);
-
         const responseText = (() => {
           try {
             return val.toString();
@@ -64,6 +54,6 @@ const EXECUTABLE = process.env.EXECUTABLE || 'firefox';
   });
 
   server.listen(PUPPETEER_SOCKET, () => {
-    console.log('Listening!');
+    console.log('[puppeteer-socket] Listening!');
   });
 })();
