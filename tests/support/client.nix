@@ -17,16 +17,13 @@ in
   ];
 
   security.polkit.enable = true;
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "test-user";
 
   environment.systemPackages = [
     puppeteer-run
     pkgs.alacritty
     pkgs.mailutils
+    pkgs.oath-toolkit
+    pkgs.firefox
   ];
 
   services.getty.autologinUser = "test-user";
@@ -41,6 +38,7 @@ in
 
     wayland.windowManager.sway = {
       enable = true;
+      systemd.enable = true;
       extraSessionCommands = ''
         export WLR_RENDERER=pixman
       '';

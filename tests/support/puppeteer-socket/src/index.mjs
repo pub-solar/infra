@@ -16,12 +16,18 @@ const EXECUTABLE = process.env.EXECUTABLE || 'firefox';
   });
 
   const page = await firefoxBrowser.newPage();
-  page.on('request', request => {
-    console.log(request.url());
-  });
+  // page.on('request', request => {
+  //   console.log(`[puppeteer req] ${request.url()}`);
+  // });
 
-  page.on('response', response => {
-    console.log(response.url());
+  // page.on('response', response => {
+  //   console.log(`[puppeteer res] ${response.url()}`);
+  // });
+
+  await page.setViewport({
+    width: 1200,
+    height: 600,
+    deviceScaleFactor: 1,
   });
 
   const server = http.createServer({});
@@ -41,9 +47,9 @@ const EXECUTABLE = process.env.EXECUTABLE || 'firefox';
 
         const responseText = (() => {
           try {
-            return JSON.stringify({ data: val });
+            return val.toString();
           } catch (err) {
-            return JSON.stringify({ data: val.toString() });
+            return val;
           }
         })();
 

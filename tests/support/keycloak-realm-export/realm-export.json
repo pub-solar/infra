@@ -484,6 +484,31 @@
   "webAuthnPolicyPasswordlessExtraOrigins": [],
   "users": [
     {
+      "id" : "49fcf95e-6fb3-4430-a29a-506a8b20e77c",
+      "createdTimestamp" : 1673444664000,
+      "username" : "existing-user",
+      "enabled" : true,
+      "totp" : false,
+      "emailVerified" : true,
+      "firstName" : "Existing",
+      "lastName" : "Tester",
+      "email" : "existing-user@test.pub.solar",
+      "credentials" : [ {
+        "id" : "b9fbc30d-4269-49cc-a0ea-9170dc44a30c",
+        "type" : "password",
+        "createdDate" : 1673444664000,
+        "secretData" : "{\"value\":\"yxEZKVTeZlKufE5q4v0Hvxlggg2EaRta5zBtIMxialgwOHrQ3h4Hmre//uk9SlrEv2eqo4aH4bFgPDoktOTyHQ==\",\"salt\":\"d3mk1F43bvQrbV1D+jC1NQ==\",\"additionalParameters\":{}}",
+        "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+      } ],
+      "disableableCredentialTypes" : [ ],
+      "requiredActions" : [ ],
+      "realmRoles" : [
+        "default-roles-test.pub.solar"
+      ],
+      "notBefore" : 0,
+      "groups" : [ ]
+    },
+    {
       "id": "a0a10fbb-2d1d-4bf1-918d-86659f7dcef1",
       "username": "service-account-admin-cli",
       "emailVerified": true,

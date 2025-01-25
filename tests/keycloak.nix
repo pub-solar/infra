@@ -44,8 +44,11 @@ in
       import re
       import sys
 
-      def puppeteer_run(cmd):
-        client.succeed(f'puppeteer-run \'{cmd}\' ')
+      def puppeteer_succeed(cmd):
+        return client.succeed(f'puppeteer-run \'{cmd}\' ')
+
+      def puppeteer_execute(cmd):
+        return client.execute(f'puppeteer-run \'{cmd}\' ')
 
       start_all()
 
@@ -69,32 +72,39 @@ in
       client.wait_for_unit("system.slice")
       client.wait_for_file("/tmp/puppeteer.sock")
 
-      puppeteer_run('page.goto("https://auth.test.pub.solar")')
-      puppeteer_run('page.waitForNetworkIdle()')
+      ####### Registration #######
+
+      puppeteer_succeed('page.goto("https://auth.test.pub.solar")')
+      puppeteer_succeed('page.waitForNetworkIdle()')
       client.screenshot("initial")
-      puppeteer_run('page.locator("::-p-text(Sign in)").click()')
-      puppeteer_run('page.waitForNetworkIdle()')
+      puppeteer_succeed('page.locator("::-p-text(Sign in)").click()')
+      puppeteer_succeed('page.waitForNetworkIdle()')
       client.screenshot("sign-in")
-      puppeteer_run('page.locator("::-p-text(Register)").click()')
-      puppeteer_run('page.waitForNetworkIdle()')
+      puppeteer_succeed('page.locator("::-p-text(Register)").click()')
+      puppeteer_succeed('page.waitForNetworkIdle()')
       client.screenshot("register")
-      puppeteer_run('page.locator("[name=username]").fill("test-user")')
-      puppeteer_run('page.locator("[name=email]").fill("test-user@test.pub.solar")')
-      puppeteer_run('page.locator("[name=password]").fill("Password1234")')
-      puppeteer_run('page.locator("[name=password-confirm]").fill("Password1234")')
+      puppeteer_succeed('page.locator("[name=username]").fill("test-user")')
+      puppeteer_succeed('page.locator("[name=email]").fill("test-user@test.pub.solar")')
+      puppeteer_succeed('page.locator("[name=password]").fill("Password1234")')
+      puppeteer_succeed('page.locator("[name=password-confirm]").fill("Password1234")')
       client.screenshot("register-filled-in")
-      puppeteer_run('page.locator("input[type=submit][value=Register]").click()')
-      puppeteer_run('page.waitForNetworkIdle()')
-      client.screenshot("after-register")
+      puppeteer_succeed('page.locator("input[type=submit][value=Register]").click()')
+      puppeteer_succeed('page.waitForNetworkIdle()')
+      client.screenshot("before-email-confirm")
+
+      # Sometimes offlineimap errors out
+      # ERROR: [Errno 2] No such file or directory: '/home/test-user/.local/share/offlineimap'
+      client.succeed("${su "mkdir -p ~/.local/share/offlineimap"}")
 
       client.succeed("${su "offlineimap"}")
       client.succeed("${su "[ $(messages -s ~/Maildir/test-user@test.pub.solar/INBOX) -eq 1 ]"}")
 
-      puppeteer_run('page.locator("a::-p-text(Click here)").click()')
-      puppeteer_run('page.waitForNetworkIdle()')
+      puppeteer_succeed('page.locator("a::-p-text(Click here)").click()')
+      puppeteer_succeed('page.waitForNetworkIdle()')
 
       client.succeed("${su "offlineimap"}")
       client.succeed("${su "[ $(messages -s ~/Maildir/test-user@test.pub.solar/INBOX) -eq 2 ]"}")
+
       mail_text = client.execute("${su "echo p | mail -Nf ~/Maildir/test-user@test.pub.solar/INBOX"}")[1]
       boundary_match = re.search('boundary="(.*)"', mail_text, flags=re.M)
       if not boundary_match:
@@ -105,11 +115,94 @@ in
       print(url_match)
       if not url_match:
         sys.exit(1)
-      puppeteer_run(f'page.goto("{url_match.group(1)}")')
-      puppeteer_run('page.waitForNetworkIdle()')
-      client.screenshot("email-confirmed")
+      puppeteer_succeed(f'page.goto("{url_match.group(1)}")')
+      puppeteer_succeed('page.waitForNetworkIdle()')
+      client.screenshot("registration-complete")
 
-      sys.exit(0)
-      time.sleep(1)
+      ####### Logout #######
+
+      puppeteer_succeed('page.locator("[data-testid=options-toggle]").click()')
+      puppeteer_succeed('page.locator("::-p-text(Sign out)").click()')
+
+      puppeteer_succeed('page.waitForNetworkIdle()')
+      client.screenshot("logged-out")
+
+      ####### Login plain #######
+
+      puppeteer_succeed('page.locator("[name=username]").fill("test-user")')
+      puppeteer_succeed('page.locator("::-p-text(Sign In)").click()')
+      puppeteer_succeed('page.locator("::-p-text(Restart login)").click()')
+
+      puppeteer_succeed('page.locator("[name=username]").fill("test-user")')
+      puppeteer_succeed('page.locator("::-p-text(Sign In)").click()')
+      puppeteer_succeed('page.locator("[name=password]").fill("Password1234")')
+      puppeteer_succeed('page.locator("::-p-text(Sign In)").click()')
+
+      puppeteer_succeed('page.waitForNetworkIdle()')
+      client.screenshot("logged-in")
+
+      ####### Add TOTP #######
+
+      puppeteer_succeed('page.locator("::-p-text(Account security)").click()')
+      puppeteer_succeed('page.locator("::-p-text(Signing in)").click()')
+
+      puppeteer_succeed('page.waitForNetworkIdle()')
+      client.screenshot("signing-in-settings")
+
+      puppeteer_succeed('page.locator(`[data-testid="otp/create"]`).click()')
+
+      puppeteer_succeed('page.waitForNetworkIdle()')
+      client.screenshot("TOTP-setup-qr")
+
+      puppeteer_succeed('page.locator("::-p-text(Unable to scan?)").click()')
+
+      puppeteer_succeed('page.waitForNetworkIdle()')
+      client.screenshot("TOTP-setup-manual")
+
+      totp_secret_key = puppeteer_execute('(async () => { const el = await page.waitForSelector("#kc-totp-secret-key"); return el.evaluate(e => e.textContent); })()')[1]
+
+      totp = client.execute(f'oathtool --totp -b "{totp_secret_key}"')[1].replace("\n", "")
+
+      puppeteer_succeed(f'page.locator("[name=totp]").fill("{totp}")')
+      puppeteer_succeed('page.locator("[name=userLabel]").fill("My TOTP")')
+      client.screenshot("TOTP-form-filled")
+      puppeteer_succeed('page.locator("input[type=submit][value=Submit]").click()')
+
+      puppeteer_succeed('page.waitForNetworkIdle()')
+      client.screenshot("TOTP-added")
+
+      ####### Login w/ TOTP #######
+
+      puppeteer_succeed('page.locator("[data-testid=options-toggle]").click()')
+      puppeteer_succeed('page.locator("::-p-text(Sign out)").click()')
+
+      puppeteer_succeed('page.waitForNetworkIdle()')
+      client.screenshot("logged-out")
+
+      puppeteer_succeed('page.locator("[name=username]").fill("test-user")')
+      puppeteer_succeed('page.locator("::-p-text(Sign In)").click()')
+      puppeteer_succeed('page.locator("[name=password]").fill("Password1234")')
+      puppeteer_succeed('page.locator("::-p-text(Sign In)").click()')
+
+      puppeteer_succeed('page.waitForNetworkIdle()')
+      client.screenshot("TOTP-login-form")
+
+      print("Sleeping 30s to make sure we roll over into the next TOTP token")
+      time.sleep(30)
+
+      totp = client.execute(f'oathtool --totp -b "{totp_secret_key}"')[1].replace("\n", "")
+      puppeteer_succeed(f'page.locator("[name=otp]").fill("{totp}")')
+      puppeteer_succeed('page.locator("::-p-text(Sign In)").click()')
+
+      puppeteer_succeed('page.waitForNetworkIdle()')
+      client.screenshot("TOTP-signed-in")
+
+      ####### Delete TOTP #######
+
+      puppeteer_succeed('page.locator(`[data-testid="otp/credential-list"] button::-p-text(Delete)`).click()')
+      puppeteer_succeed('page.waitForNetworkIdle()')
+
+      puppeteer_succeed('page.locator("main").scroll({ scrollTop: 200 })')
+      client.screenshot("TOTP-deleted")
     '';
 }
