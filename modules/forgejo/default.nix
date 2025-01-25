@@ -65,6 +65,7 @@
 
   services.forgejo = {
     enable = true;
+    package = pkgs.forgejo;
     user = "gitea";
     group = "gitea";
     database = {
@@ -75,7 +76,7 @@
     };
     stateDir = "/var/lib/forgejo";
     lfs.enable = true;
-    mailerPasswordFile = config.age.secrets.forgejo-mailer-password.path;
+    secrets.mailer.PASSWD = config.age.secrets.forgejo-mailer-password.path;
     settings = {
       DEFAULT.APP_NAME = "pub.solar git server";
 

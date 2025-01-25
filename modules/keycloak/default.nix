@@ -50,7 +50,8 @@
         hostname = "auth.${config.pub-solar-os.networking.domain}";
         http-host = "127.0.0.1";
         http-port = 8080;
-        proxy = "edge";
+        proxy-headers = "xforwarded";
+        http-enabled = true;
       };
       themes = {
         "pub.solar" =

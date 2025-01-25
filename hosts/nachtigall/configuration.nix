@@ -73,22 +73,24 @@
     owner = "matrix-synapse";
   };
 
-  age.secrets."matrix-synapse-sliding-sync-secret" = {
-    file = "${flake.self}/secrets/matrix-synapse-sliding-sync-secret.age";
-    mode = "400";
-    owner = "matrix-synapse";
-  };
-
   age.secrets."matrix-authentication-service-secret-config.yml" = {
     file = "${flake.self}/secrets/matrix-authentication-service-secret-config.yml.age";
     mode = "400";
     owner = "matrix-authentication-service";
   };
 
+  # matrix-appservice-irc
+  age.secrets."matrix-appservice-irc-mediaproxy-signing-key" = {
+    file = "${flake.self}/secrets/matrix-appservice-irc-mediaproxy-signing-key.jwk.age";
+    mode = "400";
+    owner = "matrix-appservice-irc";
+  };
+
   pub-solar-os.matrix = {
     enable = true;
+    appservice-irc.mediaproxy.signingKeyPath =
+      config.age.secrets."matrix-appservice-irc-mediaproxy-signing-key".path;
     synapse = {
-      sliding-sync.enable = false;
       signing_key_path = config.age.secrets."matrix-synapse-signing-key".path;
       extra-config-files = [
         config.age.secrets."matrix-synapse-secret-config.yaml".path
