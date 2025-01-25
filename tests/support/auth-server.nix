@@ -2,12 +2,14 @@
   pkgs,
   flake,
   ...
-}:let
+}:
+let
   ca-cert = pkgs.writeTextFile {
     name = "ca-cert";
     text = builtins.readFile ./step/certs/root_ca.crt;
   };
-in {
+in
+{
   imports = [
     flake.self.inputs.agenix.nixosModules.default
     flake.self.nixosModules.home-manager

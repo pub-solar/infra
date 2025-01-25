@@ -3,7 +3,8 @@
   flake,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     flake.self.nixosModules.home-manager
     flake.self.nixosModules.core
@@ -11,16 +12,16 @@
   ];
 
   networking.nameservers = lib.mkForce [
-    "193.110.81.0" #dns0.eu
-    "2a0f:fc80::" #dns0.eu
-    "185.253.5.0" #dns0.eu
-    "2a0f:fc81::" #dns0.eu
+    "193.110.81.0" # dns0.eu
+    "2a0f:fc80::" # dns0.eu
+    "185.253.5.0" # dns0.eu
+    "2a0f:fc81::" # dns0.eu
   ];
 
   services.resolved.enable = lib.mkForce false;
 
-  networking.firewall.allowedUDPPorts = [53];
-  networking.firewall.allowedTCPPorts = [53];
+  networking.firewall.allowedUDPPorts = [ 53 ];
+  networking.firewall.allowedTCPPorts = [ 53 ];
 
   networking.interfaces.eth1.ipv4.addresses = [
     {

@@ -5,7 +5,7 @@
   ...
 }:
 {
-  pub-solar-os.authentication.users.test-user = {};
+  pub-solar-os.authentication.users.test-user = { };
 
   pub-solar-os.networking.domain = "test.pub.solar";
 
@@ -34,4 +34,3 @@
     pkgs.dig
   ];
 }
-

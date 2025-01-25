@@ -1,4 +1,5 @@
-{ config, flake, ... }: {
+{ config, flake, ... }:
+{
   age.secrets.mail-hensoko.file = "${flake.self}/secrets/mail/hensoko.age";
   age.secrets.mail-teutat3s.file = "${flake.self}/secrets/mail/teutat3s.age";
   age.secrets.mail-admins.file = "${flake.self}/secrets/mail/admins.age";

@@ -1,4 +1,9 @@
-{ flake, lib, config, ... }:
+{
+  flake,
+  lib,
+  config,
+  ...
+}:
 {
   home-manager.users = (
     lib.attrsets.foldlAttrs (

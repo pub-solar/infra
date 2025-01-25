@@ -14,27 +14,31 @@
       users = mkOption {
         description = "Administrative users to add";
 
-        type = types.attrsOf (types.submodule {
-          options = {
-            sshPubKeys = mkOption {
-              type = types.attrsOf types.str;
-              default = {};
+        type = types.attrsOf (
+          types.submodule {
+            options = {
+              sshPubKeys = mkOption {
+                type = types.attrsOf types.str;
+                default = { };
+              };
+              secretEncryptionKeys = mkOption {
+                type = types.attrsOf types.str;
+                default = { };
+              };
+              wireguardDevices = mkOption {
+                type = types.listOf (
+                  types.submodule {
+                    options = {
+                      publicKey = mkOption { type = types.str; };
+                      allowedIPs = mkOption { type = types.listOf types.str; };
+                    };
+                  }
+                );
+                default = { };
+              };
             };
-            secretEncryptionKeys = mkOption {
-              type = types.attrsOf types.str;
-              default = {};
-            };
-            wireguardDevices = mkOption {
-              type = types.listOf (types.submodule {
-                options = {
-                  publicKey = mkOption { type = types.str; };
-                  allowedIPs = mkOption { type = types.listOf types.str; };
-                };
-              });
-              default = {};
-            };
-          };
-        });
+          }
+        );
 
         default = flake.self.logins.admins;
       };

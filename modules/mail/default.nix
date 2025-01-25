@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   mailserver = {
     enable = true;
     fqdn = "mail.${config.pub-solar-os.networking.domain}";

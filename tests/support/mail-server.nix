@@ -2,7 +2,8 @@
   config,
   flake,
   ...
-}: {
+}:
+{
   imports = [
     flake.inputs.simple-nixos-mailserver.nixosModule
     flake.self.nixosModules.home-manager
@@ -13,7 +14,9 @@
   ];
 
   # password is password
-  systemd.tmpfiles.rules = [ "f /tmp/emailpw 1777 root root 10d $2b$11$NV75HGZzMcIwrnVUZKXtxexX9DN52HayDW4eKrD1A8O3uIPnCquQ2" ];
+  systemd.tmpfiles.rules = [
+    "f /tmp/emailpw 1777 root root 10d $2b$11$NV75HGZzMcIwrnVUZKXtxexX9DN52HayDW4eKrD1A8O3uIPnCquQ2"
+  ];
 
   mailserver = {
     loginAccounts = {

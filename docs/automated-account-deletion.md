@@ -7,8 +7,8 @@ Per GDPR legislation, accounts should be automatically deleted after a period of
 
 Some services hold on to a session for a very long time. We'll have to query their APIs to see if the account is still in use:
 
-* Matrix via the admin api: https://matrix-org.github.io/synapse/v1.48/admin_api/user_admin_api.html#query-current-sessions-for-a-user
-* Mastodon via the admin api: https://docs.joinmastodon.org/methods/admin/accounts/#200-ok
-* Nextcloud only gives the last login, not the last active time like a sync via `nextcloud-occ user:lastseen`
-* Keycloak 
-* We can ignore Forgejo, since the sessions there are valid for a maximum of one year, regardless of how they got created
+- Matrix via the admin api: https://matrix-org.github.io/synapse/v1.48/admin_api/user_admin_api.html#query-current-sessions-for-a-user
+- Mastodon via the admin api: https://docs.joinmastodon.org/methods/admin/accounts/#200-ok
+- Nextcloud only gives the last login, not the last active time like a sync via `nextcloud-occ user:lastseen`
+- Keycloak
+- We can ignore Forgejo, since the sessions there are valid for a maximum of one year, regardless of how they got created
