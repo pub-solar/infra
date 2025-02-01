@@ -42,8 +42,17 @@
     owner = "matrix-authentication-service";
   };
 
+  # matrix-appservice-irc
+  age.secrets."matrix-appservice-irc-mediaproxy-signing-key" = {
+    file = "${flake.self}/secrets/staging-matrix-appservice-irc-mediaproxy-signing-key.jwk.age";
+    mode = "400";
+    owner = "matrix-appservice-irc";
+  };
+
   pub-solar-os.matrix = {
     enable = true;
+    appservice-irc.mediaproxy.signingKeyPath =
+      config.age.secrets."matrix-appservice-irc-mediaproxy-signing-key".path;
     synapse = {
       extra-config-files = [
         config.age.secrets."staging-matrix-synapse-secret-config.yaml".path

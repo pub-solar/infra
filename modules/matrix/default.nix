@@ -32,11 +32,6 @@ in
           type = lib.types.str;
           default = "${config.services.matrix-synapse.dataDir}/homeserver.signing.key";
         };
-
-        sliding-sync.enable = lib.mkEnableOption {
-          description = "Whether to enable a sliding-sync proxy, no longer needed with synapse version 1.114+";
-          default = false;
-        };
       };
 
       matrix-authentication-service = {
@@ -337,18 +332,6 @@ in
         ];
         passwords.enabled = false;
       };
-    };
-
-    services.matrix-sliding-sync = {
-      enable = config.pub-solar-os.matrix.synapse.sliding-sync.enable;
-      settings = {
-        SYNCV3_SERVER = "https://${publicDomain}";
-        SYNCV3_BINDADDR = "127.0.0.1:8011";
-        # The bind addr for Prometheus metrics, which will be accessible at
-        # /metrics at this address
-        SYNCV3_PROM = "127.0.0.1:9100";
-      };
-      environmentFile = config.age.secrets."matrix-synapse-sliding-sync-secret".path;
     };
 
     pub-solar-os.backups.restic.matrix-synapse = {

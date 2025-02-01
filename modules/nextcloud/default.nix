@@ -27,7 +27,7 @@
     home = "/var/lib/nextcloud";
 
     enable = true;
-    package = pkgs.nextcloud29;
+    package = pkgs.nextcloud30;
     https = true;
     secretFile = config.age.secrets."nextcloud-secrets".path; # secret
     maxUploadSize = "1G";
@@ -45,7 +45,6 @@
       dbuser = "nextcloud";
       dbtype = "pgsql";
       dbname = "nextcloud";
-      dbtableprefix = "oc_";
     };
 
     settings = {
