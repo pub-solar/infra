@@ -211,7 +211,7 @@ in
       backend = "docker";
 
       containers."mediawiki" = {
-        image = "git.pub.solar/pub-solar/mediawiki-oidc-docker:1.42.1";
+        image = "git.pub.solar/pub-solar/mediawiki-oidc-docker:1.42.4";
         user = "1000:${builtins.toString gid}";
         autoStart = true;
 
