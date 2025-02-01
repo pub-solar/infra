@@ -34,7 +34,13 @@ Docs: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server
 ### Mastodon
 
 ```
+mkdir /tmp/tootctl
+sudo chown mastodon /tmp/tootctl
+cd /tmp/tootctl
+
 sudo -u mastodon mastodon-tootctl accounts delete --email <mail-address>
+
+rm -r /tmp/tootctl
 ```
 
 Docs: https://docs.joinmastodon.org/admin/tootctl/#accounts-delete
