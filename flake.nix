@@ -78,6 +78,24 @@
 
           checks =
             let
+              machinesPerSystem = {
+                aarch64-linux = [
+                  "metronom"
+                ];
+                x86_64-linux = [
+                  "blue-shell"
+                  "delite"
+                  "nachtigall"
+                  "tankstelle"
+                  "trinkgenossin"
+                  "underground"
+                ];
+              };
+              nixosMachines = inputs.nixpkgs.lib.mapAttrs' (n: inputs.nixpkgs.lib.nameValuePair "nixos-${n}") (
+                inputs.nixpkgs.lib.genAttrs (machinesPerSystem.${system} or [ ]) (
+                  name: self.nixosConfigurations.${name}.config.system.build.toplevel
+                )
+              );
               nixos-lib = import (inputs.nixpkgs + "/nixos/lib") { };
               testDir = builtins.attrNames (builtins.readDir ./tests);
               testFiles = builtins.filter (n: builtins.match "^.*.nix$" n != null) testDir;
@@ -94,12 +112,13 @@
                   }
                 );
               }) testFiles
-            );
+            )
+            // nixosMachines;
 
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs; [
               deploy-rs
-              nixpkgs-fmt
+              nix-fast-build
               agenix
               age-plugin-yubikey
               cachix
