@@ -236,16 +236,16 @@
     },
     "fork": {
       "locked": {
-        "lastModified": 1729963002,
-        "narHash": "sha256-2zrYfd/qdfExU5zVwvH80uJnKc/dMeK6zp3O1UtW2Mo=",
+        "lastModified": 1738846146,
+        "narHash": "sha256-cIPiBEspPXQxju2AUZK9kjh6oqea+HkPFqmGv7yUztM=",
         "owner": "teutat3s",
         "repo": "nixpkgs",
-        "rev": "005faaacbeede0296dec5c844f508027ab8a3ff6",
+        "rev": "e370f40b129e47b08562524ab4f053a172a94273",
         "type": "github"
       },
       "original": {
         "owner": "teutat3s",
-        "ref": "init-matrix-authentication-service-module",
+        "ref": "init-matrix-authentication-service-module-0.13.0",
         "repo": "nixpkgs",
         "type": "github"
       }

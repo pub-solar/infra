@@ -3,7 +3,7 @@
     # Track channels with commits tested and built by hydra
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module";
+    fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module-0.13.0";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
