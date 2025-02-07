@@ -31,6 +31,7 @@
         ./support/global.nix
       ];
 
+      virtualisation.cores = 1;
       virtualisation.memorySize = 4096;
 
       networking.interfaces.eth0.ipv4.addresses = [

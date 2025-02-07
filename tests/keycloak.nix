@@ -46,6 +46,7 @@ in
 
       systemd.tmpfiles.rules = [ "f /tmp/dbf 1777 root root 10d password" ];
 
+      virtualisation.cores = 1;
       virtualisation.memorySize = 4096;
 
       pub-solar-os.auth = {

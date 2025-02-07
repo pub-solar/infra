@@ -18,20 +18,7 @@ jobs:
           # Prevent cache garbage collection by creating GC roots
           mkdir -p /var/lib/gitea-runner/tankstelle/.local/state/nix/results
 
-          for target in $(nix flake show --json --all-systems | jq --raw-output '
-            .["nixosConfigurations"] |
-            to_entries[] |
-            .key'
-          ); do
-            nix --print-build-logs --verbose --accept-flake-config --access-tokens '' \
-              build --out-link /var/lib/gitea-runner/tankstelle/.local/state/nix/results/"$target" ".#nixosConfigurations.${target}.config.system.build.toplevel"
-          done
-
-          for check in $(nix flake show --json --all-systems | jq --raw-output '
-            .checks."x86_64-linux" |
-            to_entries[] |
-            .key'
-          ); do
-            nix --print-build-logs --verbose --accept-flake-config --access-tokens '' \
-              build --out-link /var/lib/gitea-runner/tankstelle/.local/state/nix/results/"$check" ".#checks.x86_64-linux.${check}"
-          done
+          sed -i 's/virtualisation.cores .*/virtualisation.cores = 16;/' tests/keycloak.nix
+          sed -i 's/virtualisation.memorySize .*/virtualisation.memorySize = 16384;/' tests/keycloak.nix
+          # 1 eval-worker needs about 13GB of memory
+          nix --accept-flake-config --access-tokens '' develop --command nix-fast-build --no-nom --skip-cached --systems "x86_64-linux" --max-jobs 10 --eval-workers 2 --out-link /var/lib/gitea-runner/tankstelle/.local/state/nix/results/nix-fast-build
