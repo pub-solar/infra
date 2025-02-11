@@ -2,6 +2,7 @@
   config,
   pkgs,
   flake,
+  lib,
   ...
 }:
 {
@@ -22,7 +23,24 @@
     forceSSL = true;
   };
 
-  services.nextcloud = {
+  services.nextcloud =
+    let
+      exiftool_1270 = pkgs.perlPackages.buildPerlPackage rec {
+        # NOTE nextcloud-memories needs this specific version of exiftool
+        pname = "Image-ExifTool";
+        version = "12.70";
+        src = pkgs.fetchFromGitHub {
+          owner = "exiftool";
+          repo = "exiftool";
+          rev = version;
+          hash = "sha256-YMWYPI2SDi3s4KCpSNwovemS5MDj5W9ai0sOkvMa8Zg=";
+        };
+        nativeBuildInputs = lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.shortenPerlShebang;
+        postInstall = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+          shortenPerlShebang $out/bin/exiftool
+        '';
+      };
+    in {
     hostName = "cloud.${config.pub-solar-os.networking.domain}";
     home = "/var/lib/nextcloud";
 
@@ -74,21 +92,39 @@
       allow_local_remote_servers = true;
 
       enable_previews = true;
+      jpeg_quality = 60;
       enabledPreviewProviders = [
         "OC\\Preview\\PNG"
         "OC\\Preview\\JPEG"
         "OC\\Preview\\GIF"
         "OC\\Preview\\BMP"
+        "OC\\Preview\\HEIC"
+        "OC\\Preview\\TIFF"
         "OC\\Preview\\XBitmap"
+        "OC\\Preview\\SVG"
+        "OC\\Preview\\WebP"
+        "OC\\Preview\\Font"
         "OC\\Preview\\Movie"
-        "OC\\Preview\\PDF"
+        "OC\\Preview\\ImaginaryPDF"
         "OC\\Preview\\MP3"
+        "OC\\Preview\\OpenDocument"
+        "OC\\Preview\\Krita"
         "OC\\Preview\\TXT"
         "OC\\Preview\\MarkDown"
+        "OC\\Preview\\Imaginary"
       ];
-      preview_max_x = "1024";
-      preview_max_y = "768";
-      preview_max_scale_factor = "1";
+      preview_imaginary_url = "http://127.0.0.1:${toString config.services.imaginary.port}/";
+      preview_max_filesize_image = 128; # MB
+      preview_max_memory = 512; # MB
+      preview_max_x = 2048; # px
+      preview_max_y = 2048; # px
+      preview_max_scale_factor = 1;
+      "preview_ffmpeg_path" = lib.getExe pkgs.ffmpeg-headless;
+
+      "memories.exiftool_no_local" = false;
+      "memories.exiftool" = "${exiftool_1270}/bin/exiftool";
+      "memories.vod.ffmpeg" = lib.getExe pkgs.ffmpeg;
+      "memories.vod.ffprobe" = lib.getExe' pkgs.ffmpeg-headless "ffprobe";
 
       auth.bruteforce.protection.enabled = true;
       trashbin_retention_obligation = "auto,7";
@@ -136,9 +172,76 @@
     appstoreEnable = true;
     autoUpdateApps.enable = true;
     extraApps = {
-      inherit (pkgs.nextcloud30Packages.apps) recognize;
+      inherit (pkgs.nextcloud30Packages.apps) memories recognize;
     };
     database.createLocally = true;
+  };
+
+  # https://docs.nextcloud.com/server/30/admin_manual/installation/server_tuning.html#previews
+  services.imaginary = {
+    enable = true;
+    address = "127.0.0.1";
+    settings.return-size = true;
+  };
+
+  systemd = {
+    services =
+      let
+        occ = "/run/current-system/sw/bin/nextcloud-occ";
+      in
+      {
+        nextcloud-cron-preview-generator = {
+          environment.NEXTCLOUD_CONFIG_DIR = "${config.services.nextcloud.home}/config";
+          serviceConfig = {
+            ExecStart = "${occ} preview:pre-generate";
+            Type = "oneshot";
+            User = "nextcloud";
+          };
+        };
+
+        nextcloud-preview-generator-setup = {
+          wantedBy = [ "multi-user.target" ];
+          requires = [ "phpfpm-nextcloud.service" ];
+          after = [ "phpfpm-nextcloud.service" ];
+          environment.NEXTCLOUD_CONFIG_DIR = "${config.services.nextcloud.home}/config";
+          script = # bash
+            ''
+              # check with:
+              # for size in squareSizes widthSizes heightSizes; do echo -n "$size: "; nextcloud-occ config:app:get previewgenerator $size; done
+
+              # extra commands run for preview generator:
+              # 32   icon file list
+              # 64   icon file list android app, photos app
+              # 96   nextcloud client VFS windows file preview
+              # 256  file app grid view, many requests
+              # 512  photos app tags
+              ${occ} config:app:set --value="32 64 96 256 512" previewgenerator squareSizes
+
+              # 341 hover in maps app
+              # 1920 files/photos app when viewing picture
+              ${occ} config:app:set --value="341 1920" previewgenerator widthSizes
+
+              # 256 hover in maps app
+              # 1080 files/photos app when viewing picture
+              ${occ} config:app:set --value="256 1080" previewgenerator heightSizes
+            '';
+          serviceConfig = {
+            Type = "oneshot";
+            User = "nextcloud";
+          };
+        };
+      };
+    timers.nextcloud-cron-preview-generator = {
+      after = [ "nextcloud-setup.service" ];
+      timerConfig = {
+        OnCalendar = "*:0/10";
+        OnUnitActiveSec = "9m";
+        Persistent = true;
+        RandomizedDelaySec = 60;
+        Unit = "nextcloud-cron-preview-generator.service";
+      };
+      wantedBy = [ "timers.target" ];
+    };
   };
 
   services.restic.backups.nextcloud-storagebox = {
