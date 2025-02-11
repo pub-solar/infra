@@ -173,7 +173,7 @@
       appstoreEnable = true;
       autoUpdateApps.enable = true;
       extraApps = {
-        inherit (pkgs.nextcloud30Packages.apps) memories recognize;
+        inherit (pkgs.nextcloud30Packages.apps) memories previewgenerator recognize;
       };
       database.createLocally = true;
     };
