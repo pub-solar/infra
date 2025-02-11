@@ -92,7 +92,7 @@
 
       auth.bruteforce.protection.enabled = true;
       trashbin_retention_obligation = "auto,7";
-      skeletondirectory = "./nextcloud-skeleton";
+      skeletondirectory = "/var/lib/nextcloud/skeleton/{lang}";
       defaultapp = "file";
       activity_expire_days = "14";
       integrity.check.disabled = false;
