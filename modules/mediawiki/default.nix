@@ -139,6 +139,10 @@ let
       // https://www.mediawiki.org/wiki/Extension:PluggableAuth#Configuration
       $wgPluggableAuth_EnableAutoLogin = false;
       $wgPluggableAuth_ButtonLabel = 'Login with pub.solar ID';
+      // Avoid getting logged out after 30 minutes
+      // https://www.mediawiki.org/wiki/Topic:W4be4h6t63vf3y8p
+      // https://www.mediawiki.org/wiki/Manual:$wgRememberMe
+      $wgRememberMe = 'always';
 
       // https://www.mediawiki.org/wiki/Extension:OpenID_Connect#Keycloak
       $wgPluggableAuth_Config[] = [
