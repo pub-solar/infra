@@ -11,8 +11,12 @@ in
 {
   age.secrets."forgejo-actions-runner-token.age" = {
     file = "${flake.self}/secrets/trinkgenossin-forgejo-actions-runner-token.age";
+    owner = "gitea-runner";
     mode = "440";
   };
+
+  # Label configuration on gitea-actions-runner instance requires either docker or podman
+  virtualisation.docker.enable = true;
 
   # Trust docker bridge interface traffic
   # Needed for the docker runner to communicate with the act_runner cache
