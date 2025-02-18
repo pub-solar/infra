@@ -27,6 +27,7 @@
     let
       exiftool_1270 = pkgs.perlPackages.buildPerlPackage rec {
         # NOTE nextcloud-memories needs this specific version of exiftool
+        # https://github.com/NixOS/nixpkgs/issues/345267
         pname = "Image-ExifTool";
         version = "12.70";
         src = pkgs.fetchFromGitHub {
