@@ -60,6 +60,7 @@ in
   "keycloak-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "tankstelle-forgejo-actions-runner-token.age".publicKeys = tankstelleKeys ++ adminKeys;
+  "trinkgenossin-forgejo-actions-runner-token.age".publicKeys = trinkgenossinKeys ++ adminKeys;
   "forgejo-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
   "forgejo-mailer-password.age".publicKeys = nachtigallKeys ++ adminKeys;
   "forgejo-ssh-private-key.age".publicKeys = nachtigallKeys ++ adminKeys;
