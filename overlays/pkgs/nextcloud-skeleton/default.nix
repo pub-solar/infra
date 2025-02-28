@@ -7,10 +7,10 @@
 let
   fs = lib.fileset;
   sourceFiles = fs.unions [
-    ./en/Documents/Example.odt
-    ./en/Pictures/pubsolar.png
-    ./en/Pictures/pubsolar.svg
-    ./en/Readme.md
+    ./default/Documents/Example.odt
+    ./default/Pictures/pubsolar.png
+    ./default/Pictures/pubsolar.svg
+    ./default/Readme.md
     ./de/Dokumente/Beispiel.odt
     ./de/Fotos/pubsolar.png
     ./de/Fotos/pubsolar.svg
