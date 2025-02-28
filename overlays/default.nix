@@ -17,6 +17,7 @@
                 element-stickerpicker = prev.callPackage ./pkgs/element-stickerpicker {
                   inherit (inputs) element-stickers maunium-stickerpicker;
                 };
+                nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
               }
             )
           ];

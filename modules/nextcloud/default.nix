@@ -70,7 +70,7 @@
       };
 
       settings = {
-        overwrite.cli.url = "http://cloud.${config.pub-solar-os.networking.domain}";
+        overwrite.cli.url = "https://cloud.${config.pub-solar-os.networking.domain}";
         overwriteprotocol = "https";
 
         installed = true;
@@ -130,7 +130,7 @@
 
         auth.bruteforce.protection.enabled = true;
         trashbin_retention_obligation = "auto,7";
-        skeletondirectory = "./nextcloud-skeleton";
+        skeletondirectory = "${pkgs.nextcloud-skeleton}/{lang}";
         defaultapp = "file";
         activity_expire_days = "14";
         integrity.check.disabled = false;
