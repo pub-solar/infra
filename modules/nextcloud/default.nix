@@ -171,10 +171,32 @@
       };
 
       caching.redis = true;
-      appstoreEnable = true;
-      autoUpdateApps.enable = true;
+      # Don't allow the installation and updating of apps from the Nextcloud appstore,
+      # because we declaratively install them
+      appstoreEnable = false;
+      autoUpdateApps.enable = false;
       extraApps = {
-        inherit (pkgs.nextcloud30Packages.apps) memories previewgenerator recognize;
+        inherit (pkgs.nextcloud30Packages.apps)
+          calendar
+          contacts
+          cospend
+          deck
+          end_to_end_encryption
+          groupfolders
+          integration_deepl
+          mail
+          memories
+          notes
+          notify_push
+          previewgenerator
+          quota_warning
+          recognize
+          richdocuments
+          spreed
+          tasks
+          twofactor_webauthn
+          user_oidc
+          ;
       };
       database.createLocally = true;
     };
