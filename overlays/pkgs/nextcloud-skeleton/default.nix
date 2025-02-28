@@ -17,9 +17,6 @@ let
     ./de/Liesmich.md
   ];
 in
-
-fs.trace sourceFiles
-
   stdenvNoCC.mkDerivation
   {
     name = "nextcloud-skeleton";
