@@ -17,14 +17,13 @@ let
     ./de/Liesmich.md
   ];
 in
-  stdenvNoCC.mkDerivation
-  {
-    name = "nextcloud-skeleton";
-    src = fs.toSource {
-      root = ./.;
-      fileset = sourceFiles;
-    };
-    postInstall = ''
-      cp -vr . $out
-    '';
-  }
+stdenvNoCC.mkDerivation {
+  name = "nextcloud-skeleton";
+  src = fs.toSource {
+    root = ./.;
+    fileset = sourceFiles;
+  };
+  postInstall = ''
+    cp -vr . $out
+  '';
+}
