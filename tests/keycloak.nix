@@ -78,7 +78,7 @@ in
     ''
       start_all()
 
-      nachtigall.wait_for_unit("system.slice")
+      nachtigall.wait_for_unit("default.target")
       nachtigall.succeed("ping 127.0.0.1 -c 2")
       nachtigall.wait_for_unit("nginx.service")
       nachtigall.wait_for_unit("keycloak.service")
@@ -87,7 +87,7 @@ in
       nachtigall.wait_until_succeeds("curl http://127.0.0.1:8080/")
       nachtigall.wait_until_succeeds("curl https://auth.test.pub.solar/")
 
-      client.wait_for_unit("system.slice")
+      client.wait_for_unit("default.target")
       client.sleep(30)
       # client.wait_until_succeeds("${wmClass} | grep -q 'firefox'")
       client.screenshot("screen")
