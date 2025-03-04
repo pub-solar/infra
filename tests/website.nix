@@ -44,7 +44,7 @@
   };
 
   testScript = ''
-    start_all()
+    acme_server.start()
 
     acme_server.wait_for_unit("default.target")
     acme_server.wait_for_unit("step-ca.service")
@@ -52,10 +52,10 @@
     acme_server.wait_for_open_port(443)
     acme_server.wait_until_succeeds("curl 127.0.0.1:443")
 
+    nachtigall.start()
     nachtigall.wait_for_unit("default.target")
     nachtigall.succeed("ping test.pub.solar -c 2")
     nachtigall.succeed("ping ca.test.pub.solar -c 2")
-    nachtigall.wait_for_unit("acme-test.pub.solar.service")
     nachtigall.wait_for_unit("nginx.service")
     nachtigall.wait_for_open_port(443, "test.pub.solar")
     nachtigall.wait_until_succeeds("curl https://test.pub.solar/")
