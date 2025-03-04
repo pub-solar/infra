@@ -70,6 +70,8 @@ let
       $wgUploadDirectory = "/var/www/html/uploads";
       $wgUploadPath = $wgScriptPath . "/uploads";
 
+      $wgFileExtensions = [ 'png', 'gif', 'jpg', 'jpeg', 'webp', 'svg', 'pdf', ];
+
       $wgUseImageMagick = true;
       $wgImageMagickConvertCommand = "/usr/bin/convert";
 
