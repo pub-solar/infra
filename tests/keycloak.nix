@@ -76,7 +76,7 @@ in
       wmClass = su "${gdbus} ${gseval} global.display.focus_window.wm_class";
     in
     ''
-      start_all()
+      nachtigall.start()
 
       nachtigall.wait_for_unit("default.target")
       nachtigall.succeed("ping 127.0.0.1 -c 2")
@@ -87,8 +87,8 @@ in
       nachtigall.wait_until_succeeds("curl http://127.0.0.1:8080/")
       nachtigall.wait_until_succeeds("curl https://auth.test.pub.solar/")
 
+      client.start()
       client.wait_for_unit("default.target")
-      client.sleep(30)
       # client.wait_until_succeeds("${wmClass} | grep -q 'firefox'")
       client.screenshot("screen")
     '';
