@@ -17,6 +17,7 @@
                 element-stickerpicker = prev.callPackage ./pkgs/element-stickerpicker {
                   inherit (inputs) element-stickers maunium-stickerpicker;
                 };
+                matrix-cache-gc = prev.callPackage ./pkgs/matrix-cache-gc.nix { inherit inputs; };
                 nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
               }
             )

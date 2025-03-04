@@ -281,7 +281,10 @@ in
         "redis"
       ];
 
-      plugins = [ config.services.matrix-synapse.package.plugins.matrix-synapse-shared-secret-auth ];
+      plugins = [
+        config.services.matrix-synapse.package.plugins.matrix-synapse-s3-storage-provider
+        config.services.matrix-synapse.package.plugins.matrix-synapse-shared-secret-auth
+      ];
     };
 
     services.matrix-authentication-service = {
