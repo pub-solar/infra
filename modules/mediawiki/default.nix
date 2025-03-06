@@ -246,7 +246,7 @@ in
       "/tmp/mediawiki-backup.sql"
     ];
     timerConfig = {
-      OnCalendar = "*-*-* 00:30:00 Etc/UTC";
+      OnCalendar = "*-*-* 00:00:00 Etc/UTC";
     };
     initialize = true;
     backupPrepareCommand = ''
