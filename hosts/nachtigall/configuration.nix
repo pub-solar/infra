@@ -20,6 +20,14 @@
         devices = [ "/dev/disk/by-id/nvme-KXG60ZNV1T02_TOSHIBA_Z9NF704ZF9ZL" ];
         path = "/boot2";
       }
+      {
+        devices = [ "/dev/disk/by-id/nvme-SAMSUNG_MZVL21T0HDLU-00B07_S77WNF0XA01902" ];
+        path = "/boot3";
+      }
+      {
+        devices = [ "/dev/disk/by-id/nvme-SAMSUNG_MZVL21T0HCLR-00B00_S676NU0W623944" ];
+        path = "/boot4";
+      }
     ];
     copyKernels = true;
   };
