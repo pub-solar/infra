@@ -2,6 +2,17 @@
 
 Last updated: 2025-03-11
 
+Jump to:
+
+1. [Server nachtigall](#server-nachtigall)
+2. [Server metronom](#server-metronom)
+3. [Server trinkgenossin](#server-trinkgenossin)
+4. [Server blue-shell](#server-blue-shell)
+5. [Server delite](#server-delite)
+6. [Server tankstelle](#server-tankstelle)
+7. [Server underground](#server-underground)
+8. [Hetzner 1TB storagebox](#hetzner-1tb-storagebox)
+
 ### Server nachtigall
 
 **Specs:**
