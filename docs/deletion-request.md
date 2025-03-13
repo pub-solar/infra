@@ -47,6 +47,14 @@ Docs: https://docs.joinmastodon.org/admin/tootctl/#accounts-delete
 
 ### Forgejo
 
+Make sure you have access to the gitea/forgejo command:
+
+```
+nix shell nixpkgs#forgejo
+```
+
+Then, delete the user:
+
 ```
 sudo -u gitea gitea admin user delete --config /var/lib/forgejo/custom/conf/app.ini --purge --email <mail-address>
 ```
@@ -59,8 +67,34 @@ Docs: https://forgejo.org/docs/latest/admin/command-line/#delete
 curl --header "Authorization: Bearer <admin-access-token>" --request POST http://127.0.0.1:8008/_synapse/admin/v1/deactivate/@<username>:pub.solar --data '{"erase": true}'
 ```
 
-Docs: https://matrix-org.github.io/synapse/latest/admin_api/user_admin_api.html#deactivate-account
+Docs: https://element-hq.github.io/synapse/latest/admin_api/user_admin_api.html#deactivate-account
+
+The authentication token should be in the keepass. If it is expired, you can get a new one by running the following:
+
+```
+# get full path to mas-cli command with current --config flags from
+# sudo systemctl cat matrix-authentication-service
+sudo -u matrix-authentication-service mas-cli --config nix-store-config --config /run/agenix/matrix-authentication-service-secret-config.yml manage issue-compatibility-token --yes-i-want-to-grant-synapse-admin-privileges crew
+```
 
 ### OpenBikeSensor
 
 Not implemented, see: https://github.com/openbikesensor/portal/issues/95
+
+## Notifying the user
+
+Make sure to send an e-mail to the specified address notifying the user of the accounts deletion.
+
+You can use this template:
+
+```
+Hello,
+
+Your pub.solar ID has been deactivated. Associated data in pub.solar services has been deleted.
+
+Please note that the username is now blocked to prevent impersonation attempts.
+
+Best,
+
+@<name> for the pub.solar crew
+```
