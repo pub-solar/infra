@@ -19,6 +19,7 @@
                 nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
               }
             )
+            (import ./matrix-synapse.nix)
           ];
         }
       );
