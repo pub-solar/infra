@@ -354,11 +354,6 @@ in
         rm /tmp/matrix-synapse-backup.sql
         rm /tmp/matrix-authentication-service-backup.sql
       '';
-      pruneOpts = [
-        "--keep-daily 7"
-        "--keep-weekly 4"
-        "--keep-monthly 3"
-      ];
     };
   };
 }

@@ -255,10 +255,5 @@ in
     backupCleanupCommand = ''
       rm /tmp/mediawiki-backup.sql
     '';
-    pruneOpts = [
-      "--keep-daily 7"
-      "--keep-weekly 4"
-      "--keep-monthly 3"
-    ];
   };
 }
