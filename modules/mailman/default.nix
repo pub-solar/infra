@@ -93,10 +93,5 @@
     initialize = true;
     passwordFile = config.age.secrets."restic-repo-storagebox-nachtigall".path;
     repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
-    pruneOpts = [
-      "--keep-daily 7"
-      "--keep-weekly 4"
-      "--keep-monthly 3"
-    ];
   };
 }
