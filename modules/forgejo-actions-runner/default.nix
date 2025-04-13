@@ -3,11 +3,13 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.services.gitea-actions-runner;
-in {
+in
+{
 
-  config = lib.mkIf (cfg.instances != {}) {
+  config = lib.mkIf (cfg.instances != { }) {
     # Label configuration on gitea-actions-runner instance requires either docker or podman
     virtualisation.docker.enable = true;
 
@@ -20,17 +22,22 @@ in {
       useDefaultShell = true;
       group = "gitea-runner";
       # Required to interact with nix daemon
-      extraGroups = [ "wheel" "docker" ];
+      extraGroups = [
+        "wheel"
+        "docker"
+      ];
       isSystemUser = true;
     };
 
     users.groups.gitea-runner = { };
 
-    systemd.tmpfiles.rules = [
-      "d '/var/lib/gitea-runner' 0770 gitea-runner gitea-runner - -"
-    ] ++ lib.mapAttrsToList (name: instance:
-      "d '/var/lib/gitea-runner/${name}' 0770 gitea-runner gitea-runner - -"
-    ) cfg.instances;
+    systemd.tmpfiles.rules =
+      [
+        "d '/var/lib/gitea-runner' 0770 gitea-runner gitea-runner - -"
+      ]
+      ++ lib.mapAttrsToList (
+        name: instance: "d '/var/lib/gitea-runner/${name}' 0770 gitea-runner gitea-runner - -"
+      ) cfg.instances;
 
     systemd.services = lib.concatMapAttrs (name: instance: {
       "gitea-runner-${name}" = {
