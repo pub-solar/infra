@@ -9,7 +9,6 @@
 > the deactivation mechanism currently available in Matrix - a destructive,
 > irreversible, action.
 
-
 Required:
 
 - `matrix-synapse admin token`
@@ -28,4 +27,5 @@ curl --header "Authorization: Bearer <admin-access-token>" --request PUT http://
 ```
 
 Links:
+
 - [synapse docs Suspend/Unsuspend Account](https://element-hq.github.io/synapse/latest/admin_api/user_admin_api.html#suspendunsuspend-account)
