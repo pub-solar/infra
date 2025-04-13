@@ -132,6 +132,7 @@
           self.nixosModules.grafana
           self.nixosModules.prometheus
           self.nixosModules.loki
+          self.nixosModules.forgejo-actions-runner
         ];
       };
 
