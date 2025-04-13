@@ -154,7 +154,7 @@ in
       "/tmp/obs-portal-backup.sql"
     ];
     timerConfig = {
-      OnCalendar = "*-*-* 06:00:00 Etc/UTC";
+      OnCalendar = "*-*-* 06:30:00 Etc/UTC";
     };
     initialize = true;
     backupPrepareCommand = ''
