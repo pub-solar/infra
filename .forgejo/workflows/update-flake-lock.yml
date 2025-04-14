@@ -1,0 +1,19 @@
+name: Update flake lock
+on: 
+  workflow_dispatch:
+  schedule: 
+    - cron: '33 3 * * 6' # “At 03:33 on Saturday.” 
+
+jobs:
+  update_lockfile:
+    runs-on: self-hosted
+    steps:
+      - name: nix flake update
+        uses: https://git.pub.solar/momo/forgejo-action-update-flake@825bba1d03c853ea9aeded656d230db82f9f1216
+        with:
+          forgejo_access_token: ${{ secrets.HAKKONAUT_ACCESS_TOKEN }}
+          gpg_private_key: ${{ secrets.GPG_SIGN_SUBKEY }}
+          gpg_fingerprint: F39BE7813956AB92C3821DFBC02540B6C5BD80EE
+          gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_author: '"hakkonaut" <no-reply@pub.solar>'
+          closure-diff-nixos-configuration: nachtigall
