@@ -4,16 +4,16 @@ Last updated: 2025-03-11
 
 Jump to:
 
-1. [Server nachtigall](#server-nachtigall)
-2. [Server metronom](#server-metronom)
-3. [Server trinkgenossin](#server-trinkgenossin)
-4. [Server blue-shell](#server-blue-shell)
-5. [Server delite](#server-delite)
-6. [Server tankstelle](#server-tankstelle)
-7. [Server underground](#server-underground)
+1. [Server nachtigall.pub.solar](#server-nachtigall-pub-solar)
+2. [Server metronom.pub.solar](#server-metronom-pub-solar)
+3. [Server trinkgenossin.pub.solar](#server-trinkgenossin-pub-solar)
+4. [Server blue-shell.pub.solar](#server-blue-shell-pub-solar)
+5. [Server delite.pub.solar](#server-delite-pub-solar)
+6. [Server tankstelle.pub.solar](#server-tankstelle-pub-solar)
+7. [Server underground.pub.solar](#server-underground-pub-solar)
 8. [Hetzner 1TB storagebox](#hetzner-1tb-storagebox)
 
-### Server nachtigall
+### Server nachtigall.pub.solar
 
 **Specs:**
 
@@ -27,7 +27,7 @@ Jump to:
 
 **Operating System:**
 
-- NixOS 24.11 `linux-x86_64`
+- NixOS 24.11 `x86_64-linux`
 
 **Usage:**
 Main pub.solar server. Hosts the majority of pub.solar services. Non-exhaustive list:
@@ -47,7 +47,7 @@ Main pub.solar server. Hosts the majority of pub.solar services. Non-exhaustive 
 - tt-rss
 - obs-portal
 
-### Server metronom
+### Server metronom.pub.solar
 
 **Specs:**
 
@@ -62,12 +62,12 @@ Main pub.solar server. Hosts the majority of pub.solar services. Non-exhaustive 
 
 **Operating System:**
 
-- NixOS 24.11 `linux-aach64`
+- NixOS 24.11 `aarch64-linux`
 
 **Usage:**
 pub.solar mail server. Note this is an ARM server.
 
-### Server trinkgenossin
+### Server trinkgenossin.pub.solar
 
 **Specs:**
 
@@ -82,7 +82,7 @@ pub.solar mail server. Note this is an ARM server.
 
 **Operating System:**
 
-- NixOS 24.11 `linux-x86_64`
+- NixOS 24.11 `x86_64-linux`
 
 **Usage:**
 Monitor, garage cluster node. Services:
@@ -93,7 +93,7 @@ Monitor, garage cluster node. Services:
 - garage
 - forgejo-actions-runner (docker)
 
-### Server blue-shell
+### Server blue-shell.pub.solar
 
 **Specs:**
 
@@ -109,12 +109,12 @@ Monitor, garage cluster node. Services:
 
 **Operating System:**
 
-- NixOS 24.11 `linux-x86_64`
+- NixOS 24.11 `x86_64-linux`
 
 **Usage:**
 Garage cluster node.
 
-### Server delite
+### Server delite.pub.solar
 
 **Specs:**
 
@@ -129,12 +129,12 @@ Garage cluster node.
 
 **Operating System:**
 
-- NixOS 24.11 `linux-x86_64`
+- NixOS 24.11 `x86_64-linux`
 
 **Usage:**
 Garage cluster node.
 
-### Server tankstelle
+### Server tankstelle.pub.solar
 
 **Specs:**
 
@@ -148,13 +148,13 @@ Garage cluster node.
 
 **Operating System:**
 
-- NixOS 24.11 `linux-x86_64`
+- NixOS 24.11 `x86_64-linux`
 
 **Usage:**
 
 - forgejo-actions-runner (selfhosted, NixOS)
 
-### Server underground
+### Server underground.pub.solar
 
 **Specs:**
 
@@ -168,12 +168,20 @@ Garage cluster node.
 
 **Operating System:**
 
-- NixOS 24.11 `linux-x86_64`
+- NixOS 24.11 `x86_64-linux`
 
 **Usage:**
 Testing server.
 
 ### Hetzner 1TB storagebox
 
+Hostname:
+
+```
+u377325@u377325.your-storagebox.de
+```
+
 **Usage:**
 Backups get pushed to a Hetzner storagebox every night.
+
+### Garage cluster
