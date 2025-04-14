@@ -129,12 +129,6 @@
         "memories.vod.ffprobe" = lib.getExe' pkgs.ffmpeg-headless "ffprobe";
 
         auth.bruteforce.protection.enabled = true;
-        # 10 minutes, to ensure we have a valid Nextcloud session
-        # This should avoid 'CSRF check failed' error message when doing
-        # specific actions, like editing personal security settings
-        # https://help.nextcloud.com/t/nextcloud-not-logging-me-out-when-openid-session-expires/174117/8
-        # https://github.com/nextcloud/user_oidc/issues/743
-        session_lifetime = "60 * 10";
         trashbin_retention_obligation = "auto,7";
         skeletondirectory = "${pkgs.nextcloud-skeleton}/{lang}";
         defaultapp = "file";
