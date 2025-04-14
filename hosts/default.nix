@@ -106,6 +106,7 @@
           self.nixosModules.backups
           self.nixosModules.prometheus-exporters
           self.nixosModules.promtail
+          self.nixosModules.forgejo-actions-runner
         ];
       };
 
