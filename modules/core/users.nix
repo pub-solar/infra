@@ -58,7 +58,7 @@
           home = "/home/${config.pub-solar-os.authentication.robot.username}";
           createHome = true;
           useDefaultShell = true;
-          uid = 998;
+          uid = 1100;
           group = "${config.pub-solar-os.authentication.robot.username}";
           isSystemUser = true;
           openssh.authorizedKeys.keys = config.pub-solar-os.authentication.robot.sshPubKeys;
@@ -83,7 +83,9 @@
         acc // { "${name}" = { }; }
       ) { } flake.self.logins.admins)
       // {
-        ${config.pub-solar-os.authentication.robot.username} = { };
+        ${config.pub-solar-os.authentication.robot.username} = {
+          gid = 1100;
+        };
       };
 
     security.sudo.wheelNeedsPassword = false;
