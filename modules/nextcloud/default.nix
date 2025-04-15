@@ -195,6 +195,7 @@
           spreed
           tasks
           twofactor_webauthn
+          uppush
           user_oidc
           ;
       };
