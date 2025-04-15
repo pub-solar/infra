@@ -23,6 +23,13 @@
     forceSSL = true;
 
     locations = {
+      "=/_matrix/push/v1/notify" = {
+        extraConfig = ''
+          set $custom_request_uri /index.php/apps/uppush/gateway/matrix;
+          rewrite ^.*$ /index.php/apps/uppush/gateway/matrix last;
+        '';
+      };
+
       # Increase timeouts for unified push
       "^~ /index.php/apps/uppush/" = {
         priority = 499;
