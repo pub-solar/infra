@@ -121,6 +121,7 @@
         preview_max_x = 2048; # px
         preview_max_y = 2048; # px
         preview_max_scale_factor = 1;
+        preview_format = "webp";
         "preview_ffmpeg_path" = lib.getExe pkgs.ffmpeg-headless;
 
         "memories.exiftool_no_local" = false;
@@ -135,7 +136,7 @@
         activity_expire_days = "14";
         integrity.check.disabled = false;
         updater.release.channel = "stable";
-        loglevel = 2;
+        loglevel = 0;
         debug = false;
         maintenance_window_start = "1";
         # maintenance = false;
@@ -152,11 +153,12 @@
         "opcache.interned_strings_buffer" = "32";
         "opcache.max_accelerated_files" = "16229";
         "opcache.memory_consumption" = "256";
-        # https://docs.nextcloud.com/server/latest/admin_manual/installation/server_tuning.html#enable-php-opcache
-        "opcache.revalidate_freq" = "60";
         # https://docs.nextcloud.com/server/latest/admin_manual/installation/server_tuning.html#:~:text=opcache.jit%20%3D%201255%20opcache.jit_buffer_size%20%3D%20128m
         "opcache.jit" = "1255";
         "opcache.jit_buffer_size" = "128M";
+        # Ensure that this matches nextcloud's session_lifetime config
+        # https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html#session-lifetime
+        "session.gc_maxlifetime" = "86400";
       };
 
       # Calculated with 4GiB RAM, 80MiB process size available on
