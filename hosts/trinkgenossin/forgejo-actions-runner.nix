@@ -54,7 +54,8 @@
         "alpine-latest:docker://node:20-alpine"
       ];
     };
-    pub-solar = {
+    # systemd does not like dashes in service unit names
+    pubsolar = {
       enable = true;
       url = "https://git.pub.solar";
       name = config.networking.hostName;
