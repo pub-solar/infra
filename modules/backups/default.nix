@@ -71,6 +71,35 @@ in
       };
     };
 
+    resources = mkOption {
+      description = "resources required to exist before starting restic backup archive process";
+      default = {};
+      type = types.attrsOf (
+        types.submodule (
+          { ... }:
+          {
+            options = {
+              resourceCreateCommand = mkOption {
+                type = with types; nullOr str;
+                default = null;
+                description = ''
+                  A script that must run successfully to create the resource.
+                '';
+              };
+
+              resourceDestroyCommand = mkOption {
+                type = with types; nullOr str;
+                default = null;
+                description = ''
+                  A script that runs when the resource is destroyed.
+                '';
+              };
+            };
+          }
+        )
+      );
+    };
+
     restic = mkOption {
       description = ''
         Periodic backups to create with Restic.
@@ -80,6 +109,11 @@ in
           { name, ... }:
           {
             options = {
+              resources = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+              };
+
               paths = mkOption {
                 # This is nullable for legacy reasons only. We should consider making it a pure listOf
                 # after some time has passed since this comment was added.
@@ -262,23 +296,74 @@ in
     };
   };
 
-  config = {
+  config =
+    let
+      repos = config.pub-solar-os.backups.repos;
+      restic = config.pub-solar-os.backups.restic;
+      resources = config.pub-solar-os.backups.resources;
+
+      repoNames = builtins.attrNames repos;
+      resourceNames = builtins.attrNames resources;
+      backupNames = builtins.attrNames restic;
+
+      createResourceService =
+        resourceName: {
+          name = "restic-backups-resource-${resourceName}";
+          value = {
+            serviceConfig = let
+              createResourceApp = pkgs.writeShellApplication {
+                name = "create-resource-${resourceName}";
+                text = resources."${resourceName}".resourceCreateCommand;
+              };
+              destroyResourceApp = pkgs.writeShellApplication {
+                name = "destroy-resource-${resourceName}";
+                text = resources."${resourceName}".resourceDestroyCommand;
+              };
+
+            in {
+              Type = "oneshot";
+              ExecStart = lib.mkIf (resources."${resourceName}".resourceCreateCommand != null) "${createResourceApp}/bin/create-resource-${resourceName}";
+              ExecStop = lib.mkIf (resources."${resourceName}".resourceDestroyCommand != null) "${destroyResourceApp}/bin/destroy-resource-${resourceName}";
+              RemainAfterExit = true;
+            };
+            unitConfig.StopWhenUnneeded = true;
+          };
+        };
+
+      createResourceDependency =
+        resourceName: backupName: repoName: {
+          name = "restic-backups-${backupName}-${repoName}";
+          value = {
+            after = [ "restic-backups-resource-${resourceName}.service" ];
+            requires = [ "restic-backups-resource-${resourceName}.service" ];
+
+            serviceConfig.PrivateTmp = lib.mkForce false;
+            unitConfig = {
+              JoinsNamespaceOf = [ "restic-backups-resource-${resourceName}.service" ];
+            };
+          };
+        };
+
+      createResourceDependencies =
+        backupName:
+          map (repoName:
+            map (resourceName: createResourceDependency resourceName backupName repoName)
+          resourceNames)
+        repoNames;
+
+      createBackups =
+        backupName:
+        map (repoName: {
+          name = "${backupName}-${repoName}";
+          value = lib.attrsets.filterAttrs (key: val: (key != "resources")) (repos."${repoName}" // restic."${backupName}");
+        }) repoNames;
+    in {
+    systemd.services =
+      (builtins.listToAttrs (map createResourceService resourceNames)) //
+      (builtins.listToAttrs (lib.lists.flatten (map createResourceDependencies backupNames)));
+
+
     services.restic.backups =
-      let
-        repos = config.pub-solar-os.backups.repos;
-        restic = config.pub-solar-os.backups.restic;
-
-        repoNames = builtins.attrNames repos;
-        backupNames = builtins.attrNames restic;
-
-        createBackups =
-          backupName:
-          map (repoName: {
-            name = "${backupName}-${repoName}";
-            value = repos."${repoName}" // restic."${backupName}";
-          }) repoNames;
-
-      in
       builtins.listToAttrs (lib.lists.flatten (map createBackups backupNames));
 
     # Used for pub-solar-os.backups.repos.storagebox
