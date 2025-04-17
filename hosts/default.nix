@@ -131,6 +131,7 @@
           self.nixosModules.keycloak
           self.nixosModules.grafana
           self.nixosModules.prometheus
+          self.nixosModules.prometheus-exporters
           self.nixosModules.loki
           self.nixosModules.forgejo-actions-runner
         ];
