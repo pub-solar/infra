@@ -180,19 +180,19 @@ in
           }
         ];
       }
-      {
-        job_name = "php-fpm";
-        static_configs = [
-          {
-            targets = [
-              "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.php-fpm.port}"
-            ];
-            labels = {
-              instance = "nachtigall";
-            };
-          }
-        ];
-      }
+      #{
+      #  job_name = "php-fpm";
+      #  static_configs = [
+      #    {
+      #      targets = [
+      #        "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.php-fpm.port}"
+      #      ];
+      #      labels = {
+      #        instance = "nachtigall";
+      #      };
+      #    }
+      #  ];
+      #}
       {
         job_name = "postgres";
         relabel_configs = [

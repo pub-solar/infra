@@ -30,14 +30,16 @@
         port = 9113;
       };
       # https://github.com/hipages/php-fpm_exporter
-      php-fpm = {
-        enable = true;
-        openFirewall = true;
-        firewallRules = [
-          ''iifname "wg-ssh" tcp dport ${config.services.prometheus.exporters.php-fpm.port} accept''
-        ];
-        port = 9253;
-      };
+      #php-fpm = {
+      #  enable = true;
+      #  extraFlags = [
+      #    "--phpfpm.scrape-uri unix://${config.services.phpfpm.pools.nextcloud.socket};/status"
+      #  ];
+      #  group = "nginx";
+      #  openFirewall = true;
+      #  firewallFilter = "--in-interface wg-ssh --protocol tcp --match tcp --dport ${toString config.services.prometheus.exporters.php-fpm.port}";
+      #  port = 9253;
+      #};
       # https://github.com/prometheus-community/postgres_exporter
       postgres = {
         enable = true;
