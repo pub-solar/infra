@@ -17,9 +17,7 @@
       nextcloud = {
         enable = true;
         openFirewall = true;
-        firewallRules = [
-          ''iifname "wg-ssh" tcp dport ${config.services.prometheus.exporters.nextcloud.port} accept''
-        ];
+        firewallFilter = "--in-interface wg-ssh --protocol tcp --match tcp --dport ${toString config.services.prometheus.exporters.nextcloud.port}";
         url = "https://cloud.pub.solar";
         tokenFile = config.age.secrets."nextcloud-serverinfo-token".path;
         port = 9205;
@@ -28,9 +26,7 @@
       nginx = {
         enable = true;
         openFirewall = true;
-        firewallRules = [
-          ''iifname "wg-ssh" tcp dport ${config.services.prometheus.exporters.nginx.port} accept''
-        ];
+        firewallFilter = "--in-interface wg-ssh --protocol tcp --match tcp --dport ${toString config.services.prometheus.exporters.nginx.port}";
         port = 9113;
       };
       # https://github.com/hipages/php-fpm_exporter
@@ -47,9 +43,7 @@
         enable = true;
         dataSourceName = "postgres_exporter@:5432/postgres?host=/run/postgresql";
         openFirewall = true;
-        firewallRules = [
-          ''iifname "wg-ssh" tcp dport ${config.services.prometheus.exporters.postgres.port} accept''
-        ];
+        firewallFilter = "--in-interface wg-ssh --protocol tcp --match tcp --dport ${toString config.services.prometheus.exporters.postgres.port}";
         port = 9187;
       };
       # https://github.com/pdf/zfs_exporter

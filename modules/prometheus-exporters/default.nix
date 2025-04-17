@@ -5,9 +5,7 @@
       node = {
         enable = true;
         openFirewall = true;
-        firewallRules = [
-          ''iifname "wg-ssh" tcp dport ${config.services.prometheus.exporters.node.port} accept''
-        ];
+        firewallFilter = "--in-interface wg-ssh --protocol tcp --match tcp --dport ${toString config.services.prometheus.exporters.node.port}";
         enabledCollectors = [ "systemd" ];
         port = 9002;
       };
