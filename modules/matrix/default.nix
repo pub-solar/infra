@@ -336,9 +336,9 @@ in
 
     pub-solar-os.backups = {
       resources.matrix-db.resourceCreateCommand = ''
-          ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix -f /tmp/matrix-synapse-backup.sql
-          ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix-authentication-service -f /tmp/matrix-authentication-service-backup.sql
-        '';
+        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix -f /tmp/matrix-synapse-backup.sql
+        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix-authentication-service -f /tmp/matrix-authentication-service-backup.sql
+      '';
       restic.matrix-synapse = {
         resources = [ "matrix-db" ];
         paths = [

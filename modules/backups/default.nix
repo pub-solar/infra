@@ -73,7 +73,7 @@ in
 
     resources = mkOption {
       description = "resources required to exist before starting restic backup archive process";
-      default = {};
+      default = { };
       type = types.attrsOf (
         types.submodule (
           { ... }:
@@ -306,11 +306,11 @@ in
       resourceNames = builtins.attrNames resources;
       backupNames = builtins.attrNames restic;
 
-      createResourceService =
-        resourceName: {
-          name = "restic-backups-resource-${resourceName}";
-          value = {
-            serviceConfig = let
+      createResourceService = resourceName: {
+        name = "restic-backups-resource-${resourceName}";
+        value = {
+          serviceConfig =
+            let
               createResourceApp = pkgs.writeShellApplication {
                 name = "create-resource-${resourceName}";
                 text = resources."${resourceName}".resourceCreateCommand;
@@ -320,29 +320,33 @@ in
                 text = resources."${resourceName}".resourceDestroyCommand;
               };
 
-            in {
+            in
+            {
               Type = "oneshot";
-              ExecStart = lib.mkIf (resources."${resourceName}".resourceCreateCommand != null) "${createResourceApp}/bin/create-resource-${resourceName}";
-              ExecStop = lib.mkIf (resources."${resourceName}".resourceDestroyCommand != null) "${destroyResourceApp}/bin/destroy-resource-${resourceName}";
+              ExecStart = lib.mkIf (
+                resources."${resourceName}".resourceCreateCommand != null
+              ) "${createResourceApp}/bin/create-resource-${resourceName}";
+              ExecStop = lib.mkIf (
+                resources."${resourceName}".resourceDestroyCommand != null
+              ) "${destroyResourceApp}/bin/destroy-resource-${resourceName}";
               RemainAfterExit = true;
             };
-            unitConfig.StopWhenUnneeded = true;
+          unitConfig.StopWhenUnneeded = true;
+        };
+      };
+
+      createResourceDependency = resourceName: backupName: repoName: {
+        name = "restic-backups-${backupName}-${repoName}";
+        value = {
+          after = [ "restic-backups-resource-${resourceName}.service" ];
+          requires = [ "restic-backups-resource-${resourceName}.service" ];
+
+          serviceConfig.PrivateTmp = lib.mkForce false;
+          unitConfig = {
+            JoinsNamespaceOf = [ "restic-backups-resource-${resourceName}.service" ];
           };
         };
-
-      createResourceDependency =
-        resourceName: backupName: repoName: {
-          name = "restic-backups-${backupName}-${repoName}";
-          value = {
-            after = [ "restic-backups-resource-${resourceName}.service" ];
-            requires = [ "restic-backups-resource-${resourceName}.service" ];
-
-            serviceConfig.PrivateTmp = lib.mkForce false;
-            unitConfig = {
-              JoinsNamespaceOf = [ "restic-backups-resource-${resourceName}.service" ];
-            };
-          };
-        };
+      };
 
       createResourceDependencies =
         backupName:
@@ -356,23 +360,24 @@ in
         backupName:
         map (repoName: {
           name = "${backupName}-${repoName}";
-          value = lib.attrsets.filterAttrs (key: val: (key != "resources")) (repos."${repoName}" // restic."${backupName}");
+          value = lib.attrsets.filterAttrs (key: val: (key != "resources")) (
+            repos."${repoName}" // restic."${backupName}"
+          );
         }) repoNames;
-    in {
-    systemd.services =
-      (builtins.listToAttrs (map createResourceService resourceNames)) //
-      (builtins.listToAttrs (lib.lists.flatten (map createResourceDependencies backupNames)));
+    in
+    {
+      systemd.services =
+        (builtins.listToAttrs (map createResourceService resourceNames))
+        // (builtins.listToAttrs (lib.lists.flatten (map createResourceDependencies backupNames)));
 
+      services.restic.backups = builtins.listToAttrs (lib.lists.flatten (map createBackups backupNames));
 
-    services.restic.backups =
-      builtins.listToAttrs (lib.lists.flatten (map createBackups backupNames));
-
-    # Used for pub-solar-os.backups.repos.storagebox
-    programs.ssh.knownHosts = {
-      "u377325.your-storagebox.de".publicKey =
-        "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA5EB5p/5Hp3hGW1oHok+PIOH9Pbn7cnUiGmUEBrCVjnAw+HrKyN8bYVV0dIGllswYXwkG/+bgiBlE6IVIBAq+JwVWu1Sss3KarHY3OvFJUXZoZyRRg/Gc/+LRCE7lyKpwWQ70dbelGRyyJFH36eNv6ySXoUYtGkwlU5IVaHPApOxe4LHPZa/qhSRbPo2hwoh0orCtgejRebNtW5nlx00DNFgsvn8Svz2cIYLxsPVzKgUxs8Zxsxgn+Q/UvR7uq4AbAhyBMLxv7DjJ1pc7PJocuTno2Rw9uMZi1gkjbnmiOh6TTXIEWbnroyIhwc8555uto9melEUmWNQ+C+PwAK+MPw==";
-      "[u377325.your-storagebox.de]:23".publicKey =
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
+      # Used for pub-solar-os.backups.repos.storagebox
+      programs.ssh.knownHosts = {
+        "u377325.your-storagebox.de".publicKey =
+          "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA5EB5p/5Hp3hGW1oHok+PIOH9Pbn7cnUiGmUEBrCVjnAw+HrKyN8bYVV0dIGllswYXwkG/+bgiBlE6IVIBAq+JwVWu1Sss3KarHY3OvFJUXZoZyRRg/Gc/+LRCE7lyKpwWQ70dbelGRyyJFH36eNv6ySXoUYtGkwlU5IVaHPApOxe4LHPZa/qhSRbPo2hwoh0orCtgejRebNtW5nlx00DNFgsvn8Svz2cIYLxsPVzKgUxs8Zxsxgn+Q/UvR7uq4AbAhyBMLxv7DjJ1pc7PJocuTno2Rw9uMZi1gkjbnmiOh6TTXIEWbnroyIhwc8555uto9melEUmWNQ+C+PwAK+MPw==";
+        "[u377325.your-storagebox.de]:23".publicKey =
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
+      };
     };
-  };
 }
