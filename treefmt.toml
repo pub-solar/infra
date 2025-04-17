@@ -12,6 +12,9 @@ includes = [
   "*.yaml",
   "*.md",
 ]
+excludes = [
+  "modules/grafana/grafana-dashboards/*"
+]
 
 [formatter.shell]
 command = "shfmt"
