@@ -4,16 +4,6 @@
   flake,
   ...
 }:
-let
-  # Find element in list config.services.matrix-synapse.settings.listeners
-  # that sets type = "metrics"
-  listenerWithMetrics =
-    lib.findFirst (listener: listener.type == "metrics")
-      (throw "Found no matrix-synapse.settings.listeners.*.type containing string metrics")
-      config.services.matrix-synapse.settings.listeners;
-  synapseMetricsPort = "${toString listenerWithMetrics.port}";
-
-in
 {
   age.secrets."nextcloud-serverinfo-token" = {
     file = "${flake.self}/secrets/nextcloud-serverinfo-token.age";
