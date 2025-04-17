@@ -346,10 +346,11 @@ in
 
       createResourceDependencies =
         backupName:
-          map (repoName:
-            map (resourceName: createResourceDependency resourceName backupName repoName)
-          resourceNames)
-        repoNames;
+        map (
+          repoName:
+          map (resourceName: createResourceDependency resourceName backupName repoName)
+            restic."${backupName}".resources
+        ) repoNames;
 
       createBackups =
         backupName:
