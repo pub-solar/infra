@@ -41,7 +41,7 @@
       # https://github.com/prometheus-community/postgres_exporter
       postgres = {
         enable = true;
-        dataSourceName = "postgres_exporter@:5432/postgres?host=/run/postgresql";
+        dataSourceName = "user=postgres-exporter database=postgres host=/run/postgresql sslmode=disable";
         openFirewall = true;
         firewallFilter = "--in-interface wg-ssh --protocol tcp --match tcp --dport ${toString config.services.prometheus.exporters.postgres.port}";
         port = 9187;
