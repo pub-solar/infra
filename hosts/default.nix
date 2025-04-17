@@ -50,7 +50,6 @@
           self.nixosModules.nginx-mastodon-files
           self.nixosModules.mediawiki
           self.nixosModules.nextcloud
-          self.nixosModules.nginx-prometheus-exporters
           self.nixosModules.nginx-website
           self.nixosModules.nginx-website-miom
           self.nixosModules.opensearch
