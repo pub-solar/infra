@@ -210,7 +210,7 @@ in
           }
           {
             target_label = "__address__";
-            replacement = "127.0.0.1:9116";
+            replacement = "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.postgres.port}";
           }
         ];
         static_configs = [
