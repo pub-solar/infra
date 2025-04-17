@@ -136,6 +136,19 @@
           }
         ];
       }
+      {
+        job_name = "pub-solar/loki";
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}" ];
+            labels = {
+              instance = "trinkgenossin";
+              namespace = "pub-solar";
+              cluster = "prod";
+            };
+          }
+        ];
+      }
     ];
 
     ruleFiles = [
