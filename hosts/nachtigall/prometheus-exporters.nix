@@ -46,15 +46,6 @@
         firewallFilter = "--in-interface wg-ssh --protocol tcp --match tcp --dport ${toString config.services.prometheus.exporters.postgres.port}";
         port = 9187;
       };
-      # https://github.com/pdf/zfs_exporter
-      zfs = {
-        enable = true;
-        openFirewall = true;
-        firewallRules = [
-          ''iifname "wg-ssh" tcp dport ${config.services.prometheus.exporters.zfs.port} accept''
-        ];
-        port = 9134;
-      };
     };
   };
 }

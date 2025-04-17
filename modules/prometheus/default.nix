@@ -221,19 +221,6 @@ in
           }
         ];
       }
-      {
-        job_name = "zfs";
-        static_configs = [
-          {
-            targets = [
-              "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.zfs.port}"
-            ];
-            labels = {
-              instance = "nachtigall";
-            };
-          }
-        ];
-      }
     ];
 
     ruleFiles = [
