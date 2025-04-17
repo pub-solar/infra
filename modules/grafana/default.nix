@@ -38,6 +38,36 @@
       group = "grafana";
       user = "grafana";
     };
+    "grafana-dashboards/loki/loki-chunks.json" = {
+      source = ./grafana-dashboards/loki/loki-chunks.json;
+      group = "grafana";
+      user = "grafana";
+    };
+    "grafana-dashboards/loki/loki-deletion.json" = {
+      source = ./grafana-dashboards/loki/loki-deletion.json;
+      group = "grafana";
+      user = "grafana";
+    };
+    "grafana-dashboards/loki/loki-operational.json" = {
+      source = ./grafana-dashboards/loki/loki-operational.json;
+      group = "grafana";
+      user = "grafana";
+    };
+    "grafana-dashboards/loki/loki-reads.json" = {
+      source = ./grafana-dashboards/loki/loki-reads.json;
+      group = "grafana";
+      user = "grafana";
+    };
+    "grafana-dashboards/loki/loki-retention.json" = {
+      source = ./grafana-dashboards/loki/loki-retention.json;
+      group = "grafana";
+      user = "grafana";
+    };
+    "grafana-dashboards/loki/loki-writes.json" = {
+      source = ./grafana-dashboards/loki/loki-writes.json;
+      group = "grafana";
+      user = "grafana";
+    };
   };
 
   services.nginx.virtualHosts."grafana.${config.pub-solar-os.networking.domain}" = {
@@ -117,6 +147,7 @@
             {
               name = "pub.solar Dashboards";
               options.path = "/etc/grafana-dashboards";
+              options.foldersFromFilesStructure = true;
             }
           ];
         };
