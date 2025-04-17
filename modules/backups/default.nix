@@ -83,7 +83,7 @@ in
                 type = with types; nullOr str;
                 default = null;
                 description = ''
-                  A script that must run successfully to create the resource.
+                  A script that must run successfully to create the resource. Optional.
                 '';
               };
 
@@ -91,7 +91,7 @@ in
                 type = with types; nullOr str;
                 default = null;
                 description = ''
-                  A script that runs when the resource is destroyed.
+                  A script that runs when the resource is destroyed. Optional.
                 '';
               };
             };
