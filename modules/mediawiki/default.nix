@@ -239,21 +239,24 @@ in
     };
   };
 
-  pub-solar-os.backups.restic.mediawiki = {
-    paths = [
-      "/var/lib/mediawiki/images"
-      "/var/lib/mediawiki/uploads"
-      "/tmp/mediawiki-backup.sql"
-    ];
-    timerConfig = {
-      OnCalendar = "*-*-* 00:00:00 Etc/UTC";
+  pub-solar-os.backups = {
+    resources.mediawiki-db = {
+      resourceCreateCommand = ''
+        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d mediawiki -f /tmp/mediawiki-backup.sql
+      '';
     };
-    initialize = true;
-    backupPrepareCommand = ''
-      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d mediawiki > /tmp/mediawiki-backup.sql
-    '';
-    backupCleanupCommand = ''
-      rm /tmp/mediawiki-backup.sql
-    '';
+
+    restic.mediawiki = {
+      resources = [ "mediawiki-db" ];
+      paths = [
+        "/var/lib/mediawiki/images"
+        "/var/lib/mediawiki/uploads"
+        "/tmp/mediawiki-backup.sql"
+      ];
+      timerConfig = {
+        OnCalendar = "*-*-* 00:00:00 Etc/UTC";
+      };
+      initialize = true;
+    };
   };
 }

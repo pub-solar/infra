@@ -71,6 +71,35 @@ in
       };
     };
 
+    resources = mkOption {
+      description = "resources required to exist before starting restic backup archive process";
+      default = { };
+      type = types.attrsOf (
+        types.submodule (
+          { ... }:
+          {
+            options = {
+              resourceCreateCommand = mkOption {
+                type = with types; nullOr str;
+                default = null;
+                description = ''
+                  A script that must run successfully to create the resource. Optional.
+                '';
+              };
+
+              resourceDestroyCommand = mkOption {
+                type = with types; nullOr str;
+                default = null;
+                description = ''
+                  A script that runs when the resource is destroyed. Optional.
+                '';
+              };
+            };
+          }
+        )
+      );
+    };
+
     restic = mkOption {
       description = ''
         Periodic backups to create with Restic.
@@ -80,6 +109,11 @@ in
           { name, ... }:
           {
             options = {
+              resources = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+              };
+
               paths = mkOption {
                 # This is nullable for legacy reasons only. We should consider making it a pure listOf
                 # after some time has passed since this comment was added.
@@ -262,31 +296,88 @@ in
     };
   };
 
-  config = {
-    services.restic.backups =
-      let
-        repos = config.pub-solar-os.backups.repos;
-        restic = config.pub-solar-os.backups.restic;
+  config =
+    let
+      repos = config.pub-solar-os.backups.repos;
+      restic = config.pub-solar-os.backups.restic;
+      resources = config.pub-solar-os.backups.resources;
 
-        repoNames = builtins.attrNames repos;
-        backupNames = builtins.attrNames restic;
+      repoNames = builtins.attrNames repos;
+      resourceNames = builtins.attrNames resources;
+      backupNames = builtins.attrNames restic;
 
-        createBackups =
-          backupName:
-          map (repoName: {
-            name = "${backupName}-${repoName}";
-            value = repos."${repoName}" // restic."${backupName}";
-          }) repoNames;
+      createResourceService = resourceName: {
+        name = "restic-backups-resource-${resourceName}";
+        value = {
+          serviceConfig =
+            let
+              createResourceApp = pkgs.writeShellApplication {
+                name = "create-resource-${resourceName}";
+                text = resources."${resourceName}".resourceCreateCommand;
+              };
+              destroyResourceApp = pkgs.writeShellApplication {
+                name = "destroy-resource-${resourceName}";
+                text = resources."${resourceName}".resourceDestroyCommand;
+              };
 
-      in
-      builtins.listToAttrs (lib.lists.flatten (map createBackups backupNames));
+            in
+            {
+              Type = "oneshot";
+              ExecStart = lib.mkIf (
+                resources."${resourceName}".resourceCreateCommand != null
+              ) "${createResourceApp}/bin/create-resource-${resourceName}";
+              ExecStop = lib.mkIf (
+                resources."${resourceName}".resourceDestroyCommand != null
+              ) "${destroyResourceApp}/bin/destroy-resource-${resourceName}";
+              RemainAfterExit = true;
+            };
+          unitConfig.StopWhenUnneeded = true;
+        };
+      };
 
-    # Used for pub-solar-os.backups.repos.storagebox
-    programs.ssh.knownHosts = {
-      "u377325.your-storagebox.de".publicKey =
-        "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA5EB5p/5Hp3hGW1oHok+PIOH9Pbn7cnUiGmUEBrCVjnAw+HrKyN8bYVV0dIGllswYXwkG/+bgiBlE6IVIBAq+JwVWu1Sss3KarHY3OvFJUXZoZyRRg/Gc/+LRCE7lyKpwWQ70dbelGRyyJFH36eNv6ySXoUYtGkwlU5IVaHPApOxe4LHPZa/qhSRbPo2hwoh0orCtgejRebNtW5nlx00DNFgsvn8Svz2cIYLxsPVzKgUxs8Zxsxgn+Q/UvR7uq4AbAhyBMLxv7DjJ1pc7PJocuTno2Rw9uMZi1gkjbnmiOh6TTXIEWbnroyIhwc8555uto9melEUmWNQ+C+PwAK+MPw==";
-      "[u377325.your-storagebox.de]:23".publicKey =
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
+      createResourceDependency = resourceName: backupName: repoName: {
+        name = "restic-backups-${backupName}-${repoName}";
+        value = {
+          after = [ "restic-backups-resource-${resourceName}.service" ];
+          requires = [ "restic-backups-resource-${resourceName}.service" ];
+
+          serviceConfig.PrivateTmp = lib.mkForce false;
+          unitConfig = {
+            JoinsNamespaceOf = [ "restic-backups-resource-${resourceName}.service" ];
+          };
+        };
+      };
+
+      createResourceDependencies =
+        backupName:
+        map (
+          repoName:
+          map (resourceName: createResourceDependency resourceName backupName repoName)
+            restic."${backupName}".resources
+        ) repoNames;
+
+      createBackups =
+        backupName:
+        map (repoName: {
+          name = "${backupName}-${repoName}";
+          value = lib.attrsets.filterAttrs (key: val: (key != "resources")) (
+            repos."${repoName}" // restic."${backupName}"
+          );
+        }) repoNames;
+    in
+    {
+      systemd.services =
+        (builtins.listToAttrs (map createResourceService resourceNames))
+        // (builtins.listToAttrs (lib.lists.flatten (map createResourceDependencies backupNames)));
+
+      services.restic.backups = builtins.listToAttrs (lib.lists.flatten (map createBackups backupNames));
+
+      # Used for pub-solar-os.backups.repos.storagebox
+      programs.ssh.knownHosts = {
+        "u377325.your-storagebox.de".publicKey =
+          "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA5EB5p/5Hp3hGW1oHok+PIOH9Pbn7cnUiGmUEBrCVjnAw+HrKyN8bYVV0dIGllswYXwkG/+bgiBlE6IVIBAq+JwVWu1Sss3KarHY3OvFJUXZoZyRRg/Gc/+LRCE7lyKpwWQ70dbelGRyyJFH36eNv6ySXoUYtGkwlU5IVaHPApOxe4LHPZa/qhSRbPo2hwoh0orCtgejRebNtW5nlx00DNFgsvn8Svz2cIYLxsPVzKgUxs8Zxsxgn+Q/UvR7uq4AbAhyBMLxv7DjJ1pc7PJocuTno2Rw9uMZi1gkjbnmiOh6TTXIEWbnroyIhwc8555uto9melEUmWNQ+C+PwAK+MPw==";
+        "[u377325.your-storagebox.de]:23".publicKey =
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
+      };
     };
-  };
 }

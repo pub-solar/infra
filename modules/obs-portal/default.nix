@@ -148,25 +148,25 @@ in
     };
   };
 
-  pub-solar-os.backups.restic.obs-portal = {
-    paths = [
-      "/var/lib/obs-portal/data"
-      "/tmp/obs-portal-backup.sql"
-    ];
-    timerConfig = {
-      OnCalendar = "*-*-* 06:30:00 Etc/UTC";
+  pub-solar-os.backups = {
+    resources.obs-db.resourceCreateCommand = ''
+      ${pkgs.docker}/bin/docker exec -i --user postgres obs-portal-db pg_dump -d obs -f /tmp/obs-portal-backup.sql
+    '';
+    restic.obs-portal = {
+      resources = [ "obs-db" ];
+      paths = [
+        "/var/lib/obs-portal/data"
+        "/tmp/obs-portal-backup.sql"
+      ];
+      timerConfig = {
+        OnCalendar = "*-*-* 06:30:00 Etc/UTC";
+      };
+      initialize = true;
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 4"
+        "--keep-monthly 3"
+      ];
     };
-    initialize = true;
-    backupPrepareCommand = ''
-      ${pkgs.docker}/bin/docker exec -i --user postgres obs-portal-db pg_dump obs > /tmp/obs-portal-backup.sql
-    '';
-    backupCleanupCommand = ''
-      rm /tmp/obs-portal-backup.sql
-    '';
-    pruneOpts = [
-      "--keep-daily 7"
-      "--keep-weekly 4"
-      "--keep-monthly 3"
-    ];
   };
 }

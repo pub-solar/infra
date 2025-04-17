@@ -334,26 +334,25 @@ in
       };
     };
 
-    pub-solar-os.backups.restic.matrix-synapse = {
-      paths = [
-        "/var/lib/matrix-synapse"
-        "/var/lib/matrix-appservice-irc"
-        "/var/lib/mautrix-telegram"
-        "/tmp/matrix-synapse-backup.sql"
-        "/tmp/matrix-authentication-service-backup.sql"
-      ];
-      timerConfig = {
-        OnCalendar = "*-*-* 05:00:00 Etc/UTC";
+    pub-solar-os.backups = {
+      resources.matrix-db.resourceCreateCommand = ''
+        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix -f /tmp/matrix-synapse-backup.sql
+        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix-authentication-service -f /tmp/matrix-authentication-service-backup.sql
+      '';
+      restic.matrix-synapse = {
+        resources = [ "matrix-db" ];
+        paths = [
+          "/var/lib/matrix-synapse"
+          "/var/lib/matrix-appservice-irc"
+          "/var/lib/mautrix-telegram"
+          "/tmp/matrix-synapse-backup.sql"
+          "/tmp/matrix-authentication-service-backup.sql"
+        ];
+        timerConfig = {
+          OnCalendar = "*-*-* 05:00:00 Etc/UTC";
+        };
+        initialize = true;
       };
-      initialize = true;
-      backupPrepareCommand = ''
-        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix > /tmp/matrix-synapse-backup.sql
-        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix-authentication-service > /tmp/matrix-authentication-service-backup.sql
-      '';
-      backupCleanupCommand = ''
-        rm /tmp/matrix-synapse-backup.sql
-        rm /tmp/matrix-authentication-service-backup.sql
-      '';
     };
   };
 }

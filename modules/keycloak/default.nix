@@ -59,18 +59,18 @@
       };
     };
 
-    pub-solar-os.backups.restic.keycloak = {
-      paths = [ "/tmp/keycloak-backup.sql" ];
-      timerConfig = {
-        OnCalendar = "*-*-* 03:00:00 Etc/UTC";
+    pub-solar-os.backups = {
+      resources.keycloak-db.resourceCreateCommand = ''
+        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d keycloak -f /tmp/keycloak-backup.sql
+      '';
+      restic.keycloak = {
+        resources = [ "keycloak-db" ];
+        paths = [ "/tmp/keycloak-backup.sql" ];
+        timerConfig = {
+          OnCalendar = "*-*-* 03:00:00 Etc/UTC";
+        };
+        initialize = true;
       };
-      initialize = true;
-      backupPrepareCommand = ''
-        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d keycloak > /tmp/keycloak-backup.sql
-      '';
-      backupCleanupCommand = ''
-        rm /tmp/keycloak-backup.sql
-      '';
     };
   };
 }
