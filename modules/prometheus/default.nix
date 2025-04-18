@@ -5,6 +5,15 @@
   flake,
   ...
 }:
+let
+  # Find element in list config.services.matrix-synapse.settings.listeners
+  # that sets type = "metrics"
+  listenerWithMetrics =
+    lib.findFirst (listener: listener.type == "metrics")
+      (throw "Found no matrix-synapse.settings.listeners.*.type containing string metrics")
+      flake.self.nixosConfigurations.nachtigall.config.services.matrix-synapse.settings.listeners;
+  synapseMetricsPort = "${toString listenerWithMetrics.port}";
+in
 {
   age.secrets.alertmanager-envfile = {
     file = "${flake.self}/secrets/alertmanager-envfile.age";
@@ -38,13 +47,6 @@
   services.prometheus = {
     enable = true;
     port = 9001;
-    exporters = {
-      node = {
-        enable = true;
-        enabledCollectors = [ "systemd" ];
-        port = 9002;
-      };
-    };
     globalConfig = {
       scrape_interval = "10s";
       scrape_timeout = "9s";
@@ -54,7 +56,9 @@
         job_name = "node-exporter";
         static_configs = [
           {
-            targets = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}" ];
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}"
+            ];
             labels = {
               instance = "nachtigall";
             };
@@ -106,7 +110,7 @@
         metrics_path = "/_synapse/metrics";
         static_configs = [
           {
-            targets = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}" ];
+            targets = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}:${synapseMetricsPort}" ];
             labels = {
               instance = "nachtigall";
             };
@@ -146,6 +150,74 @@
               namespace = "pub-solar";
               cluster = "prod";
             };
+          }
+        ];
+      }
+      {
+        job_name = "nextcloud";
+        scrape_interval = "5m";
+        static_configs = [
+          {
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.nextcloud.port}"
+            ];
+            labels = {
+              instance = "nachtigall";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "nginx";
+        static_configs = [
+          {
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.nginx.port}"
+            ];
+            labels = {
+              instance = "nachtigall";
+            };
+          }
+        ];
+      }
+      #{
+      #  job_name = "php-fpm";
+      #  static_configs = [
+      #    {
+      #      targets = [
+      #        "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.php-fpm.port}"
+      #      ];
+      #      labels = {
+      #        instance = "nachtigall";
+      #      };
+      #    }
+      #  ];
+      #}
+      {
+        job_name = "postgres";
+        relabel_configs = [
+          {
+            source_labels = [
+              "__address__"
+            ];
+            target_label = "__param_target";
+          }
+          {
+            source_labels = [
+              "__param_target"
+            ];
+            target_label = "instance";
+          }
+          {
+            target_label = "__address__";
+            replacement = "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.postgres.port}";
+          }
+        ];
+        static_configs = [
+          {
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.postgres.port}"
+            ];
           }
         ];
       }

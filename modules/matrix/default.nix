@@ -8,6 +8,13 @@
 let
   publicDomain = "matrix.${config.pub-solar-os.networking.domain}";
   serverDomain = "${config.pub-solar-os.networking.domain}";
+  # Find element in list config.services.matrix-synapse.settings.listeners
+  # that sets type = "metrics"
+  listenerWithMetrics =
+    lib.findFirst (listener: listener.type == "metrics")
+      (throw "Found no matrix-synapse.settings.listeners.*.type containing string metrics")
+      config.services.matrix-synapse.settings.listeners;
+  synapseMetricsPort = listenerWithMetrics.port;
 in
 {
   options.pub-solar-os = {
@@ -45,6 +52,9 @@ in
   };
 
   config = lib.mkIf config.pub-solar-os.matrix.enable {
+    # Only expose matrix-synapse metrics port via wireguard interface
+    networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ synapseMetricsPort ];
+
     services.matrix-synapse = {
       enable = true;
       log.root.level = "WARNING";
@@ -81,7 +91,7 @@ in
             x_forwarded = true;
           }
           {
-            bind_addresses = [ "127.0.0.1" ];
+            bind_addresses = [ "0.0.0.0" ];
             port = 8012;
             resources = [ { names = [ "metrics" ]; } ];
             tls = false;

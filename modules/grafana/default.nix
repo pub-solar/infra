@@ -23,8 +23,23 @@
   };
 
   environment.etc = {
+    "grafana-dashboards/nextcloud.json" = {
+      source = ./grafana-dashboards/nextcloud.json;
+      group = "grafana";
+      user = "grafana";
+    };
     "grafana-dashboards/node-exporter-full_rev33.json" = {
       source = ./grafana-dashboards/node-exporter-full_rev33.json;
+      group = "grafana";
+      user = "grafana";
+    };
+    "grafana-dashboards/nginx.json" = {
+      source = ./grafana-dashboards/nginx.json;
+      group = "grafana";
+      user = "grafana";
+    };
+    "grafana-dashboards/postgres-overview.json" = {
+      source = ./grafana-dashboards/postgres-overview.json;
       group = "grafana";
       user = "grafana";
     };

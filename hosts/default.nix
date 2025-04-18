@@ -50,7 +50,6 @@
           self.nixosModules.nginx-mastodon-files
           self.nixosModules.mediawiki
           self.nixosModules.nextcloud
-          self.nixosModules.nginx-prometheus-exporters
           self.nixosModules.nginx-website
           self.nixosModules.nginx-website-miom
           self.nixosModules.opensearch
@@ -132,6 +131,7 @@
           self.nixosModules.keycloak
           self.nixosModules.grafana
           self.nixosModules.prometheus
+          self.nixosModules.prometheus-exporters
           self.nixosModules.loki
           self.nixosModules.forgejo-actions-runner
         ];

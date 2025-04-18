@@ -1,12 +1,11 @@
 { config, ... }:
 {
-  # Only expose prometheus exporter port via wireguard interface
-  networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ 9002 ];
-
   services.prometheus = {
     exporters = {
       node = {
         enable = true;
+        openFirewall = true;
+        firewallFilter = "--in-interface wg-ssh --protocol tcp --match tcp --dport ${toString config.services.prometheus.exporters.node.port}";
         enabledCollectors = [ "systemd" ];
         port = 9002;
       };

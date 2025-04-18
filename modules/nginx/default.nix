@@ -15,6 +15,7 @@ in
   services.nginx = {
     enable = true;
     enableReload = true;
+    statusPage = true;
     proxyCachePath.cache = {
       enable = true;
     };
