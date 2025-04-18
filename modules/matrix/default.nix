@@ -47,6 +47,7 @@ in
   config = lib.mkIf config.pub-solar-os.matrix.enable {
     services.matrix-synapse = {
       enable = true;
+      log.root.level = "WARNING";
       settings = {
         server_name = serverDomain;
         public_baseurl = "https://${publicDomain}/";
