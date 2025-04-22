@@ -117,11 +117,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1714430716,
-        "narHash": "sha256-+WmgGbONe5u2wpvkUC5wNhYnrE6eziIv3Liq4pv7jro=",
+        "lastModified": 1745345582,
+        "narHash": "sha256-T4JHS/iZPMFFbSQJAYKZxRdvUk0y/r0GuaN/b0QD7s8=",
         "ref": "main",
-        "rev": "85716a9e30fb6fae47336ed0cae3d1425c80f17c",
-        "revCount": 6,
+        "rev": "5c65f0fef48ce8193767a5d0453e7cf6ad046de4",
+        "revCount": 9,
         "type": "git",
         "url": "https://git.pub.solar/pub-solar/maunium-stickerpicker-nix"
       },
