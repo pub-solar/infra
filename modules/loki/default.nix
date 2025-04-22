@@ -57,13 +57,13 @@
           };
         };
       };
-      # Keep logs for 4 weeks
+      # Keep logs for 1 week
       # https://grafana.com/docs/loki/latest/operations/storage/retention/
       limits_config = {
         allow_structured_metadata = true;
         ingestion_rate_mb = 8;
         ingestion_burst_size_mb = 12;
-        retention_period = "4w";
+        retention_period = "1w";
         split_queries_by_interval = "0";
         volume_enabled = true;
       };
