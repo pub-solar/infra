@@ -1,6 +1,7 @@
 { lib, config, ... }:
 {
   systemd.tmpfiles.rules = [
+    "d '/srv/www' 0750 hakkonaut hakkonaut - -"
     "d '/srv/www/${config.pub-solar-os.networking.domain}' 0750 hakkonaut hakkonaut - -"
   ];
 
