@@ -35,9 +35,11 @@
       };
       ingester = {
         chunk_encoding = "snappy";
-        chunk_idle_period = "1h";
+        chunk_idle_period = "2h";
       };
       pattern_ingester.enabled = true;
+      # 2x CPU cores
+      querier.max_concurrent = 16;
       query_range = {
         results_cache = {
           cache = {
@@ -64,7 +66,8 @@
         ingestion_rate_mb = 8;
         ingestion_burst_size_mb = 12;
         retention_period = "1w";
-        split_queries_by_interval = "0";
+        split_queries_by_interval = "6h";
+        tsdb_max_query_parallelism = 32;
         volume_enabled = true;
       };
       compactor = {
