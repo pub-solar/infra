@@ -35,7 +35,8 @@
       };
       ingester = {
         chunk_encoding = "snappy";
-        chunk_idle_period = "2h";
+        chunk_idle_period = "8h";
+        max_chunk_age = "8h";
       };
       pattern_ingester.enabled = true;
       # 2x CPU cores
@@ -66,7 +67,7 @@
         ingestion_rate_mb = 8;
         ingestion_burst_size_mb = 12;
         retention_period = "1w";
-        split_queries_by_interval = "6h";
+        split_queries_by_interval = "1h";
         tsdb_max_query_parallelism = 32;
         volume_enabled = true;
       };
