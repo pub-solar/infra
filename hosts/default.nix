@@ -133,6 +133,7 @@
           self.nixosModules.prometheus
           self.nixosModules.prometheus-exporters
           self.nixosModules.loki
+          self.nixosModules.promtail
           self.nixosModules.forgejo-actions-runner
         ];
       };
