@@ -33,7 +33,10 @@
           };
           relabel_configs = [
             {
-              source_labels = [ "__journal__systemd_unit" "__journal__systemd_user_unit" ];
+              source_labels = [
+                "__journal__systemd_unit"
+                "__journal__systemd_user_unit"
+              ];
               target_label = "service";
             }
             {
