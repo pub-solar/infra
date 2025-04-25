@@ -6,10 +6,10 @@ Set loglevel to `0` for debug logs:
 services.nextcloud.settings.loglevel = 0;
 ```
 
-Then, logs appear in the `phpfpm-nextcloud.service` logs:
+Then, logs appear in the `phpfpm-nextcloud.service` and `nextcloud-*.service` logs:
 
 ```bash
-sudo journalctl -fu phpfpm-nextcloud
+sudo journalctl --follow --unit phpfpm-nextcloud --unit nextcloud-*.service
 ```
 
 Make sure to set the loglevel back to the default `2` warning after debugging:

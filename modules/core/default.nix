@@ -7,6 +7,7 @@
 }:
 {
   imports = [
+    ./logging.nix
     ./nix.nix
     ./networking.nix
     ./terminal-tooling.nix

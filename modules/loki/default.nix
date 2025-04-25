@@ -35,9 +35,12 @@
       };
       ingester = {
         chunk_encoding = "snappy";
-        chunk_idle_period = "1h";
+        chunk_idle_period = "8h";
+        max_chunk_age = "8h";
       };
       pattern_ingester.enabled = true;
+      # 2x CPU cores
+      querier.max_concurrent = 16;
       query_range = {
         results_cache = {
           cache = {
@@ -57,14 +60,15 @@
           };
         };
       };
-      # Keep logs for 4 weeks
+      # Keep logs for 1 week
       # https://grafana.com/docs/loki/latest/operations/storage/retention/
       limits_config = {
         allow_structured_metadata = true;
         ingestion_rate_mb = 8;
         ingestion_burst_size_mb = 12;
-        retention_period = "4w";
-        split_queries_by_interval = "0";
+        retention_period = "1w";
+        split_queries_by_interval = "1h";
+        tsdb_max_query_parallelism = 32;
         volume_enabled = true;
       };
       compactor = {
@@ -98,42 +102,6 @@
           }
         ];
       };
-    };
-  };
-
-  services.promtail = {
-    enable = true;
-    configuration = {
-      server = {
-        http_listen_port = 9080;
-        grpc_listen_port = 0;
-      };
-      positions = {
-        filename = "/tmp/positions.yaml";
-      };
-      clients = [
-        {
-          url = "http://trinkgenossin.wg.pub.solar:${toString config.services.loki.configuration.server.http_listen_port}/loki/api/v1/push";
-        }
-      ];
-      scrape_configs = [
-        {
-          job_name = "journal";
-          journal = {
-            max_age = "24h";
-            labels = {
-              job = "systemd-journal";
-              host = "trinkgenossin";
-            };
-          };
-          relabel_configs = [
-            {
-              source_labels = [ "__journal__systemd_unit" ];
-              target_label = "unit";
-            }
-          ];
-        }
-      ];
     };
   };
 }
