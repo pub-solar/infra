@@ -94,6 +94,9 @@
 
   services.grafana = {
     enable = true;
+    declarativePlugins = with pkgs.grafanaPlugins; [
+      grafana-lokiexplore-app
+    ];
     settings = {
       server = {
         # Listening Address
