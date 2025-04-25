@@ -9,5 +9,6 @@ stdenvNoCC.mkDerivation {
   buildPhase = ''
     mv web $out/
     cp ${element-stickers}/uploaded-packs/*.json $out/packs/
+    cp -r ${element-stickers}/uploaded-packs/thumbnails $out/packs/
   '';
 }
