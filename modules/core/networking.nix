@@ -27,7 +27,9 @@
     # Don't expose SSH via public interfaces
     networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ 22 ];
 
-    networking.domain = config.pub-solar-os.networking.domain;
+    # Setting this value breaks Matrix -> NextPush integration because
+    # matrix-synapse doesn't like it if nachtigall.pub.solar resolves to localhost.
+    #networking.domain = config.pub-solar-os.networking.domain;
 
     networking.hosts = {
       "10.7.6.1" = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}" ];

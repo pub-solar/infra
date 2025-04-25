@@ -102,8 +102,8 @@
 
       notify_push = {
         enable = true;
-        # Setting this to true breaks matrix -> nextpush integration because
-        # matrix doesn't like it if cloud.pub.solar resolves to localhost.
+        # Setting this to true breaks Matrix -> NextPush integration because
+        # matrix-synapse doesn't like it if cloud.pub.solar resolves to localhost.
         bendDomainToLocalhost = false;
       };
 
