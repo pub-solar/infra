@@ -10,6 +10,9 @@ in
         # mastodon only supports https, but you can override this if you offload tls elsewhere.
         forceSSL = lib.mkDefault true;
         enableACME = lib.mkDefault true;
+        extraConfig = ''
+          client_max_body_size 99m;
+        '';
 
         locations."/auth/sign_up".extraConfig = ''
           return 302 /auth/sign_in;
