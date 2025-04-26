@@ -49,6 +49,7 @@
           self.nixosModules.nginx-mastodon
           self.nixosModules.nginx-mastodon-files
           self.nixosModules.mediawiki
+          self.nixosModules.mollysocket
           self.nixosModules.nextcloud
           self.nixosModules.nginx-website
           self.nixosModules.nginx-website-miom

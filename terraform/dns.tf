@@ -236,6 +236,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "nachtigall.pub.solar."
   }
   record {
+    hostname = "mollysocket"
+    type     = "CNAME"
+    address  = "nachtigall.pub.solar."
+  }
+  record {
     hostname = "grafana"
     type     = "CNAME"
     address  = "trinkgenossin.pub.solar"
