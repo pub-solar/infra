@@ -100,6 +100,8 @@ in
 
   "coturn-static-auth-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
 
+  "mollysocket-env.age".publicKeys = nachtigallKeys ++ adminKeys;
+
   "grafana-admin-password.age".publicKeys = trinkgenossinKeys ++ adminKeys;
   "grafana-keycloak-client-secret.age".publicKeys = trinkgenossinKeys ++ adminKeys;
   "grafana-smtp-password.age".publicKeys = trinkgenossinKeys ++ adminKeys;
