@@ -21,6 +21,10 @@
     mode = "440";
     owner = "grafana";
   };
+  age.secrets."acme-namecheap-env" = {
+    file = "${flake.self}/secrets/acme-namecheap-env.age";
+    mode = "400";
+  };
 
   environment.etc = {
     "grafana-dashboards/nextcloud.json" = {
@@ -85,20 +89,26 @@
     };
   };
 
+  security.acme = {
+    defaults = {
+      environmentFile = config.age.secrets.acme-namecheap-env.path;
+    };
+    certs = {
+      # Wildcard certificate gets created automatically
+      "grafana.${config.pub-solar-os.networking.domain}" = {
+        # disable http challenge
+        webroot = null;
+        # enable dns challenge
+        dnsProvider = "namecheap";
+      };
+    };
+  };
+  users.users.nginx.extraGroups = [ "acme" ];
+
   services.nginx.virtualHosts."grafana.${config.pub-solar-os.networking.domain}" = {
-    enableACME = true;
+    useACMEHost = "grafana.${config.pub-solar-os.networking.domain}";
     forceSSL = true;
     listen = [
-      {
-        addr = "0.0.0.0";
-        port = 80;
-        ssl = false;
-      }
-      {
-        addr = "[::]";
-        port = 80;
-        ssl = false;
-      }
       {
         addr = "127.0.0.1";
         port = 8443;

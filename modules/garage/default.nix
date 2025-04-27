@@ -52,6 +52,7 @@
       };
     };
   };
+  users.users.nginx.extraGroups = [ "acme" ];
 
   services.nginx = {
     upstreams.s3_backend.servers = {
@@ -63,26 +64,8 @@
     virtualHosts."buckets.${config.pub-solar-os.networking.domain}" = {
       serverAliases = [ "*.buckets.${config.pub-solar-os.networking.domain}" ];
 
-      enableACME = true;
+      useACMEHost = "buckets.${config.pub-solar-os.networking.domain}";
       forceSSL = true;
-      listen = [
-        {
-          addr = "0.0.0.0";
-          port = 80;
-          ssl = false;
-        }
-        {
-          addr = "[::]";
-          port = 80;
-          ssl = false;
-        }
-        {
-          addr = "127.0.0.1";
-          port = 8443;
-          proxyProtocol = true;
-          ssl = true;
-        }
-      ];
 
       locations."/" = {
         proxyPass = "http://s3_backend";
@@ -95,27 +78,8 @@
     virtualHosts."web.${config.pub-solar-os.networking.domain}" = {
       serverAliases = [ "*.web.${config.pub-solar-os.networking.domain}" ];
 
-      enableACME = true;
+      useACMEHost = "web.${config.pub-solar-os.networking.domain}";
       forceSSL = true;
-
-      listen = [
-        {
-          addr = "0.0.0.0";
-          port = 80;
-          ssl = false;
-        }
-        {
-          addr = "[::]";
-          port = 80;
-          ssl = false;
-        }
-        {
-          addr = "127.0.0.1";
-          port = 8443;
-          proxyProtocol = true;
-          ssl = true;
-        }
-      ];
 
       locations."/" = {
         proxyPass = "http://web_backend";
