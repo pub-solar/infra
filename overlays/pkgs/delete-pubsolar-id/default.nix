@@ -1,5 +1,6 @@
 self:
-with self; self.writeShellScriptBin "delete-pubsolar-id" ''
+with self;
+self.writeShellScriptBin "delete-pubsolar-id" ''
   set -e
   PATH=$PATH:${jq}/bin:${keycloak}/bin:${openssl}/bin:${forgejo}/bin:${sudo}/bin:${curl}/bin:${coreutils}/bin
 

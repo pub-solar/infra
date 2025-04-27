@@ -134,5 +134,4 @@ in
 
   "acme-namecheap-env.age".publicKeys = garageKeys ++ adminKeys;
 
-  
 }
