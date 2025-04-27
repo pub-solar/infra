@@ -59,6 +59,9 @@ in
 
   "keycloak-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
 
+  "keycloak-admin-cli-client-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "matrix-admin-access-token.age".publicKeys = nachtigallKeys ++ adminKeys;
+
   "tankstelle-forgejo-actions-runner-token.age".publicKeys = tankstelleKeys ++ adminKeys;
   "trinkgenossin-forgejo-actions-runner-token.age".publicKeys = trinkgenossinKeys ++ adminKeys;
   "trinkgenossin-forgejo-actions-runner-token-miom.age".publicKeys = trinkgenossinKeys ++ adminKeys;
@@ -130,4 +133,5 @@ in
   "garage-admin-token.age".publicKeys = garageKeys ++ adminKeys;
 
   "acme-namecheap-env.age".publicKeys = garageKeys ++ adminKeys;
+
 }
