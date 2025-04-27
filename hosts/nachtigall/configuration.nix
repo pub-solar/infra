@@ -130,6 +130,18 @@
     requisite = [ "var-lib-postgresql.mount" ];
   };
 
+  age.secrets."keycloak-admin-cli-client-secret" = {
+    file = "${flake.self}/secrets/keycloak-admin-cli-client-secret.age";
+  };
+
+  age.secrets."matrix-admin-access-token" = {
+    file = "${flake.self}/secrets/matrix-admin-access-token.age";
+  };
+
+  environment.systemPackages = [
+    pkgs.delete-pubsolar-id
+  ];
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you

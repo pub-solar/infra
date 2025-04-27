@@ -17,6 +17,7 @@
                   inherit (inputs) element-stickers maunium-stickerpicker;
                 };
                 nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
+                delete-pubsolar-id = prev.callPackage ./pkgs/delete-pubsolar-id prev;
               }
             )
           ];

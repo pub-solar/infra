@@ -1,5 +1,17 @@
 # Process for handling a deletion request
 
+## Automated script
+
+Required:
+
+- [SSH access to host `nachtigall`](./administrative-access.md#ssh-access)
+
+SSH into nachtigall, and run the following script:
+
+```
+delete-pubsolar-id $(sudo cat /run/agenix/keycloak-admin-cli-client-secret) $(sudo cat /run/agenix/matrix-admin-access-token) $USERNAME
+```
+
 ### Keycloak
 
 Required:
