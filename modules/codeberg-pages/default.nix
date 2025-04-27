@@ -29,8 +29,9 @@ in
     environmentFile = config.age.secrets.codeberg-pages-envfile.path;
     settings = {
       ACME_ACCEPT_TERMS = "true";
-      # Nginx on trinkgenossin uses port 80 for ACME http-0 challenges
-      ENABLE_HTTP_SERVER = "false";
+      # Nginx on trinkgenossin uses DNS challenges for certificates
+      # haproxy can listen on port 443, codeberg-pages on port 80
+      ENABLE_HTTP_SERVER = "true";
       ACME_EMAIL = config.pub-solar-os.adminEmail;
       DNS_PROVIDER = "namecheap";
       PAGES_DOMAIN = pagesDomain;
