@@ -43,6 +43,22 @@
         "type": "gitlab"
       }
     },
+    "codeberg-pages": {
+      "locked": {
+        "lastModified": 1743683215,
+        "narHash": "sha256-wzbXqlKSM75ISbtVkZK5oxosG2A773iZmtdAL4SSufg=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "97bfb3064cbc26a3c58c1a4c4b795662c4eb6389",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "refs/pull/395725/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "deploy-rs": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -368,6 +384,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "codeberg-pages": "codeberg-pages",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
         "element-stickers": "element-stickers",

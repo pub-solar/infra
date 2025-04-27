@@ -65,6 +65,24 @@
 
       enableACME = true;
       forceSSL = true;
+      listen = [
+        {
+          addr = "0.0.0.0";
+          port = 80;
+          ssl = false;
+        }
+        {
+          addr = "[::]";
+          port = 80;
+          ssl = false;
+        }
+        {
+          addr = "127.0.0.1";
+          port = 8443;
+          proxyProtocol = true;
+          ssl = true;
+        }
+      ];
 
       locations."/" = {
         proxyPass = "http://s3_backend";
@@ -79,6 +97,25 @@
 
       enableACME = true;
       forceSSL = true;
+
+      listen = [
+        {
+          addr = "0.0.0.0";
+          port = 80;
+          ssl = false;
+        }
+        {
+          addr = "[::]";
+          port = 80;
+          ssl = false;
+        }
+        {
+          addr = "127.0.0.1";
+          port = 8443;
+          proxyProtocol = true;
+          ssl = true;
+        }
+      ];
 
       locations."/" = {
         proxyPass = "http://web_backend";

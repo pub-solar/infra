@@ -4,6 +4,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module-0.13.0";
+    codeberg-pages.url = "github:nixos/nixpkgs/refs/pull/395725/head";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";

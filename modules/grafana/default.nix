@@ -88,6 +88,25 @@
   services.nginx.virtualHosts."grafana.${config.pub-solar-os.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
+    listen = [
+      {
+        addr = "0.0.0.0";
+        port = 80;
+        ssl = false;
+      }
+      {
+        addr = "[::]";
+        port = 80;
+        ssl = false;
+      }
+      {
+        addr = "127.0.0.1";
+        port = 8443;
+        proxyProtocol = true;
+        ssl = true;
+      }
+    ];
+
     locations."/".proxyPass =
       "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
   };
