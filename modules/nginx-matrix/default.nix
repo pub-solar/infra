@@ -24,6 +24,12 @@ let
       secure_backup_required = false;
       secure_backup_setup_methods = [ ];
     };
+    "org.matrix.msc4143.rtc_foci" = [
+      {
+        "type" = "livekit";
+        "livekit_service_url" = "https://livekit-jwt.call.matrix.org";
+      }
+    ];
   };
   wellKnownServer = domain: { "m.server" = "matrix.${domain}:8448"; };
   wellKnownSupport = {
