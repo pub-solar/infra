@@ -1,8 +1,16 @@
-self:
-with self;
-self.writeShellScriptBin "delete-pubsolar-id" ''
+{
+  writeShellApplication,
+  coreutils,
+  curl,
+  forgejo,
+  jq,
+  keycloak,
+  openssl,
+  sudo,
+}:
+writeShellApplication { name = "delete-pubsolar-id"; text = ''
   set -e
-  PATH=$PATH:${jq}/bin:${keycloak}/bin:${openssl}/bin:${forgejo}/bin:${sudo}/bin:${curl}/bin:${coreutils}/bin
+  PATH=$PATH:${coreutils}/bin:${curl}/bin:${forgejo}/bin:${jq}/bin:${keycloak}/bin:${openssl}/bin:${sudo}/bin
 
   KEYCLOAK_SECRET=$1
   MATRIX_ADMIN_ACCESS_TOKEN=$2
@@ -10,7 +18,7 @@ self.writeShellScriptBin "delete-pubsolar-id" ''
 
   DIR=$(mktemp -d)
 
-  cd $DIR
+  cd "$DIR"
 
   sudo --user keycloak kcadm.sh config credentials --config /tmp/kcadm.config --server http://localhost:8080 --realm pub.solar --client admin-cli --secret "$KEYCLOAK_SECRET"
 
@@ -26,7 +34,7 @@ self.writeShellScriptBin "delete-pubsolar-id" ''
 
   # To avoid impersonification, we deactivate the account by resetting the password and email address
   # Use user id from previous command, for example
-  sudo --user keycloak kcadm.sh update --config /tmp/kcadm.config "users/$USER_ID/reset-password" --realm pub.solar --set type=password --set value=$(openssl rand -hex 32) --no-merge
+  sudo --user keycloak kcadm.sh update --config /tmp/kcadm.config "users/$USER_ID/reset-password" --realm pub.solar --set type=password --set value="$(openssl rand -hex 32)" --no-merge
   sudo --user keycloak kcadm.sh update --config /tmp/kcadm.config "users/$USER_ID" --realm pub.solar --set "email=$USERNAME@deactivated.pub.solar"
 
   ### Nextcloud ###
@@ -37,7 +45,7 @@ self.writeShellScriptBin "delete-pubsolar-id" ''
   ### Mastodon ###
 
   echo "Deleting mastodon data"
-  sudo chown mastodon $DIR
+  sudo chown mastodon "$DIR"
 
   sudo -u mastodon mastodon-tootctl accounts delete --email "$USER_EMAIL" || true
 
@@ -48,6 +56,7 @@ self.writeShellScriptBin "delete-pubsolar-id" ''
 
   ### Matrix ###
   echo "Deleting matrix data"
-  curl --header "Authorization: Bearer MATRIX_ADMIN_ACCESS_TOKEN" --request POST "http://127.0.0.1:8008/_synapse/admin/v1/deactivate/@$USERNAME:pub.solar" --data '{"erase": true}'
+  curl --header "Authorization: Bearer $MATRIX_ADMIN_ACCESS_TOKEN" --request POST "http://127.0.0.1:8008/_synapse/admin/v1/deactivate/@$USERNAME:pub.solar" --data '{"erase": true}'
 
-''
+'';
+}
