@@ -205,6 +205,41 @@ in
         ];
       }
       {
+        job_name = "prometheus";
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:${toString config.services.prometheus.port}" ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "alertmanager";
+        static_configs = [
+          {
+            targets = [ "10.7.6.5:${toString config.services.prometheus.alertmanager.port}" ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "promtail";
+        static_configs = [
+          {
+            targets = [
+              "127.0.0.1:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+        ];
+      }
+      {
         job_name = "pub-solar/loki";
         static_configs = [
           {
