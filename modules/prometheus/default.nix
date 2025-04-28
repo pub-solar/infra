@@ -31,7 +31,9 @@ in
   };
 
   # Only expose alertmanager port via wireguard interface
-  networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ config.services.prometheus.alertmanager.port ];
+  networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [
+    config.services.prometheus.alertmanager.port
+  ];
 
   services.prometheus = {
     enable = true;
