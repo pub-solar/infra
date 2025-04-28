@@ -23,6 +23,11 @@
         timeout client 300000
         timeout server 300000
 
+      frontend http_frontend
+        bind :::80 v4v6
+        mode tcp
+        default_backend http_backend
+
       frontend https_sni_frontend
         # TCP backend to forward to HTTPS backends based on SNI
         bind :::443 v4v6
@@ -39,6 +44,10 @@
 
         use_backend pages_backend if use_pages_backend !use_nginx_backend
         default_backend nginx_backend
+
+      backend http_backend
+        server pages_server_http 127.0.0.1:8081
+        mode tcp
 
       backend pages_backend
         # Pages server is a HTTP backend that uses its own certificates for custom domains
