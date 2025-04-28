@@ -5,6 +5,15 @@
   ...
 }:
 {
+  systemd.services.nscd.environment = {
+    NSNCD_WORKER_COUNT = "16";
+    NSNCD_HANDOFF_TIMEOUT = "6";
+  };
+
+  networking.hosts = {
+    "138.201.80.102" = [ "nachtigall.${config.pub-solar-os.networking.domain}" ];
+    "2a01:4f8:172:1c25::1" = [ "nachtigall.${config.pub-solar-os.networking.domain}" ];
+  };
 
   networking.hostName = "nachtigall";
   networking.hostId = "00000001";
