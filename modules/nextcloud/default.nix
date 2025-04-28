@@ -116,6 +116,10 @@
       };
 
       settings = {
+        trusted_proxies = [
+          "138.201.80.102"
+          "2a01:4f8:172:1c25::1"
+        ];
         overwrite.cli.url = "https://cloud.${config.pub-solar-os.networking.domain}";
         overwriteprotocol = "https";
 
