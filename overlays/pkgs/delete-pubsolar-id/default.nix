@@ -49,14 +49,13 @@ writeShellApplication { name = "delete-pubsolar-id"; text = ''
 
   sudo -u mastodon mastodon-tootctl accounts delete --email "$USER_EMAIL" || true
 
+  ### Matrix ###
+  echo "Deleting matrix account"
+  curl --header "Authorization: Bearer $MATRIX_ADMIN_ACCESS_TOKEN" --request POST "http://127.0.0.1:8008/_synapse/admin/v1/deactivate/@$USERNAME:pub.solar" --data '{"erase": true}' || true
+
   ### Forgejo ###
 
   echo "Deleting forgejo data"
   sudo -u gitea gitea admin user delete --config /var/lib/forgejo/custom/conf/app.ini --purge --email "$USER_EMAIL" || true
-
-  ### Matrix ###
-  echo "Deleting matrix data"
-  curl --header "Authorization: Bearer $MATRIX_ADMIN_ACCESS_TOKEN" --request POST "http://127.0.0.1:8008/_synapse/admin/v1/deactivate/@$USERNAME:pub.solar" --data '{"erase": true}'
-
 '';
 }
