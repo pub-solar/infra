@@ -219,7 +219,9 @@ in
         job_name = "alertmanager";
         static_configs = [
           {
-            targets = [ "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.alertmanager.port}" ];
+            targets = [
+              "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.alertmanager.port}"
+            ];
             labels = {
               instance = "trinkgenossin";
             };
