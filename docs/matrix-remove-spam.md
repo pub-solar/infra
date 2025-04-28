@@ -21,6 +21,34 @@ AND e.type = 'm.room.member'
 AND e.membership = 'join';
 ```
 
+Removing rooms, requires a list of room IDs:
+
+Example script `purge-rooms.sh`
+
+Usage:
+
+```
+./purge-rooms.sh <token> <file-containing-room-ids>
+```
+
+```
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+TOKEN=$1
+ROOMLIST=$2
+while IFS='' read ROOMID; do
+	echo "Cleaning up Room: $ROOMID"
+	curl "http://localhost:8008/_synapse/admin/v2/rooms/${ROOMID}" \
+		-X DELETE -H 'Accept: application/json' \
+		-H 'Referer: http://localhost:8080/' \
+		-H "authorization: Bearer ${TOKEN}" \
+		--data '{ "purge": true, "message": "Sorry - kicking you out to clean up the database" }'
+	echo ""
+done < "$ROOMLIST"
+```
+
 Remove all media uploaded by user:
 
 ```
