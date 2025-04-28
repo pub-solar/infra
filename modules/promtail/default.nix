@@ -6,6 +6,11 @@
   ...
 }:
 {
+  # Only expose promtail metrics port via wireguard interface
+  networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [
+    config.services.promtail.configuration.server.http_listen_port
+  ];
+
   services.promtail = {
     enable = true;
     configuration = {

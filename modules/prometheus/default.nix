@@ -231,10 +231,50 @@ in
         static_configs = [
           {
             targets = [
-              "127.0.0.1:${toString config.services.promtail.configuration.server.http_listen_port}"
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
             ];
             labels = {
               instance = "trinkgenossin";
+            };
+          }
+          {
+            targets = [
+              "metronom.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "metronom";
+            };
+          }
+          {
+            targets = [
+              "tankstelle.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "tankstelle";
+            };
+          }
+          {
+            targets = [
+              "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+          {
+            targets = [
+              "blue-shell.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "blue-shell";
+            };
+          }
+          {
+            targets = [
+              "delite.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "delite";
             };
           }
         ];
