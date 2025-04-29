@@ -123,12 +123,12 @@ in
         enable_media_repo = true;
         enable_metrics = true;
         federation_metrics_domains = [
-         "matrix.org"
-         "mozilla.org"
-         "systemli.org"
-         "tchncs.de"
-         "ccc.ac"
-         "fairydust.space"
+          "matrix.org"
+          "mozilla.org"
+          "systemli.org"
+          "tchncs.de"
+          "ccc.ac"
+          "fairydust.space"
         ];
         mau_stats_only = true;
         enable_registration = false;
