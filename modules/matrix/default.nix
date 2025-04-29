@@ -117,7 +117,6 @@ in
         ];
 
         autocreate_auto_join_rooms = true;
-        caches.global_factor = 0.5;
 
         default_room_version = "10";
         disable_msisdn_registration = true;
@@ -130,6 +129,14 @@ in
         enable_room_list_search = true;
         encryption_enabled_by_default_for_room_type = "off";
         event_cache_size = "100K";
+        caches.global_factor = 10;
+        # Based on https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/37a7af52ab6a803e5fec72d37b0411a6c1a3ddb7/docs/maintenance-synapse.md#tuning-caches-and-cache-autotuning
+        # https://element-hq.github.io/synapse/latest/usage/configuration/config_documentation.html#caches-and-associated-values
+        cache_autotuning = {
+          max_cache_memory_usage = "4096M";
+          target_cache_memory_usage = "2048M";
+          min_cache_ttl = "5m";
+        };
 
         # https://github.com/element-hq/synapse/issues/11203
         # No YAML deep-merge, so this needs to be in secret extraConfigFiles
