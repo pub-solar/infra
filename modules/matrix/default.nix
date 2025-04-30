@@ -57,7 +57,8 @@ in
 
     services.matrix-synapse = {
       enable = true;
-      log.root.level = "WARNING";
+      # TODO Uncomment once we have stable synapse again
+      #log.root.level = "WARNING";
       settings = {
         server_name = serverDomain;
         public_baseurl = "https://${publicDomain}/";
@@ -180,7 +181,7 @@ in
           pepper = "";
         };
 
-        presence.enabled = true;
+        presence.enabled = false;
         push.include_content = false;
 
         rc_admin_redaction = {
