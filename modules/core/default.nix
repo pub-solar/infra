@@ -43,6 +43,7 @@
       # Just a couple of global packages to make our lives easier
       systemPackages = with pkgs; [
         git
+        jq
         vim
         wget
       ];
