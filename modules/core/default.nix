@@ -42,6 +42,7 @@
     environment = {
       # Just a couple of global packages to make our lives easier
       systemPackages = with pkgs; [
+        btop
         git
         jq
         vim
