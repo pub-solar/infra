@@ -202,6 +202,7 @@
           self.nixosModules.keycloak
           self.nixosModules.postgresql
           self.nixosModules.matrix
+          self.nixosModules.matrix-draupnir
           self.nixosModules.matrix-irc
           self.nixosModules.nginx
           self.nixosModules.nginx-matrix
