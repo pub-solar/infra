@@ -352,11 +352,11 @@
     },
     "nixpkgs-draupnir": {
       "locked": {
-        "lastModified": 1744859637,
-        "narHash": "sha256-aBC43eomBgw1/iJqLC9PlQ8t85orUzto4ONL//J3KVc=",
+        "lastModified": 1746282801,
+        "narHash": "sha256-lrPWzSULWzi6YyRjRA3nwQxRUO3z+dbKfKCzMBs4ac8=",
         "owner": "teutat3s",
         "repo": "nixpkgs",
-        "rev": "eb6abb00725eea8b969dfd6402496c14ff84cf3a",
+        "rev": "f5dd6147d90a94dac04f82fb4814c7c72fcfd177",
         "type": "github"
       },
       "original": {

@@ -50,10 +50,9 @@
   };
 
   age.secrets."matrix-draupnir-access-token" = {
-    file = "${flake.self}/secrets/matrix-draupnir-access-token.age";
-    mode = "640";
+    file = "${flake.self}/secrets/staging-matrix-draupnir-access-token.age";
+    mode = "400";
     owner = "root";
-    group = "draupnir";
   };
 
   pub-solar-os.matrix = {
@@ -84,7 +83,7 @@
 
   pub-solar-os.matrix-draupnir = {
     enable = true;
-    homeserver-url = ":8080";
+    homeserver-url = "http://127.0.200.10:8008";
     access-token-file = config.age.secrets."matrix-draupnir-access-token".path;
   };
 

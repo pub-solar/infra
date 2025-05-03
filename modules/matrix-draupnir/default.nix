@@ -28,9 +28,9 @@
 
     services.draupnir = {
       enable = true;
-      accessTokenFile = config.pub-solar-os.draupnir.access-token-file;
+      accessTokenFile = config.pub-solar-os.matrix-draupnir.access-token-file;
       # https://github.com/the-draupnir-project/Draupnir/blob/main/config/default.yaml
-      homeserverUrl = config.pub-solar-os.draupnir.homeserver-url;
+      homeserverUrl = config.pub-solar-os.matrix-draupnir.homeserver-url;
       settings = {
         managementRoom = "#moderators:${config.pub-solar-os.networking.domain}";
         protectAllJoinedRooms = true;
