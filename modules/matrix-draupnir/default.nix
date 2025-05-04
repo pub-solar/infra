@@ -34,6 +34,17 @@
       settings = {
         managementRoom = "#moderators:${config.pub-solar-os.networking.domain}";
         protectAllJoinedRooms = true;
+        recordIgnoredInvites = true;
+        automaticallyRedactForReasons = [
+          "*spam"
+          "advertising"
+        ];
+        web = {
+          enabled = true;
+          port = 8080;
+          address = "127.0.200.101";
+          abuseReporting.enabled = true;
+        };
       };
     };
   };
