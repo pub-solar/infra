@@ -7,12 +7,11 @@ From: https://the-draupnir-project.github.io/draupnir-documentation/bot/setup
 There are a number of steps to complete to get Draupnir running:
 
 1. [Create an account](https://the-draupnir-project.github.io/draupnir-documentation/bot/setup_draupnir_account) for Draupnir to use.
-    1. Optionally [disabling rate limits](https://matrix-org.github.io/synapse/latest/admin_api/user_admin_api.html#set-ratelimit) for this account.
-    1. Make user an [admin account in synapse](https://element-hq.github.io/synapse/latest/usage/administration/admin_api/index.html)
+   1. Optionally [disabling rate limits](https://matrix-org.github.io/synapse/latest/admin_api/user_admin_api.html#set-ratelimit) for this account.
+   1. Make user an [admin account in synapse](https://element-hq.github.io/synapse/latest/usage/administration/admin_api/index.html)
 1. Review our notes on [encryption](https://the-draupnir-project.github.io/draupnir-documentation/bot/encryption).
 1. [Create a management room](https://the-draupnir-project.github.io/draupnir-documentation/bot/setup_management_room) for Draupnir to use.
 1. Install Draupnir on your system (we use NixOS for this)
-
 
 ### After creating the draupnir account
 
