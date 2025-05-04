@@ -105,10 +105,7 @@ let
             listener: lib.any (res: lib.any (name: name == resource) res.names) (listener.resources or [ ])
           ) null worker.value.worker_listeners;
         in
-        if listener != null then
-          [ listener.port ]
-        else
-          [ ]
+        if listener != null then [ listener.port ] else [ ]
       ) workers
     );
 
