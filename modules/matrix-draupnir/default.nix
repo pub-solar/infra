@@ -9,8 +9,8 @@
 
   disabledModules = [ "services/matrix/draupnir.nix" ];
 
-  options.pub-solar-os.matrix-draupnir = with lib; {
-    enable = mkEnableOption "Enable matrix-draupnir moderation bot";
+  options.pub-solar-os.matrix.draupnir = with lib; {
+    enable = mkEnableOption "Enable Matrix draupnir moderation bot";
 
     homeserver-url = mkOption {
       description = "Matrix homeserver URL";
@@ -24,13 +24,13 @@
     };
   };
 
-  config = lib.mkIf config.pub-solar-os.matrix-draupnir.enable {
+  config = lib.mkIf config.pub-solar-os.matrix.draupnir.enable {
 
     services.draupnir = {
       enable = true;
-      accessTokenFile = config.pub-solar-os.matrix-draupnir.access-token-file;
+      accessTokenFile = config.pub-solar-os.matrix.draupnir.access-token-file;
       # https://github.com/the-draupnir-project/Draupnir/blob/main/config/default.yaml
-      homeserverUrl = config.pub-solar-os.matrix-draupnir.homeserver-url;
+      homeserverUrl = config.pub-solar-os.matrix.draupnir.homeserver-url;
       settings = {
         managementRoom = "#moderators:${config.pub-solar-os.networking.domain}";
         protectAllJoinedRooms = true;
