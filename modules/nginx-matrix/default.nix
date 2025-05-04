@@ -209,7 +209,6 @@ in
                 ${matrixHeaders}
               '';
               proxyPass = "http://127.0.200.101:8080/api/1/report/$room_id/$event_id";
-              recommendedProxySettings = false;
               priority = 150;
             };
 
