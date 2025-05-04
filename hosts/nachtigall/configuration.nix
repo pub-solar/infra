@@ -94,6 +94,12 @@
     owner = "matrix-appservice-irc";
   };
 
+  age.secrets."matrix-draupnir-access-token" = {
+    file = "${flake.self}/secrets/matrix-draupnir-access-token.age";
+    mode = "400";
+    owner = "root";
+  };
+
   pub-solar-os.matrix = {
     enable = true;
     appservice-irc.mediaproxy.signingKeyPath =
@@ -123,6 +129,11 @@
     matrix-authentication-service.extra-config-files = [
       config.age.secrets."matrix-authentication-service-secret-config.yml".path
     ];
+    draupnir = {
+      enable = true;
+      homeserver-url = "http://127.0.200.10:8008";
+      access-token-file = config.age.secrets."matrix-draupnir-access-token".path;
+    };
   };
 
   systemd.services.postgresql = {
