@@ -13,9 +13,12 @@ let
   matrixHeaders = ''
     ${commonHeaders}
 
-    # should match synapse homeserver setting max_upload_size
+    # Should match synapse homeserver setting max_upload_size
     client_max_body_size 50M;
-    proxy_read_timeout 15m;
+    # The maximum body size for client requests to any of the endpoints on the Client-Server API.
+    # This needs to be equal or higher than the maximum upload size accepted by Synapse.
+    client_body_buffer_size 50M;
+    proxy_max_temp_file_size 0;
   '';
   clientConfig = import ./element-client-config.nix { inherit config lib pkgs; };
   wellKnownClient = domain: {
