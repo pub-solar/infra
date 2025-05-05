@@ -94,7 +94,7 @@ sudo -u matrix-authentication-service <nix-store-path>/mas-cli --config <nix-sto
 Deactivate the user and erase data:
 
 ```
-curl --header "Authorization: Bearer <admin-access-token>" --request POST http://127.0.0.1:8008/_synapse/admin/v1/deactivate/@<username>:pub.solar --data '{"erase": true}'
+curl --header "Authorization: Bearer <admin-access-token>" --request POST http://127.0.200.10:8008/_synapse/admin/v1/deactivate/@<username>:pub.solar --data '{"erase": true}'
 ```
 
 Docs: https://element-hq.github.io/synapse/latest/admin_api/user_admin_api.html#deactivate-account
