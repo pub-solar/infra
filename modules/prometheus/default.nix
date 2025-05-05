@@ -115,7 +115,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "main";
+              job = "synapse-main";
               index = "1";
             };
           }
@@ -125,7 +125,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "generic_worker";
+              job = "synapse-generic_worker";
               index = "1";
             };
           }
@@ -135,7 +135,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "generic_worker";
+              job = "synapse-generic_worker";
               index = "2";
             };
           }
@@ -145,7 +145,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "generic_worker";
+              job = "synapse-generic_worker";
               index = "3";
             };
           }
@@ -155,7 +155,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "generic_worker";
+              job = "synapse-generic_worker";
               index = "4";
             };
           }
@@ -165,7 +165,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "generic_worker";
+              job = "synapse-generic_worker";
               index = "5";
             };
           }
@@ -175,7 +175,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "generic_worker";
+              job = "synapse-generic_worker";
               index = "6";
             };
           }
@@ -200,6 +200,83 @@ in
             targets = [ "blue-shell.wg.${config.pub-solar-os.networking.domain}:3903" ];
             labels = {
               instance = "blue-shell";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "prometheus";
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:${toString config.services.prometheus.port}" ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "alertmanager";
+        static_configs = [
+          {
+            targets = [
+              "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.alertmanager.port}"
+            ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "promtail";
+        static_configs = [
+          {
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+          {
+            targets = [
+              "metronom.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "metronom";
+            };
+          }
+          {
+            targets = [
+              "tankstelle.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "tankstelle";
+            };
+          }
+          {
+            targets = [
+              "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+          {
+            targets = [
+              "blue-shell.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "blue-shell";
+            };
+          }
+          {
+            targets = [
+              "delite.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "delite";
             };
           }
         ];

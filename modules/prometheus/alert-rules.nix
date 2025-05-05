@@ -12,12 +12,11 @@ lib.mapAttrsToList
     labels = { };
     annotations.description = opts.description;
   })
-  ({
-
-    # prometheus_too_many_restarts = {
-    #   condition = ''changes(process_start_time_seconds{job=~"prometheus|alertmanager"}[15m]) > 2'';
-    #   description = "Prometheus has restarted more than twice in the last 15 minutes. It might be crashlooping.";
-    # };
+  {
+    prometheus_too_many_restarts = {
+      condition = ''changes(process_start_time_seconds{job=~"prometheus|alertmanager"}[15m]) > 2'';
+      description = "Prometheus has restarted more than twice in the last 15 minutes. It might be crashlooping.";
+    };
 
     # alert_manager_config_not_synced = {
     #   condition = ''count(count_values("config_hash", alertmanager_config_hash)) > 1'';
@@ -29,27 +28,32 @@ lib.mapAttrsToList
     #  description = "Prometheus DeadManSwitch is an always-firing alert. It's used as an end-to-end test of Prometheus through the Alertmanager.";
     #};
 
-    # prometheus_not_connected_to_alertmanager = {
-    #   condition = "prometheus_notifications_alertmanagers_discovered < 1";
-    #   description = "Prometheus cannot connect the alertmanager\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}";
-    # };
+    prometheus_not_connected_to_alertmanager = {
+      condition = "prometheus_notifications_alertmanagers_discovered < 1";
+      description = "Prometheus cannot connect the alertmanager\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}";
+    };
 
-    # prometheus_rule_evaluation_failures = {
-    #   condition = "increase(prometheus_rule_evaluation_failures_total[3m]) > 0";
-    #   description = "Prometheus encountered {{ $value }} rule evaluation failures, leading to potentially ignored alerts.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}";
-    # };
+    prometheus_rule_evaluation_failures = {
+      condition = "increase(prometheus_rule_evaluation_failures_total[3m]) > 0";
+      description = "Prometheus encountered {{ $value }} rule evaluation failures, leading to potentially ignored alerts.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}";
+    };
 
-    # prometheus_template_expansion_failures = {
-    #   condition = "increase(prometheus_template_text_expansion_failures_total[3m]) > 0";
-    #   time = "0m";
-    #   description = "Prometheus encountered {{ $value }} template text expansion failures\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}";
-    # };
+    prometheus_template_expansion_failures = {
+      condition = "increase(prometheus_template_text_expansion_failures_total[3m]) > 0";
+      time = "0m";
+      description = "Prometheus encountered {{ $value }} template text expansion failures\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}";
+    };
 
-    # promtail_file_lagging = {
-    #   condition = ''abs(promtail_file_bytes_total - promtail_read_bytes_total) > 1e6'';
-    #   time = "15m";
-    #   description = ''{{ $labels.instance }} {{ $labels.job }} {{ $labels.path }} has been lagging by more than 1MB for more than 15m.'';
-    # };
+    promtail_file_lagging = {
+      condition = ''abs(promtail_file_bytes_total - promtail_read_bytes_total) > 1e6'';
+      time = "15m";
+      description = ''{{ $labels.instance }} {{ $labels.job }} {{ $labels.path }} has been lagging by more than 1MB for more than 15m.'';
+    };
+
+    systemd_service_restart_loop = {
+      condition = ''rate( node_systemd_service_restart_total[10m] ) > 3 and ( node_systemd_service_restart_total > 0 )'';
+      description = "{{$labels.instance}} restarted systemd service {{$labels.name}} more than three times in the last 10 minutes. It might be crashlooping.";
+    };
 
     filesystem_root_full_80percent = {
       condition = ''100 - ((node_filesystem_avail_bytes{fstype!="rootfs",mountpoint="/"} * 100) / node_filesystem_size_bytes{fstype!="rootfs",mountpoint="/"}) > 80'';
@@ -122,6 +126,11 @@ lib.mapAttrsToList
     restic_backup_too_old = {
       condition = ''(time() - restic_snapshots_latest_time)/(60*60) > 24'';
       description = "{{$labels.instance}} not backed up for more than 24 hours. ({{$value}})";
+    };
+
+    synapse_down = {
+      condition = ''sum(up{job=~"synapse-main|synapse-generic_worker", instance="nachtigall"}) != 7'';
+      description = "Matrix synapse main or worker process on {{$labels.instance}} is down!";
     };
 
     #host_down = {
@@ -256,4 +265,4 @@ lib.mapAttrsToList
       time = "15m";
       description = "garage cluster on {{$labels.instance}} is not healthy: {{$labels.result}}!";
     };
-  })
+  }
