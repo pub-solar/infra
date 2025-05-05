@@ -49,10 +49,18 @@
     owner = "matrix-appservice-irc";
   };
 
+  age.secrets."matrix-draupnir-access-token" = {
+    file = "${flake.self}/secrets/staging-matrix-draupnir-access-token.age";
+    mode = "400";
+    owner = "root";
+  };
+
   pub-solar-os.matrix = {
     enable = true;
+
     appservice-irc.mediaproxy.signingKeyPath =
       config.age.secrets."matrix-appservice-irc-mediaproxy-signing-key".path;
+
     synapse = {
       extra-config-files = [
         config.age.secrets."staging-matrix-synapse-secret-config.yaml".path
@@ -70,9 +78,16 @@
         #"/var/lib/matrix-synapse/telegram-registration.yaml"
       ];
     };
+
     matrix-authentication-service.extra-config-files = [
       config.age.secrets."staging-matrix-authentication-service-secret-config.yml".path
     ];
+
+    draupnir = {
+      enable = true;
+      homeserver-url = "http://127.0.200.10:8008";
+      access-token-file = config.age.secrets."matrix-draupnir-access-token".path;
+    };
   };
 
   services.openssh.openFirewall = true;

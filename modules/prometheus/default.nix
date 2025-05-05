@@ -101,9 +101,73 @@ in
         metrics_path = "/_synapse/metrics";
         static_configs = [
           {
-            targets = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}:${synapseMetricsPort}" ];
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:${synapseMetricsPort}"
+            ];
             labels = {
               instance = "nachtigall";
+              job = "synapse-main";
+              index = "1";
+            };
+          }
+          {
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:9101"
+            ];
+            labels = {
+              instance = "nachtigall";
+              job = "synapse-generic_worker";
+              index = "1";
+            };
+          }
+          {
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:9102"
+            ];
+            labels = {
+              instance = "nachtigall";
+              job = "synapse-generic_worker";
+              index = "2";
+            };
+          }
+          {
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:9103"
+            ];
+            labels = {
+              instance = "nachtigall";
+              job = "synapse-generic_worker";
+              index = "3";
+            };
+          }
+          {
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:9104"
+            ];
+            labels = {
+              instance = "nachtigall";
+              job = "synapse-generic_worker";
+              index = "4";
+            };
+          }
+          {
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:9105"
+            ];
+            labels = {
+              instance = "nachtigall";
+              job = "synapse-generic_worker";
+              index = "5";
+            };
+          }
+          {
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:9106"
+            ];
+            labels = {
+              instance = "nachtigall";
+              job = "synapse-generic_worker";
+              index = "6";
             };
           }
         ];
@@ -127,6 +191,83 @@ in
             targets = [ "blue-shell.wg.${config.pub-solar-os.networking.domain}:3903" ];
             labels = {
               instance = "blue-shell";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "prometheus";
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:${toString config.services.prometheus.port}" ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "alertmanager";
+        static_configs = [
+          {
+            targets = [
+              "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.alertmanager.port}"
+            ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "promtail";
+        static_configs = [
+          {
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+          {
+            targets = [
+              "metronom.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "metronom";
+            };
+          }
+          {
+            targets = [
+              "tankstelle.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "tankstelle";
+            };
+          }
+          {
+            targets = [
+              "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "trinkgenossin";
+            };
+          }
+          {
+            targets = [
+              "blue-shell.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "blue-shell";
+            };
+          }
+          {
+            targets = [
+              "delite.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
+            ];
+            labels = {
+              instance = "delite";
             };
           }
         ];

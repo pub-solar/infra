@@ -15,6 +15,103 @@ let
       (throw "Found no matrix-synapse.settings.listeners.*.type containing string metrics")
       config.services.matrix-synapse.settings.listeners;
   synapseMetricsPort = listenerWithMetrics.port;
+  workerDefs = [
+    {
+      name = "client-1";
+      resources = [ "client" ];
+    }
+    {
+      name = "federation-sender-1";
+      resources = [ ];
+    }
+    {
+      name = "federation-receiver-1";
+      resources = [ "federation" ];
+    }
+    {
+      name = "federation-receiver-2";
+      resources = [ "federation" ];
+    }
+    {
+      name = "federation-receiver-3";
+      resources = [ "federation" ];
+    }
+    {
+      name = "federation-receiver-4";
+      resources = [ "federation" ];
+    }
+  ];
+
+  subnet = "127.0.200";
+  synapse_ip = "${subnet}.10";
+  worker_ip_start = 11;
+  metrics_port_start = 9101;
+  workers = lib.imap0 (
+    i: def:
+    let
+      ip = "${subnet}.${toString (worker_ip_start + i)}";
+      metrics_port = metrics_port_start + i;
+    in
+    {
+      inherit (def) name;
+      value = {
+        worker_app = "synapse.app.generic_worker";
+        worker_listeners = [
+          {
+            type = "http";
+            port = 8008;
+            bind_addresses = [ ip ];
+            tls = false;
+            x_forwarded = true;
+            resources = [ { names = def.resources ++ [ "health" ]; } ];
+          }
+          # add a metrics listener to all workers
+          # ports will be exposed only with wireguard via firewall rule
+          {
+            type = "metrics";
+            port = metrics_port;
+            bind_addresses = [ "0.0.0.0" ];
+            tls = false;
+            resources = [ { names = [ "metrics" ]; } ];
+          }
+        ];
+      };
+    }
+  ) workerDefs;
+
+  getWorkerHostsForResource =
+    resource:
+    lib.flatten (
+      builtins.map (
+        worker:
+        let
+          listener = lib.findFirst (
+            listener: lib.any (res: lib.any (name: name == resource) res.names) (listener.resources or [ ])
+          ) null worker.value.worker_listeners;
+        in
+        if listener != null then
+          [ "${builtins.head listener.bind_addresses}:${toString listener.port}" ]
+        else
+          [ ]
+      ) workers
+    );
+  getWorkerPortForResource =
+    resource:
+    lib.flatten (
+      builtins.map (
+        worker:
+        let
+          listener = lib.findFirst (
+            listener: lib.any (res: lib.any (name: name == resource) res.names) (listener.resources or [ ])
+          ) null worker.value.worker_listeners;
+        in
+        if listener != null then [ listener.port ] else [ ]
+      ) workers
+    );
+
+  federationReceivers = getWorkerHostsForResource "federation";
+  clientReceivers = getWorkerHostsForResource "client";
+  metricsPorts = getWorkerPortForResource "metrics";
 in
 {
   options.pub-solar-os = {
@@ -52,12 +149,23 @@ in
   };
 
   config = lib.mkIf config.pub-solar-os.matrix.enable {
-    # Only expose matrix-synapse metrics port via wireguard interface
-    networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ synapseMetricsPort ];
+    # Only expose matrix-synapse metrics ports via wireguard interface
+    networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ synapseMetricsPort ] ++ metricsPorts;
+
+    # generate nginx upstreams for configured workers
+    services.nginx.upstreams = {
+      "matrix-synapse".servers = {
+        "${synapse_ip}:8008" = { };
+      };
+      "matrix-federation-receiver".servers = lib.genAttrs federationReceivers (host: { });
+      "matrix-client-receiver".servers = lib.genAttrs clientReceivers (host: { });
+    };
 
     services.matrix-synapse = {
       enable = true;
       log.root.level = "WARNING";
+      configureRedisLocally = true;
+      workers = builtins.listToAttrs workers;
       settings = {
         server_name = serverDomain;
         public_baseurl = "https://${publicDomain}/";
@@ -72,32 +180,43 @@ in
           allow_unsafe_locale = false;
           txn_limit = 0;
         };
+
         listeners = [
           {
-            bind_addresses = [ "127.0.0.1" ];
+            bind_addresses = [ "${synapse_ip}" ];
             port = 8008;
-            resources = [
-              {
-                compress = true;
-                names = [ "client" ];
-              }
-              {
-                compress = false;
-                names = [ "federation" ];
-              }
-            ];
             tls = false;
             type = "http";
             x_forwarded = true;
+            resources = [
+              {
+                names = [
+                  "client"
+                  "federation"
+                ];
+              }
+            ];
           }
           {
             bind_addresses = [ "0.0.0.0" ];
-            port = 8012;
-            resources = [ { names = [ "metrics" ]; } ];
+            port = 9000;
             tls = false;
             type = "metrics";
+            resources = [ { names = [ "metrics" ]; } ];
+          }
+          {
+            path = "/run/matrix-synapse/main_replication.sock";
+            mode = "660";
+            type = "http";
+            resources = [ { names = [ "replication" ]; } ];
           }
         ];
+        federation_sender_instances = [ "federation-sender-1" ];
+        instance_map = {
+          main = {
+            path = "/run/matrix-synapse/main_replication.sock";
+          };
+        };
 
         account_threepid_delegates.msisdn = "";
         alias_creation_rules = [
@@ -117,12 +236,19 @@ in
         ];
 
         autocreate_auto_join_rooms = true;
-        caches.global_factor = 0.5;
 
         default_room_version = "10";
         disable_msisdn_registration = true;
         enable_media_repo = true;
         enable_metrics = true;
+        federation_metrics_domains = [
+          "matrix.org"
+          "mozilla.org"
+          "systemli.org"
+          "tchncs.de"
+          "ccc.ac"
+          "fairydust.space"
+        ];
         mau_stats_only = true;
         enable_registration = false;
         enable_registration_captcha = false;
@@ -130,22 +256,36 @@ in
         enable_room_list_search = true;
         encryption_enabled_by_default_for_room_type = "off";
         event_cache_size = "100K";
+        caches.global_factor = 10;
+        # Based on https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/37a7af52ab6a803e5fec72d37b0411a6c1a3ddb7/docs/maintenance-synapse.md#tuning-caches-and-cache-autotuning
+        # https://element-hq.github.io/synapse/latest/usage/configuration/config_documentation.html#caches-and-associated-values
+        cache_autotuning = {
+          max_cache_memory_usage = "4096M";
+          target_cache_memory_usage = "2048M";
+          min_cache_ttl = "5m";
+        };
 
         # https://github.com/element-hq/synapse/issues/11203
         # No YAML deep-merge, so this needs to be in secret extraConfigFiles
         # together with msc3861
         #experimental_features = {
-        #  # Room summary API
-        #  msc3266_enabled = true;
+        #  # MSC3266: Room summary API. Used for knocking over federation
+        #  msc3266_enabled: true
+        #  # MSC4222 needed for syncv2 state_after. This allow clients to
+        #  # correctly track the state of the room.
+        #  msc4222_enabled: true
         #  # Rendezvous server for QR Code generation
         #  msc4108_enabled = true;
         #};
+
+        # The maximum allowed duration by which sent events can be delayed, as
+        # per MSC4140.
+        max_event_delay_duration = "24h";
 
         federation_rr_transactions_per_room_per_second = 50;
         federation_client_minimum_tls_version = "1.2";
         forget_rooms_on_leave = true;
         include_profile_data_on_invite = true;
-        instance_map = { };
         limit_profile_requests_to_users_who_share_rooms = false;
 
         max_spider_size = "10M";
@@ -158,7 +298,7 @@ in
           pepper = "";
         };
 
-        presence.enabled = true;
+        presence.enabled = false;
         push.include_content = false;
 
         rc_admin_redaction = {
@@ -211,8 +351,16 @@ in
           };
         };
         rc_message = {
-          burst_count = 10;
-          per_second = 0.2;
+          # This needs to match at least e2ee key sharing frequency plus a bit of headroom
+          # Note key sharing events are bursty
+          burst_count = 30;
+          per_second = 0.5;
+        };
+        rc_delayed_event_mgmt = {
+          # This needs to match at least the heart-beat frequency plus a bit of headroom
+          # Currently the heart-beat is every 5 seconds which translates into a rate of 0.2s
+          per_second = 1;
+          burst_count = 20;
         };
         rc_registration = {
           burst_count = 3;
@@ -220,7 +368,6 @@ in
         };
         redaction_retention_period = "7d";
         forgotten_room_retention_period = "7d";
-        redis.enabled = false;
         registration_requires_token = false;
         registrations_require_3pid = [ "email" ];
         report_stats = false;
@@ -281,6 +428,29 @@ in
         user_ips_max_age = "28d";
 
         app_service_config_files = config.pub-solar-os.matrix.synapse.app-service-config-files;
+
+        modules = [
+          {
+            module = "mjolnir.Module";
+            config = {
+              # Prevent servers/users in the ban lists from inviting users on this
+              # server to rooms. Default true.
+              block_invites = true;
+              # Flag messages sent by servers/users in the ban lists as spam. Currently
+              # this means that spammy messages will appear as empty to users. Default
+              # false.
+              block_messages = false;
+              # Remove users from the user directory search by filtering matrix IDs and
+              # display names by the entries in the user ban list. Default false.
+              block_usernames = false;
+              # The room IDs of the ban lists to honour. Unlike other parts of Mjolnir,
+              # this list cannot be room aliases or permalinks. This server is expected
+              # to already be joined to the room - Mjolnir will not automatically join
+              # these rooms.
+              ban_lists = [ "!roomid:example.org" ];
+            };
+          }
+        ];
       };
 
       withJemalloc = true;
@@ -289,10 +459,12 @@ in
 
       extras = [
         "oidc"
-        "redis"
       ];
 
-      plugins = [ config.services.matrix-synapse.package.plugins.matrix-synapse-shared-secret-auth ];
+      plugins = with config.services.matrix-synapse.package.plugins; [
+        matrix-synapse-shared-secret-auth
+        matrix-synapse-mjolnir-antispam
+      ];
     };
 
     services.matrix-authentication-service = {

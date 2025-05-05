@@ -36,7 +36,7 @@ in
     '';
     appendConfig = ''
       # Number of CPU cores
-      worker_processes 8;
+      worker_processes auto;
     '';
     eventsConfig = ''
       worker_connections 1024;

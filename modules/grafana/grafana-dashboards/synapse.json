@@ -53,7 +53,7 @@
           "uid": "${DS_PROMETHEUS}"
         },
         "enable": true,
-        "expr": "changes(process_start_time_seconds{instance=\"$instance\",job=~\"synapse\"}[$bucket_size]) * on (instance, job) group_left(version) synapse_build_info{instance=\"$instance\",job=\"synapse\"}",
+        "expr": "changes(process_start_time_seconds{instance=\"$instance\",job=~\"$job\"}[$bucket_size]) * on (instance, job) group_left(version) synapse_build_info{instance=\"$instance\",job=\"$job\"}",
         "iconColor": "purple",
         "name": "deploys",
         "titleFormat": "Deployed {{version}}"
@@ -749,7 +749,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "synapse_build_info{instance=\"$instance\", job=\"synapse\"} - 1",
+          "expr": "synapse_build_info{instance=\"$instance\", job=\"$job\"} - 1",
           "legendFormat": "version {{version}}",
           "range": true,
           "refId": "deployed_synapse_versions"
@@ -1491,7 +1491,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "synapse_build_info{instance=\"$instance\", job=\"synapse\"} - 1",
+              "expr": "synapse_build_info{instance=\"$instance\", job=\"$job\"} - 1",
               "hide": false,
               "legendFormat": "version {{version}}",
               "range": true,
