@@ -128,6 +128,11 @@ lib.mapAttrsToList
       description = "{{$labels.instance}} not backed up for more than 24 hours. ({{$value}})";
     };
 
+    synapse_down = {
+      condition = ''up{job="matrix-synapse", instance="nachtigall"} == 0'';
+      description = "{matrix-synapse on {$labels.instance}} is down!";
+    };
+
     #host_down = {
     #  condition = ''up{job="node-stats", instance!~"ahorn.wireguard:9100|kartoffel.wireguard:9100|mega.wireguard:9100"} == 0'';
     #  description = "{{$labels.instance}} is down!";
