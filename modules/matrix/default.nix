@@ -163,8 +163,7 @@ in
 
     services.matrix-synapse = {
       enable = true;
-      # TODO Uncomment once we have stable synapse again
-      #log.root.level = "WARNING";
+      log.root.level = "WARNING";
       configureRedisLocally = true;
       workers = builtins.listToAttrs workers;
       settings = {
