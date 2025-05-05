@@ -32,7 +32,7 @@
       # https://github.com/the-draupnir-project/Draupnir/blob/main/config/default.yaml
       homeserverUrl = config.pub-solar-os.matrix.draupnir.homeserver-url;
       settings = {
-        managementRoom = "#moderators:${config.pub-solar-os.networking.domain}";
+        managementRoom = "#matrix-moderators:${config.pub-solar-os.networking.domain}";
         protectAllJoinedRooms = true;
         recordIgnoredInvites = true;
         automaticallyRedactForReasons = [
