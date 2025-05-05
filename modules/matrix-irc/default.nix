@@ -13,6 +13,7 @@ let
     lib.findFirst (listener: builtins.any resourceHasClient listener.resources)
       (throw "Found no matrix-synapse.settings.listeners.*.resources.*.names containing string client")
       config.services.matrix-synapse.settings.listeners;
+  synapseIp = builtins.elemAt listenerWithClient.bind_addresses 0;
   synapseClientPort = "${toString listenerWithClient.port}";
 in
 {
@@ -34,7 +35,7 @@ in
       settings = {
         homeserver = {
           domain = "${config.pub-solar-os.networking.domain}";
-          url = "http://127.0.0.1:${synapseClientPort}";
+          url = "http://${synapseIp}:${synapseClientPort}";
           enablePresence = false;
         };
         ircService = {

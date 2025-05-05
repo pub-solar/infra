@@ -110,7 +110,15 @@ in
         metrics_path = "/_synapse/metrics";
         static_configs = [
           {
-            targets = [ "nachtigall.wg.${config.pub-solar-os.networking.domain}:${synapseMetricsPort}" ];
+            targets = [
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:${synapseMetricsPort}"
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:9101"
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:9102"
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:9103"
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:9104"
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:9105"
+              "nachtigall.wg.${config.pub-solar-os.networking.domain}:9106"
+            ];
             labels = {
               instance = "nachtigall";
             };

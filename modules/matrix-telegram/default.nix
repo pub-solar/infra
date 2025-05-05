@@ -5,6 +5,16 @@
   pkgs,
   ...
 }:
+let
+  nameHasClient = name: name == "client";
+  resourceHasClient = resource: builtins.any nameHasClient resource.names;
+  listenerWithClient =
+    lib.findFirst (listener: builtins.any resourceHasClient listener.resources)
+      (throw "Found no matrix-synapse.settings.listeners.*.resources.*.names containing string client")
+      config.services.matrix-synapse.settings.listeners;
+  synapseIp = builtins.elemAt listenerWithClient.bind_addresses 0;
+  synapseClientPort = "${toString listenerWithClient.port}";
+in
 {
   age.secrets."matrix-mautrix-telegram-env-file" = {
     file = "${flake.self}/secrets/matrix-mautrix-telegram-env-file.age";
@@ -18,7 +28,7 @@
     settings = {
       homeserver = {
         # TODO: Use the port from synapse config
-        address = "http://127.0.0.1:8008";
+        address = "http://${synapseIp}:${synapseClientPort}";
         domain = "${config.pub-solar-os.networking.domain}";
         verify_ssl = true;
       };
