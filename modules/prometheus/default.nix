@@ -112,15 +112,71 @@ in
           {
             targets = [
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:${synapseMetricsPort}"
+            ];
+            labels = {
+              instance = "nachtigall";
+              job = "main";
+              index = "1";
+            };
+          }
+          {
+            targets = [
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:9101"
+            ];
+            labels = {
+              instance = "nachtigall";
+              job = "generic_worker";
+              index = "1";
+            };
+          }
+          {
+            targets = [
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:9102"
+            ];
+            labels = {
+              instance = "nachtigall";
+              job = "generic_worker";
+              index = "2";
+            };
+          }
+          {
+            targets = [
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:9103"
+            ];
+            labels = {
+              instance = "nachtigall";
+              job = "generic_worker";
+              index = "3";
+            };
+          }
+          {
+            targets = [
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:9104"
+            ];
+            labels = {
+              instance = "nachtigall";
+              job = "generic_worker";
+              index = "4";
+            };
+          }
+          {
+            targets = [
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:9105"
+            ];
+            labels = {
+              instance = "nachtigall";
+              job = "generic_worker";
+              index = "5";
+            };
+          }
+          {
+            targets = [
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:9106"
             ];
             labels = {
               instance = "nachtigall";
+              job = "generic_worker";
+              index = "6";
             };
           }
         ];
