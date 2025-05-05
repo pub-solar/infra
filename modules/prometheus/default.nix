@@ -115,7 +115,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "main";
+              job = "synapse-main";
               index = "1";
             };
           }
@@ -125,7 +125,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "generic_worker";
+              job = "synapse-generic_worker";
               index = "1";
             };
           }
@@ -135,7 +135,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "generic_worker";
+              job = "synapse-generic_worker";
               index = "2";
             };
           }
@@ -145,7 +145,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "generic_worker";
+              job = "synapse-generic_worker";
               index = "3";
             };
           }
@@ -155,7 +155,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "generic_worker";
+              job = "synapse-generic_worker";
               index = "4";
             };
           }
@@ -165,7 +165,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "generic_worker";
+              job = "synapse-generic_worker";
               index = "5";
             };
           }
@@ -175,7 +175,7 @@ in
             ];
             labels = {
               instance = "nachtigall";
-              job = "generic_worker";
+              job = "synapse-generic_worker";
               index = "6";
             };
           }

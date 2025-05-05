@@ -129,8 +129,8 @@ lib.mapAttrsToList
     };
 
     synapse_down = {
-      condition = ''up{job="matrix-synapse", instance="nachtigall"} == 0'';
-      description = "{matrix-synapse on {$labels.instance}} is down!";
+      condition = ''sum(up{job=~"synapse-main|synapse-generic_worker", instance="nachtigall"}) != 7'';
+      description = "Matrix synapse main or worker process on {{$labels.instance}} is down!";
     };
 
     #host_down = {
