@@ -104,6 +104,14 @@
           "fd00:fae:fae:fae:fae:204::/96"
         ];
       }
+      {
+        # neo
+        publicKey = "hh5Hx/TlYMDawfuBcXfJWVlE06xvX5f1gOJfEhsbF1s=";
+        allowedIPs = [
+          "10.7.6.207/32"
+          "fd00:fae:fae:fae:fae:207::/96"
+        ];
+      }
     ];
   };
 }
