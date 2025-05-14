@@ -12,6 +12,7 @@
 
   networking.useDHCP = false;
   systemd.network.enable = true;
+  systemd.network.wait-online.anyInterface = true;
   systemd.network.networks."10-wan" = {
     matchConfig.Name = "ens3";
     address = [
