@@ -94,7 +94,6 @@
       environmentFile = config.age.secrets.acme-namecheap-env.path;
     };
     certs = {
-      # Wildcard certificate gets created automatically
       "grafana.${config.pub-solar-os.networking.domain}" = {
         # disable http challenge
         webroot = null;
