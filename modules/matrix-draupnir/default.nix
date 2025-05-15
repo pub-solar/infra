@@ -18,6 +18,13 @@
       example = "http://127.0.0.1:8008";
     };
 
+    raw-homeserver-url = mkOption {
+      description = "Matrix homeserver URL, used to fetch events related to reports";
+      type = types.str;
+      example = "http://127.0.0.1:8008";
+      default = config.pub-solar-os.matrix.draupnir.homeserver-url;
+    };
+
     access-token-file = mkOption {
       description = "Path to access token file";
       type = types.str;
@@ -32,6 +39,7 @@
       # https://github.com/the-draupnir-project/Draupnir/blob/main/config/default.yaml
       homeserverUrl = config.pub-solar-os.matrix.draupnir.homeserver-url;
       settings = {
+        rawHomeserverUrl = config.pub-solar-os.matrix.draupnir.raw-homeserver-url;
         managementRoom = "#matrix-moderators:${config.pub-solar-os.networking.domain}";
         protectAllJoinedRooms = true;
         recordIgnoredInvites = true;
