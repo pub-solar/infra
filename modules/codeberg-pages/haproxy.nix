@@ -1,8 +1,5 @@
 {
   config,
-  lib,
-  pkgs,
-  flake,
   ...
 }:
 {
@@ -29,7 +26,6 @@
         default_backend http_backend
 
       frontend https_sni_frontend
-        # TCP backend to forward to HTTPS backends based on SNI
         bind :::443 v4v6
         mode tcp
 
@@ -39,6 +35,9 @@
         log-format "%ci:%cp -> %[capture.req.hdr(0)] @ %f (%fi:%fp) -> %b (%bi:%bp)"
         tcp-request content accept if { req.ssl_hello_type 1 }
 
+        # forwarding to backends based on SNI
+        # use nginx_backend for all SNI matching *.pub.solar
+        # else use pages_backend
         acl use_nginx_backend req.ssl_sni -i -m reg ^.*\\.pub\\.solar$
         acl use_pages_backend req.ssl_sni -m reg ..*
 
@@ -46,16 +45,18 @@
         default_backend nginx_backend
 
       backend http_backend
-        server pages_server_http 127.0.0.1:8081
+        # pages-server redirects http -> https
+        # uses HTTP-01 challenges to get certificates for custom domains
+        server pages_server_http ${config.pub-solar-os.codeberg-pages.host}:${config.pub-solar-os.codeberg-pages.http-port}
         mode tcp
 
       backend pages_backend
-        # Pages server is a HTTP backend that uses its own certificates for custom domains
-        server pages_server 127.0.0.1:3443 send-proxy
+        # Pages server is a TCP backend that uses its own certificates for custom domains
+        server pages_server ${config.pub-solar-os.codeberg-pages.host}:${config.pub-solar-os.codeberg-pages.port} send-proxy
         mode tcp
 
       backend nginx_backend
-        server nginx_server 127.0.0.1:8443 send-proxy
+        server nginx_server 127.0.0.1:${toString config.services.nginx.defaultSSLListenPort} send-proxy
         mode tcp
     '';
   };

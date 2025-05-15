@@ -5,9 +5,6 @@
   flake,
   ...
 }:
-let
-  pagesDomain = "lunar.page";
-in
 {
   imports = [
     "${flake.inputs.codeberg-pages}/nixos/modules/services/web-apps/codeberg-pages.nix"
@@ -18,38 +15,68 @@ in
     "/nixos/modules/services/web-apps/codeberg-pages.nix"
   ];
 
-  age.secrets.codeberg-pages-envfile = {
-    file = "${flake.self}/secrets/codeberg-pages-envfile.age";
-    mode = "400";
-    owner = "codeberg-pages";
+  options.pub-solar-os.codeberg-pages = with lib; {
+    enable = mkEnableOption "Enable codeberg-pages server with haproxy. Expects port 80 + 443 to be available for haproxy";
+
+    domain = mkOption {
+      description = "Main domain for pages";
+      type = types.str;
+      default = "lunar.page";
+    };
+
+    envfile = mkOption {
+      description = "Path to envfile with secrets";
+      type = types.str;
+    };
+
+    dns-provider = mkOption {
+      description = "Code of the ACME DNS provider for the main domain wildcard. See https://go-acme.github.io/lego/dns/ for available values & additional environment variables.";
+      type = types.str;
+      default = "namecheap";
+    };
+
+    http-port = mkOption {
+      description = "Listening port for HTTP-01 challenges, haproxy will redirect here from port 80. Defaults to port 8081";
+      type = types.str;
+      default = "8081";
+    };
+
+    host = mkOption {
+      description = "Listening address for pages-server";
+      type = types.str;
+      default = "127.0.0.1";
+    };
+
+    port = mkOption {
+      description = "Listening port for pages-server";
+      type = types.str;
+      default = "3443";
+    };
   };
 
-  # Required to bind to port 80
-  #systemd.services.codeberg-pages.serviceConfig = {
-  #  # Capabilities required to bind to port 80
-  #  AmbientCapabilities = "CAP_NET_BIND_SERVICE";
-  #  CapabilityBoundingSet = lib.mkForce "CAP_NET_BIND_SERVICE";
-  #  PrivateUsers = lib.mkForce false; # incompatible with CAP_NET_BIND_SERVICE
-  #};
-  services.codeberg-pages = {
-    enable = true;
-    environmentFile = config.age.secrets.codeberg-pages-envfile.path;
-    settings = {
-      ACME_ACCEPT_TERMS = "true";
-      # Nginx on trinkgenossin uses DNS challenges for certificates
-      # haproxy can listen on port 443, codeberg-pages on port 80
-      ENABLE_HTTP_SERVER = "true";
-      HTTP_PORT = "8081";
-      ACME_EMAIL = config.pub-solar-os.adminEmail;
-      DNS_PROVIDER = "namecheap";
-      PAGES_DOMAIN = pagesDomain;
-      RAW_DOMAIN = "raw.${pagesDomain}";
-      USE_PROXY_PROTOCOL = "true";
+  config = lib.mkIf config.pub-solar-os.codeberg-pages.enable {
+    services.codeberg-pages = {
+      enable = true;
+      environmentFile = config.pub-solar-os.codeberg-pages.envfile;
+      settings = {
+        ACME_ACCEPT_TERMS = "true";
+        # haproxy needs to listen on port 443 and port 80
+        # acme for domains hosted on this server should use DNS challenges for certificates
+        # for custom domain support, HTTP-01 challenges will be forwarded from haproxy port 80 to pages-server HTTP_PORT
+        # pages-server takes care of redirecting all requests from http -> https
+        ENABLE_HTTP_SERVER = "true";
+        HTTP_PORT = config.pub-solar-os.codeberg-pages.http-port;
+        ACME_EMAIL = config.pub-solar-os.adminEmail;
+        DNS_PROVIDER = config.pub-solar-os.codeberg-pages.dns-provider;
+        PAGES_DOMAIN = config.pub-solar-os.codeberg-pages.domain;
+        RAW_DOMAIN = "raw.${config.pub-solar-os.codeberg-pages.domain}";
+        USE_PROXY_PROTOCOL = "true";
 
-      HOST = "127.0.0.1";
-      PORT = "3443";
+        HOST = config.pub-solar-os.codeberg-pages.host;
+        PORT = config.pub-solar-os.codeberg-pages.port;
 
-      GITEA_ROOT = "https://git.pub.solar";
+        GITEA_ROOT = "https://git.${config.pub-solar-os.networking.domain}";
+      };
     };
   };
 }
