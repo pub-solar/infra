@@ -40,10 +40,10 @@ TOKEN=$1
 ROOMLIST=$2
 while IFS='' read ROOMID; do
 	echo "Cleaning up Room: $ROOMID"
-	curl "http://localhost:8008/_synapse/admin/v2/rooms/${ROOMID}" \
+	curl "http://127.0.200.10:8008/_synapse/admin/v2/rooms/${ROOMID}" \
 		-X DELETE -H 'Accept: application/json' \
-		-H 'Referer: http://localhost:8080/' \
-		-H "authorization: Bearer ${TOKEN}" \
+		-H 'Referer: http://127.0.200.10:8080/' \
+		-H "Authorization: Bearer ${TOKEN}" \
 		--data '{ "purge": true, "message": "Sorry - kicking you out to clean up the database" }'
 	echo ""
 done < "$ROOMLIST"
@@ -54,8 +54,8 @@ Remove all media uploaded by user:
 ```
 export TOKEN=$(sudo cat /run/agenix/matrix-admin-access-token)
 
-curl "http://localhost:8008/_synapse/admin/v1/users/@<username>:pub.solar/media" \
+curl "http://127.0.200.10:8008/_synapse/admin/v1/users/@<username>:pub.solar/media" \
   -X DELETE -H 'Accept: application/json' \
-  -H 'Referer: http://localhost:8080/' \
-  -H "authorization: Bearer ${TOKEN}"
+  -H 'Referer: http://127.0.200.10:8080/' \
+  -H "Authorization: Bearer ${TOKEN}"
 ```
