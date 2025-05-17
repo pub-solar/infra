@@ -240,6 +240,9 @@ in
         default_room_version = "10";
         disable_msisdn_registration = true;
         enable_media_repo = true;
+        media_retention = {
+          remote_media_lifetime = "14d";
+        };
         enable_metrics = true;
         federation_metrics_domains = [
           "matrix.org"
