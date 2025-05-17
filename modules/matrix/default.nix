@@ -447,7 +447,12 @@ in
               # this list cannot be room aliases or permalinks. This server is expected
               # to already be joined to the room - Mjolnir will not automatically join
               # these rooms.
-              ban_lists = [ "!roomid:example.org" ];
+              # Draupnir policy room for pub.solar "ps-bans" #ban-list:pub.solar
+              # Draupnir Community Moderation Effort policy room "cme-bans" #community-moderation-effort-bl:neko.dev
+              ban_lists = [
+                "!MffyQwXepPqFXLYRvk:pub.solar"
+                "!fTjMjIzNKEsFlUIiru:neko.dev"
+              ];
             };
           }
         ];
