@@ -36,9 +36,9 @@
         tcp-request content accept if { req.ssl_hello_type 1 }
 
         # forwarding to backends based on SNI
-        # use nginx_backend for all SNI matching *.pub.solar
+        # use nginx_backend for all SNI matching domain, for example *.pub.solar
         # else use pages_backend
-        acl use_nginx_backend req.ssl_sni -i -m reg ^.*\\.pub\\.solar$
+        acl use_nginx_backend req.ssl_sni -i -m end .${config.pub-solar-os.networking.domain}
         acl use_pages_backend req.ssl_sni -m reg ..*
 
         use_backend pages_backend if use_pages_backend !use_nginx_backend
