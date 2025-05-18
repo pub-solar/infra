@@ -18,7 +18,7 @@ There are a number of steps to complete to get Draupnir running:
 Disable rate limit via synapse admin API:
 
 ```
-curl --header "Authorization: Bearer $TOKEN" 'http://127.0.0.1:8008/_synapse/admin/v1/users/@draupnir:pub.solar/override_ratelimit' -X POST -d '{"messages_per_second": 0,  "burst_count": 0}'
+curl --header "Authorization: Bearer $TOKEN" 'http://127.0.200.10:8008/_synapse/admin/v1/users/@draupnir:pub.solar/override_ratelimit' -X POST -d '{"messages_per_second": 0,  "burst_count": 0}'
 ```
 
 Make draupnir admin

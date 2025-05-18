@@ -17,13 +17,13 @@ Required:
 ## Suspending an account
 
 ```bash
-curl --header "Authorization: Bearer <admin-access-token>" --request PUT http://127.0.0.1:8008/_synapse/admin/v1/suspend/@<username>:pub.solar --data '{"suspend": true}'
+curl --header "Authorization: Bearer <admin-access-token>" --request PUT http://127.0.200.10:8008/_synapse/admin/v1/suspend/@<username>:pub.solar --data '{"suspend": true}'
 ```
 
 ## Unsuspending an account
 
 ```bash
-curl --header "Authorization: Bearer <admin-access-token>" --request PUT http://127.0.0.1:8008/_synapse/admin/v1/suspend/@<username>:pub.solar --data '{"suspend": false}'
+curl --header "Authorization: Bearer <admin-access-token>" --request PUT http://127.0.200.10:8008/_synapse/admin/v1/suspend/@<username>:pub.solar --data '{"suspend": false}'
 ```
 
 Links:

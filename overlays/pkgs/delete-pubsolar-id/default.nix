@@ -54,7 +54,7 @@ writeShellApplication {
     ### Matrix ###
 
     echo "Deleting matrix account"
-    curl --header "Authorization: Bearer $MATRIX_ADMIN_ACCESS_TOKEN" --request POST "http://127.0.0.1:8008/_synapse/admin/v1/deactivate/@$USERNAME:pub.solar" --data '{"erase": true}' || true
+    curl --header "Authorization: Bearer $MATRIX_ADMIN_ACCESS_TOKEN" --request POST "http://127.0.200.10:8008/_synapse/admin/v1/deactivate/@$USERNAME:pub.solar" --data '{"erase": true}' || true
 
     ### Forgejo ###
 
