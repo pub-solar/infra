@@ -6,10 +6,18 @@ Required:
 
 - [SSH access to host `nachtigall`](./administrative-access.md#ssh-access)
 
-SSH into nachtigall, and run the following script:
+SSH into nachtigall, and run the following script. Replace `<username>` with the `Username` found in keycloak.
 
 ```
-delete-pubsolar-id $(sudo cat /run/agenix/keycloak-admin-cli-client-secret) $(sudo cat /run/agenix/matrix-admin-access-token) $USERNAME
+delete-pubsolar-id $(sudo cat /run/agenix/keycloak-admin-cli-client-secret) $(sudo cat /run/agenix/matrix-admin-access-token) <username>
+```
+
+Make sure to close all Matrix user sessions:
+
+```
+# get full path to mas-cli command with current --config flags from
+# sudo systemctl cat matrix-authentication-service
+sudo -u matrix-authentication-service <nix-store-path>/mas-cli --config <nix-store-config> --config /run/agenix/matrix-authentication-service-secret-config.yml manage kill-sessions <username>
 ```
 
 ### Keycloak
@@ -75,8 +83,18 @@ Docs: https://forgejo.org/docs/latest/admin/command-line/#delete
 
 ### Matrix
 
+Close all user sessions:
+
 ```
-curl --header "Authorization: Bearer <admin-access-token>" --request POST http://127.0.0.1:8008/_synapse/admin/v1/deactivate/@<username>:pub.solar --data '{"erase": true}'
+# get full path to mas-cli command with current --config flags from
+# sudo systemctl cat matrix-authentication-service
+sudo -u matrix-authentication-service <nix-store-path>/mas-cli --config <nix-store-config> --config /run/agenix/matrix-authentication-service-secret-config.yml manage kill-sessions <username>
+```
+
+Deactivate the user and erase data:
+
+```
+curl --header "Authorization: Bearer <admin-access-token>" --request POST http://127.0.200.10:8008/_synapse/admin/v1/deactivate/@<username>:pub.solar --data '{"erase": true}'
 ```
 
 Docs: https://element-hq.github.io/synapse/latest/admin_api/user_admin_api.html#deactivate-account
@@ -86,7 +104,7 @@ The authentication token should be in the keepass. If it is expired, you can get
 ```
 # get full path to mas-cli command with current --config flags from
 # sudo systemctl cat matrix-authentication-service
-sudo -u matrix-authentication-service mas-cli --config nix-store-config --config /run/agenix/matrix-authentication-service-secret-config.yml manage issue-compatibility-token --yes-i-want-to-grant-synapse-admin-privileges crew
+sudo -u matrix-authentication-service <nix-store-path>/mas-cli --config <nix-store-config> --config /run/agenix/matrix-authentication-service-secret-config.yml manage issue-compatibility-token --yes-i-want-to-grant-synapse-admin-privileges crew
 ```
 
 ### OpenBikeSensor
