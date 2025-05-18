@@ -58,8 +58,8 @@
         "/.well-known/security.txt" =
           let
             securityTXT = lib.lists.foldr (a: b: a + "\n" + b) "" [
-              "Contact: mailto:admins@pub.solar"
-              "Expires: 2025-01-04T23:00:00.000Z"
+              "Contact: mailto:crew@pub.solar"
+              "Expires: 2027-01-31T23:00:00.000Z"
               "Encryption: https://keys.openpgp.org/vks/v1/by-fingerprint/8A8987ADE3736C8CA2EB315A9B809EBBDD62BAE3"
               "Preferred-Languages: en,de"
               "Canonical: https://${config.pub-solar-os.networking.domain}/.well-known/security.txt"
