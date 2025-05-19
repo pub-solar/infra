@@ -1,0 +1,26 @@
+From d8a1225f8895ebed1f29c792eff42908ec910ddd Mon Sep 17 00:00:00 2001
+From: teutat3s <teutates@mailbox.org>
+Date: Mon, 28 Apr 2025 22:45:57 +0200
+Subject: [PATCH] workaround: don't change ssl port in redirect, always use 443
+
+---
+ server/certificates/cached_challengers.go | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/server/certificates/cached_challengers.go b/server/certificates/cached_challengers.go
+index 39439fb..8b14b75 100644
+--- a/server/certificates/cached_challengers.go
++++ b/server/certificates/cached_challengers.go
+@@ -49,9 +49,6 @@ func (a AcmeHTTPChallengeProvider) CleanUp(domain, token, _ string) error {
+ func SetupHTTPACMEChallengeServer(challengeCache cache.ICache, sslPort uint) http.HandlerFunc {
+ 	// handle custom-ssl-ports to be added on https redirects
+ 	portPart := ""
+-	if sslPort != 443 {
+-		portPart = fmt.Sprintf(":%d", sslPort)
+-	}
+ 
+ 	return func(w http.ResponseWriter, req *http.Request) {
+ 		ctx := context.New(w, req)
+-- 
+2.47.2
+

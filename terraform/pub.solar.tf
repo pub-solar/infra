@@ -170,7 +170,7 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "80.244.242.5"
   }
   record {
-    hostname = "alerts"
+    hostname = "alerts.wg"
     type     = "CNAME"
     address  = "trinkgenossin.wg.pub.solar"
   }

@@ -14,6 +14,17 @@
     "ip=dhcp"
   ];
 
+  age.secrets.codeberg-pages-envfile = {
+    file = "${flake.self}/secrets/codeberg-pages-envfile.age";
+    mode = "400";
+    owner = "codeberg-pages";
+  };
+
+  pub-solar-os.codeberg-pages = {
+    enable = true;
+    envfile = config.age.secrets.codeberg-pages-envfile.path;
+  };
+
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #

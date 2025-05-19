@@ -113,6 +113,8 @@ in
 
   "alertmanager-envfile.age".publicKeys = trinkgenossinKeys ++ adminKeys;
 
+  "codeberg-pages-envfile.age".publicKeys = trinkgenossinKeys ++ adminKeys;
+
   "obs-portal-env.age".publicKeys = nachtigallKeys ++ adminKeys;
   "obs-portal-database-env.age".publicKeys = nachtigallKeys ++ adminKeys;
 

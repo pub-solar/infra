@@ -131,6 +131,7 @@
 
           # This module is already using options, and those options are used by the grafana module
           self.nixosModules.keycloak
+          self.nixosModules.codeberg-pages
           self.nixosModules.grafana
           self.nixosModules.prometheus
           self.nixosModules.prometheus-exporters

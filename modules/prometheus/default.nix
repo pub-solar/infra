@@ -30,19 +30,10 @@ in
     };
   };
 
-  services.nginx.virtualHosts."alerts.${config.pub-solar-os.networking.domain}" = {
-    enableACME = true;
-    forceSSL = true;
-
-    listenAddresses = [
-      "10.7.6.5"
-      "[fd00:fae:fae:fae:fae:5::]"
-    ];
-
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";
-    };
-  };
+  # Only expose alertmanager port via wireguard interface
+  networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [
+    config.services.prometheus.alertmanager.port
+  ];
 
   services.prometheus = {
     enable = true;
@@ -382,7 +373,11 @@ in
     alertmanager = {
       enable = true;
       # port = 9093; # Default
-      webExternalUrl = "https://alerts.pub.solar";
+      listenAddress = "10.7.6.5";
+      extraFlags = [
+        "--web.listen-address=[fd00:fae:fae:fae:fae:5::]:${toString config.services.prometheus.alertmanager.port}"
+      ];
+      webExternalUrl = "http://alerts.wg.pub.solar:${toString config.services.prometheus.alertmanager.port}";
       environmentFile = "${config.age.secrets.alertmanager-envfile.path}";
       configuration = {
 

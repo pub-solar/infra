@@ -52,6 +52,7 @@
       };
     };
   };
+  users.users.nginx.extraGroups = [ "acme" ];
 
   services.nginx = {
     upstreams.s3_backend.servers = {
@@ -63,7 +64,7 @@
     virtualHosts."buckets.${config.pub-solar-os.networking.domain}" = {
       serverAliases = [ "*.buckets.${config.pub-solar-os.networking.domain}" ];
 
-      enableACME = true;
+      useACMEHost = "buckets.${config.pub-solar-os.networking.domain}";
       forceSSL = true;
 
       locations."/" = {
@@ -77,7 +78,7 @@
     virtualHosts."web.${config.pub-solar-os.networking.domain}" = {
       serverAliases = [ "*.web.${config.pub-solar-os.networking.domain}" ];
 
-      enableACME = true;
+      useACMEHost = "web.${config.pub-solar-os.networking.domain}";
       forceSSL = true;
 
       locations."/" = {

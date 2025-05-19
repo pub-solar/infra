@@ -12,6 +12,11 @@
                 unstable = import inputs.unstable { system = prev.system; };
               in
               {
+                # Patch to always use port 443 in redirects from http -> https
+                # instead of changing it to pages-server PORT
+                codeberg-pages = unstable.codeberg-pages.overrideAttrs (oldAttrs: {
+                  patches = [ ./0001-workaround-don-t-change-ssl-port-in-redirect.patch ];
+                });
                 draupnir = unstable.draupnir;
                 element-themes = prev.callPackage ./pkgs/element-themes { inherit (inputs) element-themes; };
                 element-stickerpicker = prev.callPackage ./pkgs/element-stickerpicker {
