@@ -100,6 +100,8 @@
       S3_REGION = "eu-central";
       S3_ENDPOINT = "https://buckets.pub.solar";
       S3_ALIAS_HOST = "files.${config.pub-solar-os.networking.domain}";
+      S3_OPEN_TIMEOUT = "10";
+      S3_READ_TIMEOUT = "10";
       # Translation (optional)
       # -----------------------
       DEEPL_PLAN = "free";
