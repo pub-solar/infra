@@ -36,15 +36,15 @@
       environmentFile = config.age.secrets.acme-namecheap-env.path;
     };
     certs = {
-      # Wildcard certificate gets created automatically
       "buckets.${config.pub-solar-os.networking.domain}" = {
+        extraDomainNames = [ "*.buckets.${config.pub-solar-os.networking.domain}" ];
         # disable http challenge
         webroot = null;
         # enable dns challenge
         dnsProvider = "namecheap";
       };
-      # Wildcard certificate gets created automatically
       "web.${config.pub-solar-os.networking.domain}" = {
+        extraDomainNames = [ "*.web.${config.pub-solar-os.networking.domain}" ];
         # disable http challenge
         webroot = null;
         # enable dns challenge
