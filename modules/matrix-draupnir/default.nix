@@ -41,7 +41,8 @@
     services.draupnir = {
       enable = true;
       accessTokenFile = config.pub-solar-os.matrix.draupnir.access-token-file;
-      httpAntispamAuthorizationFile = config.pub-solar-os.matrix.draupnir.http-antispam-authorization-file;
+      httpAntispamAuthorizationFile =
+        config.pub-solar-os.matrix.draupnir.http-antispam-authorization-file;
       # https://github.com/the-draupnir-project/Draupnir/blob/main/config/default.yaml
       homeserverUrl = config.pub-solar-os.matrix.draupnir.homeserver-url;
       settings = {

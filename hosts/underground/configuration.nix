@@ -94,7 +94,8 @@
       enable = true;
       homeserver-url = "http://127.0.200.10:8008";
       access-token-file = config.age.secrets."matrix-draupnir-access-token".path;
-      http-antispam-authorization-file = config.age.secrets."matrix-draupnir-http-antispam-authorization-file".path;
+      http-antispam-authorization-file =
+        config.age.secrets."matrix-draupnir-http-antispam-authorization-file".path;
     };
   };
 
