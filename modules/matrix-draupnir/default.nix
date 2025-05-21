@@ -32,7 +32,8 @@
 
     http-antispam-authorization-file = mkOption {
       description = "Path to synapse-http-antispam authorization file";
-      type = types.str;
+      type = types.nullOr types.str;
+      default = null;
     };
   };
 
@@ -60,7 +61,7 @@
           address = "127.0.200.101";
           abuseReporting.enabled = true;
           synapseHTTPAntispam = {
-            enabled = true;
+            enabled = if config.pub-solar-os.matrix.draupnir.http-antispam-authorization-file != null then true else false;
           };
         };
       };
