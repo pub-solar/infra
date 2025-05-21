@@ -101,7 +101,7 @@
   };
 
   age.secrets."matrix-draupnir-http-antispam-authorization-file" = {
-    file = "${flake.self}/secrets/staging-matrix-draupnir-http-antispam-authorization-file.age";
+    file = "${flake.self}/secrets/matrix-draupnir-http-antispam-authorization-file.age";
     mode = "440";
     owner = "root";
     group = "matrix-synapse";
