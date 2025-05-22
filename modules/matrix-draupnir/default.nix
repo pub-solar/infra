@@ -29,6 +29,12 @@
       description = "Path to access token file";
       type = types.str;
     };
+
+    http-antispam-authorization-file = mkOption {
+      description = "Path to synapse-http-antispam authorization file";
+      type = types.nullOr types.str;
+      default = null;
+    };
   };
 
   config = lib.mkIf config.pub-solar-os.matrix.draupnir.enable {
@@ -36,6 +42,8 @@
     services.draupnir = {
       enable = true;
       accessTokenFile = config.pub-solar-os.matrix.draupnir.access-token-file;
+      httpAntispamAuthorizationFile =
+        config.pub-solar-os.matrix.draupnir.http-antispam-authorization-file;
       # https://github.com/the-draupnir-project/Draupnir/blob/main/config/default.yaml
       homeserverUrl = config.pub-solar-os.matrix.draupnir.homeserver-url;
       settings = {
@@ -52,6 +60,13 @@
           port = 8080;
           address = "127.0.200.101";
           abuseReporting.enabled = true;
+          synapseHTTPAntispam = {
+            enabled =
+              if config.pub-solar-os.matrix.draupnir.http-antispam-authorization-file != null then
+                true
+              else
+                false;
+          };
         };
       };
     };

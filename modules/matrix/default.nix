@@ -434,28 +434,25 @@ in
 
         modules = [
           {
-            module = "mjolnir.Module";
+            # https://the-draupnir-project.github.io/draupnir-documentation/bot/synapse-http-antispam
+            # https://github.com/maunium/synapse-http-antispam
+            module = "synapse_http_antispam.HTTPAntispam";
             config = {
-              # Prevent servers/users in the ban lists from inviting users on this
-              # server to rooms. Default true.
-              block_invites = true;
-              # Flag messages sent by servers/users in the ban lists as spam. Currently
-              # this means that spammy messages will appear as empty to users. Default
-              # false.
-              block_messages = false;
-              # Remove users from the user directory search by filtering matrix IDs and
-              # display names by the entries in the user ban list. Default false.
-              block_usernames = false;
-              # The room IDs of the ban lists to honour. Unlike other parts of Mjolnir,
-              # this list cannot be room aliases or permalinks. This server is expected
-              # to already be joined to the room - Mjolnir will not automatically join
-              # these rooms.
-              # Draupnir policy room for pub.solar "ps-bans" #ban-list:pub.solar
-              # Draupnir Community Moderation Effort policy room "cme-bans" #community-moderation-effort-bl:neko.dev
-              ban_lists = [
-                "!MffyQwXepPqFXLYRvk:pub.solar"
-                "!fTjMjIzNKEsFlUIiru:neko.dev"
+              base_url = "http://${config.services.draupnir.settings.web.address}:${toString config.services.draupnir.settings.web.port}/api/1/spam_check";
+              authorization_path = config.pub-solar-os.matrix.draupnir.http-antispam-authorization-file;
+              enabled_callbacks = [
+                "check_event_for_spam"
+                "user_may_invite"
+                "user_may_join_room"
               ];
+              fail_open = {
+                check_event_for_spam = true;
+                user_may_invite = true;
+                user_may_join_room = true;
+              };
+              async = {
+                check_event_for_spam = true;
+              };
             };
           }
         ];
@@ -471,7 +468,7 @@ in
 
       plugins = with config.services.matrix-synapse.package.plugins; [
         matrix-synapse-shared-secret-auth
-        matrix-synapse-mjolnir-antispam
+        pkgs.synapse-http-antispam
       ];
     };
 
