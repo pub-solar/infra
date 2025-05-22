@@ -61,7 +61,11 @@
           address = "127.0.200.101";
           abuseReporting.enabled = true;
           synapseHTTPAntispam = {
-            enabled = if config.pub-solar-os.matrix.draupnir.http-antispam-authorization-file != null then true else false;
+            enabled =
+              if config.pub-solar-os.matrix.draupnir.http-antispam-authorization-file != null then
+                true
+              else
+                false;
           };
         };
       };
