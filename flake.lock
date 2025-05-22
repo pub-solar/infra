@@ -368,16 +368,16 @@
     },
     "nixpkgs-draupnir": {
       "locked": {
-        "lastModified": 1747866624,
-        "narHash": "sha256-Ds7GlcexBrHzbiDQ8b9OSJQtFOWdWVjkOMW5YRLuZm8=",
+        "lastModified": 1747902996,
+        "narHash": "sha256-qicASd9P66G5TGsAo4Xxsfv7cR50BaTuWhPNeUOow2w=",
         "owner": "teutat3s",
         "repo": "nixpkgs",
-        "rev": "92dcdc41a5ce668c1e9eb603e3e57b6bde066f85",
+        "rev": "f939c167dab21923b09a70c561e4fcf06e2adf87",
         "type": "github"
       },
       "original": {
         "owner": "teutat3s",
-        "ref": "draupnir-2025",
+        "ref": "draupnir-2025-nixos-24.11",
         "repo": "nixpkgs",
         "type": "github"
       }
