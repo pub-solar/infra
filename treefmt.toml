@@ -1,3 +1,20 @@
+excludes = [
+  "*.crt",
+  "*.hcl",
+  ".editorconfig",
+  ".envrc",
+  ".gitignore",
+  ".git-blame-ignore-revs",
+  "*.lock",
+  "*.patch",
+  "*.txt",
+  "treefmt.toml",
+  "secrets/*",
+  "*/secrets/*",
+  "modules/grafana/grafana-dashboards/*",
+  "overlays/pkgs/nextcloud-skeleton/*",
+]
+
 [formatter.nix]
 command = "nix"
 options = ["fmt"]
@@ -10,6 +27,7 @@ options = ["--write"]
 includes = [
   "*.json",
   "*.yaml",
+  "*.yml",
   "*.md",
 ]
 excludes = [
@@ -25,3 +43,10 @@ options = [
   "2",
 ]
 includes = ["*.sh"]
+
+[formatter.terraform]
+command = "tofu"
+options = [
+  "fmt"
+]
+includes = ["*.tf"]
