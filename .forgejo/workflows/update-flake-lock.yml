@@ -1,8 +1,8 @@
 name: Update flake lock
-on: 
+on:
   workflow_dispatch:
-  schedule: 
-    - cron: '33 3 * * 6' # “At 03:33 on Saturday.” 
+  schedule:
+    - cron: "33 3 * * 6" # “At 03:33 on Saturday.”
 
 jobs:
   update_lockfile:
