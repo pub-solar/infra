@@ -262,8 +262,8 @@ resource "namecheap_domain_records" "pub-solar" {
   }
   record {
     hostname = "stickers.chat"
-    type = "CNAME"
-    address = "nachtigall.pub.solar."
+    type     = "CNAME"
+    address  = "nachtigall.pub.solar."
   }
   record {
     hostname = "wiki"
