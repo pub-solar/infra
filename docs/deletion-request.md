@@ -1,6 +1,17 @@
 # Process for handling a deletion request
 
-## Automated script
+There are two mandatory steps that need to be taken when deleting a user:
+
+1. Delete the user
+2. Notify the user
+
+For the first step, we have two possible ways:
+
+* using the automated script
+* manually deleting the user
+
+## Deleting the user
+### a) Automated script
 
 Required:
 
@@ -20,7 +31,9 @@ Make sure to close all Matrix user sessions:
 sudo -u matrix-authentication-service <nix-store-path>/mas-cli --config <nix-store-config> --config /run/agenix/matrix-authentication-service-secret-config.yml manage kill-sessions <username>
 ```
 
-### Keycloak
+### b) Manually
+
+#### Keycloak
 
 Required:
 
@@ -43,7 +56,7 @@ sudo --user keycloak kcadm.sh update --config /tmp/kcadm.config users/2ec6f173-3
 
 Docs: https://www.keycloak.org/docs/latest/server_admin/index.html#updating-a-user
 
-### Nextcloud
+#### Nextcloud
 
 ```
 sudo nextcloud-occ user:delete <username>
@@ -51,7 +64,7 @@ sudo nextcloud-occ user:delete <username>
 
 Docs: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/occ_command.html#user-commands-label
 
-### Mastodon
+#### Mastodon
 
 ```
 mkdir /tmp/tootctl
@@ -65,7 +78,7 @@ rm -r /tmp/tootctl
 
 Docs: https://docs.joinmastodon.org/admin/tootctl/#accounts-delete
 
-### Forgejo
+#### Forgejo
 
 Make sure you have access to the gitea/forgejo command:
 
@@ -81,7 +94,7 @@ sudo -u gitea gitea admin user delete --config /var/lib/forgejo/custom/conf/app.
 
 Docs: https://forgejo.org/docs/latest/admin/command-line/#delete
 
-### Matrix
+#### Matrix
 
 Close all user sessions:
 
@@ -107,7 +120,7 @@ The authentication token should be in the keepass. If it is expired, you can get
 sudo -u matrix-authentication-service <nix-store-path>/mas-cli --config <nix-store-config> --config /run/agenix/matrix-authentication-service-secret-config.yml manage issue-compatibility-token --yes-i-want-to-grant-synapse-admin-privileges crew
 ```
 
-### OpenBikeSensor
+#### OpenBikeSensor
 
 Not implemented, see: https://github.com/openbikesensor/portal/issues/95
 
