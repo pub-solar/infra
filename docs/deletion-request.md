@@ -2,10 +2,11 @@
 
 There are two mandatory steps that need to be taken when deleting a user:
 
-1. Delete the user
-2. Notify the user
+1. Verify that the sender's email-address matches the account email-address
+2. Delete the user
+3. Notify the user
 
-For the first step, we have two possible ways:
+For the second step (deleting the user), we have two possible ways:
 
 * using the automated script
 * manually deleting the user
