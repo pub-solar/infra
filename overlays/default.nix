@@ -18,7 +18,7 @@
                 codeberg-pages = unstable.codeberg-pages.overrideAttrs (oldAttrs: {
                   patches = [ ./0001-workaround-don-t-change-ssl-port-in-redirect.patch ];
                 });
-                # want draupnir v2.3.0-main-39e452
+                # want draupnir v2.3.1
                 draupnir = nixpkgs-draupnir.draupnir;
                 element-themes = prev.callPackage ./pkgs/element-themes { inherit (inputs) element-themes; };
                 element-stickerpicker = prev.callPackage ./pkgs/element-stickerpicker {
