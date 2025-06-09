@@ -120,10 +120,9 @@
           "138.201.80.102"
           "2a01:4f8:172:1c25::1"
         ];
-        overwrite.cli.url = "https://cloud.${config.pub-solar-os.networking.domain}";
+        "overwrite.cli.url" = "https://cloud.${config.pub-solar-os.networking.domain}";
         overwriteprotocol = "https";
 
-        installed = true;
         default_phone_region = "+49";
         mail_sendmailmode = "smtp";
         mail_from_address = "nextcloud";
@@ -135,13 +134,6 @@
         mail_smtpauth = true;
         mail_smtphost = "mail.pub.solar";
         mail_smtpport = "465";
-
-        # This is to allow connections to collabora and keycloak, among other services
-        # running on the same host
-        #
-        # https://docs.nextcloud.com/server/stable/admin_manual/configuration_server/config_sample_php_parameters.html?highlight=allow_local_remote_servers%20true
-        # https://github.com/ONLYOFFICE/onlyoffice-nextcloud/issues/293
-        allow_local_remote_servers = true;
 
         enable_previews = true;
         jpeg_quality = 60;
@@ -179,24 +171,18 @@
         "memories.vod.ffmpeg" = lib.getExe pkgs.ffmpeg;
         "memories.vod.ffprobe" = lib.getExe' pkgs.ffmpeg-headless "ffprobe";
 
-        auth.bruteforce.protection.enabled = true;
+        # delete all files in the trash bin that are older than 7 days
+        # automatically, delete other files anytime if space needed
         trashbin_retention_obligation = "auto,7";
         skeletondirectory = "${pkgs.nextcloud-skeleton}/{lang}";
         defaultapp = "file";
         activity_expire_days = "14";
-        integrity.check.disabled = false;
-        updater.release.channel = "stable";
+        updatechecker = false;
+        # Valid values are: 0 = Debug, 1 = Info, 2 = Warning, 3 = Error,
+        # and 4 = Fatal. Defaults to 2
         loglevel = 2;
-        debug = false;
         maintenance_window_start = "1";
-        # maintenance = false;
-        app_install_overwrite = [
-          "pdfdraw"
-          "integration_whiteboard"
-        ];
-        htaccess.RewriteBase = "/";
-        theme = "";
-        simpleSignUpLink.shown = false;
+        "simpleSignUpLink.shown" = false;
       };
 
       phpOptions = {
