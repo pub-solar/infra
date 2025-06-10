@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  flake,
-  ...
-}:
+{ ... }:
 {
   networking = {
     hostName = "tankstelle";
@@ -17,8 +12,8 @@
       interface = "enp1s0";
     };
     nameservers = [
-      "95.129.51.51"
-      "80.244.244.244"
+      "2620:fe::fe"
+      "2620:fe::9"
     ];
     interfaces."enp1s0" = {
       ipv4.addresses = [
