@@ -170,6 +170,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "80.244.242.5"
   }
   record {
+    hostname = "tankstelle"
+    type     = "AAAA"
+    address  = "2001:4d88:1ffa:26::5"
+  }
+  record {
     hostname = "alerts.wg"
     type     = "CNAME"
     address  = "trinkgenossin.wg.pub.solar"
