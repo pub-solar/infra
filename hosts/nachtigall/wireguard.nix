@@ -21,7 +21,7 @@
       peers = flake.self.logins.wireguardDevices ++ [
         {
           # tankstelle.pub.solar
-          endpoint = "80.244.242.5:51820";
+          endpoint = "[2001:4d88:1ffa:26::5]:51820";
           publicKey = "iRTlY1lB7nPXf2eXzX8ZZDkfMmXyGjff5/joccbP8Cg=";
           allowedIPs = [
             "10.7.6.4/32"
