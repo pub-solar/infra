@@ -7,6 +7,7 @@
 }:
 {
   imports = [
+    ./boot.nix
     ./logging.nix
     ./nix.nix
     ./networking.nix
