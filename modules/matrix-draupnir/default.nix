@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = [ "${flake.inputs.nixpkgs-draupnir}/nixos/modules/services/matrix/draupnir.nix" ];
+  imports = [ "${flake.inputs.unstable}/nixos/modules/services/matrix/draupnir.nix" ];
 
   disabledModules = [ "services/matrix/draupnir.nix" ];
 
@@ -20,9 +20,9 @@
 
     raw-homeserver-url = mkOption {
       description = "Matrix homeserver URL, used to fetch events related to reports";
-      type = types.str;
+      type = types.nullOr types.str;
       example = "http://127.0.0.1:8008";
-      default = config.pub-solar-os.matrix.draupnir.homeserver-url;
+      default = null;
     };
 
     access-token-file = mkOption {
@@ -41,13 +41,14 @@
 
     services.draupnir = {
       enable = true;
-      accessTokenFile = config.pub-solar-os.matrix.draupnir.access-token-file;
-      httpAntispamAuthorizationFile =
-        config.pub-solar-os.matrix.draupnir.http-antispam-authorization-file;
-      # https://github.com/the-draupnir-project/Draupnir/blob/main/config/default.yaml
-      homeserverUrl = config.pub-solar-os.matrix.draupnir.homeserver-url;
+      secrets = {
+        accessToken = config.pub-solar-os.matrix.draupnir.access-token-file;
+        web.synapseHTTPAntispam.authorization =
+          config.pub-solar-os.matrix.draupnir.http-antispam-authorization-file;
+      };
       settings = {
-        rawHomeserverUrl = config.pub-solar-os.matrix.draupnir.raw-homeserver-url;
+        # https://github.com/the-draupnir-project/Draupnir/blob/main/config/default.yaml
+        homeserverUrl = config.pub-solar-os.matrix.draupnir.homeserver-url;
         managementRoom = "#matrix-moderators:${config.pub-solar-os.networking.domain}";
         protectAllJoinedRooms = true;
         recordIgnoredInvites = true;
