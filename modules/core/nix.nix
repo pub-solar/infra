@@ -22,6 +22,9 @@
     supportsDryActivation = true;
   };
 
+  # Disable HTML documentation for NixOS modules, can cause issues with module overrides
+  documentation.nixos.enable = false;
+
   nix = {
     # Use default version alias for nix package
     package = pkgs.nix;
