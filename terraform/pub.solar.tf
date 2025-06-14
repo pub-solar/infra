@@ -166,6 +166,11 @@ resource "namecheap_domain_records" "pub-solar" {
   }
   record {
     hostname = "tankstelle"
+    type     = "A"
+    address  = "80.244.242.6"
+  }
+  record {
+    hostname = "tankstelle"
     type     = "AAAA"
     address  = "2001:4d88:1ffa:26::5"
   }
