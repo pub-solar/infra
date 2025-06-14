@@ -74,7 +74,7 @@
     };
 
     # These nameservers land in resolved.conf as 'DNS=<list>'
-    networking.nameservers = [
+    networking.nameservers = lib.mkDefault [
       "193.110.81.0#dns0.eu"
       "185.253.5.0#dns0.eu"
       "9.9.9.9#dns.quad9.net"
@@ -92,7 +92,7 @@
       domains = [
         "~."
       ];
-      fallbackDns = [
+      fallbackDns = lib.mkDefault [
         "5.1.66.255#dot.ffmuc.net"
         "185.150.99.255#dot.ffmuc.net"
         "2001:678:e68:f000::#dot.ffmuc.net"
