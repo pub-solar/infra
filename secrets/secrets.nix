@@ -63,6 +63,7 @@ in
   "matrix-admin-access-token.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "tankstelle-forgejo-actions-runner-token.age".publicKeys = tankstelleKeys ++ adminKeys;
+  "tankstellezwei-forgejo-actions-runner-token.age".publicKeys = tankstelleKeys ++ adminKeys;
   "trinkgenossin-forgejo-actions-runner-token.age".publicKeys = trinkgenossinKeys ++ adminKeys;
   "trinkgenossin-forgejo-actions-runner-token-miom.age".publicKeys = trinkgenossinKeys ++ adminKeys;
   "trinkgenossin-forgejo-actions-runner-token-momo.age".publicKeys = trinkgenossinKeys ++ adminKeys;
