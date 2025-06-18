@@ -24,6 +24,8 @@
                 element-stickerpicker = prev.callPackage ./pkgs/element-stickerpicker {
                   inherit (inputs) element-stickers maunium-stickerpicker;
                 };
+                # Want element-web 1.11.103
+                element-web = unstable.element-web;
                 # want synapse-http-antispam version 0.4.0
                 synapse-http-antispam = prev.callPackage ./pkgs/synapse-http-antispam { };
                 nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
