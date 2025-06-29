@@ -91,9 +91,9 @@
       home = "/var/lib/nextcloud";
 
       enable = true;
-      # When updating package, remember to update nextcloud30Packages in
+      # When updating package, remember to update nextcloud31Packages in
       # services.nextcloud.extraApps
-      package = pkgs.nextcloud30;
+      package = pkgs.nextcloud31;
       https = true;
       secretFile = config.age.secrets."nextcloud-secrets".path; # secret
       maxUploadSize = "1G";
@@ -197,15 +197,15 @@
         "session.gc_maxlifetime" = "86400";
       };
 
-      # Calculated with 4GiB RAM, 80MiB process size available on
-      # https://spot13.com/pmcalculator/
+      # Default config for 4GiB RAM
+      # https://docs.nextcloud.com/server/31/admin_manual/installation/server_tuning.html#tune-php-fpm
       poolSettings = {
         pm = "dynamic";
-        "pm.max_children" = "52";
+        "pm.max_children" = "120";
         "pm.max_requests" = "500";
-        "pm.max_spare_servers" = "39";
-        "pm.min_spare_servers" = "13";
-        "pm.start_servers" = "13";
+        "pm.max_spare_servers" = "18";
+        "pm.min_spare_servers" = "6";
+        "pm.start_servers" = "12";
       };
 
       caching.redis = true;
@@ -214,7 +214,7 @@
       appstoreEnable = false;
       autoUpdateApps.enable = false;
       extraApps = {
-        inherit (pkgs.nextcloud30Packages.apps)
+        inherit (pkgs.nextcloud31Packages.apps)
           calendar
           contacts
           cospend

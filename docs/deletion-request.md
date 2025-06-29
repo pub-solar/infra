@@ -46,7 +46,7 @@ Docs: https://www.keycloak.org/docs/latest/server_admin/index.html#updating-a-us
 ### Nextcloud
 
 ```
-nextcloud-occ user:delete <username>
+sudo nextcloud-occ user:delete <username>
 ```
 
 Docs: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/occ_command.html#user-commands-label

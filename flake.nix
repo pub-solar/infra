@@ -1,16 +1,15 @@
 {
   inputs = {
     # Track channels with commits tested and built by hydra
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module-0.13.0";
-    nixpkgs-draupnir.url = "github:teutat3s/nixpkgs/draupnir-2025-nixos-24.11";
     codeberg-pages.url = "github:nixos/nixpkgs/refs/pull/395725/head";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -39,8 +38,8 @@
     element-stickers.inputs.maunium-stickerpicker.follows = "maunium-stickerpicker";
     element-stickers.inputs.nixpkgs.follows = "nixpkgs";
 
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.11";
-    simple-nixos-mailserver.inputs.nixpkgs-24_11.follows = "nixpkgs";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-25.05";
+    simple-nixos-mailserver.inputs.nixpkgs-25_05.follows = "nixpkgs";
     simple-nixos-mailserver.inputs.nixpkgs.follows = "unstable";
   };
 
@@ -128,7 +127,7 @@
               nvfetcher
               shellcheck
               shfmt
-              treefmt2
+              treefmt
               nixos-generators
               opentofu
               terraform-backend-git

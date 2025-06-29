@@ -468,7 +468,7 @@ in
 
       plugins = with config.services.matrix-synapse.package.plugins; [
         matrix-synapse-shared-secret-auth
-        pkgs.synapse-http-antispam
+        synapse-http-antispam
       ];
     };
 

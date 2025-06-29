@@ -89,7 +89,7 @@
 
   services.garage = {
     enable = true;
-    package = pkgs.garage_1_1_0;
+    package = pkgs.garage_1_2_0;
     settings = {
       data_dir = "/var/lib/garage/data";
       metadata_dir = "/var/lib/garage/meta";
