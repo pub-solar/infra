@@ -27,7 +27,6 @@ in
     environmentFile = "/run/agenix/matrix-mautrix-telegram-env-file";
     settings = {
       homeserver = {
-        # TODO: Use the port from synapse config
         address = "http://${synapseIp}:${synapseClientPort}";
         domain = "${config.pub-solar-os.networking.domain}";
         verify_ssl = true;
@@ -215,13 +214,5 @@ in
         };
       };
     };
-  };
-
-  systemd.services.mautrix-telegram.path = with pkgs; [
-    lottieconverter # for animated stickers conversion, unfree package
-    ffmpeg # if converting animated stickers to webm (very slow!)
-  ];
-  systemd.services.mautrix-telegram.serviceConfig = {
-    User = "matrix-synapse";
   };
 }

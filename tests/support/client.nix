@@ -20,7 +20,7 @@
           # Clear the list before overriding it.
           ""
           # Eval API is now internal so Shell needs to run in unsafe mode.
-          "${pkgs.gnome.gnome-shell}/bin/gnome-shell --unsafe-mode"
+          "${pkgs.gnome-shell}/bin/gnome-shell --unsafe-mode"
         ];
       };
     };

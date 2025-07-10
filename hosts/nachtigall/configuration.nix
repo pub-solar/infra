@@ -125,12 +125,10 @@
         "/var/lib/matrix-synapse/telegram-registration.yaml"
       ];
       app-service-config-files = [
-        "/var/lib/matrix-synapse/telegram-registration.yaml"
         "/var/lib/matrix-appservice-irc/registration.yml"
         # "/matrix-appservice-slack-registration.yaml"
         # "/hookshot-registration.yml"
         # "/matrix-mautrix-signal-registration.yaml"
-        # "/matrix-mautrix-telegram-registration.yaml"
       ];
     };
     matrix-authentication-service.extra-config-files = [
