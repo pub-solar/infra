@@ -2,11 +2,17 @@
   config,
   pkgs,
   flake,
-  inputs,
   ...
 }:
-
 {
+  imports = [
+    "${flake.self.inputs.unstable}/nixos/modules/services/web-apps/mastodon.nix"
+  ];
+
+  disabledModules = [
+    "services/web-apps/mastodon.nix"
+  ];
+
   age.secrets."mastodon-active-record-encryption-deterministic-key" = {
     file = "${flake.self}/secrets//mastodon-active-record-encryption-deterministic-key.age";
     mode = "400";
@@ -73,7 +79,6 @@
     activeRecordEncryptionKeyDerivationSaltFile = "/run/agenix/mastodon-active-record-encryption-key-derivation-salt";
     activeRecordEncryptionPrimaryKeyFile = "/run/agenix/mastodon-active-record-encryption-primary-key";
     secretKeyBaseFile = "/run/agenix/mastodon-secret-key-base";
-    otpSecretFile = "/run/agenix/mastodon-otp-secret";
     vapidPrivateKeyFile = "/run/agenix/mastodon-vapid-private-key";
     vapidPublicKeyFile = "/run/agenix/mastodon-vapid-public-key";
     smtp = {
