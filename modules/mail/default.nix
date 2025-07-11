@@ -64,6 +64,15 @@
     # Use Let's Encrypt certificates. Note that this needs to set up a stripped
     # down nginx and opens port 80.
     certificateScheme = "acme-nginx";
+
+    # Don't store indices along with emails
+    indexDir = "/var/lib/dovecot/indices";
+    fullTextSearch = {
+      enable = true;
+      # index new email as they arrive
+      autoIndex = true;
+      enforced = "body";
+    };
   };
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "security@pub.solar";
