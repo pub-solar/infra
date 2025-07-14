@@ -265,4 +265,10 @@ lib.mapAttrsToList
       time = "15m";
       description = "garage cluster on {{$labels.instance}} is not healthy: {{$labels.result}}!";
     };
+
+    garage_resync_block_errors = {
+      condition = "block_resync_errored_blocks > 10000";
+      time = "15m";
+      description = "garage block resync error count is high on {{$labels.instance}}: {{$labels.result}}!";
+    };
   }
