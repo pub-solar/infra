@@ -12,7 +12,7 @@
   ];
 
   disabledModules = [
-    "/nixos/modules/services/web-apps/codeberg-pages.nix"
+    "services/web-apps/codeberg-pages.nix"
   ];
 
   options.pub-solar-os.codeberg-pages = with lib; {
