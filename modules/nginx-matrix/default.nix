@@ -225,6 +225,19 @@ in
               priority = 150;
             };
 
+            # Disable compression for QR code to work
+            # https://github.com/element-hq/synapse/issues/18155#issuecomment-2671793213
+            "~ ^/_synapse/client/rendezvous/" = {
+              priority = 175;
+              proxyPass = "http://matrix-synapse";
+
+              extraConfig = ''
+                ${matrixHeaders}
+                add_header x-backend "synapse" always;
+                gzip off;
+              '';
+            };
+
             # Forward to Synapse
             # as per https://element-hq.github.io/synapse/latest/reverse_proxy.html#nginx
             "~ ^(/_matrix|/_synapse)" = {
