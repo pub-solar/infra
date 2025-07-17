@@ -21,6 +21,8 @@
                 element-stickerpicker = prev.callPackage ./pkgs/element-stickerpicker {
                   inherit (inputs) element-stickers maunium-stickerpicker;
                 };
+                # want mastodon 4.4.x
+                mastodon = unstable.mastodon;
                 nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
                 delete-pubsolar-id = prev.callPackage ./pkgs/delete-pubsolar-id { };
               }
