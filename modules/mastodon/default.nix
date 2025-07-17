@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    "${flake.self.inputs.unstable}/nixos/modules/services/web-apps/mastodon.nix"
+    "${flake.self.inputs.mastodon-backport}/nixos/modules/services/web-apps/mastodon.nix"
   ];
 
   disabledModules = [
@@ -30,11 +30,6 @@
   };
   age.secrets."mastodon-secret-key-base" = {
     file = "${flake.self}/secrets/mastodon-secret-key-base.age";
-    mode = "400";
-    owner = config.services.mastodon.user;
-  };
-  age.secrets."mastodon-otp-secret" = {
-    file = "${flake.self}/secrets/mastodon-otp-secret.age";
     mode = "400";
     owner = config.services.mastodon.user;
   };
