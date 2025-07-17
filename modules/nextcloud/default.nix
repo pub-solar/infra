@@ -138,6 +138,7 @@
         enable_previews = true;
         jpeg_quality = 60;
         enabledPreviewProviders = [
+          # default from https://github.com/nextcloud/server/blob/master/config/config.sample.php#L1494-L1505
           "OC\\Preview\\PNG"
           "OC\\Preview\\JPEG"
           "OC\\Preview\\GIF"
@@ -155,6 +156,7 @@
           "OC\\Preview\\Krita"
           "OC\\Preview\\TXT"
           "OC\\Preview\\MarkDown"
+          # https://docs.nextcloud.com/server/latest/admin_manual/installation/server_tuning.html#previews
           "OC\\Preview\\Imaginary"
         ];
         preview_imaginary_url = "http://127.0.0.1:${toString config.services.imaginary.port}/";
@@ -251,11 +253,13 @@
     services =
       let
         occ = "/run/current-system/sw/bin/nextcloud-occ";
+        inherit (config.systemd.services.nextcloud-setup.serviceConfig) LoadCredential;
       in
       {
         nextcloud-cron-preview-generator = {
           environment.NEXTCLOUD_CONFIG_DIR = "${config.services.nextcloud.home}/config";
           serviceConfig = {
+            inherit LoadCredential;
             ExecStart = "${occ} preview:pre-generate";
             Type = "oneshot";
             User = "nextcloud";
@@ -270,7 +274,7 @@
           script = # bash
             ''
               # check with:
-              # for size in squareSizes widthSizes heightSizes; do echo -n "$size: "; nextcloud-occ config:app:get previewgenerator $size; done
+              # for size in squareSizes widthSizes heightSizes; do echo -n "$size: "; sudo nextcloud-occ config:app:get previewgenerator $size; done
 
               # extra commands run for preview generator:
               # 32   icon file list
@@ -289,6 +293,7 @@
               ${occ} config:app:set --value="256 1080" previewgenerator heightSizes
             '';
           serviceConfig = {
+            inherit LoadCredential;
             Type = "oneshot";
             User = "nextcloud";
           };

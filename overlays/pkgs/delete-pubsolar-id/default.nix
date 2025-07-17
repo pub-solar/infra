@@ -42,7 +42,7 @@ writeShellApplication {
     ### Nextcloud ###
 
     echo "Deleting nextcloud data"
-    nextcloud-occ user:delete "$USERNAME"
+    sudo nextcloud-occ user:delete "$USERNAME"
 
     ### Mastodon ###
 
