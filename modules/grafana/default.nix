@@ -118,12 +118,20 @@
 
     locations."/".proxyPass =
       "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
+    # Proxy Grafana Live WebSocket connections
+    locations."/api/live/" = {
+      proxyWebsockets = true;
+      proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
+    };
   };
 
   services.grafana = {
     enable = true;
-    declarativePlugins = with pkgs.grafanaPlugins; [
+    declarativePlugins = with flake.self.inputs.unstable.legacyPackages.${pkgs.system}.grafanaPlugins; [
+      grafana-exploretraces-app
       grafana-lokiexplore-app
+      grafana-metricsdrilldown-app
+      grafana-pyroscope-app
     ];
     settings = {
       server = {
