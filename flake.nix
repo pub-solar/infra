@@ -5,6 +5,8 @@
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module-0.13.0";
     codeberg-pages.url = "github:nixos/nixpkgs/refs/pull/395725/head";
+    # Need to use the backported module because of https://github.com/NixOS/nixpkgs/pull/403645
+    mastodon-backport.url = "github:teutat3s/nixpkgs/mastodon-4.4";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -123,6 +125,7 @@
               age-plugin-yubikey
               cachix
               editorconfig-checker
+              nix-diff
               nodePackages.prettier
               nvfetcher
               shellcheck

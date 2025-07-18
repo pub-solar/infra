@@ -358,6 +358,22 @@
         "url": "https://git.pub.solar/pub-solar/keycloak-theme"
       }
     },
+    "mastodon-backport": {
+      "locked": {
+        "lastModified": 1752774090,
+        "narHash": "sha256-i1TryjGZwq5ABp3ZEGJ6p2RS90Jc3VyoJnaOc3i4Ou8=",
+        "owner": "teutat3s",
+        "repo": "nixpkgs",
+        "rev": "329fb66b7aa73340738ee82e5ce804e7cc9a75fe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "teutat3s",
+        "ref": "mastodon-4.4",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "maunium-stickerpicker": {
       "flake": false,
       "locked": {
@@ -441,6 +457,7 @@
         "fork": "fork",
         "home-manager": "home-manager",
         "keycloak-theme-pub-solar": "keycloak-theme-pub-solar",
+        "mastodon-backport": "mastodon-backport",
         "maunium-stickerpicker": "maunium-stickerpicker",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
