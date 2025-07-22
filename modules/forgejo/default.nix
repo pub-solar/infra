@@ -65,7 +65,7 @@
 
   services.forgejo = {
     enable = true;
-    package = pkgs.forgejo;
+    package = pkgs.forgejo-lts;
     user = "gitea";
     group = "gitea";
     database = {
