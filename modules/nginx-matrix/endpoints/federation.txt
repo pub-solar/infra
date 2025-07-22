@@ -1,4 +1,5 @@
 # Federation requests
+^/_matrix/federation/v1/version$
 ^/_matrix/federation/v1/event/
 ^/_matrix/federation/v1/state/
 ^/_matrix/federation/v1/state_ids/
