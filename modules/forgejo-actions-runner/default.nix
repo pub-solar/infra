@@ -31,13 +31,12 @@ in
 
     users.groups.gitea-runner = { };
 
-    systemd.tmpfiles.rules =
-      [
-        "d '/var/lib/gitea-runner' 0770 gitea-runner gitea-runner - -"
-      ]
-      ++ lib.mapAttrsToList (
-        name: instance: "d '/var/lib/gitea-runner/${name}' 0770 gitea-runner gitea-runner - -"
-      ) cfg.instances;
+    systemd.tmpfiles.rules = [
+      "d '/var/lib/gitea-runner' 0770 gitea-runner gitea-runner - -"
+    ]
+    ++ lib.mapAttrsToList (
+      name: instance: "d '/var/lib/gitea-runner/${name}' 0770 gitea-runner gitea-runner - -"
+    ) cfg.instances;
 
     systemd.services = lib.concatMapAttrs (name: instance: {
       "gitea-runner-${name}" = {
