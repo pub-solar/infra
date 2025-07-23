@@ -37,6 +37,10 @@
         # alpine with Node.js
         "alpine-latest:docker://node:20-alpine"
       ];
+      # Required to avoid docker-in-docker and still be able to build docker images
+      settings = {
+        container.docker_host = "unix:///var/run/docker.sock";
+      };
     };
     momo = {
       enable = true;
@@ -53,6 +57,10 @@
         # alpine with Node.js
         "alpine-latest:docker://node:20-alpine"
       ];
+      # Required to avoid docker-in-docker and still be able to build docker images
+      settings = {
+        container.docker_host = "unix:///var/run/docker.sock";
+      };
     };
     # systemd does not like dashes in service unit names
     pubsolar = {
@@ -68,6 +76,10 @@
         # alpine with Node.js
         "alpine-latest:docker://node:20-alpine"
       ];
+      # Required to avoid docker-in-docker and still be able to build docker images
+      settings = {
+        container.docker_host = "unix:///var/run/docker.sock";
+      };
     };
   };
 }
