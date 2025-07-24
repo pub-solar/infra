@@ -22,6 +22,28 @@ in
     owner = "matrix-synapse";
   };
 
+  # Fixes permissions for access to read /var/lib/mautrix-telegram/telegram-registration.yaml
+  # PermissionError: [Errno 13] Permission denied: '/var/lib/mautrix-telegram/telegram-registration.yaml'
+  # config.services.mautrix-telegram.registerToSynapse does not do this for synapse workers (yet?)
+  systemd.services.matrix-synapse-worker-client-1 = {
+    serviceConfig.SupplementaryGroups = [ "mautrix-telegram" ];
+  };
+  systemd.services.matrix-synapse-worker-federation-sender-1 = {
+    serviceConfig.SupplementaryGroups = [ "mautrix-telegram" ];
+  };
+  systemd.services.matrix-synapse-worker-federation-receiver-1 = {
+    serviceConfig.SupplementaryGroups = [ "mautrix-telegram" ];
+  };
+  systemd.services.matrix-synapse-worker-federation-receiver-2 = {
+    serviceConfig.SupplementaryGroups = [ "mautrix-telegram" ];
+  };
+  systemd.services.matrix-synapse-worker-federation-receiver-3 = {
+    serviceConfig.SupplementaryGroups = [ "mautrix-telegram" ];
+  };
+  systemd.services.matrix-synapse-worker-federation-receiver-4 = {
+    serviceConfig.SupplementaryGroups = [ "mautrix-telegram" ];
+  };
+
   services.mautrix-telegram = {
     enable = true;
     environmentFile = "/run/agenix/matrix-mautrix-telegram-env-file";
