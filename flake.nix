@@ -117,6 +117,8 @@
             )
             // nixosMachines;
 
+          packages.nginx-dhparam-ffdhe2048 = pkgs.callPackage ./overlays/pkgs/nginx-dhparam-ffdhe2048 { };
+
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs; [
               deploy-rs

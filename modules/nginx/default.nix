@@ -3,6 +3,7 @@
   lib,
   pkgs,
   self,
+  flake,
   ...
 }:
 let
@@ -40,6 +41,7 @@ in
                     '"$request" $status $body_bytes_sent '
                     '"$http_referer" "$http_user_agent"';
 
+      # https://github.com/NixOS/nixpkgs/pull/428594
       # Define our own recommendedTlsSettings without ssl_stapling and with ssl_ecdh_curve
       # Keep in sync with https://ssl-config.mozilla.org/#server=nginx&config=intermediate
       # generated 2025-07-26, Mozilla Guideline v5.7, nginx 1.28.0, OpenSSL 3.4.1, intermediate config, no HSTS, no OCSP
@@ -51,6 +53,8 @@ in
       # We don't enable insecure ciphers by default, so this allows
       # clients to pick the most performant, per https://github.com/mozilla/server-side-tls/issues/260
       ssl_prefer_server_ciphers off;
+      # https://ssl-config.mozilla.org/ffdhe2048.txt
+      ssl_dhparam ${flake.self.packages.${pkgs.system}.nginx-dhparam-ffdhe2048};
     '';
     appendConfig = ''
       # Number of CPU cores

@@ -1,0 +1,17 @@
+{
+  writeTextFile,
+}:
+writeTextFile {
+  name = "nginx-dhparam-ffdhe2048.txt";
+  # https://ssl-config.mozilla.org/#server=nginx&config=intermediate
+  # curl https://ssl-config.mozilla.org/ffdhe2048.txt
+  text = ''
+    -----BEGIN DH PARAMETERS-----
+    MIIBCAKCAQEA//////////+t+FRYortKmq/cViAnPTzx2LnFg84tNpWp4TZBFGQz
+    +8yTnc4kmz75fS/jY2MMddj2gbICrsRhetPfHtXV/WVhJDP1H18GbtCFY2VVPe0a
+    87VXE15/V8k1mE8McODmi3fipona8+/och3xWKE2rec1MKzKT0g6eXq8CrGCsyT7
+    YdEIqUuyyOP7uWrat2DX9GgdT0Kj3jlN9K5W7edjcrsZCwenyO4KbXCeAvzhzffi
+    7MA0BM0oNC9hkXL+nOmFg/+OTxIy7vKBg8P+OxtMb61zO7X8vC7CIAXFjvGDfRaD
+    ssbzSibBsu/6iGtCOGEoXJf//////////wIBAg==
+    -----END DH PARAMETERS-----'';
+}
