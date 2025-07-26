@@ -43,6 +43,8 @@ let
     OBS_DATA_DIR = "/data";
     OBS_PROXIES_COUNT = "1";
   };
+
+  vHostDomain = "obs-portal.${config.pub-solar-os.networking.domain}";
 in
 {
   age.secrets.obs-portal-env = {
@@ -77,9 +79,14 @@ in
       '';
     };
 
-  services.nginx.virtualHosts."obs-portal.${config.pub-solar-os.networking.domain}" = {
+  services.nginx.virtualHosts.${vHostDomain} = {
     enableACME = true;
     forceSSL = true;
+
+    extraConfig = ''
+      access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
+      error_log /var/log/nginx/${vHostDomain}-error.log;
+    '';
 
     locations."/" = {
       proxyWebsockets = true;

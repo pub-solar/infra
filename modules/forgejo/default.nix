@@ -5,6 +5,9 @@
   flake,
   ...
 }:
+let
+  vHostDomain = "git.${config.pub-solar-os.networking.domain}";
+in
 {
   age.secrets.forgejo-database-password = {
     file = "${flake.self}/secrets/forgejo-database-password.age";
@@ -31,9 +34,14 @@
     user = "gitea";
   };
 
-  services.nginx.virtualHosts."git.${config.pub-solar-os.networking.domain}" = {
+  services.nginx.virtualHosts.${vHostDomain} = {
     enableACME = true;
     forceSSL = true;
+
+    extraConfig = ''
+      access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
+      error_log /var/log/nginx/${vHostDomain}-error.log;
+    '';
 
     locations."/user/login".extraConfig = ''
       return 302 /user/oauth2/keycloak;

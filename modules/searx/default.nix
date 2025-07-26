@@ -5,15 +5,23 @@
   pkgs,
   ...
 }:
+let
+  vHostDomain = "search.${config.pub-solar-os.networking.domain}";
+in
 {
   age.secrets.searx-environment = {
     file = "${flake.self}/secrets/searx-environment.age";
     mode = "600";
   };
 
-  services.nginx.virtualHosts."search.${config.pub-solar-os.networking.domain}" = {
+  services.nginx.virtualHosts.${vHostDomain} = {
     enableACME = true;
     forceSSL = true;
+
+    extraConfig = ''
+      access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
+      error_log /var/log/nginx/${vHostDomain}-error.log;
+    '';
 
     locations."/".extraConfig = ''
       uwsgi_pass unix:/run/searx/searx.sock;

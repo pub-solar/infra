@@ -5,6 +5,9 @@
   pkgs,
   ...
 }:
+let
+  vHostDomain = "auth.${config.pub-solar-os.networking.domain}";
+in
 {
   options.pub-solar-os.auth = with lib; {
     enable = mkEnableOption "Enable keycloak to run on the node";
@@ -22,9 +25,14 @@
   };
 
   config = lib.mkIf config.pub-solar-os.auth.enable {
-    services.nginx.virtualHosts."auth.${config.pub-solar-os.networking.domain}" = {
+    services.nginx.virtualHosts.${vHostDomain} = {
       enableACME = true;
       forceSSL = true;
+
+      extraConfig = ''
+        access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
+        error_log /var/log/nginx/${vHostDomain}-error.log;
+      '';
 
       locations = {
         "= /" = {

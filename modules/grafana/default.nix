@@ -5,6 +5,9 @@
   flake,
   ...
 }:
+let
+  vHostDomain = "grafana.${config.pub-solar-os.networking.domain}";
+in
 {
   age.secrets.grafana-admin-password = {
     file = "${flake.self}/secrets/grafana-admin-password.age";
@@ -104,9 +107,15 @@
   };
   users.users.nginx.extraGroups = [ "acme" ];
 
-  services.nginx.virtualHosts."grafana.${config.pub-solar-os.networking.domain}" = {
+  services.nginx.virtualHosts.${vHostDomain} = {
     useACMEHost = "grafana.${config.pub-solar-os.networking.domain}";
     forceSSL = true;
+
+    extraConfig = ''
+      access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
+      error_log /var/log/nginx/${vHostDomain}-error.log;
+    '';
+
     listen = [
       {
         addr = "127.0.0.1";

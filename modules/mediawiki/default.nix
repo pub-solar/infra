@@ -6,6 +6,7 @@
   ...
 }:
 let
+  vHostDomain = "wiki.${config.pub-solar-os.networking.domain}";
   localSettingsPHP = pkgs.writeScript "LocalSettings.php" ''
     <?php
       # Protect against web entry
@@ -196,9 +197,14 @@ in
     '';
   };
 
-  services.nginx.virtualHosts."wiki.${config.pub-solar-os.networking.domain}" = {
+  services.nginx.virtualHosts.${vHostDomain} = {
     enableACME = true;
     forceSSL = true;
+
+    extraConfig = ''
+      access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
+      error_log /var/log/nginx/${vHostDomain}-error.log;
+    '';
 
     locations."/".proxyPass = "http://127.0.0.1:8293";
   };

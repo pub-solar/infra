@@ -5,6 +5,9 @@
   lib,
   ...
 }:
+let
+  vHostDomain = "cloud.${config.pub-solar-os.networking.domain}";
+in
 {
   age.secrets."nextcloud-secrets" = {
     file = "${flake.self}/secrets/nextcloud-secrets.age";
@@ -18,9 +21,14 @@
     owner = "nextcloud";
   };
 
-  services.nginx.virtualHosts."cloud.${config.pub-solar-os.networking.domain}" = {
+  services.nginx.virtualHosts.${vHostDomain} = {
     enableACME = true;
     forceSSL = true;
+
+    extraConfig = ''
+      access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
+      error_log /var/log/nginx/${vHostDomain}-error.log;
+    '';
 
     locations = {
       "=/_matrix/push/v1/notify" = {
