@@ -2,14 +2,15 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./configuration.nix
 
+    ./backups.nix
     ./networking.nix
+    ./nextcloud.nix
     ./prometheus-exporters.nix
     ./wireguard.nix
-    ./backups.nix
+
     "${flake.inputs.fork}/nixos/modules/services/matrix/matrix-authentication-service.nix"
   ];
 
