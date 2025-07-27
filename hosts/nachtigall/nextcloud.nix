@@ -30,4 +30,10 @@
     coturnStaticAuthSecretFile = config.age.secrets."nextcloud-talk-coturnStaticAuthSecret".path;
     signalingSecretFile = config.age.secrets."nextcloud-talk-signalingSecret".path;
   };
+
+  pub-solar-os.coturn = {
+    enable = true;
+    staticAuthSecretFile = config.age.secrets."nextcloud-talk-coturnStaticAuthSecret".path;
+    interface = "enp35s0";
+  };
 }
