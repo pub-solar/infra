@@ -26,6 +26,12 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/17531ffc-46bd-4259-8287-2dea73804b5b";
     fsType = "ext4";
+    options = [
+      "discard"
+      "relatime"
+      "commit=60" # unsafe: commits back to storage only every 60 seconds
+      "data=writeback" # unsafe: disable guaranteed data ordering
+    ];
   };
 
   fileSystems."/boot" = {
