@@ -21,4 +21,4 @@ jobs:
           sed -i 's/virtualisation.cores .*/virtualisation.cores = 16;/' tests/keycloak.nix
           sed -i 's/virtualisation.memorySize .*/virtualisation.memorySize = 16384;/' tests/keycloak.nix
           # 1 eval-worker needs about 13GB of memory
-          nix --accept-flake-config --access-tokens '' develop --command nix-fast-build --no-nom --skip-cached --systems "x86_64-linux" --max-jobs 10 --eval-workers 2 --out-link /var/lib/gitea-runner/tankstelle/.local/state/nix/results/nix-fast-build
+          nix --accept-flake-config --access-tokens '' develop --command nix-fast-build --no-nom --skip-cached --systems "x86_64-linux" --max-jobs 20 --eval-workers 4 --out-link /var/lib/gitea-runner/tankstelle/.local/state/nix/results/nix-fast-build
