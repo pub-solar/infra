@@ -10,11 +10,6 @@
       enableACME = true;
       forceSSL = true;
 
-      extraConfig = ''
-        error_log /dev/null;
-        access_log /dev/null;
-      '';
-
       locations."/" = {
         extraConfig = ''
           return 301 https://${config.pub-solar-os.networking.domain}$request_uri;
@@ -28,8 +23,8 @@
       forceSSL = true;
 
       extraConfig = ''
-        error_log /dev/null;
-        access_log /dev/null;
+        access_log /var/log/nginx/${config.pub-solar-os.networking.domain}-access.log combined_host;
+        error_log /var/log/nginx/${config.pub-solar-os.networking.domain}-error.log;
       '';
 
       locations = {

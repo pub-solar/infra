@@ -5,6 +5,7 @@ let
     add_header Cache-Control 'public, max-age=2419200, must-revalidate';
     add_header Strict-Transport-Security 'max-age=63072000';
   '';
+  vHostDomain = "mastodon.${config.pub-solar-os.networking.domain}";
 in
 {
   services.nginx = {
@@ -16,7 +17,7 @@ in
       };
     };
     virtualHosts = {
-      "mastodon.${config.pub-solar-os.networking.domain}" = {
+      ${vHostDomain} = {
         root = "${cfg.package}/public";
         # mastodon only supports https, but you can override this if you offload tls elsewhere.
         forceSSL = lib.mkDefault true;
@@ -24,6 +25,9 @@ in
         extraConfig = ''
           client_max_body_size 99m;
           error_page 404 500 501 502 503 504 /500.html;
+
+          access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
+          error_log /var/log/nginx/${vHostDomain}-error.log;
         '';
 
         locations."/auth/sign_up" = {

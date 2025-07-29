@@ -105,6 +105,10 @@
   services.nginx.virtualHosts.${config.services.coturn.realm} = {
     enableACME = true;
     addSSL = true;
+    extraConfig = ''
+      access_log /var/log/nginx/${config.services.coturn.realm}-access.log combined_host;
+      error_log /var/log/nginx/${config.services.coturn.realm}-error.log;
+    '';
     globalRedirect = "${config.pub-solar-os.networking.domain}";
   };
 

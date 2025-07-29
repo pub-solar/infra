@@ -114,14 +114,24 @@ in
       forceSSL = true;
       enableACME = true;
       root = pkgs.element-web.override { conf = clientConfig; };
-      extraConfig = commonHeaders;
+      extraConfig = ''
+        ${commonHeaders}
+
+        access_log /var/log/nginx/chat.${config.pub-solar-os.networking.domain}-access.log combined_host;
+        error_log /var/log/nginx/chat.${config.pub-solar-os.networking.domain}-error.log;
+      '';
     };
 
     "stickers.chat.${config.pub-solar-os.networking.domain}" = {
       forceSSL = true;
       enableACME = true;
       root = pkgs.element-stickerpicker;
-      extraConfig = commonHeaders;
+      extraConfig = ''
+        ${commonHeaders}
+
+        access_log /var/log/nginx/stickers.chat.${config.pub-solar-os.networking.domain}-access.log combined_host;
+        error_log /var/log/nginx/stickers.chat.${config.pub-solar-os.networking.domain}-error.log;
+      '';
     };
 
     "mas.${config.pub-solar-os.networking.domain}" = {
@@ -130,7 +140,12 @@ in
       forceSSL = lib.mkDefault true;
       enableACME = lib.mkDefault true;
 
-      extraConfig = commonHeaders;
+      extraConfig = ''
+        ${commonHeaders}
+
+        access_log /var/log/nginx/mas.${config.pub-solar-os.networking.domain}-access.log combined_host;
+        error_log /var/log/nginx/mas.${config.pub-solar-os.networking.domain}-error.log;
+      '';
 
       locations = {
         "/" = {
@@ -178,6 +193,11 @@ in
 
       forceSSL = lib.mkDefault true;
       enableACME = lib.mkDefault true;
+
+      extraConfig = ''
+        access_log /var/log/nginx/matrix.${config.pub-solar-os.networking.domain}-access.log combined_host;
+        error_log /var/log/nginx/matrix.${config.pub-solar-os.networking.domain}-error.log;
+      '';
 
       locations = lib.foldl' lib.recursiveUpdate { } (
         [

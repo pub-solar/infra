@@ -2,10 +2,11 @@
 
 let
   objStorHost = "mastodon.web.pub.solar";
+  vHostDomain = "files.${config.pub-solar-os.networking.domain}";
 in
 {
   services.nginx.virtualHosts = {
-    "files.${config.pub-solar-os.networking.domain}" = {
+    ${vHostDomain} = {
       enableACME = true;
       forceSSL = true;
 
@@ -13,6 +14,9 @@ in
       # the IP of the object storage provider may not always remain the same.
       extraConfig = ''
         set $s3_backend 'https://${objStorHost}';
+
+        access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
+        error_log /var/log/nginx/${vHostDomain}-error.log;
       '';
 
       locations = {

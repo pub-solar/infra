@@ -67,6 +67,11 @@
       useACMEHost = "buckets.${config.pub-solar-os.networking.domain}";
       forceSSL = true;
 
+      extraConfig = ''
+        access_log /var/log/nginx/buckets.${config.pub-solar-os.networking.domain}-access.log combined_host;
+        error_log /var/log/nginx/buckets.${config.pub-solar-os.networking.domain}-error.log;
+      '';
+
       locations."/" = {
         proxyPass = "http://s3_backend";
         extraConfig = ''
@@ -80,6 +85,11 @@
 
       useACMEHost = "web.${config.pub-solar-os.networking.domain}";
       forceSSL = true;
+
+      extraConfig = ''
+        access_log /var/log/nginx/web.${config.pub-solar-os.networking.domain}-access.log combined_host;
+        error_log /var/log/nginx/web.${config.pub-solar-os.networking.domain}-error.log;
+      '';
 
       locations."/" = {
         proxyPass = "http://web_backend";

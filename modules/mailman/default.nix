@@ -5,14 +5,22 @@
   pkgs,
   ...
 }:
+let
+  vHostDomain = "list.${config.pub-solar-os.networking.domain}";
+in
 {
   networking.firewall.allowedTCPPorts = [ 25 ];
 
   users.users.nginx.extraGroups = [ "mailman" ];
 
-  services.nginx.virtualHosts."list.${config.pub-solar-os.networking.domain}" = {
+  services.nginx.virtualHosts.${vHostDomain} = {
     enableACME = true;
     forceSSL = true;
+
+    extraConfig = ''
+      access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
+      error_log /var/log/nginx/${vHostDomain}-error.log;
+    '';
   };
   # Tweak permissions so nginx can read and serve the static assets
   # (otherwise /var/lib/mailman-web is mode 0600)

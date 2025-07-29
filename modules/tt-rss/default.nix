@@ -5,6 +5,7 @@
   ...
 }:
 let
+  vHostDomain = "rss.${config.pub-solar-os.networking.domain}";
   ttrss-auth-oidc = pkgs.stdenv.mkDerivation {
     name = "ttrss-auth-oidc";
     version = "7ebfbc91e92bb133beb907c6bde79279ee5156df";
@@ -41,9 +42,14 @@ in
     mode = "600";
   };
 
-  services.nginx.virtualHosts."rss.${config.pub-solar-os.networking.domain}" = {
+  services.nginx.virtualHosts.${vHostDomain} = {
     enableACME = true;
     forceSSL = true;
+
+    extraConfig = ''
+      access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
+      error_log /var/log/nginx/${vHostDomain}-error.log;
+    '';
   };
 
   services.tt-rss = {
