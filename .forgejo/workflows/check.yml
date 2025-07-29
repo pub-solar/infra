@@ -2,15 +2,11 @@ name: Flake checks
 on: [pull_request]
 
 jobs:
-  Check:
+  check:
     runs-on: self-hosted
     steps:
       - name: Check out repository code
         uses: https://code.forgejo.org/actions/checkout@v4
-
-      - name: Check formatting
-        run: |
-          nix --accept-flake-config --access-tokens '' develop --command treefmt --ci
 
       - name: Run flake checks
         run: |
