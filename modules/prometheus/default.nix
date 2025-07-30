@@ -368,7 +368,7 @@ in
       ))
     ];
 
-    alertmanagers = [ { static_configs = [ { targets = [ "localhost:9093" ]; } ]; } ];
+    alertmanagers = [ { static_configs = [ { targets = [ "10.7.6.5:9093" ]; } ]; } ];
 
     alertmanager = {
       enable = true;
