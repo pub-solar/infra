@@ -136,12 +136,6 @@ in
 
   services.grafana = {
     enable = true;
-    declarativePlugins = with flake.self.inputs.unstable.legacyPackages.${pkgs.system}.grafanaPlugins; [
-      grafana-exploretraces-app
-      grafana-lokiexplore-app
-      grafana-metricsdrilldown-app
-      grafana-pyroscope-app
-    ];
     settings = {
       server = {
         # Listening Address
