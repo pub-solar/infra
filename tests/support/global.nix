@@ -47,4 +47,22 @@
       "auth.${config.pub-solar-os.networking.domain}"
     ];
   };
+
+  # set some improved postgresql settings
+  services.postgresql.settings = {
+    # avoid checkpoints being created during tests
+    checkpoint_timeout = "2h";
+
+    # disable autovacuum
+    autovacuum = "off";
+
+    # disable fsync
+    fsync = "off";
+
+    # set work_mem to 20MB
+    work_mem = lib.mkForce "20480kB";
+
+    # set random_page_cost to 1
+    random_page_cost = lib.mkForce 1;
+  };
 }
