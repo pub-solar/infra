@@ -5,6 +5,8 @@
   ...
 }:
 {
+  virtualisation.diskImage = null;
+
   pub-solar-os.networking.domain = "test.pub.solar";
 
   security.acme.defaults.server = "https://ca.${config.pub-solar-os.networking.domain}/acme/acme/directory";
