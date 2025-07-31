@@ -6,6 +6,8 @@
 }:
 {
   virtualisation.diskImage = null;
+  virtualisation.cores = lib.mkDefault 4;
+  virtualisation.memorySize = lib.mkDefault 4096;
 
   pub-solar-os.networking.domain = "test.pub.solar";
 

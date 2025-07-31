@@ -30,6 +30,9 @@ in
         self.nixosModules.core
         ./support/client.nix
       ];
+
+      virtualisation.cores = 2;
+      virtualisation.memorySize = 4096;
     };
 
     nachtigall_kc = {
@@ -46,7 +49,7 @@ in
 
       systemd.tmpfiles.rules = [ "f /tmp/dbf 1777 root root 10d password" ];
 
-      virtualisation.cores = 1;
+      virtualisation.cores = 2;
       virtualisation.memorySize = 4096;
 
       pub-solar-os.auth = {
