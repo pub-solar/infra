@@ -14,8 +14,8 @@ jobs:
           # Prevent cache garbage collection by creating GC roots
           mkdir -p /var/lib/gitea-runner/tankstelle/.local/state/nix/results
 
-          sed -i 's/virtualisation.cores .*/virtualisation.cores = 16;/' tests/keycloak.nix
-          sed -i 's/virtualisation.memorySize .*/virtualisation.memorySize = 16384;/' tests/keycloak.nix
+          sed -i 's/virtualisation.cores .*/virtualisation.cores = 16;/' tests/support/auth-server.nix
+          sed -i 's/virtualisation.memorySize .*/virtualisation.memorySize = 16384;/' tests/support/auth-server.nix
 
           # 1 eval-worker needs about 13GB of memory
           nix --accept-flake-config \

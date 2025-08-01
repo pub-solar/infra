@@ -14,47 +14,29 @@
   node.specialArgs = self.outputs.nixosConfigurations.nachtigall._module.specialArgs;
 
   nodes = {
-    acme-server = {
-      imports = [
-        self.nixosModules.home-manager
-        self.nixosModules.core
-        ./support/ca.nix
-      ];
-    };
+    net-server.imports = [ ./support/net-server.nix ];
 
-    nachtigall = {
+    web-server = {
       imports = [
         self.nixosModules.home-manager
-        self.nixosModules.core
         self.nixosModules.nginx
         self.nixosModules.nginx-website
         ./support/global.nix
-      ];
-
-      networking.interfaces.eth0.ipv4.addresses = [
-        {
-          address = "192.168.1.3";
-          prefixLength = 32;
-        }
       ];
     };
   };
 
   testScript = ''
-    acme_server.start()
+    start_all()
 
-    acme_server.wait_for_unit("default.target")
-    acme_server.wait_for_unit("step-ca.service")
-    acme_server.succeed("ping ca.test.pub.solar -c 2")
-    acme_server.wait_for_open_port(443)
-    acme_server.wait_until_succeeds("curl 127.0.0.1:443")
+    net_server.wait_for_unit("default.target")
+    net_server.wait_for_unit("unbound.service")
+    net_server.wait_for_unit("step-ca.service")
+    net_server.wait_for_open_port(443)
+    net_server.succeed("ping ca.test.pub.solar -c 2")
 
-    nachtigall.start()
-    nachtigall.wait_for_unit("default.target")
-    nachtigall.succeed("ping test.pub.solar -c 2")
-    nachtigall.succeed("ping ca.test.pub.solar -c 2")
-    nachtigall.wait_for_unit("nginx.service")
-    nachtigall.wait_for_open_port(443, "test.pub.solar")
-    nachtigall.wait_until_succeeds("curl https://test.pub.solar/")
+    web_server.wait_for_unit("default.target")
+    web_server.wait_for_unit("nginx.service")
+    web_server.wait_until_succeeds("curl https://test.pub.solar/")
   '';
 }

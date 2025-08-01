@@ -114,6 +114,8 @@
                     inherit pkgs;
                     inherit lib;
                     inherit config;
+                    inherit inputs;
+                    inherit system;
                   }
                 );
               }) testFiles
