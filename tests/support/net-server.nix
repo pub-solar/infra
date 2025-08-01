@@ -10,6 +10,7 @@
   ];
 
   networking.firewall.allowedUDPPorts = [ 53 ];
+  networking.firewall.allowedTCPPorts = [ 53 ];
 
   networking.interfaces.eth1.ipv4.addresses = [
     {
