@@ -7,6 +7,7 @@
 
     ./networking.nix
     ./wireguard.nix
+    ./email.nix
     ./backups.nix
   ];
 }
