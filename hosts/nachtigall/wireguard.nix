@@ -18,7 +18,7 @@
         "fd00:fae:fae:fae:fae:1::/96"
       ];
       privateKeyFile = config.age.secrets.wg-private-key.path;
-      peers = flake.self.logins.wireguardDevices ++ [
+      peers = (flake.self.lib.wireguardDevicesForUsers config.pub-solar-os.authentication.users) ++ [
         {
           # tankstelle.pub.solar
           endpoint = "[2001:4d88:1ffa:26::5]:51820";

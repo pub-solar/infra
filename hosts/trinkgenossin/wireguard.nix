@@ -22,7 +22,7 @@ in
         "${wireguardIPv6}/96"
       ];
       privateKeyFile = config.age.secrets.wg-private-key.path;
-      peers = flake.self.logins.wireguardDevices ++ [
+      peers = (flake.self.lib.wireguardDevicesForUsers config.pub-solar-os.authentication.users) ++ [
         {
           # nachtigall.pub.solar
           endpoint = "138.201.80.102:51820";
