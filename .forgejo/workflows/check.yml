@@ -16,6 +16,8 @@ jobs:
 
           sed -i 's/virtualisation.cores .*/virtualisation.cores = 16;/' tests/support/auth-server.nix
           sed -i 's/virtualisation.memorySize .*/virtualisation.memorySize = 16384;/' tests/support/auth-server.nix
+          sed -i 's/virtualisation.cores .*/virtualisation.cores = 16;/' tests/support/client.nix
+          sed -i 's/virtualisation.memorySize .*/virtualisation.memorySize = 16384;/' tests/support/client.nix
 
           # 1 eval-worker needs about 13GB of memory
           nix --accept-flake-config \
