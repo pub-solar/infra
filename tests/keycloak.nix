@@ -30,9 +30,12 @@ in
         self.nixosModules.core
         ./support/client.nix
       ];
+
+      virtualisation.cores = 2;
+      virtualisation.memorySize = 4096;
     };
 
-    nachtigall = {
+    nachtigall_kc = {
       imports = [
         self.inputs.agenix.nixosModules.default
         self.nixosModules.home-manager
@@ -46,7 +49,7 @@ in
 
       systemd.tmpfiles.rules = [ "f /tmp/dbf 1777 root root 10d password" ];
 
-      virtualisation.cores = 1;
+      virtualisation.cores = 2;
       virtualisation.memorySize = 4096;
 
       pub-solar-os.auth = {
@@ -76,25 +79,25 @@ in
       wmClass = su "${gdbus} ${gseval} global.display.focus_window.wm_class";
     in
     ''
-      acme_server.start()
+      client.start()
+      nachtigall_kc.start()
 
+      acme_server.start()
       acme_server.wait_for_unit("default.target")
       acme_server.wait_for_unit("step-ca.service")
       acme_server.succeed("ping ca.test.pub.solar -c 2")
       acme_server.wait_for_open_port(443)
       acme_server.wait_until_succeeds("curl 127.0.0.1:443")
 
-      nachtigall.start()
-      nachtigall.wait_for_unit("default.target")
-      nachtigall.succeed("ping 127.0.0.1 -c 2")
-      nachtigall.wait_for_unit("nginx.service")
-      nachtigall.wait_for_unit("keycloak.service")
-      nachtigall.wait_for_open_port(8080)
-      nachtigall.wait_for_open_port(443)
-      nachtigall.wait_until_succeeds("curl http://127.0.0.1:8080/")
-      nachtigall.wait_until_succeeds("curl https://auth.test.pub.solar/")
+      nachtigall_kc.wait_for_unit("default.target")
+      nachtigall_kc.succeed("ping 127.0.0.1 -c 2")
+      nachtigall_kc.wait_for_unit("nginx.service")
+      nachtigall_kc.wait_for_unit("keycloak.service")
+      nachtigall_kc.wait_for_open_port(8080)
+      nachtigall_kc.wait_for_open_port(443)
+      nachtigall_kc.wait_until_succeeds("curl http://127.0.0.1:8080/")
+      nachtigall_kc.wait_until_succeeds("curl https://auth.test.pub.solar/")
 
-      client.start()
       client.wait_for_unit("default.target")
       # client.wait_until_succeeds("${wmClass} | grep -q 'firefox'")
       client.screenshot("screen")

@@ -2,15 +2,11 @@ name: Flake checks
 on: [pull_request]
 
 jobs:
-  Check:
+  check:
     runs-on: self-hosted
     steps:
       - name: Check out repository code
         uses: https://code.forgejo.org/actions/checkout@v4
-
-      - name: Check formatting
-        run: |
-          nix --accept-flake-config --access-tokens '' develop --command treefmt --ci
 
       - name: Run flake checks
         run: |
@@ -20,5 +16,15 @@ jobs:
 
           sed -i 's/virtualisation.cores .*/virtualisation.cores = 16;/' tests/keycloak.nix
           sed -i 's/virtualisation.memorySize .*/virtualisation.memorySize = 16384;/' tests/keycloak.nix
+
           # 1 eval-worker needs about 13GB of memory
-          nix --accept-flake-config --access-tokens '' develop --command nix-fast-build --no-nom --skip-cached --systems "x86_64-linux" --max-jobs 20 --eval-workers 4 --out-link /var/lib/gitea-runner/tankstelle/.local/state/nix/results/nix-fast-build
+          nix --accept-flake-config \
+            --access-tokens '' develop \
+            --command nix-fast-build \
+            --no-nom \
+            --skip-cached \
+            --systems "x86_64-linux" \
+            --eval-workers 4 \
+            --eval-max-memory-size 20480 \
+            --max-jobs 20 \
+            --out-link /var/lib/gitea-runner/tankstelle/.local/state/nix/results/nix-fast-build

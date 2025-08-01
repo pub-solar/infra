@@ -5,6 +5,10 @@
   ...
 }:
 {
+  virtualisation.diskImage = null;
+  virtualisation.cores = lib.mkDefault 4;
+  virtualisation.memorySize = lib.mkDefault 4096;
+
   pub-solar-os.networking.domain = "test.pub.solar";
 
   security.acme.defaults.server = "https://ca.${config.pub-solar-os.networking.domain}/acme/acme/directory";
@@ -46,5 +50,23 @@
       "www.${config.pub-solar-os.networking.domain}"
       "auth.${config.pub-solar-os.networking.domain}"
     ];
+  };
+
+  # set some improved postgresql settings
+  services.postgresql.settings = {
+    # avoid checkpoints being created during tests
+    checkpoint_timeout = "2h";
+
+    # disable autovacuum
+    autovacuum = "off";
+
+    # disable fsync
+    fsync = "off";
+
+    # set work_mem to 20MB
+    work_mem = lib.mkForce "20480kB";
+
+    # set random_page_cost to 1
+    random_page_cost = lib.mkForce 1;
   };
 }
