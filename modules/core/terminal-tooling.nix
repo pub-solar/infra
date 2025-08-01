@@ -1,4 +1,9 @@
-{ flake, lib, ... }:
+{
+  flake,
+  lib,
+  config,
+  ...
+}:
 {
   home-manager.users = (
     lib.attrsets.foldlAttrs (
@@ -28,6 +33,6 @@
           };
         };
       }
-    ) { } flake.self.logins.admins
+    ) { } config.pub-solar-os.authentication.users
   );
 }

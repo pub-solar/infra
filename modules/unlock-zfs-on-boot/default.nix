@@ -1,4 +1,4 @@
-{ flake, config, ... }:
+{ lib, config, ... }:
 {
   # From https://wiki.nixos.org/wiki/ZFS#Remote_unlock
   boot.initrd.network = {
@@ -11,7 +11,11 @@
 
       # Please create this manually the first time.
       hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
-      authorizedKeys = flake.self.logins.sshPubKeys;
+      authorizedKeys = lib.lists.foldl (
+        sshPubKeys: userConfig:
+        sshPubKeys
+        ++ (if userConfig ? "sshPubKeys" then lib.attrsets.attrValues userConfig.sshPubKeys else [ ])
+      ) [ ] (lib.attrsets.attrValues config.pub-solar-os.authentication.users);
     };
     # this will automatically load the zfs password prompt on login
     # and kill the other prompt so boot can continue
