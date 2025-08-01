@@ -1,0 +1,17 @@
+{
+  "name": "puppeteer-socket",
+  "version": "1.0.0",
+  "main": "src/index.mjs",
+  "scripts": {
+    "start": "node src/index.mjs"
+  },
+  "bin": {
+    "puppeteer-socket": "src/index.mjs"
+  },
+  "author": "",
+  "license": "AGPL-3.0-or-later",
+  "description": "",
+  "dependencies": {
+    "puppeteer-core": "^23.1.1"
+  }
+}
