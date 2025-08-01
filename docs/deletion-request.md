@@ -8,10 +8,11 @@ There are two mandatory steps that need to be taken when deleting a user:
 
 For the second step (deleting the user), we have two possible ways:
 
-* using the automated script
-* manually deleting the user
+- using the automated script
+- manually deleting the user
 
 ## Deleting the user
+
 ### a) Automated script
 
 Required:
