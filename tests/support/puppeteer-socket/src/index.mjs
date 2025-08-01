@@ -12,8 +12,6 @@ const EXECUTABLE = process.env.EXECUTABLE || 'firefox';
     headless: true,
     devtools: false,
     browser: 'firefox',
-    timeout: 900_000,
-    protocolTimeout: 900_000,
     extraPrefsFirefox: {},
   });
 
