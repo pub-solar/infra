@@ -31,6 +31,9 @@
     keycloak-theme-pub-solar.url = "git+https://git.pub.solar/pub-solar/keycloak-theme?ref=main";
     keycloak-theme-pub-solar.inputs.nixpkgs.follows = "nixpkgs";
 
+    keycloak-event-listener.url = "git+https://git.pub.solar/pub-solar/keycloak-event-listener?ref=main";
+    keycloak-event-listener.inputs.nixpkgs.follows = "unstable";
+
     element-themes.url = "github:aaronraimist/element-themes/master";
     element-themes.flake = false;
 
@@ -62,7 +65,7 @@
       ];
 
       perSystem =
-        {
+        args@{
           system,
           pkgs,
           config,
@@ -139,6 +142,11 @@
               terraform-backend-git
               terraform-ls
               jq
+
+              # For the tests puppeteer-socket pkg
+              nodejs
+              nodePackages.typescript
+              nodePackages.typescript-language-server
             ];
           };
 
