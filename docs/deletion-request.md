@@ -1,17 +1,29 @@
 # Process for handling a deletion request
 
-There are two mandatory steps that need to be taken when deleting a user:
+There are three mandatory steps to follow when deleting a user:
 
-1. Verify that the sender's email-address matches the account email-address
+1. Verify that the sender's email address matches the account email address
 2. Delete the user
-3. Notify the user
+3. Notify the user by responding to the email with their deletion request
 
-For the second step (deleting the user), we have two possible ways:
+## Verify sender email address
+
+Either check in the [Keycloak admin console](https://auth.pub.solar/admin/master/console/#/pub.solar/users) or via CLI:
+
+SSH into nachtigall, and run the following commands to confirm that the email address matches. It's recommended to copy the address from the email client and paste it to search.
+
+```
+sudo --user keycloak kcadm.sh config credentials --config /tmp/kcadm.config --server http://localhost:8080 --realm pub.solar --client admin-cli
+
+sudo --user keycloak kcadm.sh get --config /tmp/kcadm.config users --realm pub.solar --query email=<email-address>
+```
+
+## Deleting the user
+
+For the second step, there are two options:
 
 - using the automated script
 - manually deleting the user
-
-## Deleting the user
 
 ### a) Automated script
 
@@ -31,6 +43,22 @@ Make sure to close all Matrix user sessions:
 # get full path to mas-cli command with current --config flags from
 # sudo systemctl cat matrix-authentication-service
 sudo -u matrix-authentication-service <nix-store-path>/mas-cli --config <nix-store-config> --config /run/agenix/matrix-authentication-service-secret-config.yml manage kill-sessions <username>
+```
+
+Don't forget to send a response from `crew@pub.solar` with a deletion confirmation.
+
+Template:
+
+```
+Hello,
+
+Your pub.solar ID has been deactivated. Associated data in pub.solar services has been deleted.
+
+Please note that the username is now blocked to prevent impersonation attempts.
+
+Best,
+
+@<nickname> for the pub.solar crew
 ```
 
 ### b) Manually
