@@ -77,6 +77,26 @@
     ];
   };
 
+  realestninja = rec {
+    sshPubKeys = {
+      realestninja-1 = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6jbZHpLfMiHJ/xFrIfnxb0aXeeDFys4qHG7Ke5DnFkVt9Su6EajsumSOtu1slQm+mu5/BVOopgCqzEptWlQ29XPY5h0HQxjVRcI3+W+gup1GwLLEbEcBNZxp2l7d9zQXWRe5x7Yz6U7vtNHFGpiRnbEnrSNCurN2q7h3vuurAVdHVU3W9pxX2wJyCvKZIZpvnKOlY4dIWnna9Qf6McPt8C6DuX62BshHVpJgkyDoXYxzNCMnnzByEem2VwCRZ0tT8mMMsECC69cChBp4IWneoy0PkU+qL7YZs/s8FEpjwnXyiZ8tR0E9f19+mv1zGhK5bnPst40VKrsxtvcU+JiSF the@realest.ninja";
+      realestninja-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILaGwiW1y7PGa4dxkdSuKQmtMmpesYJITSo8pe/dUYr/ 2025";
+    };
+
+    secretEncryptionKeys = sshPubKeys;
+
+    wireguardDevices = [
+      {
+        # X1
+        publicKey = "b4zxBYY447uUZyCbpX6Ap7QLkjqJdo9thNyaPVAf2T8=";
+        allowedIPs = [
+          "10.7.6.208/32"
+          "fd00:fae:fae:fae:fae:208::/96"
+        ];
+      }
+    ];
+  };
+
   teutat3s = {
     sshPubKeys = {
       teutat3s-1 = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFro/k4Mgqyh8yV/7Zwjc0dv60ZM7bROBU9JNd99P/4co6fxPt1pJiU/pEz2Dax/HODxgcO+jFZfvPEuLMCeAl0= YubiKey #10593996 PIV Slot 9a";
