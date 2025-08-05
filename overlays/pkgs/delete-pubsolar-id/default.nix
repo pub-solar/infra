@@ -2,7 +2,7 @@
   writeShellApplication,
   coreutils,
   curl,
-  forgejo,
+  forgejo-lts,
   jq,
   keycloak,
   openssl,
@@ -12,7 +12,7 @@ writeShellApplication {
   name = "delete-pubsolar-id";
   text = ''
     set -e
-    PATH=$PATH:${coreutils}/bin:${curl}/bin:${forgejo}/bin:${jq}/bin:${keycloak}/bin:${openssl}/bin:${sudo}/bin
+    PATH=$PATH:${coreutils}/bin:${curl}/bin:${forgejo-lts}/bin:${jq}/bin:${keycloak}/bin:${openssl}/bin:${sudo}/bin
 
     KEYCLOAK_SECRET=$1
     MATRIX_ADMIN_ACCESS_TOKEN=$2
