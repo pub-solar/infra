@@ -148,7 +148,6 @@
         "GARAGE_RPC_SECRET_FILE=%d/rpc_secret_path"
         "GARAGE_ADMIN_TOKEN_FILE=%d/admin_token_path"
       ];
-      LimitNOFILE = 42000;
     };
   };
 }
