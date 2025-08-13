@@ -248,7 +248,7 @@ in
   pub-solar-os.backups = {
     resources.mediawiki-db = {
       resourceCreateCommand = ''
-        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d mediawiki -f /tmp/mediawiki-backup.sql
+        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d mediawiki | ${pkgs.zstd}/bin/zstd --force --quiet --rm -o /tmp/mediawiki-backup.sql
       '';
     };
 

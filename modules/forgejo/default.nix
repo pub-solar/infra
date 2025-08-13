@@ -200,7 +200,7 @@ in
     passwordFile = config.age.secrets."restic-repo-storagebox-nachtigall".path;
     repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
     backupPrepareCommand = ''
-      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d gitea > /tmp/forgejo-backup.sql
+      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d gitea | ${pkgs.zstd}/bin/zstd --force --quiet --rm -o /tmp/forgejo-backup.sql
     '';
     backupCleanupCommand = ''
       rm /tmp/forgejo-backup.sql
