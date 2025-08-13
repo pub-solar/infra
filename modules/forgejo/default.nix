@@ -39,6 +39,12 @@ in
     forceSSL = true;
 
     extraConfig = ''
+      # https://wiki.slightly.tech/books/miscellaneous-notes/page/blocking-llm-scrapers-on-alibaba-cloud-from-your-nginx-configuration
+      # Block alibaba ASN, LLM scrapers hiding behind browser user-agents that do not honour
+      # robots.txt, source: https://www.enjen.net/asn-blocklist/index.php?asn=45102&type=nginx
+      # TODO: remove once we have configured anubis
+      ${import ./alibaba-blocklist.nix}
+
       access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
       error_log /var/log/nginx/${vHostDomain}-error.log;
     '';
