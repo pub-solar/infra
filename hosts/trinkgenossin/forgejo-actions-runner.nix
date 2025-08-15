@@ -38,8 +38,15 @@
         "alpine-latest:docker://node:20-alpine"
       ];
       # Required to avoid docker-in-docker and still be able to build docker images
+      # and for actions that use RUNNER_TOOL_CACHE
       settings = {
-        container.docker_host = "unix:///var/run/docker.sock";
+        container = {
+          docker_host = "unix:///var/run/docker.sock";
+          options = "-v act-toolcache:/opt/hostedtoolcache";
+          valid_volumes = [
+            "act-toolcache"
+          ];
+        };
       };
     };
     momo = {
@@ -58,8 +65,15 @@
         "alpine-latest:docker://node:20-alpine"
       ];
       # Required to avoid docker-in-docker and still be able to build docker images
+      # and for actions that use RUNNER_TOOL_CACHE
       settings = {
-        container.docker_host = "unix:///var/run/docker.sock";
+        container = {
+          docker_host = "unix:///var/run/docker.sock";
+          options = "-v act-toolcache:/opt/hostedtoolcache";
+          valid_volumes = [
+            "act-toolcache"
+          ];
+        };
       };
     };
     # systemd does not like dashes in service unit names
@@ -77,8 +91,15 @@
         "alpine-latest:docker://node:20-alpine"
       ];
       # Required to avoid docker-in-docker and still be able to build docker images
+      # and for actions that use RUNNER_TOOL_CACHE
       settings = {
-        container.docker_host = "unix:///var/run/docker.sock";
+        container = {
+          docker_host = "unix:///var/run/docker.sock";
+          options = "-v act-toolcache:/opt/hostedtoolcache";
+          valid_volumes = [
+            "act-toolcache"
+          ];
+        };
       };
     };
   };
