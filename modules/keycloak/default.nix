@@ -69,7 +69,7 @@ in
 
     pub-solar-os.backups = {
       resources.keycloak-db.resourceCreateCommand = ''
-        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d keycloak | ${pkgs.zstd}/bin/zstd --force --quiet --rm -o /tmp/keycloak-backup.sql
+        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d keycloak | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/keycloak-backup.sql
       '';
       restic.keycloak = {
         resources = [ "keycloak-db" ];
