@@ -51,6 +51,9 @@ in
     };
 
     # keycloak
+    # increase start timeout
+    systemd.services.keycloak.serviceConfig.TimeoutSec = 900;
+
     services.keycloak = {
       enable = true;
       database.passwordFile = config.pub-solar-os.auth.database-password-file;
