@@ -49,6 +49,9 @@ in
 
       systemd.tmpfiles.rules = [ "f /tmp/dbf 1777 root root 10d password" ];
 
+      # increase start timeout
+      systemd.services.keycloak.serviceConfig.TimeoutSec = 900;
+
       virtualisation.cores = 2;
       virtualisation.memorySize = 4096;
 
