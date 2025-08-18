@@ -26,6 +26,8 @@ in
     "f /tmp/dbf 1777 root root 10d password"
   ];
 
+  systemd.services.keycloak.environment.JAVA_OPTS_APPEND = "-Xms1024m -Xmx2048m";
+
   pub-solar-os.auth = {
     enable = true;
     database-password-file = "/tmp/dbf";
