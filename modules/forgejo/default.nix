@@ -34,27 +34,31 @@ in
     user = "gitea";
   };
 
+  # anubis to defend against LLM scrapers
+  services.anubis.instances.default.settings.TARGET = "http://127.0.0.1:3000";
+
+  # required for unix socket permissions
+  users.users.nginx.extraGroups = [ config.users.groups.anubis.name ];
+
   services.nginx.virtualHosts.${vHostDomain} = {
     enableACME = true;
     forceSSL = true;
 
     extraConfig = ''
-      # https://wiki.slightly.tech/books/miscellaneous-notes/page/blocking-llm-scrapers-on-alibaba-cloud-from-your-nginx-configuration
-      # Block alibaba ASN, LLM scrapers hiding behind browser user-agents that do not honour
-      # robots.txt, source: https://www.enjen.net/asn-blocklist/index.php?asn=45102&type=nginx
-      # TODO: remove once we have configured anubis
-      ${import ./alibaba-blocklist.nix}
-
       access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
       error_log /var/log/nginx/${vHostDomain}-error.log;
     '';
 
-    locations."/user/login".extraConfig = ''
-      return 302 /user/oauth2/keycloak;
-    '';
+    locations."/user/login" = {
+      priority = 100;
+      extraConfig = ''
+        return 302 /user/oauth2/keycloak;
+      '';
+    };
 
     locations."/" = {
-      proxyPass = "http://127.0.0.1:3000";
+      priority = 200;
+      proxyPass = "http://unix:${config.services.anubis.instances.default.settings.BIND}";
       extraConfig = ''
         client_max_body_size 1G;
       '';
