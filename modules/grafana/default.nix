@@ -147,6 +147,8 @@ in
         root_url = "https://grafana.${config.pub-solar-os.networking.domain}";
         enable_gzip = true;
       };
+      # Disable internal grafana metrics to avoid exposing them
+      metrics.enabled = false;
       smtp = {
         enabled = true;
         host = "mail.pub.solar:465";
