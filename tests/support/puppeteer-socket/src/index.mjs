@@ -13,6 +13,7 @@ const EXECUTABLE = process.env.EXECUTABLE || 'firefox';
     devtools: false,
     browser: 'firefox',
     extraPrefsFirefox: {},
+    protocolTimeout: 600000,
   });
 
   const page = await firefoxBrowser.newPage();
