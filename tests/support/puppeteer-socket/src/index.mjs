@@ -7,25 +7,22 @@ const PUPPETEER_SOCKET = '/tmp/puppeteer.sock';
 const EXECUTABLE = process.env.EXECUTABLE || 'firefox';
 
 (async () => {
-  const firefoxBrowser = await puppeteer.launch({
+  const browser = await puppeteer.launch({
     executablePath: EXECUTABLE,
     headless: true,
     devtools: false,
-    browser: 'firefox',
-    extraPrefsFirefox: {},
+    browser: 'chrome',
     protocolTimeout: 600000,
   });
 
-  const page = await firefoxBrowser.newPage();
-
+  const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(60000);
   await page.setViewport({
     width: 1200,
     height: 600,
-    deviceScaleFactor: 1,
   });
 
   const server = http.createServer({});
-
   server.on('request', (req, res) => {
     const chunks = [];
     req.on('data', (chunk) => {

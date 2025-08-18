@@ -8,6 +8,13 @@
 let
   puppeteer-socket = (pkgs.callPackage (import ./puppeteer-socket/puppeteer-socket.nix) { });
   puppeteer-run = (pkgs.callPackage (import ./puppeteer-socket/puppeteer-run.nix) { });
+
+  startup = pkgs.writeShellScript "startup" ''
+    set -e
+    set -x
+
+    EXECUTABLE=${pkgs.chromium}/bin/chromium ${puppeteer-socket}/bin/puppeteer-socket
+  '';
 in
 {
   imports = [
@@ -23,7 +30,6 @@ in
     pkgs.alacritty
     pkgs.mailutils
     pkgs.oath-toolkit
-    pkgs.firefox
   ];
 
   services.getty.autologinUser = "test-user";
@@ -47,7 +53,7 @@ in
         modifier = "Mod4";
         terminal = "${pkgs.alacritty}/bin/alacritty";
         startup = [
-          { command = "EXECUTABLE=${pkgs.firefox}/bin/firefox ${puppeteer-socket}/bin/puppeteer-socket"; }
+          { command = "${startup}"; }
         ];
       };
     };
