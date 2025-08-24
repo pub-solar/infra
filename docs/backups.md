@@ -34,3 +34,40 @@ garage bucket create <hostname>-backups
 garage key create <hostname>-backups-key
 garage bucket allow <hostname>-backups --read --write --key <hostname>-backups-key
 ```
+
+### Restic common tasks
+
+View `nachtigall` snapshots, grouped by `path`:
+
+First, [SSH to nachtigall](./administrative-access.md#ssh-access), then:
+
+Storage box: view all snapshots
+
+```
+sudo restic-matrix-synapse-storagebox snapshots --group-by path
+```
+
+Garage: view all snapshots
+
+```
+sudo restic-matrix-synapse-garage snapshots --group-by path
+```
+
+#### Disk full / No space left on device
+
+This mostly happens when the disk is too full and [restic fails to prune](https://restic.readthedocs.io/en/stable/060_forget.html#recovering-from-no-free-space-errors)
+snapshots, or snapshot pruning failed for some other reason.
+
+First, we need to free up some space by deleting old restic snapshots. For
+storagebox, replace with `restic-matrix-synapse-storagebox`:
+
+```
+sudo restic-matrix-synapse-garage forget <snapshot-ID> <another-snapshot-ID>
+```
+
+```
+sudo restic-matrix-synapse-garage prune --max-repack-size 0
+```
+
+After this, normal `restic prune` and repack should work fine again, which will
+run automatically with `restic-backups-obs-portal-{garage,storagebox}.service`.
