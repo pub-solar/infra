@@ -366,6 +366,7 @@ in
           ];
         }
       ))
+      ./recording-rules.yml
     ];
 
     alertmanagers = [ { static_configs = [ { targets = [ "10.7.6.5:9093" ]; } ]; } ];
