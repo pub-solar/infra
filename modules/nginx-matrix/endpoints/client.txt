@@ -1,4 +1,5 @@
-# See https://matrix-org.github.io/synapse/latest/workers.html
+# See https://element-hq.github.io/synapse/latest/workers.html#synapseappgeneric_worker
+# and https://git.catgirl.cloud/999eagle/dotfiles-nix/-/blob/main/hosts/levana/matrix/endpoints/client.txt
 
 # Sync requests
 ^/_matrix/client/(r0|v3)/sync$
@@ -16,11 +17,12 @@
 ^/_matrix/client/v1/rooms/.*/hierarchy$
 ^/_matrix/client/(v1|unstable)/rooms/.*/relations/
 ^/_matrix/client/v1/rooms/.*/threads$
-^/_matrix/client/unstable/org.matrix.msc2716/rooms/.*/batch_send$
-^/_matrix/client/unstable/im.nheko.summary/rooms/.*/summary$
+^/_matrix/client/unstable/im.nheko.summary/summary/.*$
 ^/_matrix/client/(r0|v3|unstable)/account/3pid$
 ^/_matrix/client/(r0|v3|unstable)/account/whoami$
-^/_matrix/client/(r0|v3|unstable)/devices$
+^/_matrix/client/(r0|v3|unstable)/account/deactivate$
+^/_matrix/client/(r0|v3)/delete_devices$
+^/_matrix/client/(api/v1|r0|v3|unstable)/devices(/|$)
 ^/_matrix/client/versions$
 ^/_matrix/client/(api/v1|r0|v3|unstable)/voip/turnServer$
 ^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/event/
@@ -31,13 +33,20 @@
 ^/_matrix/client/(r0|v3|unstable)/user/.*/filter(/|$)
 ^/_matrix/client/(api/v1|r0|v3|unstable)/directory/room/.*$
 ^/_matrix/client/(r0|v3|unstable)/capabilities$
+^/_matrix/client/(r0|v3|unstable)/notifications$
+^/_synapse/admin/v1/rooms/[^/]+$
 
 # Encryption requests
 ^/_matrix/client/(r0|v3|unstable)/keys/query$
 ^/_matrix/client/(r0|v3|unstable)/keys/changes$
 ^/_matrix/client/(r0|v3|unstable)/keys/claim$
 ^/_matrix/client/(r0|v3|unstable)/room_keys/
-^/_matrix/client/(r0|v3|unstable)/keys/upload/
+^/_matrix/client/(r0|v3|unstable)/keys/upload
+^/_matrix/client/(api/v1|r0|v3|unstable)/keys/device_signing/upload$
+^/_matrix/client/(api/v1|r0|v3|unstable)/keys/signatures/upload$
+
+# User directory search requests
+^/_matrix/client/(r0|v3|unstable)/user_directory/search$
 
 # Registration/login requests
 ^/_matrix/client/(api/v1|r0|v3|unstable)/login$
@@ -55,17 +64,18 @@
 ^/_matrix/client/(api/v1|r0|v3|unstable)/knock/
 ^/_matrix/client/(api/v1|r0|v3|unstable)/profile/
 
-# Account data requests (requires stream writer for account_data)
-#^/_matrix/client/(r0|v3|unstable)/.*/tags
-#^/_matrix/client/(r0|v3|unstable)/.*/account_data
+# for all SSO providers
+^/_matrix/client/(api/v1|r0|v3|unstable)/login/sso/redirect
+^/_synapse/client/pick_idp$
+^/_synapse/client/pick_username
+^/_synapse/client/new_user_consent$
+^/_synapse/client/sso_register$
 
-# Receipts requests (requires stream writer for receipts)
-#^/_matrix/client/(r0|v3|unstable)/rooms/.*/receipt
-#^/_matrix/client/(r0|v3|unstable)/rooms/.*/read_markers
+# OpenID Connect requests.
+^/_synapse/client/oidc/callback$
 
-# Presence requests (requires stream writer for presence)
-#^/_matrix/client/(api/v1|r0|v3|unstable)/presence/
-
-# User directory search requests
-^/_matrix/client/(r0|v3|unstable)/user_directory/search$
-
+# MSC3861 admin APIs used by MAS
+^/_synapse/admin/v2/users/[^/]+$
+^/_synapse/admin/v1/username_available$
+^/_synapse/admin/v1/users/[^/]+/_allow_cross_signing_replacement_without_uia$
+^/_synapse/admin/v1/users/[^/]+/devices$
