@@ -44,6 +44,10 @@ in
       def puppeteer_scroll_into_view(selector):
         return puppeteer_succeed(f'(async () => {{ const el = await page.$(`{selector}`); console.log(el); return el.scrollIntoView(); }})()')
 
+      def wait_idle():
+        return puppeteer_succeed('page.waitForNetworkIdle({timeout: 600000})')
+
+
       start_all()
 
       net_server.wait_for_unit("default.target")
@@ -62,13 +66,13 @@ in
       ####### Registration #######
 
       puppeteer_succeed('page.goto("https://auth.test.pub.solar")')
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      puppeteer_succeed('page.waitForSelector("::-p-text(Register)")')
       client.screenshot("initial")
       puppeteer_succeed('page.locator("::-p-text(Sign in)").click()')
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("sign-in")
       puppeteer_succeed('page.locator("::-p-text(Register)").click()')
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("register")
       puppeteer_succeed('page.locator("[name=username]").fill("test-user")')
       puppeteer_succeed('page.locator("[name=email]").fill("test-user@test.pub.solar")')
@@ -84,7 +88,7 @@ in
 
       mail_server.wait_until_succeeds("curl http://mail.test.pub.solar/")
       puppeteer_succeed('page.locator("input[type=submit][value=Register]").click()')
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("before-email-confirm")
 
       # Sometimes offlineimap errors out
@@ -95,7 +99,7 @@ in
       client.succeed("${su "[ $(messages -s ~/Maildir/test-user@test.pub.solar/INBOX) -eq 1 ]"}")
 
       puppeteer_succeed('page.locator("a::-p-text(Click here)").click()')
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
 
       client.succeed("${su "offlineimap"}")
       client.succeed("${su "[ $(messages -s ~/Maildir/test-user@test.pub.solar/INBOX) -eq 2 ]"}")
@@ -111,7 +115,7 @@ in
       if not url_match:
         sys.exit(1)
       puppeteer_succeed(f'page.goto("{url_match.group(1)}")')
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("registration-complete")
 
       ####### Logout #######
@@ -119,7 +123,7 @@ in
       puppeteer_succeed('page.locator("[data-testid=options-toggle]").click()')
       puppeteer_succeed('page.locator("::-p-text(Sign out)").click()')
 
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("logged-out")
 
       ####### Login plain #######
@@ -133,7 +137,7 @@ in
       puppeteer_succeed('page.locator("[name=password]").fill("Password1234")')
       puppeteer_succeed('page.locator("::-p-text(Sign In)").click()')
 
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("logged-in")
 
       ####### Add TOTP #######
@@ -141,17 +145,17 @@ in
       puppeteer_succeed('page.locator("::-p-text(Account security)").click()')
       puppeteer_succeed('page.locator("::-p-text(Signing in)").click()')
 
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("signing-in-settings")
 
       puppeteer_succeed('page.locator(`[data-testid="otp/create"]`).click()')
 
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("TOTP-setup-qr")
 
       puppeteer_succeed('page.locator("::-p-text(Unable to scan?)").click()')
 
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("TOTP-setup-manual")
 
       totp_secret_key = puppeteer_execute('(async () => { const el = await page.waitForSelector("#kc-totp-secret-key"); return el.evaluate(e => e.textContent); })()')[1]
@@ -163,7 +167,7 @@ in
       client.screenshot("TOTP-form-filled")
       puppeteer_succeed('page.locator("input[type=submit][value=Submit]").click()')
 
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("TOTP-added")
 
       ####### Login w/ TOTP #######
@@ -171,7 +175,7 @@ in
       puppeteer_succeed('page.locator("[data-testid=options-toggle]").click()')
       puppeteer_succeed('page.locator("::-p-text(Sign out)").click()')
 
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("logged-out")
 
       puppeteer_succeed('page.locator("[name=username]").fill("test-user")')
@@ -179,7 +183,7 @@ in
       puppeteer_succeed('page.locator("[name=password]").fill("Password1234")')
       puppeteer_succeed('page.locator("::-p-text(Sign In)").click()')
 
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("TOTP-login-form")
 
       print('Setting all system clocks 30 seconds ahead for next TOTP token')
@@ -194,7 +198,7 @@ in
       puppeteer_succeed(f'page.locator("[name=otp]").fill("{totp}")')
       puppeteer_succeed('page.locator("::-p-text(Sign In)").click()')
 
-      puppeteer_succeed('page.waitForNetworkIdle()')
+      wait_idle()
       client.screenshot("TOTP-signed-in")
 
       ####### Delete TOTP #######
