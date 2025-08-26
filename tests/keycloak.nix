@@ -53,9 +53,9 @@ in
       net_server.succeed("ping ca.test.pub.solar -c 2")
 
       auth_server.wait_for_unit("keycloak.service")
-      auth_server.wait_until_succeeds("curl http://127.0.0.1:8080/")
+      auth_server.wait_until_succeeds("curl -sS http://127.0.0.1:8080/")
       auth_server.succeed("${pkgs.keycloak}/bin/kcadm.sh create realms -f ${realm-export} --server http://localhost:8080 --realm master --user admin --password password --no-config")
-      auth_server.wait_until_succeeds("curl https://auth.test.pub.solar/")
+      auth_server.wait_until_succeeds("curl -sS https://auth.test.pub.solar/")
 
       client.wait_for_file("/tmp/puppeteer.sock")
 
