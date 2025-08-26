@@ -541,7 +541,7 @@
           "datasource": {
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "rate(process_cpu_seconds_total{instance=\"$instance\",job=~\"$job\",index=~\"$index\"}[$bucket_size])",
+          "expr": "rate(process_cpu_user_seconds_total{instance=\"$instance\",job=~\"$job\",index=~\"$index\"}[$bucket_size]) + rate(process_cpu_system_seconds_total{instance=\"$instance\",job=~\"$job\",index=~\"$index\"}[$bucket_size])",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -651,7 +651,7 @@
           "datasource": {
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "process_resident_memory_bytes{instance=\"$instance\",job=~\"$job\",index=~\"$index\"}",
+          "expr": "jemalloc_stats_app_memory_bytes{instance=\"$instance\",job=~\"$job\",index=~\"$index\",type=\"resident\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -664,7 +664,7 @@
           "datasource": {
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum(process_resident_memory_bytes{instance=\"$instance\",job=~\"$job\",index=~\"$index\"})",
+          "expr": "sum(jemalloc_stats_app_memory_bytes{instance=\"$instance\",job=~\"$job\",index=~\"$index\",type=\"resident\"})",
           "hide": true,
           "interval": "",
           "legendFormat": "total",
