@@ -15,7 +15,7 @@
 
   boot.initrd.availableKernelModules = [ "igb" ];
 
-  # https://nixos.wiki/wiki/ZFS#declarative_mounting_of_ZFS_datasets
+  # https://wiki.nixos.org/wiki/ZFS#ZFS_conflicting_with_systemd
   systemd.services.zfs-mount.enable = false;
 
   services.zfs.autoScrub = {

@@ -2,7 +2,7 @@
 
 - add reverse DNS record for IP
 
-Manual setup done for mailman, adapted from https://nixos.wiki/wiki/Mailman:
+Manual setup done for mailman, adapted from https://wiki.nixos.org/wiki/Mailman:
 
 ```
 # Add DNS records in infra repo using terraform:
