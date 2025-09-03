@@ -103,7 +103,16 @@
                 )
               );
             in
-            import ./tests { inherit config inputs lib pkgs self system; }
+            import ./tests {
+              inherit
+                config
+                inputs
+                lib
+                pkgs
+                self
+                system
+                ;
+            }
             // nixosMachines;
 
           packages.nginx-dhparam-ffdhe2048 = pkgs.callPackage ./overlays/pkgs/nginx-dhparam-ffdhe2048 { };
