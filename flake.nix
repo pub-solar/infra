@@ -101,25 +101,8 @@
                   name: self.nixosConfigurations.${name}.config.system.build.toplevel
                 )
               );
-              nixos-lib = import (inputs.nixpkgs + "/nixos/lib") { };
-              testDir = builtins.attrNames (builtins.readDir ./tests);
-              testFiles = builtins.filter (n: builtins.match "^.*.nix$" n != null) testDir;
             in
-            builtins.listToAttrs (
-              map (x: {
-                name = "test-${lib.strings.removeSuffix ".nix" x}";
-                value = nixos-lib.runTest (
-                  import (./tests + "/${x}") {
-                    inherit self;
-                    inherit pkgs;
-                    inherit lib;
-                    inherit config;
-                    inherit inputs;
-                    inherit system;
-                  }
-                );
-              }) testFiles
-            )
+            import ./tests { inherit config inputs lib pkgs self system; }
             // nixosMachines;
 
           packages.nginx-dhparam-ffdhe2048 = pkgs.callPackage ./overlays/pkgs/nginx-dhparam-ffdhe2048 { };
