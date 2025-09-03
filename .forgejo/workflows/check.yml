@@ -3,7 +3,7 @@ on: [pull_request]
 
 jobs:
   check:
-    runs-on: fast-self-hosted
+    runs-on: self-hosted
     steps:
       - name: Check out repository code
         uses: https://code.forgejo.org/actions/checkout@v4
@@ -12,7 +12,12 @@ jobs:
         run: |
           set -exuo pipefail
           # Prevent cache garbage collection by creating GC roots
-          mkdir -p ${HOME}/.local/state/nix/results
+          mkdir -p /var/lib/gitea-runner/tankstelle/.local/state/nix/results
+
+          sed -i 's/virtualisation.cores .*/virtualisation.cores = 16;/' tests/support/auth-server.nix
+          sed -i 's/virtualisation.memorySize .*/virtualisation.memorySize = 16384;/' tests/support/auth-server.nix
+          sed -i 's/virtualisation.cores .*/virtualisation.cores = 16;/' tests/support/client.nix
+          sed -i 's/virtualisation.memorySize .*/virtualisation.memorySize = 16384;/' tests/support/client.nix
 
           # 1 eval-worker needs about 13GB of memory
           nix --accept-flake-config \
@@ -21,6 +26,7 @@ jobs:
             --no-nom \
             --skip-cached \
             --systems "x86_64-linux" \
-            --eval-workers 2 \
+            --eval-workers 4 \
+            --eval-max-memory-size 20480 \
             --max-jobs 20 \
-            --out-link ${HOME}/.local/state/nix/results/nix-fast-build
+            --out-link /var/lib/gitea-runner/tankstelle/.local/state/nix/results/nix-fast-build
