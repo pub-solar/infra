@@ -70,9 +70,19 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "49.13.236.167"
   }
   record {
+    hostname = "metronom"
+    type     = "AAAA"
+    address  = "2a01:4f8:c2c:7082::1"
+  }
+  record {
     hostname = "mail"
     type     = "A"
     address  = "49.13.236.167"
+  }
+  record {
+    hostname = "mail"
+    type     = "AAAA"
+    address  = "2a01:4f8:c2c:7082::1"
   }
   record {
     hostname = "trinkgenossin"

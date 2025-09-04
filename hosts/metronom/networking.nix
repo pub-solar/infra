@@ -13,7 +13,17 @@
   '';
   networking.hostId = "00000002";
 
-  networking.enableIPv6 = true;
-  networking.useDHCP = false;
-  networking.interfaces."enp1s0".useDHCP = true;
+  networking.useNetworkd = true;
+  # https://wiki.nixos.org/wiki/Install_NixOS_on_Hetzner_Cloud#Network_configuration
+  systemd.network.enable = true;
+  systemd.network.networks."30-wan" = {
+    matchConfig.Name = "enp1s0";
+    networkConfig.DHCP = "ipv4";
+    address = [
+      "2a01:4f8:c2c:7082::1/64"
+    ];
+    routes = [
+      { Gateway = "fe80::1"; }
+    ];
+  };
 }
