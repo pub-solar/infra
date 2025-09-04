@@ -190,7 +190,6 @@ in
       client.execute("date --set='+30 seconds'");
       auth_server.execute("date --set='+30 seconds'");
       net_server.execute("date --set='+30 seconds'");
-      net_server.execute("date --set='+30 seconds'");
       mail_server.execute("date --set='+30 seconds'");
 
       totp = client.execute(f'oathtool --totp -b "{totp_secret_key}"')[1].replace("\n", "")
@@ -202,6 +201,8 @@ in
       client.screenshot("TOTP-signed-in")
 
       ####### Delete TOTP #######
+
+      puppeteer_succeed('page.waitForSelector("[data-testid=\"otp/credential-list\"]", {timeout: 600000})')
 
       puppeteer_scroll_into_view('[data-testid="otp/credential-list"]')
       time.sleep(0.2)
