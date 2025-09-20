@@ -49,7 +49,7 @@ writeShellApplication {
     echo "Deleting mastodon data"
     sudo chown mastodon "$DIR"
 
-    sudo -u mastodon mastodon-tootctl accounts delete --email "$USER_EMAIL" || true
+    sudo -u mastodon mastodon-tootctl accounts delete "$USERNAME" || true
 
     ### Matrix ###
 
@@ -59,6 +59,6 @@ writeShellApplication {
     ### Forgejo ###
 
     echo "Deleting forgejo data"
-    sudo -u gitea gitea admin user delete --config /var/lib/forgejo/custom/conf/app.ini --purge --email "$USER_EMAIL" || true
+    sudo -u gitea gitea admin user delete --config /var/lib/forgejo/custom/conf/app.ini --purge --username "$USERNAME" || true
   '';
 }
