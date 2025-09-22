@@ -377,7 +377,6 @@
     "maunium-stickerpicker": {
       "flake": false,
       "locked": {
-        "dir": "web",
         "lastModified": 1751213916,
         "narHash": "sha256-P6MI+3SfQKpXyqGzZgsLBoZ2aOUbFxHbDhHbr6xJpXc=",
         "owner": "maunium",
@@ -386,7 +385,6 @@
         "type": "github"
       },
       "original": {
-        "dir": "web",
         "owner": "maunium",
         "ref": "master",
         "repo": "stickerpicker",
