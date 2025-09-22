@@ -69,7 +69,7 @@
 
         "/satzung" = {
           extraConfig = ''
-            return 302 https://cloud.${config.pub-solar-os.networking.domain}/s/iaKqiW25QJpHPYs;
+            return 302 https://cloud.${config.pub-solar-os.networking.domain}/s/LqrKjysypda3mR6;
           '';
         };
 
