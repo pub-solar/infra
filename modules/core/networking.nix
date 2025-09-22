@@ -75,28 +75,28 @@
 
     # These nameservers land in resolved.conf as 'DNS=<list>'
     networking.nameservers = lib.mkDefault [
-      "193.110.81.0#dns0.eu"
-      "185.253.5.0#dns0.eu"
-      "9.9.9.9#dns.quad9.net"
-      "149.112.112.112#dns.quad9.net"
-      "2a0f:fc80::#dns0.eu"
-      "2a0f:fc81::#dns0.eu"
-      "2620:fe::fe#dns.quad9.net"
-      "2620:fe::9#dns.quad9.net"
+      "193.110.81.0"
+      "185.253.5.0"
+      "9.9.9.9"
+      "149.112.112.112"
+      "2a0f:fc80::"
+      "2a0f:fc81::"
+      "2620:fe::fe"
+      "2620:fe::9"
     ];
     services.resolved = {
       enable = true;
-      dnsovertls = "true";
+      dnsovertls = "false";
       # default value in nixos module
       dnssec = "false";
       domains = [
         "~."
       ];
       fallbackDns = lib.mkDefault [
-        "5.1.66.255#dot.ffmuc.net"
-        "185.150.99.255#dot.ffmuc.net"
-        "2001:678:e68:f000::#dot.ffmuc.net"
-        "2001:678:ed0:f000::#dot.ffmuc.net"
+        "5.1.66.255"
+        "185.150.99.255"
+        "2001:678:e68:f000::"
+        "2001:678:ed0:f000::"
       ];
     };
   };
