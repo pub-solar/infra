@@ -123,22 +123,6 @@
         "type": "github"
       }
     },
-    "draupnir-hydra": {
-      "locked": {
-        "lastModified": 1755247432,
-        "narHash": "sha256-fJDoIFsu+Hb9PEPjm9LV4bV24zeBZQY73RDfbdg394E=",
-        "owner": "teutat3s",
-        "repo": "nixpkgs",
-        "rev": "4f61251b9f490020a105164ec2c8c946540b06e6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "teutat3s",
-        "ref": "draupnir-2.6.1",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "element-stickers": {
       "inputs": {
         "maunium-stickerpicker": [
@@ -467,7 +451,6 @@
         "codeberg-pages": "codeberg-pages",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
-        "draupnir-hydra": "draupnir-hydra",
         "element-stickers": "element-stickers",
         "element-themes": "element-themes",
         "flake-parts": "flake-parts",
