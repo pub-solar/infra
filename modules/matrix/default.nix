@@ -522,25 +522,27 @@ in
       };
     };
 
-    pub-solar-os.backups = {
-      resources.matrix-db.resourceCreateCommand = ''
+    services.restic.backups.matrix-synapse-storagebox = {
+      paths = [
+        "/var/lib/matrix-synapse"
+        "/var/lib/matrix-appservice-irc"
+        "/var/lib/mautrix-telegram"
+        "/tmp/matrix-synapse-backup.sql"
+        "/tmp/matrix-authentication-service-backup.sql"
+      ];
+      timerConfig = {
+        OnCalendar = "*-*-* 05:00:00 Etc/UTC";
+      };
+      initialize = true;
+      passwordFile = config.age.secrets."restic-repo-storagebox-nachtigall".path;
+      repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
+      backupPrepareCommand = ''
         ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/matrix-synapse-backup.sql
         ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix-authentication-service | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/matrix-authentication-service-backup.sql
       '';
-      restic.matrix-synapse = {
-        resources = [ "matrix-db" ];
-        paths = [
-          "/var/lib/matrix-synapse"
-          "/var/lib/matrix-appservice-irc"
-          "/var/lib/mautrix-telegram"
-          "/tmp/matrix-synapse-backup.sql"
-          "/tmp/matrix-authentication-service-backup.sql"
-        ];
-        timerConfig = {
-          OnCalendar = "*-*-* 05:00:00 Etc/UTC";
-        };
-        initialize = true;
-      };
+      backupCleanupCommand = ''
+        rm /tmp/matrix-synapse-backup.sql /tmp/matrix-authentication-service-backup.sql
+      '';
     };
   };
 }

@@ -2,6 +2,7 @@
   flake,
   config,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -98,6 +99,7 @@
         config.age.secrets."matrix-draupnir-http-antispam-authorization-file".path;
     };
   };
+  services.restic.backups = lib.mkForce { };
 
   services.openssh.openFirewall = true;
 
