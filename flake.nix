@@ -7,7 +7,6 @@
     codeberg-pages.url = "github:nixos/nixpkgs/refs/pull/395725/head";
     # Need to use the backported module because of https://github.com/NixOS/nixpkgs/pull/403645
     mastodon-backport.url = "github:teutat3s/nixpkgs/mastodon-4.4";
-    draupnir-hydra.url = "github:teutat3s/nixpkgs/draupnir-2.6.1";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -34,7 +33,7 @@
     element-themes.url = "github:aaronraimist/element-themes/master";
     element-themes.flake = false;
 
-    maunium-stickerpicker.url = "github:maunium/stickerpicker?ref=master&dir=web";
+    maunium-stickerpicker.url = "github:maunium/stickerpicker?ref=master";
     maunium-stickerpicker.flake = false;
 
     element-stickers.url = "git+https://git.pub.solar/pub-solar/maunium-stickerpicker-nix?ref=main";

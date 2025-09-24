@@ -123,22 +123,6 @@
         "type": "github"
       }
     },
-    "draupnir-hydra": {
-      "locked": {
-        "lastModified": 1755247432,
-        "narHash": "sha256-fJDoIFsu+Hb9PEPjm9LV4bV24zeBZQY73RDfbdg394E=",
-        "owner": "teutat3s",
-        "repo": "nixpkgs",
-        "rev": "4f61251b9f490020a105164ec2c8c946540b06e6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "teutat3s",
-        "ref": "draupnir-2.6.1",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "element-stickers": {
       "inputs": {
         "maunium-stickerpicker": [
@@ -337,11 +321,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1757808926,
-        "narHash": "sha256-K6PEI5PYY94TVMH0mX3MbZNYFme7oNRKml/85BpRRAo=",
+        "lastModified": 1758463745,
+        "narHash": "sha256-uhzsV0Q0I9j2y/rfweWeGif5AWe0MGrgZ/3TjpDYdGA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f21d9167782c086a33ad53e2311854a8f13c281e",
+        "rev": "3b955f5f0a942f9f60cdc9cacb7844335d0f21c3",
         "type": "github"
       },
       "original": {
@@ -393,7 +377,6 @@
     "maunium-stickerpicker": {
       "flake": false,
       "locked": {
-        "dir": "web",
         "lastModified": 1751213916,
         "narHash": "sha256-P6MI+3SfQKpXyqGzZgsLBoZ2aOUbFxHbDhHbr6xJpXc=",
         "owner": "maunium",
@@ -402,7 +385,6 @@
         "type": "github"
       },
       "original": {
-        "dir": "web",
         "owner": "maunium",
         "ref": "master",
         "repo": "stickerpicker",
@@ -416,11 +398,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1758102940,
-        "narHash": "sha256-wwqf3+A8EiqwWpcAaPN20QXJLlpGPpwtLTrzgnngI2o=",
+        "lastModified": 1758447883,
+        "narHash": "sha256-yGA6MV0E4JSEXqLTb4ZZkmdJZcoQ8HUzihRRX12Bvpg=",
         "owner": "lnl7",
         "repo": "nix-darwin",
-        "rev": "ebd0bfc11fc2b5cff37401e9b3703881ad5fabbd",
+        "rev": "25381509d5c91bbf3c30e23abc6d8476d2143cd1",
         "type": "github"
       },
       "original": {
@@ -432,11 +414,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1758216857,
-        "narHash": "sha256-h1BW2y7CY4LI9w61R02wPaOYfmYo82FyRqHIwukQ6SY=",
+        "lastModified": 1758346548,
+        "narHash": "sha256-afXE7AJ7MY6wY1pg/Y6UPHNYPy5GtUKeBkrZZ/gC71E=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d2ed99647a4b195f0bcc440f76edfa10aeb3b743",
+        "rev": "b2a3852bd078e68dd2b3dfa8c00c67af1f0a7d20",
         "type": "github"
       },
       "original": {
@@ -467,7 +449,6 @@
         "codeberg-pages": "codeberg-pages",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
-        "draupnir-hydra": "draupnir-hydra",
         "element-stickers": "element-stickers",
         "element-themes": "element-themes",
         "flake-parts": "flake-parts",
@@ -571,11 +552,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1758198701,
-        "narHash": "sha256-7To75JlpekfUmdkUZewnT6MoBANS0XVypW6kjUOXQwc=",
+        "lastModified": 1758277210,
+        "narHash": "sha256-iCGWf/LTy+aY0zFu8q12lK8KuZp7yvdhStehhyX1v8w=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "0147c2f1d54b30b5dd6d4a8c8542e8d7edf93b5d",
+        "rev": "8eaee110344796db060382e15d3af0a9fc396e0e",
         "type": "github"
       },
       "original": {

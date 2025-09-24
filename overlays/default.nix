@@ -10,7 +10,6 @@
               final: prev:
               let
                 unstable = import inputs.unstable { system = prev.system; };
-                draupnir-hydra = import inputs.draupnir-hydra { system = prev.system; };
               in
               {
                 # Patch to always use port 443 in redirects from http -> https
@@ -18,7 +17,6 @@
                 codeberg-pages = prev.codeberg-pages.overrideAttrs (oldAttrs: {
                   patches = [ ./0001-workaround-don-t-change-ssl-port-in-redirect.patch ];
                 });
-                draupnir = draupnir-hydra.draupnir;
                 element-themes = prev.callPackage ./pkgs/element-themes { inherit (inputs) element-themes; };
                 element-stickerpicker = prev.callPackage ./pkgs/element-stickerpicker {
                   inherit (inputs) element-stickers maunium-stickerpicker;
