@@ -237,7 +237,7 @@ in
 
         autocreate_auto_join_rooms = true;
 
-        default_room_version = "10";
+        default_room_version = "12";
         disable_msisdn_registration = true;
         enable_media_repo = true;
         media_retention = {
