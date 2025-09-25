@@ -62,16 +62,16 @@ lib.mapAttrsToList
     };
 
     filesystem_data_full_80percent = {
-      condition = ''100 - ((node_filesystem_avail_bytes{fstype!="rootfs",mountpoint="/var/lib"} * 100) / node_filesystem_size_bytes{fstype!="rootfs",mountpoint="/var/lib"}) > 80'';
+      condition = ''100 - ((node_filesystem_avail_bytes{fstype!="rootfs",mountpoint=~"/var/lib.*"} * 100) / node_filesystem_size_bytes{fstype!="rootfs",mountpoint=~"/var/lib.*"}) > 80'';
       time = "10m";
       description = "{{$labels.instance}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 20% space left on its filesystem.";
     };
 
-    # filesystem_inodes_full = {
-    #   condition = ''disk_inodes_free / disk_inodes_total < 0.10'';
-    #   time = "10m";
-    #   description = "{{$labels.instance}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 10% inodes left on its filesystem.";
-    # };
+    filesystem_inodes_full = {
+      condition = ''node_filesystem_files_free / node_filesystem_files < 0.10'';
+      time = "10m";
+      description = "{{$labels.instance}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 10% inodes left on its filesystem.";
+    };
 
     # daily_task_not_run = {
     #   # give 6 hours grace period
