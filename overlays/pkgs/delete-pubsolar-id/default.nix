@@ -5,6 +5,7 @@
   forgejo-lts,
   jq,
   keycloak,
+  matrix-authentication-service,
   openssl,
   sudo,
 }:
@@ -12,11 +13,12 @@ writeShellApplication {
   name = "delete-pubsolar-id";
   text = ''
     set -e
-    PATH=$PATH:${coreutils}/bin:${curl}/bin:${forgejo-lts}/bin:${jq}/bin:${keycloak}/bin:${openssl}/bin:${sudo}/bin
+    PATH=$PATH:${coreutils}/bin:${curl}/bin:${forgejo-lts}/bin:${jq}/bin:${keycloak}/bin:${matrix-authentication-service}/bin:${openssl}/bin:${sudo}/bin
 
     KEYCLOAK_SECRET=$1
     MATRIX_ADMIN_ACCESS_TOKEN=$2
-    USERNAME=$3
+    MAS_CONFIG_PATH=$3
+    USERNAME=$4
 
     DIR=$(mktemp -d)
 
@@ -55,6 +57,7 @@ writeShellApplication {
 
     echo "Deleting matrix account"
     curl --header "Authorization: Bearer $MATRIX_ADMIN_ACCESS_TOKEN" --request POST "http://127.0.200.10:8008/_synapse/admin/v1/deactivate/@$USERNAME:pub.solar" --data '{"erase": true}' || true
+    sudo -u matrix-authentication-service mas-cli --config "$MAS_CONFIG_PATH" --config /run/agenix/matrix-authentication-service-secret-config.yml manage kill-sessions "$USERNAME" || true
 
     ### Forgejo ###
 
