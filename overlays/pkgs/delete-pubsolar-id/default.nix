@@ -9,16 +9,35 @@
   openssl,
   sudo,
 }:
+# writeShellApplication uses:
+# set -o errexit
+# set -o nounset
+# set -o pipefail
 writeShellApplication {
   name = "delete-pubsolar-id";
   text = ''
-    set -e
     PATH=$PATH:${coreutils}/bin:${curl}/bin:${forgejo-lts}/bin:${jq}/bin:${keycloak}/bin:${matrix-authentication-service}/bin:${openssl}/bin:${sudo}/bin
+
+    function fatal {
+      local msg="$*"
+      [[ -z "$msg" ]] && msg="failed"
+      echo "$msg" >&2
+      exit 1
+    }
+
+    set +u
 
     KEYCLOAK_SECRET=$1
     MATRIX_ADMIN_ACCESS_TOKEN=$2
     MAS_CONFIG_PATH=$3
     USERNAME=$4
+
+    set -u
+
+    [[ -z "$KEYCLOAK_SECRET" ]] && fatal "missing first argument keycloak secret"
+    [[ -z "$MATRIX_ADMIN_ACCESS_TOKEN" ]] && fatal "missing second argument matrix admin access token"
+    [[ -z "$MAS_CONFIG_PATH" ]] && fatal "missing third argument mas config path"
+    [[ -z "$USERNAME" ]] && fatal "missing fourth argument username"
 
     DIR=$(mktemp -d)
 
