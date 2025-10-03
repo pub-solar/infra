@@ -11,7 +11,11 @@ in
 
   config = lib.mkIf (cfg.instances != { }) {
     # Label configuration on gitea-actions-runner instance requires either docker or podman
-    virtualisation.docker.enable = true;
+    virtualisation.docker = {
+      enable = true;
+      package = pkgs.docker_28;
+      autoPrune.enable = true;
+    };
 
     # Trust docker bridge interface traffic
     # Needed for the docker runner to communicate with the act_runner cache
