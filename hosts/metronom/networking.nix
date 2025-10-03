@@ -6,13 +6,11 @@
   ...
 }:
 {
-  # has issues with resolving DNS after a while, needs investigation
-  services.resolved.enable = lib.mkForce false;
-
   # resolvconf handles DNS settings
   # Use local knot resolver provided by simple-nixos-mailserver, they enable
   # this option for us
   # networking.resolvconf.useLocalResolver = true;
+  services.resolved.enable = lib.mkForce false;
 
   networking.hostName = "metronom";
   networking.extraHosts = ''
