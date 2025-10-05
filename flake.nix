@@ -30,6 +30,9 @@
     keycloak-theme-pub-solar.url = "git+https://git.pub.solar/pub-solar/keycloak-theme?ref=main";
     keycloak-theme-pub-solar.inputs.nixpkgs.follows = "nixpkgs";
 
+    keycloak-event-listener.url = "git+https://git.pub.solar/pub-solar/keycloak-event-listener?ref=main";
+    keycloak-event-listener.inputs.nixpkgs.follows = "unstable";
+
     element-themes.url = "github:aaronraimist/element-themes/master";
     element-themes.flake = false;
 
@@ -61,7 +64,7 @@
       ];
 
       perSystem =
-        {
+        args@{
           system,
           pkgs,
           config,
@@ -98,23 +101,17 @@
                   name: self.nixosConfigurations.${name}.config.system.build.toplevel
                 )
               );
-              nixos-lib = import (inputs.nixpkgs + "/nixos/lib") { };
-              testDir = builtins.attrNames (builtins.readDir ./tests);
-              testFiles = builtins.filter (n: builtins.match "^.*.nix$" n != null) testDir;
             in
-            builtins.listToAttrs (
-              map (x: {
-                name = "test-${lib.strings.removeSuffix ".nix" x}";
-                value = nixos-lib.runTest (
-                  import (./tests + "/${x}") {
-                    inherit self;
-                    inherit pkgs;
-                    inherit lib;
-                    inherit config;
-                  }
-                );
-              }) testFiles
-            )
+            import ./tests {
+              inherit
+                config
+                inputs
+                lib
+                pkgs
+                self
+                system
+                ;
+            }
             // nixosMachines;
 
           packages.nginx-dhparam-ffdhe2048 = pkgs.callPackage ./overlays/pkgs/nginx-dhparam-ffdhe2048 { };
@@ -138,6 +135,11 @@
               terraform-backend-git
               terraform-ls
               jq
+
+              # For the tests puppeteer-socket pkg
+              nodejs
+              nodePackages.typescript
+              nodePackages.typescript-language-server
             ];
           };
 

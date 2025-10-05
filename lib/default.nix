@@ -1,5 +1,4 @@
 {
-  self,
   lib,
   inputs,
   ...
@@ -19,6 +18,7 @@
         ## In configs, they can be used under "lib.our"
 
         deploy = import ./deploy.nix { inherit inputs lib; };
+        wireguardDevicesForUsers = callLibs ./wireguardDevicesForUsers.nix;
       };
   };
 }
