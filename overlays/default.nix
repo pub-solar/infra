@@ -25,9 +25,6 @@
                 };
                 # want mastodon 4.4.x
                 mastodon = unstable.mastodon;
-                # 25.05 won't get updates backported because of
-                # https://github.com/NixOS/nixpkgs/pull/438225
-                matrix-authentication-service = unstable.matrix-authentication-service;
                 nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
                 delete-pubsolar-id = prev.callPackage ./pkgs/delete-pubsolar-id { };
               }
