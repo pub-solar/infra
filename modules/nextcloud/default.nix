@@ -25,7 +25,12 @@ in
     enableACME = true;
     forceSSL = true;
 
+    # we already set this header in nginx, duplicate headers can lead to
+    # issues like https://github.com/nextcloud/notes-android/issues/2848
+    # can be removed after https://github.com/NixOS/nixpkgs/pull/449186 has been
+    # merged
     extraConfig = ''
+      fastcgi_hide_header X-Robots-Tag;
       access_log /var/log/nginx/${vHostDomain}-access.log combined_host;
       error_log /var/log/nginx/${vHostDomain}-error.log;
     '';
