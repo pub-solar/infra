@@ -12,6 +12,8 @@
                 unstable = import inputs.unstable { system = prev.system; };
               in
               {
+                # want anubis 1.22+
+                anubis = unstable.anubis;
                 # Patch to always use port 443 in redirects from http -> https
                 # instead of changing it to pages-server PORT
                 codeberg-pages = prev.codeberg-pages.overrideAttrs (oldAttrs: {
