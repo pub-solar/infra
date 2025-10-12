@@ -7,6 +7,7 @@
         openFirewall = true;
         firewallFilter = "--in-interface wg-ssh --protocol tcp --match tcp --dport ${toString config.services.prometheus.exporters.node.port}";
         enabledCollectors = [
+          "processes"
           "systemd"
           "systemd.enable-restarts-metrics"
         ];
