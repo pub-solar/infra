@@ -84,9 +84,6 @@
           checks =
             let
               machinesPerSystem = {
-                aarch64-linux = [
-                  "metronom"
-                ];
                 x86_64-linux = [
                   "blue-shell"
                   "delite"
