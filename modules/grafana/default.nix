@@ -35,8 +35,8 @@ in
       group = "grafana";
       user = "grafana";
     };
-    "grafana-dashboards/node-exporter-full_rev33.json" = {
-      source = ./grafana-dashboards/node-exporter-full_rev33.json;
+    "grafana-dashboards/node-exporter-full_rev42.json" = {
+      source = ./grafana-dashboards/node-exporter-full_rev42.json;
       group = "grafana";
       user = "grafana";
     };

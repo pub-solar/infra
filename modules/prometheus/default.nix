@@ -39,8 +39,8 @@ in
     enable = true;
     port = 9001;
     globalConfig = {
-      scrape_interval = "10s";
-      scrape_timeout = "9s";
+      scrape_interval = "15s";
+      scrape_timeout = "10s";
     };
     scrapeConfigs = [
       {
