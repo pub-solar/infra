@@ -198,6 +198,10 @@ in
         loglevel = 2;
         maintenance_window_start = "1";
         "simpleSignUpLink.shown" = false;
+        # disable unsupported browser warning, as the determination is done
+        # in javascript in the browser reducing page loading speed.
+        # see: https://nicofrand.eu/speeding-up-my-nextcloud-part-1/
+        no_unsupported_browser_warning = true;
       };
 
       phpOptions = {
