@@ -29,6 +29,7 @@
                 delete-pubsolar-id = prev.callPackage ./pkgs/delete-pubsolar-id { };
               }
             )
+            (import ./matrix-synapse.nix)
           ];
         }
       );
