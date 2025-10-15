@@ -72,6 +72,20 @@ in
     maxage = 3;
   };
 
+  # Scrape access and error logs and send them to loki
+  services.promtail.configuration.scrape_configs = [
+    {
+      job_name = "nginx";
+      static_configs = {
+        labels = {
+          job = "nginx";
+          __path__ = "/var/log/nginx/*.log";
+          host = config.networking.hostName;
+        };
+      };
+    }
+  ];
+
   security.acme = {
     acceptTerms = true;
     defaults.email = acmeEmailAddress;
