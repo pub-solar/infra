@@ -133,6 +133,14 @@
           "fd00:fae:fae:fae:fae:207::/96"
         ];
       }
+      {
+        # FP6
+        publicKey = "Ebol9UzbrXleH1XuC9cwBq6ILIvXsiiVPXDGlPKxMTQ=";
+        allowedIPs = [
+          "10.7.6.209/32"
+          "fd00:fae:fae:fae:fae:209::/96"
+        ];
+      }
     ];
   };
 }
