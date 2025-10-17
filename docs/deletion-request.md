@@ -34,15 +34,9 @@ Required:
 SSH into nachtigall, and run the following script. Replace `<username>` with the `Username` found in keycloak.
 
 ```
-delete-pubsolar-id $(sudo cat /run/agenix/keycloak-admin-cli-client-secret) $(sudo cat /run/agenix/matrix-admin-access-token) <username>
-```
-
-Make sure to close all Matrix user sessions:
-
-```
-# get full path to mas-cli command with current --config flags from
+# get full path to the mas-cli config in /nix/store from
 # sudo systemctl cat matrix-authentication-service
-sudo -u matrix-authentication-service <nix-store-path>/mas-cli --config <nix-store-config> --config /run/agenix/matrix-authentication-service-secret-config.yml manage kill-sessions <username>
+delete-pubsolar-id $(sudo cat /run/agenix/keycloak-admin-cli-client-secret) $(sudo cat /run/agenix/matrix-admin-access-token) /nix/store/x1qsl79wgzdfgrdqbnp3kli9nqxcwy8m-config.yaml <username>
 ```
 
 Don't forget to send a response from `crew@pub.solar` with a deletion confirmation.
