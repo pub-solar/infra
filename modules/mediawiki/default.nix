@@ -115,10 +115,73 @@ let
       wfLoadSkin('Vector');
 
       # Enabled extensions.
+      wfLoadExtension('JsonConfig');
+      wfLoadExtension('ParserFunctions');
+      wfLoadExtension('Scribunto');
       wfLoadExtension('OpenIDConnect');
       wfLoadExtension('PluggableAuth');
       wfLoadExtension('VisualEditor');
+      wfLoadExtension('TemplateData');
       wfLoadExtension('TemplateStyles');
+
+      // Scribunto settings
+      // https://www.mediawiki.org/wiki/Extension:Scribunto
+      $wgScribuntoDefaultEngine = 'luastandalone';
+
+      // ParserFunctions settings
+      // https://www.mediawiki.org/wiki/Extension:ParserFunctions
+      $wgPFEnableStringFunctions = true;
+
+      // JsonConfig settings
+      // https://www.mediawiki.org/wiki/Extension:JsonConfig#Supporting_Wikimedia_templates
+      $wgJsonConfigEnableLuaSupport = true; // required to use JsonConfig in Lua
+      $wgJsonConfigModels['Tabular.JsonConfig'] = 'JsonConfig\JCTabularContent';
+      $wgJsonConfigs['Tabular.JsonConfig'] = [
+              'namespace' => 486,
+              'nsName' => 'Data',
+              // page name must end in .tab, and contain at least one symbol
+              'pattern' => '/.\.tab$/',
+              'license' => 'CC0-1.0',
+              'isLocal' => false,
+      ];
+
+      $wgJsonConfigModels['Map.JsonConfig'] = 'JsonConfig\JCMapDataContent';
+      $wgJsonConfigs['Map.JsonConfig'] = [
+              'namespace' => 486,
+              'nsName' => 'Data',
+              // page name must end in .map, and contain at least one symbol
+              'pattern' => '/.\.map$/',
+              'license' => 'CC0-1.0',
+              'isLocal' => false,
+      ];
+      $wgJsonConfigInterwikiPrefix = "commons";
+
+      $wgJsonConfigs['Tabular.JsonConfig']['remote'] = [
+              'url' => 'https://commons.wikimedia.org/w/api.php'
+      ];
+      $wgJsonConfigs['Map.JsonConfig']['remote'] = [
+              'url' => 'https://commons.wikimedia.org/w/api.php'
+      ];
+
+      // Translate extension
+      // https://www.mediawiki.org/wiki/MediaWiki_Language_Extension_Bundle
+      wfLoadExtension('Babel');
+
+      wfLoadExtension('cldr');
+
+      $wgDefaultUserOptions['usenewrc'] = 1;
+
+      wfLoadExtension('Translate');
+      $wgGroupPermissions['user']['translate'] = true;
+      $wgGroupPermissions['user']['translate-messagereview'] = true;
+      $wgGroupPermissions['user']['translate-groupreview'] = true;
+      $wgGroupPermissions['user']['translate-import'] = true;
+      $wgGroupPermissions['sysop']['pagetranslation'] = true;
+      $wgGroupPermissions['sysop']['translate-manage'] = true;
+      $wgTranslateDocumentationLanguageCode = 'qqq';
+      $wgExtraLanguageNames['qqq'] = 'Message documentation'; # No linguistic content. Used for documenting messages
+
+      wfLoadExtension('UniversalLanguageSelector');
 
       # End of automatically generated settings.
       # Add more configuration options below.
