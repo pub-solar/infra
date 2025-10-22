@@ -75,12 +75,12 @@
 
     # These nameservers land in resolved.conf as 'DNS=<list>'
     networking.nameservers = lib.mkDefault [
-      "193.110.81.0#dns0.eu"
-      "185.253.5.0#dns0.eu"
+      "86.54.11.100#unfiltered.joindns4.eu"
+      "86.54.11.200#unfiltered.joindns4.eu"
       "9.9.9.9#dns.quad9.net"
       "149.112.112.112#dns.quad9.net"
-      "2a0f:fc80::#dns0.eu"
-      "2a0f:fc81::#dns0.eu"
+      "2a13:1001::86:54:11:100#unfiltered.joindns4.eu"
+      "2a13:1001::86:54:11:200#unfiltered.joindns4.eu"
       "2620:fe::fe#dns.quad9.net"
       "2620:fe::9#dns.quad9.net"
     ];
