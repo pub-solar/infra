@@ -245,6 +245,7 @@ in
           memories
           notes
           notify_push
+          polls
           previewgenerator
           quota_warning
           recognize
