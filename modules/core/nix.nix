@@ -70,4 +70,21 @@
       "home-manager=${flake.inputs.home-manager}"
     ];
   };
+
+  home-manager.users = (
+    lib.attrsets.foldlAttrs (
+      acc: name: value:
+      acc
+      // {
+        ${name} = {
+          nix.gc = {
+            automatic = true;
+            frequency = "weekly";
+            options = "--delete-older-than 14d";
+            randomizedDelaySec = "15m";
+          };
+        };
+      }
+    ) { } config.pub-solar-os.authentication.users
+  );
 }
