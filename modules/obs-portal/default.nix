@@ -157,7 +157,7 @@ in
 
   pub-solar-os.backups = {
     resources.obs-db.resourceCreateCommand = ''
-      ${pkgs.docker}/bin/docker exec -i --user postgres obs-portal-db pg_dump -d obs | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/obs-portal-backup.sql
+      ${pkgs.docker}/bin/docker exec -i --user postgres obs-portal-db pg_dump -d obs -n public -T road -T region | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/obs-portal-backup.sql
     '';
     restic.obs-portal = {
       resources = [ "obs-db" ];
