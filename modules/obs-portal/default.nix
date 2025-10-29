@@ -20,7 +20,7 @@ let
         "privacyPolicyUrl": "${config.pub-solar-os.privacyPolicyUrl}",
         "mapHome": {"zoom": 12, "latitude": 50.93, "longitude": 6.97},
         "banner": {
-            "text": "This is an installation serving the Cologne/Bonn region run for Team OBSKöln by pub.solar n.e.V.",
+            "text": "This is an installation serving the Cologne/Bonn region run for Team OBSKöln by pub.solar e.V.",
             "style": "info"
         },
     }
