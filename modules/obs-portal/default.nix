@@ -20,7 +20,7 @@ let
         "privacyPolicyUrl": "${config.pub-solar-os.privacyPolicyUrl}",
         "mapHome": {"zoom": 12, "latitude": 50.93, "longitude": 6.97},
         "banner": {
-            "text": "This is an installation serving the Cologne/Bonn region run for Team OBSKöln by pub.solar n.e.V.",
+            "text": "This is an installation serving the Cologne/Bonn region run for Team OBSKöln by pub.solar e.V.",
             "style": "info"
         },
     }
@@ -157,7 +157,7 @@ in
 
   pub-solar-os.backups = {
     resources.obs-db.resourceCreateCommand = ''
-      ${pkgs.docker}/bin/docker exec -i --user postgres obs-portal-db pg_dump -d obs | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/obs-portal-backup.sql
+      ${pkgs.docker}/bin/docker exec -i --user postgres obs-portal-db pg_dump -d obs -n public -T road -T region | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/obs-portal-backup.sql
     '';
     restic.obs-portal = {
       resources = [ "obs-db" ];
