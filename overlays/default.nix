@@ -25,11 +25,12 @@
                 };
                 # want mastodon 4.4.x
                 mastodon = unstable.mastodon;
+                # want matrix-appservice-irc 4.0.0
+                matrix-appservice-irc = unstable.matrix-appservice-irc;
                 nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
                 delete-pubsolar-id = prev.callPackage ./pkgs/delete-pubsolar-id { };
               }
             )
-            (import ./matrix-synapse.nix)
           ];
         }
       );
