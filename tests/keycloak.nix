@@ -94,6 +94,13 @@ in
       client.succeed("${su "offlineimap"}")
       client.succeed("${su "[ $(messages -s ~/Maildir/test-user@test.pub.solar/INBOX) -eq 1 ]"}")
 
+      print('Setting all system clocks 60 seconds ahead to send another confirmation mail')
+      client.execute("date --set='+60 seconds'");
+      auth_server.execute("date --set='+60 seconds'");
+      net_server.execute("date --set='+60 seconds'");
+      net_server.execute("date --set='+60 seconds'");
+      mail_server.execute("date --set='+60 seconds'");
+
       puppeteer_succeed('page.locator("a::-p-text(Click here)").click()')
       puppeteer_succeed('page.waitForNetworkIdle()')
 

@@ -9,7 +9,7 @@ const EXECUTABLE = process.env.EXECUTABLE || 'firefox';
 (async () => {
   const firefoxBrowser = await puppeteer.launch({
     executablePath: EXECUTABLE,
-    headless: true,
+    headless: false,
     devtools: false,
     browser: 'firefox',
     extraPrefsFirefox: {},
