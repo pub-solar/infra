@@ -145,8 +145,8 @@ lib.mapAttrsToList
 
     ram_using_90percent = {
       condition = "node_memory_Buffers_bytes + node_memory_MemFree_bytes + node_memory_Cached_bytes < node_memory_MemTotal_bytes * 0.1";
-      time = "1h";
-      description = "{{$labels.instance}} is using at least 90% of its RAM for at least 1 hour.";
+      time = "4h";
+      description = "{{$labels.instance}} is using at least 90% of its RAM for at least 4 hours.";
     };
 
     cpu_using_90percent = {
