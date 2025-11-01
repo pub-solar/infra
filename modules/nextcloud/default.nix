@@ -243,6 +243,7 @@ in
           integration_deepl
           mail
           memories
+          news
           notes
           notify_push
           polls
