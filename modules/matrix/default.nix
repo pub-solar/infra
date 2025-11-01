@@ -232,6 +232,7 @@ in
         allow_public_rooms_without_auth = false;
         auto_join_rooms = [
           "#community:${serverDomain}"
+          "#announcements:${serverDomain}"
           "#general:${serverDomain}"
         ];
 
