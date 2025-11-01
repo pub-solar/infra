@@ -30,12 +30,12 @@
       name = config.networking.hostName;
       tokenFile = config.age.secrets.forgejo-actions-runner-token-miom.path;
       labels = [
-        # provide a debian 12 bookworm base with Node.js for actions
-        "debian-latest:docker://git.pub.solar/pub-solar/actions-base-image:20-bookworm"
+        # provide a debian 13 trixie base with Node.js for actions
+        "debian-latest:docker://git.pub.solar/pub-solar/actions-base-image:24-trixie"
         # fake the ubuntu name, commonly used in actions examples
-        "ubuntu-latest:docker://git.pub.solar/pub-solar/actions-base-image:20-bookworm"
+        "ubuntu-latest:docker://git.pub.solar/pub-solar/actions-base-image:24-trixie"
         # alpine with Node.js
-        "alpine-latest:docker://node:20-alpine"
+        "alpine-latest:docker://node:24-alpine"
       ];
       # Required to avoid docker-in-docker and still be able to build docker images
       # and for actions that use RUNNER_TOOL_CACHE
@@ -57,12 +57,12 @@
       labels = [
         "self-hosted:host://-self-hosted"
 
-        # provide a debian 12 bookworm base with Node.js for actions
-        "debian-latest:docker://git.pub.solar/pub-solar/actions-base-image:20-bookworm"
+        # provide a debian 13 trixie base with Node.js for actions
+        "debian-latest:docker://git.pub.solar/pub-solar/actions-base-image:24-trixie"
         # fake the ubuntu name, commonly used in actions examples
-        "ubuntu-latest:docker://git.pub.solar/pub-solar/actions-base-image:20-bookworm"
+        "ubuntu-latest:docker://git.pub.solar/pub-solar/actions-base-image:24-trixie"
         # alpine with Node.js
-        "alpine-latest:docker://node:20-alpine"
+        "alpine-latest:docker://node:24-alpine"
       ];
       # Required to avoid docker-in-docker and still be able to build docker images
       # and for actions that use RUNNER_TOOL_CACHE
@@ -83,12 +83,12 @@
       name = config.networking.hostName;
       tokenFile = config.age.secrets.forgejo-actions-runner-token-pub-solar.path;
       labels = [
-        # provide a debian 12 bookworm base with Node.js for actions
-        "debian-latest:docker://git.pub.solar/pub-solar/actions-base-image:20-bookworm"
+        # provide a debian 13 trixie base with Node.js for actions
+        "debian-latest:docker://git.pub.solar/pub-solar/actions-base-image:24-trixie"
         # fake the ubuntu name, commonly used in actions examples
-        "ubuntu-latest:docker://git.pub.solar/pub-solar/actions-base-image:20-bookworm"
+        "ubuntu-latest:docker://git.pub.solar/pub-solar/actions-base-image:24-trixie"
         # alpine with Node.js
-        "alpine-latest:docker://node:20-alpine"
+        "alpine-latest:docker://node:24-alpine"
       ];
       # Required to avoid docker-in-docker and still be able to build docker images
       # and for actions that use RUNNER_TOOL_CACHE
