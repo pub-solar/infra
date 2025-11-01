@@ -22,6 +22,12 @@ resource "namecheap_domain_records" "lunar-page" {
     address  = "lunar.page"
     ttl      = 60
   }
+  record {
+    hostname = "@"
+    type     = "TXT"
+    address  = "pages.lunar-page.pub-solar.lunar.page"
+    ttl      = 3600
+  }
 
   record {
     hostname = "@"
