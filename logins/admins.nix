@@ -55,6 +55,16 @@
           "fd00:fae:fae:fae:fae:206::/96"
         ];
       }
+      {
+        # droppie
+        # WARNING: this host is used for backups!
+        # Don't remove without consultation
+        publicKey = "5Q5hqjLiPppiKjqENOivCLP4LKlUgHq/GmghvRDF7nQ=";
+        allowedIPs = [
+          "10.7.6.210/32"
+          "fd00:fae:fae:fae:fae:210::/96"
+        ];
+      }
     ];
   };
 
