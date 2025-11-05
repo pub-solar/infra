@@ -13,6 +13,8 @@
   networking.hosts = {
     "138.201.80.102" = [ "nachtigall.${config.pub-solar-os.networking.domain}" ];
     "2a01:4f8:172:1c25::1" = [ "nachtigall.${config.pub-solar-os.networking.domain}" ];
+    "10.7.6.210" = [ "droppie.wg.${config.pub-solar-os.networking.domain}" ];
+    "fd00:fae:fae:fae:fae:210::" = [ "droppie.wg.${config.pub-solar-os.networking.domain}" ];
   };
 
   networking.hostName = "nachtigall";
