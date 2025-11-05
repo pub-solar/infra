@@ -1,7 +1,7 @@
 { config, flake, ... }:
 {
-  age.secrets."restic-repo-droppie" = {
-    file = "${flake.self}/secrets/restic-repo-droppie.age";
+  age.secrets."restic-repo-droppie-nachtigall" = {
+    file = "${flake.self}/secrets/restic-repo-droppie-nachtigall.age";
     mode = "400";
     owner = "root";
   };
@@ -19,6 +19,11 @@
     file = "${flake.self}/secrets/restic-repo-garage-nachtigall-env.age";
     mode = "400";
     owner = "root";
+  };
+
+  pub-solar-os.backups.repos.droppie = {
+    passwordFile = config.age.secrets."restic-repo-droppie-nachtigall".path;
+    repository = "sftp:hakkonaut@10.7.6.210:/var/lib/pub-solar-backups/nachtigall";
   };
 
   pub-solar-os.backups.repos.storagebox = {

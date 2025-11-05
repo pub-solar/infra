@@ -96,11 +96,12 @@ in
 
   "restic-repo-garage-metronom.age".publicKeys = metronomKeys ++ adminKeys;
   "restic-repo-garage-metronom-env.age".publicKeys = metronomKeys ++ adminKeys;
-  "restic-repo-droppie.age".publicKeys = nachtigallKeys ++ adminKeys;
   "restic-repo-storagebox-nachtigall.age".publicKeys = nachtigallKeys ++ adminKeys;
   "restic-repo-storagebox-metronom.age".publicKeys = metronomKeys ++ adminKeys;
   "restic-repo-garage-nachtigall.age".publicKeys = nachtigallKeys ++ adminKeys;
   "restic-repo-garage-nachtigall-env.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "restic-repo-droppie-nachtigall.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "restic-repo-droppie-metronom.age".publicKeys = metronomKeys ++ adminKeys;
 
   "mediawiki-database-password.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mediawiki-admin-password.age".publicKeys = nachtigallKeys ++ adminKeys;

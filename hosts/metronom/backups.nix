@@ -1,5 +1,10 @@
 { config, flake, ... }:
 {
+  age.secrets."restic-repo-droppie-metronom" = {
+    file = "${flake.self}/secrets/restic-repo-droppie-metronom.age";
+    mode = "400";
+    owner = "root";
+  };
   age.secrets."restic-repo-storagebox-metronom" = {
     file = "${flake.self}/secrets/restic-repo-storagebox-metronom.age";
     mode = "400";
@@ -14,6 +19,11 @@
     file = "${flake.self}/secrets/restic-repo-garage-metronom-env.age";
     mode = "400";
     owner = "root";
+  };
+
+  pub-solar-os.backups.repos.droppie = {
+    passwordFile = config.age.secrets."restic-repo-droppie-metronom".path;
+    repository = "sftp:hakkonaut@10.7.6.210:/var/lib/pub-solar-backups/metronom";
   };
 
   pub-solar-os.backups.repos.storagebox = {
