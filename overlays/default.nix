@@ -23,12 +23,46 @@
                 element-stickerpicker = prev.callPackage ./pkgs/element-stickerpicker {
                   inherit (inputs) element-stickers maunium-stickerpicker;
                 };
-                # want mastodon 4.4.x
-                mastodon = unstable.mastodon;
                 # want matrix-appservice-irc 4.0.0
                 matrix-appservice-irc = unstable.matrix-appservice-irc;
                 nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
                 delete-pubsolar-id = prev.callPackage ./pkgs/delete-pubsolar-id { };
+
+                # want mastodon 4.5.x with themes
+                mastodon = prev.callPackage ./pkgs/mastodon {
+                  inherit inputs;
+                  mastodon = unstable.mastodon;
+                  themes = {
+                    tangerine = {
+                      paths = [
+                        "${inputs.tangerine-ui}/mastodon/app/javascript/styles/tangerineui.scss"
+                        "${inputs.tangerine-ui}/mastodon/app/javascript/styles/tangerineui"
+                      ];
+                      entrypoint = "tangerineui.scss";
+                    };
+                    tangerine-cherry = {
+                      paths = [
+                        "${inputs.tangerine-ui}/mastodon/app/javascript/styles/tangerineui-cherry.scss"
+                        "${inputs.tangerine-ui}/mastodon/app/javascript/styles/tangerineui-cherry"
+                      ];
+                      entrypoint = "tangerineui-cherry.scss";
+                    };
+                    tangerine-lagoon = {
+                      paths = [
+                        "${inputs.tangerine-ui}/mastodon/app/javascript/styles/tangerineui-lagoon.scss"
+                        "${inputs.tangerine-ui}/mastodon/app/javascript/styles/tangerineui-lagoon"
+                      ];
+                      entrypoint = "tangerineui-lagoon.scss";
+                    };
+                    tangerine-purple = {
+                      paths = [
+                        "${inputs.tangerine-ui}/mastodon/app/javascript/styles/tangerineui-purple.scss"
+                        "${inputs.tangerine-ui}/mastodon/app/javascript/styles/tangerineui-purple"
+                      ];
+                      entrypoint = "tangerineui-purple.scss";
+                    };
+                  };
+                };
               }
             )
           ];

@@ -46,6 +46,9 @@
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-25.05";
     simple-nixos-mailserver.inputs.nixpkgs-25_05.follows = "nixpkgs";
     simple-nixos-mailserver.inputs.nixpkgs.follows = "unstable";
+
+    # NOTE: The ref needs to be compatible with mastodon version we have.
+    tangerine-ui.url = "github:nileane/TangerineUI-for-Mastodon?ref=v2.5.1";
   };
 
   outputs =
