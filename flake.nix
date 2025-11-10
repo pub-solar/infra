@@ -3,6 +3,8 @@
     # Track channels with commits tested and built by hydra
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    anubis-rollback.url = "github:nixos/nixpkgs/08dacfca559e1d7da38f3cf05f1f45ee9bfd213c";
+
     fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module-0.13.0";
     codeberg-pages.url = "github:nixos/nixpkgs/refs/pull/395725/head";
     # Need to use the backported module because of https://github.com/NixOS/nixpkgs/pull/403645
