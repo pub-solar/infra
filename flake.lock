@@ -27,6 +27,22 @@
         "type": "github"
       }
     },
+    "anubis-rollback": {
+      "locked": {
+        "lastModified": 1761672384,
+        "narHash": "sha256-o9KF3DJL7g7iYMZq9SWgfS1BFlNbsm6xplRjVlOCkXI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "08dacfca559e1d7da38f3cf05f1f45ee9bfd213c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "08dacfca559e1d7da38f3cf05f1f45ee9bfd213c",
+        "type": "github"
+      }
+    },
     "blobs": {
       "flake": false,
       "locked": {
@@ -558,6 +574,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "anubis-rollback": "anubis-rollback",
         "codeberg-pages": "codeberg-pages",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
