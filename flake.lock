@@ -573,6 +573,7 @@
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
+        "tangerine-ui": "tangerine-ui",
         "unstable": "unstable"
       }
     },
@@ -675,6 +676,23 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tangerine-ui": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1762475715,
+        "narHash": "sha256-vDc2NnfnFVECMyKOrYW+gG1Tzuq1apVJbNZDx4LhPGY=",
+        "owner": "nileane",
+        "repo": "TangerineUI-for-Mastodon",
+        "rev": "022be95f353e70c1ea5ba893dad622be118746a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nileane",
+        "ref": "v2.5.1",
+        "repo": "TangerineUI-for-Mastodon",
         "type": "github"
       }
     },
