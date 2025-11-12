@@ -23,7 +23,7 @@
 
   pub-solar-os.backups.repos.droppie = {
     passwordFile = config.age.secrets."restic-repo-droppie-nachtigall".path;
-    repository = "sftp:hakkonaut@10.7.6.210:/var/lib/pub-solar-backups/nachtigall";
+    repository = "sftp:hakkonaut@droppie.wg.pub.solar:/var/lib/pub-solar-backups/nachtigall";
   };
 
   pub-solar-os.backups.repos.storagebox = {

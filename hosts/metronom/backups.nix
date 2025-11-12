@@ -23,7 +23,7 @@
 
   pub-solar-os.backups.repos.droppie = {
     passwordFile = config.age.secrets."restic-repo-droppie-metronom".path;
-    repository = "sftp:hakkonaut@10.7.6.210:/var/lib/pub-solar-backups/metronom";
+    repository = "sftp:hakkonaut@droppie.wg.pub.solar:/var/lib/pub-solar-backups/metronom";
   };
 
   pub-solar-os.backups.repos.storagebox = {
