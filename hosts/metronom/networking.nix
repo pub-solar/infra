@@ -13,6 +13,10 @@
   services.resolved.enable = lib.mkForce false;
 
   networking.hostName = "metronom";
+  networking.hosts = {
+    "10.7.6.210" = [ "droppie.wg.${config.pub-solar-os.networking.domain}" ];
+    "fd00:fae:fae:fae:fae:210::" = [ "droppie.wg.${config.pub-solar-os.networking.domain}" ];
+  };
   networking.extraHosts = ''
     127.0.0.2 mail.pub.solar mail
     ::1 mail.pub.solar mail

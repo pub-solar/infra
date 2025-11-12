@@ -1,7 +1,9 @@
 # Backups
 
-We use [Restic](https://restic.readthedocs.io/en/stable/) to create backups and push them to two repositories.
+We use [Restic](https://restic.readthedocs.io/en/stable/) to create backups and push them to three repositories.
 Check `./modules/backups.nix` and `./hosts/nachtigall/backups.nix` for working examples.
+
+## Locations
 
 ### Hetzner Storagebox
 
@@ -35,7 +37,14 @@ garage key create <hostname>-backups-key
 garage bucket allow <hostname>-backups --read --write --key <hostname>-backups-key
 ```
 
-### Restic common tasks
+### Droppie
+
+This is a storage NAS owned and operated by @b12f. There is SSH & SFTP access to the server from nachtigall and metronoms' root users.
+
+- Uses SFTP for transfer of backups
+- Located on-prem @ MiOM
+
+## Restic common tasks
 
 View `nachtigall` snapshots, grouped by `path`:
 
