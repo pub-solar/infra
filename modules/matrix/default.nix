@@ -433,33 +433,26 @@ in
 
         app_service_config_files = config.pub-solar-os.matrix.synapse.app-service-config-files;
 
-        # TODO
-        # Temporarily disabled until https://github.com/element-hq/synapse/issues/19083
-        # is fixed
-        #modules = [
-        #  {
-        #    # https://the-draupnir-project.github.io/draupnir-documentation/bot/synapse-http-antispam
-        #    # https://github.com/maunium/synapse-http-antispam
-        #    module = "synapse_http_antispam.HTTPAntispam";
-        #    config = {
-        #      base_url = "http://${config.services.draupnir.settings.web.address}:${toString config.services.draupnir.settings.web.port}/api/1/spam_check";
-        #      authorization_path = config.pub-solar-os.matrix.draupnir.http-antispam-authorization-file;
-        #      enabled_callbacks = [
-        #        "check_event_for_spam"
-        #        "user_may_invite"
-        #        "user_may_join_room"
-        #      ];
-        #      fail_open = {
-        #        check_event_for_spam = true;
-        #        user_may_invite = true;
-        #        user_may_join_room = true;
-        #      };
-        #      async = {
-        #        check_event_for_spam = true;
-        #      };
-        #    };
-        #  }
-        #];
+        modules = [
+          {
+            # https://the-draupnir-project.github.io/draupnir-documentation/bot/synapse-http-antispam
+            # https://github.com/maunium/synapse-http-antispam
+            module = "synapse_http_antispam.HTTPAntispam";
+            config = {
+              base_url = "http://${config.services.draupnir.settings.web.address}:${toString config.services.draupnir.settings.web.port}/api/1/spam_check";
+              authorization_path = config.pub-solar-os.matrix.draupnir.http-antispam-authorization-file;
+              do_ping = true;
+              enabled_callbacks = [
+                "user_may_invite"
+                "user_may_join_room"
+              ];
+              fail_open = {
+                user_may_invite = true;
+                user_may_join_room = true;
+              };
+            };
+          }
+        ];
       };
 
       withJemalloc = true;
