@@ -51,6 +51,7 @@
 
     # NOTE: The ref needs to be compatible with mastodon version we have.
     tangerine-ui.url = "github:nileane/TangerineUI-for-Mastodon?ref=v2.5.1";
+    tangerine-ui.flake = false;
   };
 
   outputs =
