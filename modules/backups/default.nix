@@ -379,7 +379,7 @@ in
         "[u377325.your-storagebox.de]:23".publicKey =
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
         "droppie.wg.pub.solar".publicKey =
-          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD2/kqtE17QMEfsskzNiay4XUVOoznPquiXhe8+3VrRr8znsxGoXqbUfexXf1Det414ZcIf+F1C6WyWwepey6FVSAFj998TLkL0fqXAATOXPUVG/nvJOyu/09rXY8mdsqKBTn2pD5V5+vkqXVm9JcYLK280wrqZQBUaghznUQbC5J8Nk/+qbLhVGRcQYB0CgeJpwhjH59fXePP1hlN5HMKBVi3cM97yflfgMJDJiNjEhG7CXBrTVGyO6p6ejJ6ZSAgfVKHAAW1+O085dNeHaPPKqjLFiifyUxlEaFj1BSnsAxUKBn76bwog6HK3rFJvoOx/zYFpP1kvH7UdHrMaKADmw6vfutDWGv89EgZLtMxSQu5dKTAC9ovlf1BGt3fuu975KyfyLDnyJZDAxhh4UZd4NlIyiIoDXQhr3Jir6XjSG8txTVKpLzfhfP+zwVCaGXerJkIsGKAbszGcV6FAWW07XF3Im9KzRgqoQDy8QlmpT7L+mm/UOjlMY+ng8gPoGy2n9K9EZNGWdn8VvMC47H2YigeiZNdmliVrTCyDyqVNEhsu1QSVQYnuatX6Mz7LdddLsLe6xpYUd8GVnbsvRqNNXTA+RC1SCqAQxB+Iw2c6AUyEIGTZHbXRKCJ/TD149vSCmiWo3rvPUxZz0brRgL8FQkUm8s6t51hvvcautxF5ZQ==";
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM+SqXRQo1xaMFrjaqfbltdFGBsuGO06TMRll4O8wv3Q";
       };
     };
 }
