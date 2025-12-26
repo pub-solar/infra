@@ -113,7 +113,7 @@ nix shell nixpkgs#forgejo
 Then, delete the user:
 
 ```
-sudo -u gitea gitea admin user delete --config /var/lib/forgejo/custom/conf/app.ini --purge --email <mail-address>
+sudo -u gitea forgejo admin user delete --config /var/lib/forgejo/custom/conf/app.ini --purge --email <mail-address>
 ```
 
 Docs: https://forgejo.org/docs/latest/admin/command-line/#delete

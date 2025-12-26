@@ -24,15 +24,13 @@
                 element-stickerpicker = prev.callPackage ./pkgs/element-stickerpicker {
                   inherit (inputs) element-stickers maunium-stickerpicker;
                 };
-                # want matrix-appservice-irc 4.0.0
-                matrix-appservice-irc = unstable.matrix-appservice-irc;
                 nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
                 delete-pubsolar-id = prev.callPackage ./pkgs/delete-pubsolar-id { };
 
                 # want mastodon 4.5.x with themes
                 mastodon = prev.callPackage ./pkgs/mastodon {
                   inherit inputs;
-                  mastodon = unstable.mastodon;
+                  mastodon = prev.mastodon;
                   themes = {
                     tangerine = {
                       paths = [

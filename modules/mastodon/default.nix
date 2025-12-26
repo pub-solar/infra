@@ -5,14 +5,6 @@
   ...
 }:
 {
-  imports = [
-    "${flake.self.inputs.mastodon-backport}/nixos/modules/services/web-apps/mastodon.nix"
-  ];
-
-  disabledModules = [
-    "services/web-apps/mastodon.nix"
-  ];
-
   age.secrets."mastodon-active-record-encryption-deterministic-key" = {
     file = "${flake.self}/secrets//mastodon-active-record-encryption-deterministic-key.age";
     mode = "400";
