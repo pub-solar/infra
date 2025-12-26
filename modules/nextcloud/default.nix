@@ -104,9 +104,9 @@ in
       home = "/var/lib/nextcloud";
 
       enable = true;
-      # When updating package, remember to update nextcloud31Packages in
+      # When updating package, remember to update nextcloud32Packages in
       # services.nextcloud.extraApps
-      package = pkgs.nextcloud31;
+      package = pkgs.nextcloud32;
       https = true;
       secretFile = config.age.secrets."nextcloud-secrets".path; # secret
       maxUploadSize = "1G";
@@ -146,7 +146,7 @@ in
         mail_smtpsecure = "ssl";
         mail_smtpauth = true;
         mail_smtphost = "mail.pub.solar";
-        mail_smtpport = "465";
+        mail_smtpport = 465;
 
         enable_previews = true;
         jpeg_quality = 60;
@@ -233,7 +233,7 @@ in
       appstoreEnable = false;
       autoUpdateApps.enable = false;
       extraApps = {
-        inherit (pkgs.nextcloud31Packages.apps)
+        inherit (pkgs.nextcloud32Packages.apps)
           calendar
           contacts
           cospend
@@ -245,7 +245,6 @@ in
           memories
           news
           notes
-          notify_push
           polls
           previewgenerator
           quota_warning

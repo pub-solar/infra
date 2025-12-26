@@ -81,6 +81,6 @@ writeShellApplication {
     ### Forgejo ###
 
     echo "Deleting forgejo data"
-    sudo -u gitea gitea admin user delete --config /var/lib/forgejo/custom/conf/app.ini --purge --username "$USERNAME" || true
+    sudo -u gitea forgejo admin user delete --config /var/lib/forgejo/custom/conf/app.ini --purge --username "$USERNAME" || true
   '';
 }

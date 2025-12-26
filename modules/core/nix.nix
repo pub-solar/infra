@@ -79,7 +79,7 @@
         ${name} = {
           nix.gc = {
             automatic = true;
-            frequency = "weekly";
+            dates = "weekly";
             options = "--delete-older-than 14d";
             randomizedDelaySec = "15m";
           };
