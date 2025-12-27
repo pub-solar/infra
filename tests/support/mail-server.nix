@@ -20,6 +20,7 @@
   virtualisation.memorySize = 1024;
 
   mailserver = {
+    stateVersion = 3;
     loginAccounts = {
       "admins@${config.pub-solar-os.networking.domain}" = {
         hashedPasswordFile = "/tmp/emailpw";
