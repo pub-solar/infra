@@ -59,8 +59,7 @@ in
 
   systemd.services."docker-network-obs-portal" =
     let
-      docker = config.virtualisation.oci-containers.backend;
-      dockerBin = "${pkgs.${docker}}/bin/${docker}";
+      dockerBin = "${config.services.docker.package}/bin/docker";
     in
     {
       serviceConfig.Type = "oneshot";
@@ -157,7 +156,7 @@ in
 
   pub-solar-os.backups = {
     resources.obs-db.resourceCreateCommand = ''
-      ${pkgs.docker}/bin/docker exec -i --user postgres obs-portal-db pg_dump -d obs -n public -T road -T region | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/obs-portal-backup.sql
+      ${config.services.docker.package}/bin/docker exec -i --user postgres obs-portal-db pg_dump -d obs -n public -T road -T region | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/obs-portal-backup.sql
     '';
     restic.obs-portal = {
       resources = [ "obs-db" ];
