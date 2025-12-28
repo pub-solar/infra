@@ -19,8 +19,36 @@
 
   virtualisation.memorySize = 1024;
 
+  # Allow dovecot to access /tmp/emailpw
+  systemd.services.dovecot = {
+    serviceConfig = {
+      PrivateTmp = lib.mkForce false;
+    };
+  };
+
+  # rspamd needs internet connection to work, which is not available in NixOS
+  # test so we disable it and remove references to rspamd from postfix
+  services.rspamd = {
+    enable = lib.mkForce false;
+  };
+
+  services.postfix.settings.main.smtpd_milters = lib.mkForce [ ];
+
+  systemd.services.postfix = {
+    after = lib.mkForce [
+      "postfix-tlspol.service"
+      "network.target"
+      "postfix-setup.service"
+    ];
+    requires = lib.mkForce [
+      "postfix-setup.service"
+      "dovecot.service"
+    ];
+  };
+
   mailserver = {
     stateVersion = 3;
+    dkimSigning = false;
     loginAccounts = {
       "admins@${config.pub-solar-os.networking.domain}" = {
         hashedPasswordFile = "/tmp/emailpw";
