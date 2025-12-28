@@ -9,6 +9,7 @@
             (
               final: prev:
               let
+                nixpkgs-25-05 = import inputs.nixpkgs-25-05 { system = prev.system; };
                 unstable = import inputs.unstable { system = prev.system; };
                 anubis-rollback = import inputs.anubis-rollback { system = prev.system; };
               in
@@ -24,15 +25,13 @@
                 element-stickerpicker = prev.callPackage ./pkgs/element-stickerpicker {
                   inherit (inputs) element-stickers maunium-stickerpicker;
                 };
-                # want matrix-appservice-irc 4.0.0
-                matrix-appservice-irc = unstable.matrix-appservice-irc;
                 nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
                 delete-pubsolar-id = prev.callPackage ./pkgs/delete-pubsolar-id { };
 
                 # want mastodon 4.5.x with themes
                 mastodon = prev.callPackage ./pkgs/mastodon {
                   inherit inputs;
-                  mastodon = unstable.mastodon;
+                  mastodon = prev.mastodon;
                   themes = {
                     tangerine = {
                       paths = [
@@ -64,6 +63,8 @@
                     };
                   };
                 };
+
+                tt-rss = nixpkgs-25-05.tt-rss;
               }
             )
           ];

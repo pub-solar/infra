@@ -13,7 +13,7 @@ in
     # Label configuration on gitea-actions-runner instance requires either docker or podman
     virtualisation.docker = {
       enable = true;
-      package = pkgs.docker_28;
+      package = pkgs.docker_29;
       autoPrune.enable = true;
     };
 

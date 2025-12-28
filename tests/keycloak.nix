@@ -79,8 +79,6 @@ in
       # Make sure the mail server is ready to send
       mail_server.wait_for_unit("dovecot2.service")
       mail_server.wait_for_unit("postfix.service")
-      mail_server.wait_for_unit("rspamd.service")
-      mail_server.wait_for_file("/run/rspamd/rspamd-milter.sock")
 
       mail_server.wait_until_succeeds("curl http://mail.test.pub.solar/")
       puppeteer_succeed('page.locator("input[type=submit][value=Register]").click()')

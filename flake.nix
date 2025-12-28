@@ -1,19 +1,18 @@
 {
   inputs = {
     # Track channels with commits tested and built by hydra
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     anubis-rollback.url = "github:nixos/nixpkgs/08dacfca559e1d7da38f3cf05f1f45ee9bfd213c";
+    nixpkgs-25-05.url = "github:nixos/nixpkgs/nixos-25.05";
 
     fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module-0.13.0";
     codeberg-pages.url = "github:nixos/nixpkgs/refs/pull/395725/head";
-    # Need to use the backported module because of https://github.com/NixOS/nixpkgs/pull/403645
-    mastodon-backport.url = "github:teutat3s/nixpkgs/mastodon-4.4";
 
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -45,12 +44,11 @@
     element-stickers.inputs.maunium-stickerpicker.follows = "maunium-stickerpicker";
     element-stickers.inputs.nixpkgs.follows = "nixpkgs";
 
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-25.05";
-    simple-nixos-mailserver.inputs.nixpkgs-25_05.follows = "nixpkgs";
-    simple-nixos-mailserver.inputs.nixpkgs.follows = "unstable";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-25.11";
+    simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
 
     # NOTE: The ref needs to be compatible with mastodon version we have.
-    tangerine-ui.url = "github:nileane/TangerineUI-for-Mastodon?ref=v2.5.1";
+    tangerine-ui.url = "github:nileane/TangerineUI-for-Mastodon?ref=v2.5.2";
     tangerine-ui.flake = false;
   };
 

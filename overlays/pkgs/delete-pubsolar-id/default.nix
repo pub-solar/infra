@@ -2,7 +2,7 @@
   writeShellApplication,
   coreutils,
   curl,
-  forgejo-lts,
+  forgejo,
   jq,
   keycloak,
   matrix-authentication-service,
@@ -16,7 +16,7 @@
 writeShellApplication {
   name = "delete-pubsolar-id";
   text = ''
-    PATH=$PATH:${coreutils}/bin:${curl}/bin:${forgejo-lts}/bin:${jq}/bin:${keycloak}/bin:${matrix-authentication-service}/bin:${openssl}/bin:${sudo}/bin
+    PATH=$PATH:${coreutils}/bin:${curl}/bin:${forgejo}/bin:${jq}/bin:${keycloak}/bin:${matrix-authentication-service}/bin:${openssl}/bin:${sudo}/bin
 
     function fatal {
       local msg="$*"
@@ -81,6 +81,6 @@ writeShellApplication {
     ### Forgejo ###
 
     echo "Deleting forgejo data"
-    sudo -u gitea gitea admin user delete --config /var/lib/forgejo/custom/conf/app.ini --purge --username "$USERNAME" || true
+    sudo -u gitea forgejo admin user delete --config /var/lib/forgejo/custom/conf/app.ini --purge --username "$USERNAME" || true
   '';
 }

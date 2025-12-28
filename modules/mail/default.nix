@@ -1,7 +1,8 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   mailserver = {
     enable = true;
+    stateVersion = lib.mkDefault 3;
     fqdn = "mail.${config.pub-solar-os.networking.domain}";
     domains = [ config.pub-solar-os.networking.domain ];
 

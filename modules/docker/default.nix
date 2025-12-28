@@ -2,7 +2,7 @@
 {
   virtualisation.docker = {
     enable = true;
-    package = pkgs.docker_28;
+    package = pkgs.docker_29;
     autoPrune.enable = true;
     extraOptions = ''
       --data-root /var/lib/docker

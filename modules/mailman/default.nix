@@ -31,17 +31,19 @@ in
 
   services.postfix = {
     enable = true;
-    relayDomains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
     # get TLS certs for list.pub.solar from acme
-    sslCert = "/var/lib/acme/list.${config.pub-solar-os.networking.domain}/fullchain.pem";
-    sslKey = "/var/lib/acme/list.${config.pub-solar-os.networking.domain}/key.pem";
-    config = {
-      transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
+    settings.main = {
+      hostname = "list.${config.pub-solar-os.networking.domain}";
       local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
+      postmaster_alias = "admins@pub.solar";
+      relay_domains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
+      root_alias = "admins@pub.solar";
+      smtpd_tls_chain_files = [
+        "/var/lib/acme/list.${config.pub-solar-os.networking.domain}/key.pem"
+        "/var/lib/acme/list.${config.pub-solar-os.networking.domain}/fullchain.pem"
+      ];
+      transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
     };
-    rootAlias = "admins@pub.solar";
-    postmasterAlias = "admins@pub.solar";
-    hostname = "list.${config.pub-solar-os.networking.domain}";
   };
 
   systemd.paths.watcher-acme-ssl-file = {

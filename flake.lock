@@ -392,16 +392,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1763992789,
-        "narHash": "sha256-WHkdBlw6oyxXIra/vQPYLtqY+3G8dUVZM8bEXk0t8x4=",
+        "lastModified": 1766553861,
+        "narHash": "sha256-ZbnG01yA3O8Yr1vUm3+NQ2qk9iRhS5bloAnuXHHy7+c=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "44831a7eaba4360fb81f2acc5ea6de5fde90aaa3",
+        "rev": "0999ed8f965bbbd991437ad9c5ed3434cecbc30e",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-25.05",
+        "ref": "release-25.11",
         "repo": "home-manager",
         "type": "github"
       }
@@ -450,22 +450,6 @@
         "ref": "main",
         "type": "git",
         "url": "https://git.pub.solar/pub-solar/keycloak-theme"
-      }
-    },
-    "mastodon-backport": {
-      "locked": {
-        "lastModified": 1752774090,
-        "narHash": "sha256-i1TryjGZwq5ABp3ZEGJ6p2RS90Jc3VyoJnaOc3i4Ou8=",
-        "owner": "teutat3s",
-        "repo": "nixpkgs",
-        "rev": "329fb66b7aa73340738ee82e5ce804e7cc9a75fe",
-        "type": "github"
-      },
-      "original": {
-        "owner": "teutat3s",
-        "ref": "mastodon-4.4",
-        "repo": "nixpkgs",
-        "type": "github"
       }
     },
     "maunium-stickerpicker": {
@@ -522,6 +506,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-25-05": {
+      "locked": {
+        "lastModified": 1766687554,
+        "narHash": "sha256-DegN7KD/EtFSKXf2jvqL6lvev6GlfAAatYBcRC8goEo=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "fd0ca39c92fdb4012ed8d60e1683c26fddadd136",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-25.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1765674936,
@@ -557,16 +557,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1766014764,
-        "narHash": "sha256-+73VffE5GP5fvbib6Hs1Su6LehG+9UV1Kzs90T2gBLA=",
+        "lastModified": 1766736597,
+        "narHash": "sha256-BASnpCLodmgiVn0M1MU2Pqyoz0aHwar/0qLkp7CjvSQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "2b0d2b456e4e8452cf1c16d00118d145f31160f9",
+        "rev": "f560ccec6b1116b22e6ed15f4c510997d99d5852",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-25.05",
+        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -585,10 +585,10 @@
         "home-manager": "home-manager",
         "keycloak-event-listener": "keycloak-event-listener",
         "keycloak-theme-pub-solar": "keycloak-theme-pub-solar",
-        "mastodon-backport": "mastodon-backport",
         "maunium-stickerpicker": "maunium-stickerpicker",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-25-05": "nixpkgs-25-05",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "tangerine-ui": "tangerine-ui",
         "unstable": "unstable"
@@ -600,23 +600,20 @@
         "flake-compat": "flake-compat_2",
         "git-hooks": "git-hooks",
         "nixpkgs": [
-          "unstable"
-        ],
-        "nixpkgs-25_05": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1763302796,
-        "narHash": "sha256-mEc3SBjRYfMcbNFLxmCc5tRtlu3j+1q7zRz+nRraSFE=",
+        "lastModified": 1766537863,
+        "narHash": "sha256-HEt+wbazRgJYeY+lgj65bxhPyVc4x7NEB2bs5NU6DF8=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "5b38fb599f50e9d78325d1d2706e36303c166047",
+        "rev": "23f0a53ca6e58e61e1ea2b86791c69b79c91656d",
         "type": "gitlab"
       },
       "original": {
         "owner": "simple-nixos-mailserver",
-        "ref": "nixos-25.05",
+        "ref": "nixos-25.11",
         "repo": "nixos-mailserver",
         "type": "gitlab"
       }
@@ -699,16 +696,16 @@
     "tangerine-ui": {
       "flake": false,
       "locked": {
-        "lastModified": 1762475715,
-        "narHash": "sha256-vDc2NnfnFVECMyKOrYW+gG1Tzuq1apVJbNZDx4LhPGY=",
+        "lastModified": 1762955347,
+        "narHash": "sha256-RJPP3QynE42cr9Km8twyZrHiZnhMdNcYOOJ7nW0mx1c=",
         "owner": "nileane",
         "repo": "TangerineUI-for-Mastodon",
-        "rev": "022be95f353e70c1ea5ba893dad622be118746a3",
+        "rev": "59ae4fb7f0b3067a926f58fe1dce530126f287a2",
         "type": "github"
       },
       "original": {
         "owner": "nileane",
-        "ref": "v2.5.1",
+        "ref": "v2.5.2",
         "repo": "TangerineUI-for-Mastodon",
         "type": "github"
       }
