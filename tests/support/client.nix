@@ -41,7 +41,7 @@ in
       enable = true;
       systemd.enable = true;
       extraSessionCommands = ''
-        export WLR_RENDERER=pixman WLR_RENDERER_ALLOW_SOFTWARE=1
+        export WLR_RENDERER=pixman
       '';
       config = {
         modifier = "Mod4";
