@@ -83,7 +83,7 @@ in
 
   services.forgejo = {
     enable = true;
-    package = pkgs.forgejo-lts;
+    package = pkgs.forgejo;
     user = "gitea";
     group = "gitea";
     database = {
