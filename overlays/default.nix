@@ -9,6 +9,7 @@
             (
               final: prev:
               let
+                nixpkgs-25-05 = import inputs.nixpkgs-25-05 { system = prev.system; };
                 unstable = import inputs.unstable { system = prev.system; };
                 anubis-rollback = import inputs.anubis-rollback { system = prev.system; };
               in
@@ -62,6 +63,8 @@
                     };
                   };
                 };
+
+                tt-rss = nixpkgs-25-05.tt-rss;
               }
             )
           ];
