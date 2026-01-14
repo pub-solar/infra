@@ -1,8 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   services.postgresql = {
     enable = true;
+    package = pkgs.postgresql_18;
+
     # Required for MediaWiki, connects via docker network
     enableTCPIP = true;
     # https://pgtune.leopard.in.ua/ DB Version: 14 OS Type: linux DB Type: web
