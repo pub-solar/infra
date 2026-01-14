@@ -18,7 +18,10 @@
       pkgs.writeScriptBin "upgrade-pg-cluster" ''
         set -eux
         # XXX it's perhaps advisable to stop all services that depend on postgresql
-        systemctl stop matrix-synapse matrix-authentication-service keycloak postgresql
+        systemctl stop matrix-synapse matrix-authentication-service \
+          keycloak mastodon.target mastodon-streaming.target tt-rss docker-mediawiki \
+          nextcloud-notify_push phpfpm.target forgejo \
+          postgresql
 
         export NEWDATA="/var/lib/postgresql/${newPostgres.psqlSchema}"
         export NEWBIN="${newPostgres}/bin"
