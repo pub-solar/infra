@@ -534,8 +534,8 @@ in
       passwordFile = config.age.secrets."restic-repo-storagebox-nachtigall".path;
       repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
       backupPrepareCommand = ''
-        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/matrix-synapse-backup.sql
-        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d matrix-authentication-service | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/matrix-authentication-service-backup.sql
+        ${pkgs.sudo}/bin/sudo -u postgres ${config.services.postgresql.package}/bin/pg_dump -d matrix | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/matrix-synapse-backup.sql
+        ${pkgs.sudo}/bin/sudo -u postgres ${config.services.postgresql.package}/bin/pg_dump -d matrix-authentication-service | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/matrix-authentication-service-backup.sql
       '';
       backupCleanupCommand = ''
         rm /tmp/matrix-synapse-backup.sql /tmp/matrix-authentication-service-backup.sql

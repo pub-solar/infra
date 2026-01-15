@@ -121,7 +121,7 @@
     passwordFile = config.age.secrets."restic-repo-storagebox-nachtigall".path;
     repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
     backupPrepareCommand = ''
-      ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dump -d mastodon | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/mastodon-backup.sql
+      ${pkgs.sudo}/bin/sudo -u postgres ${config.services.postgresql.package}/bin/pg_dump -d mastodon | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/mastodon-backup.sql
     '';
     backupCleanupCommand = ''
       rm /tmp/mastodon-backup.sql
