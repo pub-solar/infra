@@ -144,6 +144,8 @@
           };
 
           devShells.ci = pkgs.mkShell { buildInputs = with pkgs; [ nodejs ]; };
+
+          formatter = pkgs.nixfmt-rfc-style;
         };
 
       flake = {
@@ -157,8 +159,6 @@
         checks = builtins.mapAttrs (
           system: deployLib: deployLib.deployChecks self.deploy
         ) inputs.deploy-rs.lib;
-
-        formatter."x86_64-linux" = inputs.nixpkgs.legacyPackages."x86_64-linux".nixfmt-rfc-style;
 
         deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
           nachtigall = {
