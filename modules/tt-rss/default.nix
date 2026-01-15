@@ -21,14 +21,6 @@ let
   };
 in
 {
-  imports = [
-    "${flake.inputs.nixpkgs-25-05}/nixos/modules/services/web-apps/tt-rss.nix"
-  ];
-
-  disabledModules = [
-    "rename.nix"
-  ];
-
   age.secrets.tt-rss-database-password = {
     file = "${flake.self}/secrets/tt-rss-database-password.age";
     owner = "tt_rss";

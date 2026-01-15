@@ -4,7 +4,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     anubis-rollback.url = "github:nixos/nixpkgs/08dacfca559e1d7da38f3cf05f1f45ee9bfd213c";
-    nixpkgs-25-05.url = "github:nixos/nixpkgs/nixos-25.05";
 
     fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module-0.13.0";
     codeberg-pages.url = "github:nixos/nixpkgs/refs/pull/395725/head";
@@ -145,6 +144,8 @@
           };
 
           devShells.ci = pkgs.mkShell { buildInputs = with pkgs; [ nodejs ]; };
+
+          formatter = pkgs.nixfmt-rfc-style;
         };
 
       flake = {
@@ -158,8 +159,6 @@
         checks = builtins.mapAttrs (
           system: deployLib: deployLib.deployChecks self.deploy
         ) inputs.deploy-rs.lib;
-
-        formatter."x86_64-linux" = inputs.nixpkgs.legacyPackages."x86_64-linux".nixfmt-rfc-style;
 
         deploy.nodes = self.lib.deploy.mkDeployNodes self.nixosConfigurations {
           nachtigall = {

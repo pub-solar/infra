@@ -45,13 +45,13 @@ lib.mapAttrsToList
     };
 
     promtail_file_lagging = {
-      condition = ''abs(promtail_file_bytes_total - promtail_read_bytes_total) > 1e6'';
+      condition = "abs(promtail_file_bytes_total - promtail_read_bytes_total) > 1e6";
       time = "15m";
-      description = ''{{ $labels.instance }} {{ $labels.job }} {{ $labels.path }} has been lagging by more than 1MB for more than 15m.'';
+      description = "{{ $labels.instance }} {{ $labels.job }} {{ $labels.path }} has been lagging by more than 1MB for more than 15m.";
     };
 
     systemd_service_restart_loop = {
-      condition = ''rate( node_systemd_service_restart_total[10m] ) > 3 and ( node_systemd_service_restart_total > 0 )'';
+      condition = "rate( node_systemd_service_restart_total[10m] ) > 3 and ( node_systemd_service_restart_total > 0 )";
       description = "{{$labels.instance}} restarted systemd service {{$labels.name}} more than three times in the last 10 minutes. It might be crashlooping.";
     };
 
@@ -68,7 +68,7 @@ lib.mapAttrsToList
     };
 
     filesystem_inodes_full = {
-      condition = ''node_filesystem_files_free / node_filesystem_files < 0.10'';
+      condition = "node_filesystem_files_free / node_filesystem_files < 0.10";
       time = "10m";
       description = "{{$labels.instance}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 10% inodes left on its filesystem.";
     };
@@ -124,7 +124,7 @@ lib.mapAttrsToList
     };
 
     restic_backup_too_old = {
-      condition = ''(time() - restic_snapshots_latest_time)/(60*60) > 24'';
+      condition = "(time() - restic_snapshots_latest_time)/(60*60) > 24";
       description = "{{$labels.instance}} not backed up for more than 24 hours. ({{$value}})";
     };
 
