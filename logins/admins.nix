@@ -112,11 +112,14 @@
       teutat3s-1 = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFro/k4Mgqyh8yV/7Zwjc0dv60ZM7bROBU9JNd99P/4co6fxPt1pJiU/pEz2Dax/HODxgcO+jFZfvPEuLMCeAl0= YubiKey #10593996 PIV Slot 9a";
       teutat3s-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHcU6KPy4b1MQXd6EJhcYwbJu7E+0IrBZF/IP6T7gbMf teutat3s@dumpyourvms";
       teutat3s-3 = "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBGDkHv5xNd+n/9UEoMXLfsj7vz6SCZWnVFPlDevO5HqH5HKzEE5h5XUlfWPsR6du6kfZqVrevWs/rCv86XaZQUAAAAALdGVybWl1cy5jb20= teutat3s YubiKey 5 NFC FIDO 2";
+      teutat3s-4 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPAsRdVYK0077cdtavmrRr6akrI68T1EDY4Hfv4+W86J teutat3s@ryzensun";
+      teutat3s-5 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM2PKRskuNfBNwfpKImQ0mI8ACUfnsDGUsP0P041IFq0 teutat3s@neo";
     };
 
     secretEncryptionKeys = {
       teutat3s-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHcU6KPy4b1MQXd6EJhcYwbJu7E+0IrBZF/IP6T7gbMf teutat3s@dumpyourvms";
       teutat3s-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPAsRdVYK0077cdtavmrRr6akrI68T1EDY4Hfv4+W86J teutat3s@ryzensun";
+      teutat3s-3 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM2PKRskuNfBNwfpKImQ0mI8ACUfnsDGUsP0P041IFq0 teutat3s@neo";
     };
 
     wireguardDevices = [
