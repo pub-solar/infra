@@ -59,7 +59,7 @@ in
           cachix
           jq
           nix
-          docker
+          docker_29
         ];
       };
     }) cfg.instances;
