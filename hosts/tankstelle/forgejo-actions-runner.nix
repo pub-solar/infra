@@ -23,7 +23,7 @@
       name = config.networking.hostName;
       tokenFile = config.age.secrets.tankstelle-forgejo-actions-runner-token.path;
       labels = [
-        "self-hosted:host://-self-hosted"
+        "self-hosted:host"
       ];
     };
     tankstellezwei = {
@@ -32,7 +32,7 @@
       name = "tankstellezwei";
       tokenFile = config.age.secrets.tankstellezwei-forgejo-actions-runner-token.path;
       labels = [
-        "self-hosted:host://-self-hosted"
+        "self-hosted:host"
       ];
     };
   };
