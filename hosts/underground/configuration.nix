@@ -23,8 +23,6 @@
   };
   services.keycloak.database.createLocally = true;
 
-  services.postgresql.package = pkgs.postgresql_18;
-
   # matrix-synapse
   # test.pub.solar /.well-known is required for federation
   services.nginx.virtualHosts."${config.pub-solar-os.networking.domain}" = {
