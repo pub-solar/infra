@@ -219,7 +219,7 @@ in
               runCheck = mkOption {
                 type = types.bool;
                 default = (builtins.length config.pub-solar-os.backups.restic.${name}.checkOpts > 0);
-                defaultText = literalExpression ''builtins.length config.services.backups.${name}.checkOpts > 0'';
+                defaultText = literalExpression "builtins.length config.services.backups.${name}.checkOpts > 0";
                 description = "Whether to run the `check` command with the provided `checkOpts` options.";
                 example = true;
               };
