@@ -55,7 +55,7 @@
       name = config.networking.hostName;
       tokenFile = config.age.secrets.forgejo-actions-runner-token-momo.path;
       labels = [
-        "self-hosted:host://-self-hosted"
+        "self-hosted:host"
 
         # provide a debian 13 trixie base with Node.js for actions
         "debian-latest:docker://git.pub.solar/pub-solar/actions-base-image:24-trixie"
