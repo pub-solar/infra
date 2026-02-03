@@ -19,6 +19,16 @@ charset = unset
 indent_style = unset
 indent_size = unset
 
+# Ignore grafana dashboards
+[modules/grafana/grafana-dashboards/**]
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+indent_size = unset
+charset = unset
+indent_style = unset
+indent_size = unset
+
 [secrets/**]
 end_of_line = unset
 insert_final_newline = false
