@@ -6,7 +6,7 @@ const realm = argv.realm;
 const clientId = argv.clientId;
 const server = argv.server;
 
-/* 
+/*
  * You'll have to set KC_CLI_CLIENT_SECRET
  */
 

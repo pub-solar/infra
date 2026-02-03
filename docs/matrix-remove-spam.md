@@ -39,13 +39,13 @@ set -euo pipefail
 TOKEN=$1
 ROOMLIST=$2
 while IFS='' read ROOMID; do
-	echo "Cleaning up Room: $ROOMID"
-	curl "http://127.0.200.10:8008/_synapse/admin/v2/rooms/${ROOMID}" \
-		-X DELETE -H 'Accept: application/json' \
-		-H 'Referer: http://127.0.200.10:8080/' \
-		-H "Authorization: Bearer ${TOKEN}" \
-		--data '{ "purge": true, "message": "Sorry - kicking you out to clean up the database" }'
-	echo ""
+  echo "Cleaning up Room: $ROOMID"
+  curl "http://127.0.200.10:8008/_synapse/admin/v2/rooms/${ROOMID}" \
+    -X DELETE -H 'Accept: application/json' \
+    -H 'Referer: http://127.0.200.10:8080/' \
+    -H "Authorization: Bearer ${TOKEN}" \
+    --data '{ "purge": true, "message": "Sorry - kicking you out to clean up the database" }'
+  echo ""
 done < "$ROOMLIST"
 ```
 

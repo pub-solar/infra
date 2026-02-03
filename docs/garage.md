@@ -13,7 +13,7 @@ ssh <unix-username>@trinkgenossin.wg.pub.solar
 
 ```
 # Add a few spaces to avoid leaking the secret to the shell history
-   export GARAGE_RPC_SECRET=<secret-in-keepass>
+    export GARAGE_RPC_SECRET=<secret-in-keepass>
 ```
 
 Now, you can run the following command to check the cluster status:
