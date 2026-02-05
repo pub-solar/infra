@@ -238,6 +238,7 @@ in
           contacts
           cospend
           deck
+          forms
           end_to_end_encryption
           groupfolders
           integration_deepl
