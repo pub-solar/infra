@@ -70,8 +70,9 @@
 
   hensoko = rec {
     sshPubKeys = {
-      hensoko-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEbaQdxp7Flz6ttELe63rn+Nt9g43qJOLih6VCMP4gPb";
-      hensoko-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAqkqMYgncrnczcW/0PY+Z+FmNXXpgw6D9JWTTwiainy";
+      judy-pk = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAqkqMYgncrnczcW/0PY+Z+FmNXXpgw6D9JWTTwiainy";
+      nitro-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/58A18EtxnLYHu63c/+AyTSkJQSso/VVdHUFGp1CTk";
+      nitro-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH9uEFlOyp5KU1u6IqDrAMP8A5EKGhuz2vV2+tpgxxzx";
     };
 
     secretEncryptionKeys = sshPubKeys;
