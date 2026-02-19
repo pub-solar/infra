@@ -9,7 +9,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: nix flake update
-        uses: https://git.pub.solar/momo/forgejo-action-update-flake@825bba1d03c853ea9aeded656d230db82f9f1216
+        uses: https://git.momo.koeln/momo/forgejo-action-update-flake@d6ea6c225de116446061e4269ce3faf564b9d08d
         with:
           forgejo_access_token: ${{ secrets.HAKKONAUT_ACCESS_TOKEN }}
           gpg_private_key: ${{ secrets.GPG_SIGN_SUBKEY }}
