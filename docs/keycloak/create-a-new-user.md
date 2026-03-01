@@ -1,17 +1,17 @@
 # Manually create a new user
 This is a step-by-step guide on how to create a new user and also the workflow connected to it.
 
-The required steps in user creation:
+The required steps in user-creation:
 * Create a user
 * Set a temporary password
 * Send confirmation email
 
 ## Create a user
-In order to create a new user, an admin account is required which is used for the Keycloak admin realm.
+In order to create a new user, an **admin account** is required which is used for the Keycloak admin realm.
 
-Head to the admin realm and log in: https://auth.pub.solar/admin/master/console/#/pub.solar
+Head to the **admin realm** and log in: https://auth.pub.solar/admin/master/console/#/pub.solar
 
-Navigate to the users section (burger menu -> users) or https://auth.pub.solar/admin/master/console/#/pub.solar/users
+Navigate to the **users**-section (burger menu -> users) or https://auth.pub.solar/admin/master/console/#/pub.solar/users
 
 Click `Add user`, which will open the "Create user" dialogue.
 
