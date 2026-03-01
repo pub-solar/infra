@@ -16,9 +16,9 @@ Navigate to the **users**-section (burger menu -> users) or https://auth.pub.sol
 Click `Add user`, which will open the "Create user" dialogue.
 
 Settings that need to be adjusted:
-* Email verified: needs to be set to `true`
-* Username: enter the requested username
-* Email: enter the provided email-address
+* **Email verified**: needs to be set to `true`
+* **Username**: enter the requested username
+* **Email**: enter the provided email-address
 
 Click the `Save` button at the bottom.
 
