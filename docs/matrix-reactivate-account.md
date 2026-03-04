@@ -4,22 +4,22 @@ If a user accidentially deletes (deactivates) their matrix account, these are th
 
 SSH to `nachtigall`.
 
-`matrix-authentication-service`
+First, get the latest paths to `matrix-authentication-service` CLI `mas-cli`
+and configs from its systemd service. These change frequently and we don't have
+a wrapper command yet.
 
 ```
-sudo -u postgres psql -d matrix-authentication-service
-
-# example for account @<username>:pub.solar
-matrix-authentication-service=# UPDATE users SET deactivated_at = NULL where username = '<username>';
-UPDATE 1
-matrix-authentication-service=# \q
+sudo systemctl cat matrix-authentication-service.service
 ```
 
-`synapse`
+Adapt this example command for account `@<username>:pub.solar`, replacing `<username>` with the one you would like to reactivate:
 
 ```
-# example for account @<username>:pub.solar
-curl --header "Authorization: Bearer $(sudo cat /run/agenix/matrix-admin-access-token)" --request GET 'http://127.0.200.10:8008/_synapse/admin/v2/users/@<username>:pub.solar' | jq
-curl --header "Authorization: Bearer $(sudo cat /run/agenix/matrix-admin-access-token)" --request PUT 'http://127.0.200.10:8008/_synapse/admin/v2/users/@<username>:pub.solar' --data '{"deactivated": false}' | jq
-curl --header "Authorization: Bearer $(sudo cat /run/agenix/matrix-admin-access-token)" --request GET 'http://127.0.200.10:8008/_synapse/admin/v2/users/@<username>:pub.solar' | jq
+sudo -u matrix-authentication-service \
+  /nix/store/djwlmfh5gkgg1qby6fvjr0hx1x011xsi-matrix-authentication-service-1.11.0/bin/mas-cli \
+    --config /nix/store/0jjnpy4p5ryxylhvac4ld3pg4irap2ns-config.yaml \
+    --config /run/agenix/matrix-authentication-service-secret-config.yml \
+    manage unlock-user --reactivate <username>
 ```
+
+Docs: https://element-hq.github.io/matrix-authentication-service/reference/cli/manage.html#manage-unlock-user
