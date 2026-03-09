@@ -293,7 +293,9 @@ in
         limit_profile_requests_to_users_who_share_rooms = false;
 
         max_spider_size = "10M";
-        max_upload_size = "50M";
+        # match matrix.org max_upload_size for a better user experience
+        # https://matrix.org/homeserver/pricing/
+        max_upload_size = "100M";
         media_storage_providers = [ ];
 
         password_config = {
