@@ -14,10 +14,10 @@ let
     ${commonHeaders}
 
     # Should match synapse homeserver setting max_upload_size
-    client_max_body_size 50M;
+    client_max_body_size 100M;
     # The maximum body size for client requests to any of the endpoints on the Client-Server API.
     # This needs to be equal or higher than the maximum upload size accepted by Synapse.
-    client_body_buffer_size 50M;
+    client_body_buffer_size 100M;
     proxy_max_temp_file_size 0;
   '';
   clientConfig = import ./element-client-config.nix { inherit config lib pkgs; };
