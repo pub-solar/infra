@@ -368,6 +368,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "underground.pub.solar."
   }
   record {
+    hostname = "cloud.test"
+    type     = "CNAME"
+    address  = "underground.pub.solar."
+  }
+  record {
     hostname = "stickers.chat.test"
     type     = "CNAME"
     address  = "underground.pub.solar."
