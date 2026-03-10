@@ -10,24 +10,24 @@ let
 in
 {
   options.pub-solar-os.nextcloud =
-  let
-    inherit (lib) mkOption types;
-  in
-  {
-    adminPasswordFile = mkOption {
-      description = "File that holds the initial admin user password";
-      type = types.str;
+    let
+      inherit (lib) mkOption types;
+    in
+    {
+      adminPasswordFile = mkOption {
+        description = "File that holds the initial admin user password";
+        type = types.str;
+      };
+      secretsFile = mkOption {
+        description = "File that holds the nextcloud secrets";
+        type = types.str;
+      };
+      trustedProxies = mkOption {
+        description = "Trusted proxies, to provide if the nextcloud installation is being proxied";
+        type = types.listOf types.str;
+        default = [ ];
+      };
     };
-    secretsFile = mkOption {
-      description = "File that holds the nextcloud secrets";
-      type = types.str;
-    };
-    trustedProxies = mkOption {
-      description = "Trusted proxies, to provide if the nextcloud installation is being proxied";
-      type = types.listOf types.str;
-      default = [ ];
-    };
-  };
 
   config.services.nginx.virtualHosts.${vHostDomain} = {
     enableACME = true;
