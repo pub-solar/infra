@@ -105,7 +105,6 @@ in
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:${synapseMetricsPort}"
             ];
             labels = {
-              instance = "nachtigall";
               job = "synapse-main";
               index = "1";
             };
@@ -115,7 +114,6 @@ in
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:9101"
             ];
             labels = {
-              instance = "nachtigall";
               job = "synapse-generic_worker";
               index = "1";
             };
@@ -125,7 +123,6 @@ in
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:9102"
             ];
             labels = {
-              instance = "nachtigall";
               job = "synapse-generic_worker";
               index = "2";
             };
@@ -135,7 +132,6 @@ in
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:9103"
             ];
             labels = {
-              instance = "nachtigall";
               job = "synapse-generic_worker";
               index = "3";
             };
@@ -145,7 +141,6 @@ in
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:9104"
             ];
             labels = {
-              instance = "nachtigall";
               job = "synapse-generic_worker";
               index = "4";
             };
@@ -155,7 +150,6 @@ in
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:9105"
             ];
             labels = {
-              instance = "nachtigall";
               job = "synapse-generic_worker";
               index = "5";
             };
@@ -165,7 +159,6 @@ in
               "nachtigall.wg.${config.pub-solar-os.networking.domain}:9106"
             ];
             labels = {
-              instance = "nachtigall";
               job = "synapse-generic_worker";
               index = "6";
             };
@@ -366,7 +359,6 @@ in
           ];
         }
       ))
-      ./recording-rules.yml
     ];
 
     alertmanagers = [ { static_configs = [ { targets = [ "10.7.6.5:9093" ]; } ]; } ];
