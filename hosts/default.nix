@@ -205,6 +205,7 @@
           self.nixosModules.matrix
           self.nixosModules.matrix-draupnir
           self.nixosModules.matrix-irc
+          self.nixosModules.nextcloud
           self.nixosModules.nginx
           self.nixosModules.nginx-matrix
         ];

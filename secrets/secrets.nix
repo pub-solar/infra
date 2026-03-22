@@ -87,6 +87,8 @@ in
   "staging-matrix-draupnir-access-token.age".publicKeys = undergroundKeys ++ adminKeys;
   "staging-matrix-draupnir-http-antispam-authorization-file.age".publicKeys =
     undergroundKeys ++ adminKeys;
+  "staging-nextcloud-secrets.age".publicKeys = undergroundKeys ++ adminKeys;
+  "staging-nextcloud-admin-pass.age".publicKeys = undergroundKeys ++ adminKeys;
 
   "nextcloud-secrets.age".publicKeys = nachtigallKeys ++ adminKeys;
   "nextcloud-admin-pass.age".publicKeys = nachtigallKeys ++ adminKeys;

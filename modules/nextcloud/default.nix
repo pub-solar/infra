@@ -9,19 +9,27 @@ let
   vHostDomain = "cloud.${config.pub-solar-os.networking.domain}";
 in
 {
-  age.secrets."nextcloud-secrets" = {
-    file = "${flake.self}/secrets/nextcloud-secrets.age";
-    mode = "400";
-    owner = "nextcloud";
-  };
+  options.pub-solar-os.nextcloud =
+    let
+      inherit (lib) mkOption types;
+    in
+    {
+      adminPasswordFile = mkOption {
+        description = "File that holds the initial admin user password";
+        type = types.str;
+      };
+      secretsFile = mkOption {
+        description = "File that holds the nextcloud secrets";
+        type = types.str;
+      };
+      trustedProxies = mkOption {
+        description = "Trusted proxies, to provide if the nextcloud installation is being proxied";
+        type = types.listOf types.str;
+        default = [ ];
+      };
+    };
 
-  age.secrets."nextcloud-admin-pass" = {
-    file = "${flake.self}/secrets/nextcloud-admin-pass.age";
-    mode = "400";
-    owner = "nextcloud";
-  };
-
-  services.nginx.virtualHosts.${vHostDomain} = {
+  config.services.nginx.virtualHosts.${vHostDomain} = {
     enableACME = true;
     forceSSL = true;
 
@@ -80,7 +88,7 @@ in
     };
   };
 
-  services.nextcloud =
+  config.services.nextcloud =
     let
       exiftool_1270 = pkgs.perlPackages.buildPerlPackage rec {
         # NOTE nextcloud-memories needs this specific version of exiftool
@@ -108,7 +116,7 @@ in
       # services.nextcloud.extraApps
       package = pkgs.nextcloud32;
       https = true;
-      secretFile = config.age.secrets."nextcloud-secrets".path; # secret
+      secretFile = config.pub-solar-os.nextcloud.secretsFile;
       maxUploadSize = "1G";
 
       configureRedis = true;
@@ -122,17 +130,14 @@ in
 
       config = {
         adminuser = "admin";
-        adminpassFile = config.age.secrets."nextcloud-admin-pass".path;
+        adminpassFile = config.pub-solar-os.nextcloud.adminPasswordFile;
         dbuser = "nextcloud";
         dbtype = "pgsql";
         dbname = "nextcloud";
       };
 
       settings = {
-        trusted_proxies = [
-          "138.201.80.102"
-          "2a01:4f8:172:1c25::1"
-        ];
+        trusted_proxies = config.pub-solar-os.nextcloud.trustedProxies;
         "overwrite.cli.url" = "https://cloud.${config.pub-solar-os.networking.domain}";
         overwriteprotocol = "https";
 
@@ -262,13 +267,13 @@ in
     };
 
   # https://docs.nextcloud.com/server/30/admin_manual/installation/server_tuning.html#previews
-  services.imaginary = {
+  config.services.imaginary = {
     enable = true;
     address = "127.0.0.1";
     settings.return-size = true;
   };
 
-  systemd = {
+  config.systemd = {
     services =
       let
         occ = "/run/current-system/sw/bin/nextcloud-occ";
@@ -331,7 +336,7 @@ in
     };
   };
 
-  services.restic.backups.nextcloud-storagebox = {
+  config.services.restic.backups.nextcloud-storagebox = {
     paths = [
       "/var/lib/nextcloud/data"
       "/tmp/nextcloud-backup.sql"
