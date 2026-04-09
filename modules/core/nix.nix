@@ -26,8 +26,8 @@
   documentation.nixos.enable = false;
 
   nix = {
-    # Use default version alias for nix package
-    package = pkgs.nix;
+    # Use latest lix version alias
+    package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
     gc = {
       automatic = true;
       dates = "weekly";
