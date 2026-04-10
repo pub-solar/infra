@@ -22,3 +22,26 @@ provider "registry.opentofu.org/namecheap/namecheap" {
     "zh:e66aa403ab18002a0e374a84d47739ac59287baa71e34a4125dd8e62e28e18a5",
   ]
 }
+
+provider "registry.terraform.io/pub-solar/hostingde" {
+  version     = "1.1.0"
+  constraints = ">= 0.0.1"
+  hashes = [
+    "h1:1UIqy3W2oyYliS2DNovyPDJ+KIya2hvX4xTq1qfZnBY=",
+    "zh:0b9f9e56524062746a295f3df1281c08fa8bdc2a3a4aaf412aac5ef87f5bc503",
+    "zh:0d9d8865b18f5e3dcc2a11a00bd16905984e0b817a12e4f0fa5e7d9db5f54f0f",
+    "zh:15eb8a7b67395cb29b0eeb06e16b1ff2ebc1beaa64c35ceada98176d66c8f549",
+    "zh:378241a4d9427580cc9db9a947d745509ea7cd2b76a12f4fdcb22597f66a3045",
+    "zh:38bfbf6fb17570ab77127af2752ef7e34d08b18d204c3952400c1bd2fa809d34",
+    "zh:54d6cf5e99d6bcec78d1f282fad090885d8b7edf054d45c8b75f81530e199267",
+    "zh:5e16646c585d45e3396f464e069fdfdfcc3cbaa84bda47f46b6923dc5cf396a2",
+    "zh:890df766e9b839623b1f0437355032a3c006226a6c200cd911e15ee1a9014e9f",
+    "zh:a3248cb360cdf395b9b929f2d7cf8cd1e5544e5e009ff042b70d42c06e607532",
+    "zh:bee520d26ec0391f768b1fe88db8210d0871dffb3876f6b83cfb54b5e00874b6",
+    "zh:c55d026784e8bc4204eb419616f3950c58e38b6e5857e94d47828a7b31449ac4",
+    "zh:cd40625f5c8391aea45095965ef098a15adbd5150b276f7e14a8b93610ecece6",
+    "zh:ced8252f7b533bd15d54645fc9ad3dce7215e48b042c765a06a1d7950fcafcdd",
+    "zh:d0d3c530db500843ad5cf2c060b53a998aee0f0ce08baba96f978607467de9c8",
+    "zh:eeaaa309d10b6c09030b27740bfebf262340d6cc17eb9ed2df4117219fc05242",
+  ]
+}
