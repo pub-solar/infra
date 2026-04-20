@@ -21,7 +21,7 @@
         path = "/boot2";
       }
       {
-        devices = [ "/dev/disk/by-id/nvme-SAMSUNG_MZVL21T0HDLU-00B07_S77WNF0XA01902" ];
+        devices = [ "/dev/disk/by-id/nvme-Micron_3500_MTFDKBA2T0TGD-1BK1AABYY_252350A44C85" ];
         path = "/boot3";
       }
       {
