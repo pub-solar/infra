@@ -33,4 +33,5 @@ sudo systemctl poweroff
 This ensures a clean shutdown and can slightly speed up the maintenance.
 
 Further reading:
+
 - [Hetzner docs: Upgrades for dedicated servers](https://docs.hetzner.com/robot/dedicated-server/dedicated-server-hardware/dedicated-server-upgrade)

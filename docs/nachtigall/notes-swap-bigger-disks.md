@@ -178,6 +178,7 @@ sudo zpool replace root_pool 17913141396623227287 /dev/disk/by-id/nvme-Micron_35
 ```
 
 View status of resilvering
+
 ```
 teutat3s in 🌐 nachtigall in ~
 ❯ sudo zpool status
