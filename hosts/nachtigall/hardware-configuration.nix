@@ -59,7 +59,7 @@
   };
 
   fileSystems."/boot4" = {
-    device = "/dev/disk/by-uuid/E76C-A8A0";
+    device = "/dev/disk/by-uuid/2031-DF65";
     fsType = "vfat";
     options = [ "nofail" ];
   };
