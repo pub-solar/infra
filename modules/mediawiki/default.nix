@@ -28,7 +28,7 @@ let
       ## For more information on customizing the URLs
       ## (like /w/index.php/Page_title to /wiki/Page_title) please see:
       ## https://www.mediawiki.org/wiki/Manual:Short_URL
-      $wgScriptPath = "https://wiki.${config.pub-solar-os.networking.domain}";
+      $wgScriptPath = "";
 
       ## https://www.mediawiki.org/wiki/Manual:Short_URL
       ## https://www.mediawiki.org/wiki/Extension:OpenID_Connect#Known_issues
