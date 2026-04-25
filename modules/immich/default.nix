@@ -1,4 +1,10 @@
-{ config, lib, flake, ... }:
+{
+  config,
+  lib,
+  flake,
+  pkgs,
+  ...
+}:
 
 let
   vHostDomain = "photos.${config.pub-solar-os.networking.domain}";
@@ -68,6 +74,25 @@ in
           send_timeout         600s;
         '';
       };
+    };
+
+    services.restic.backups.immich-storagebox = {
+      paths = [
+        "/var/lib/immich"
+        "/tmp/immich-backup.sql"
+      ];
+      timerConfig = {
+        OnCalendar = "*-*-* 06:00:00 Etc/UTC";
+      };
+      initialize = true;
+      passwordFile = config.age.secrets."restic-repo-storagebox-nachtigall".path;
+      repository = "sftp:u377325@u377325.your-storagebox.de:/backups";
+      backupPrepareCommand = ''
+        ${pkgs.sudo}/bin/sudo -u postgres ${config.services.postgresql.package}/bin/pg_dump -d immich | ${pkgs.zstd}/bin/zstd --force --quiet -o /tmp/immich-backup.sql
+      '';
+      backupCleanupCommand = ''
+        rm /tmp/immich-backup.sql
+      '';
     };
   };
 }
