@@ -221,6 +221,12 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "nachtigall.pub.solar."
   }
   record {
+    hostname = "photos"
+    type     = "CNAME"
+    address  = "nachtigall.pub.solar."
+    ttl      = 300
+  }
+  record {
     hostname = "cloud"
     type     = "CNAME"
     address  = "nachtigall.pub.solar."
