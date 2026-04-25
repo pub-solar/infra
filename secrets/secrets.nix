@@ -145,4 +145,6 @@ in
 
   "acme-namecheap-env.age".publicKeys = garageKeys ++ adminKeys;
 
+  # immich
+  "immich-oauth-client-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
 }

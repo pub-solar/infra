@@ -27,6 +27,8 @@
                 nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
                 delete-pubsolar-id = prev.callPackage ./pkgs/delete-pubsolar-id { };
 
+                immich = unstable.immich;
+
                 # want mastodon 4.5.x with themes
                 mastodon = prev.callPackage ./pkgs/mastodon {
                   inherit inputs;
