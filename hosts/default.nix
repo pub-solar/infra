@@ -67,6 +67,7 @@
           self.nixosModules.matrix-irc
           self.nixosModules.matrix-telegram
           self.nixosModules.nginx-matrix
+          self.nixosModules.immich
         ];
       };
 
