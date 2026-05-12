@@ -11,6 +11,13 @@
     mode = "400";
     owner = "nextcloud";
   };
+
+  age.secrets."nextcloud-whiteboard-server-secrets" = {
+    file = "${flake.self}/secrets/nextcloud-whiteboard-server-secrets.age";
+    mode = "400";
+    owner = "nextcloud";
+  };
+
   pub-solar-os.nextcloud = {
     trustedProxies = [
       "138.201.80.102"
@@ -18,5 +25,10 @@
     ];
     adminPasswordFile = config.age.secrets."nextcloud-admin-pass".path;
     secretsFile = config.age.secrets."nextcloud-secrets".path;
+  };
+
+  pub-solar-os.nextcloud-whiteboard = {
+    enable = true;
+    secretFile = config.age.secrets."nextcloud-whiteboard-server-secrets".path;
   };
 }
