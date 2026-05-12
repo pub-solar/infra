@@ -93,6 +93,7 @@ in
   "nextcloud-secrets.age".publicKeys = nachtigallKeys ++ adminKeys;
   "nextcloud-admin-pass.age".publicKeys = nachtigallKeys ++ adminKeys;
   "nextcloud-serverinfo-token.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "nextcloud-whiteboard-server-secrets.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "searx-environment.age".publicKeys = nachtigallKeys ++ adminKeys;
 

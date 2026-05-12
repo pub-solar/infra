@@ -6,6 +6,7 @@ provider "registry.opentofu.org/namecheap/namecheap" {
   constraints = "2.2.0"
   hashes = [
     "h1:WNWIfriLO2rmzcdQCTnAu7bBeQiFvHC5J5mFJMiqQrk=",
+    "h1:WaS5Ij7pX7EuJD85DO1reQ8VH5244KZ4lkKCpj2bbnw=",
     "zh:0f62f2188e5ca3c9ac5bd8f5133614dc2dfa792ec1c33a86323934a76b781695",
     "zh:2032008962ed89d6d1b2276796acab7a6ba9fef28753520d3e7203ce92b2226d",
     "zh:29bb261da0a194dc5b81163d15b6cd53ed46e7ac9db73ed0b5270e661bd56807",
@@ -28,6 +29,7 @@ provider "registry.terraform.io/pub-solar/hostingde" {
   constraints = ">= 0.0.1"
   hashes = [
     "h1:1UIqy3W2oyYliS2DNovyPDJ+KIya2hvX4xTq1qfZnBY=",
+    "h1:tqN2ChoLAN7wToz9YfgeLMi24psckuoIB6hzTtYZK6M=",
     "zh:0b9f9e56524062746a295f3df1281c08fa8bdc2a3a4aaf412aac5ef87f5bc503",
     "zh:0d9d8865b18f5e3dcc2a11a00bd16905984e0b817a12e4f0fa5e7d9db5f54f0f",
     "zh:15eb8a7b67395cb29b0eeb06e16b1ff2ebc1beaa64c35ceada98176d66c8f549",

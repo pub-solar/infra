@@ -9,6 +9,10 @@ let
   vHostDomain = "cloud.${config.pub-solar-os.networking.domain}";
 in
 {
+  imports = [
+    ./whiteboard.nix
+  ];
+
   options.pub-solar-os.nextcloud =
     let
       inherit (lib) mkOption types;
@@ -261,6 +265,7 @@ in
           twofactor_webauthn
           uppush
           user_oidc
+          whiteboard
           ;
       };
       database.createLocally = true;

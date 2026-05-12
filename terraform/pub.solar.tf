@@ -232,6 +232,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "nachtigall.pub.solar."
   }
   record {
+    hostname = "whiteboard"
+    type     = "CNAME"
+    address  = "nachtigall.pub.solar."
+  }
+  record {
     hostname = "turn"
     type     = "CNAME"
     address  = "nachtigall.pub.solar."
