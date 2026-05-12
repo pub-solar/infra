@@ -10,6 +10,8 @@ let
 in
 {
   imports = [
+    ./janus-gw.nix
+    ./signaling.nix
     ./whiteboard.nix
   ];
 

@@ -9,6 +9,7 @@
     file = "${flake.self}/secrets/coturn-static-auth-secret.age";
     mode = "400";
     owner = "turnserver";
+    group = "nextcloud";
   };
 
   services.coturn = rec {
