@@ -94,6 +94,11 @@ in
   "nextcloud-admin-pass.age".publicKeys = nachtigallKeys ++ adminKeys;
   "nextcloud-serverinfo-token.age".publicKeys = nachtigallKeys ++ adminKeys;
   "nextcloud-whiteboard-server-secrets.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "signaling-block-key.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "signaling-hash-key.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "signaling-internal-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "signaling-nextcloud-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
+  "janus-api-key.age".publicKeys = nachtigallKeys ++ adminKeys;
 
   "searx-environment.age".publicKeys = nachtigallKeys ++ adminKeys;
 

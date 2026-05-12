@@ -27,6 +27,16 @@
     secretsFile = config.age.secrets."nextcloud-secrets".path;
   };
 
+  pub-solar-os.nextcloud-signaling = {
+    enable = true;
+    internalSecretFile = config.age.secrets."signaling-internal-secret".path;
+    hashKeyFile = config.age.secrets."signaling-hash-key".path;
+    blockKeyFile = config.age.secrets."signaling-block-key".path;
+    janusApiKeyFile = config.age.secrets."janus-api-key".path;
+    turnSecretFile = config.age.secrets."coturn-static-auth-secret".path;
+    nextcloudSecretFile = config.age.secrets."signaling-nextcloud-secret".path;
+  };
+
   pub-solar-os.nextcloud-whiteboard = {
     enable = true;
     secretFile = config.age.secrets."nextcloud-whiteboard-server-secrets".path;

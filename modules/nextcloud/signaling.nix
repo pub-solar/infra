@@ -74,7 +74,9 @@ in
           url = "wss://janus.${config.pub-solar-os.networking.domain}";
         };
         turn = {
-          servers = [ "turn:turn.${config.pub-solar-os.networking.domain}:${toString config.services.coturn.listening-port}?transport=udp,turn:turn.${config.pub-solar-os.networking.domain}:${toString config.services.coturn.listening-port}?transport=tcp" ];
+          servers = [
+            "turn:turn.${config.pub-solar-os.networking.domain}:${toString config.services.coturn.listening-port}?transport=udp,turn:turn.${config.pub-solar-os.networking.domain}:${toString config.services.coturn.listening-port}?transport=tcp"
+          ];
           apikeyFile = "${cfg.janusApiKeyFile}";
           secretFile = "${cfg.turnSecretFile}";
         };

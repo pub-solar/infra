@@ -13,6 +13,7 @@
     "${flake.inputs.fork}/nixos/modules/services/matrix/matrix-authentication-service.nix"
     ./upgrade-postgresql.nix
     ./nextcloud.nix
+    ./nextcloud-signaling.nix
     ./immich.nix
   ];
 

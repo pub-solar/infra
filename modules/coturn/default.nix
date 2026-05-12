@@ -7,9 +7,9 @@
 {
   age.secrets."coturn-static-auth-secret" = {
     file = "${flake.self}/secrets/coturn-static-auth-secret.age";
-    mode = "400";
+    mode = "440";
     owner = "turnserver";
-    group = "nextcloud";
+    group = "nextcloud-spreed-signaling";
   };
 
   services.coturn = rec {
