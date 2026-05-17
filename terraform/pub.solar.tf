@@ -237,6 +237,16 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "nachtigall.pub.solar."
   }
   record {
+    hostname = "janus"
+    type     = "CNAME"
+    address  = "nachtigall.pub.solar."
+  }
+  record {
+    hostname = "signaling"
+    type     = "CNAME"
+    address  = "nachtigall.pub.solar."
+  }
+  record {
     hostname = "turn"
     type     = "CNAME"
     address  = "nachtigall.pub.solar."
