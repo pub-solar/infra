@@ -248,6 +248,7 @@ in
           calendar
           contacts
           cospend
+          dav_push
           deck
           forms
           end_to_end_encryption
