@@ -5,10 +5,6 @@
   ...
 }:
 {
-  imports = [ "${flake.inputs.unstable}/nixos/modules/services/matrix/draupnir.nix" ];
-
-  disabledModules = [ "services/matrix/draupnir.nix" ];
-
   options.pub-solar-os.matrix.draupnir = with lib; {
     enable = mkEnableOption "Enable Matrix draupnir moderation bot";
 
