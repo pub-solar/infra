@@ -9,10 +9,14 @@
     install esp4 ${pkgs.coreutils}/bin/false
     install esp6 ${pkgs.coreutils}/bin/false
     install rxrpc ${pkgs.coreutils}/bin/false
+    install rds ${pkgs.coreutils}/bin/false
+    install rds_tcp ${pkgs.coreutils}/bin/false
   '';
   boot.blacklistedKernelModules = [
     "esp4"
     "esp6"
     "rxrpc"
+    "rds"
+    "rds_tcp"
   ];
 }
