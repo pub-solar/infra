@@ -32,7 +32,7 @@
     dns-provider = mkOption {
       description = "Code of the ACME DNS provider for the main domain wildcard. See https://go-acme.github.io/lego/dns/ for available values & additional environment variables.";
       type = types.str;
-      default = "namecheap";
+      default = "hostingde";
     };
 
     http-port = mkOption {
