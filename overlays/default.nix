@@ -27,6 +27,7 @@
                 };
                 nextcloud-skeleton = prev.callPackage ./pkgs/nextcloud-skeleton { };
                 delete-pubsolar-id = prev.callPackage ./pkgs/delete-pubsolar-id { };
+                disable-loading-kernel-modules = prev.callPackage ./pkgs/disable-loading-kernel-modules { };
 
                 immich = unstable.immich;
 
