@@ -18,6 +18,7 @@
   pub-solar-os.adminEmail = "admin@test.pub.solar";
   pub-solar-os.authentication.users.test-user = { };
   pub-solar-os.networking.domain = "test.pub.solar";
+  pub-solar-os.boot.enableKernelHardening = false;
 
   security.acme.defaults.server = "https://ca.${config.pub-solar-os.networking.domain}/acme/acme/directory";
 
