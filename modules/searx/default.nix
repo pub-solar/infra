@@ -43,12 +43,36 @@ in
 
     environmentFile = config.age.secrets.searx-environment.path;
 
+    # Block bots so we get suspended less often
+    # https://github.com/searxng/searxng/issues/2498#issuecomment-1590625541
+    limiterSettings = {
+      botdetection.ip_limit.link_token = true;
+    };
+
+    faviconsSettings.favicons = {
+      cfg_schema = 1;
+      cache = {
+        db_url = "/var/cache/searx/faviconcache.db";
+        HOLD_TIME = 5184000;
+        LIMIT_TOTAL_BYTES = 2147483648;
+        BLOB_MAX_BYTES = 40960;
+        MAINTENANCE_MODE = "auto";
+        MAINTENANCE_PERIOD = 600;
+      };
+    };
+
     settings = {
       use_default_settings = true;
 
       server = {
         base_url = "https://search.${config.pub-solar-os.networking.domain}";
         secret_key = "@SEARX_SECRET_KEY@";
+        limiter = true;
+        public_instance = true;
+      };
+
+      brand.custom.links = {
+        About = "https://pub.solar/about";
       };
 
       general = {
@@ -57,9 +81,9 @@ in
         privacypolicy_url = config.pub-solar-os.privacyPolicyUrl;
         # use true to use your own donation page written in searx/info/en/donate.md
         # use false to disable the donation link
-        donation_url = false;
+        donation_url = "https://pub.solar/about/#donate-via-iban";
         # mailto:contact@example.com
-        contact_url = false;
+        contact_url = "https://pub.solar/about/#contact-and-getting-help";
         enable_metrics = false;
       };
 
@@ -70,19 +94,29 @@ in
         autocomplete = "duckduckgo";
         # minimun characters to type before autocompleter starts
         autocomplete_min = 4;
+        safe_search = 1; # Moderate
+
+        suspended_times = {
+          SearxEngineAccessDenied = 900;
+          SearxEngineCaptcha = 86400;
+          SearxEngineTooManyRequests = 1800;
+          cf_SearxEngineCaptcha = 1296000;
+          cf_SearxEngineAccessDenied = 86400;
+          recaptcha_SearxEngineCaptcha = 604800;
+        };
       };
 
-      engine = [
+      engines = [
+        {
+          engine = "qwant";
+          disabled = false;
+        }
+        {
+          engine = "bing";
+          disabled = false;
+        }
         {
           engine = "startpage";
-          disabled = false;
-        }
-        {
-          engine = "yahoo";
-          disabled = false;
-        }
-        {
-          engine = "tagesschau";
           disabled = false;
         }
       ];
