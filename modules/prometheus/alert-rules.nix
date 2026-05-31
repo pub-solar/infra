@@ -51,8 +51,8 @@ lib.mapAttrsToList
     };
 
     systemd_service_restart_loop = {
-      condition = "rate( node_systemd_service_restart_total[10m] ) > 3 and ( node_systemd_service_restart_total > 0 )";
-      description = "{{$labels.instance}} restarted systemd service {{$labels.name}} more than three times in the last 10 minutes. It might be crashlooping.";
+      condition = "rate( node_systemd_service_restart_total[10m] ) > 0";
+      description = "{{$labels.instance}} restarted systemd service {{$labels.name}} several times in the last 10 minutes. It might be crashlooping.";
     };
 
     filesystem_root_full_80percent = {
