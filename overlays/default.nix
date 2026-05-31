@@ -10,7 +10,6 @@
               final: prev:
               let
                 unstable = import inputs.unstable { system = prev.system; };
-                nixpkgs-small = import inputs.nixpkgs-small { system = prev.system; };
                 anubis-rollback = import inputs.anubis-rollback { system = prev.system; };
               in
               {
@@ -48,9 +47,7 @@
                 # want mastodon 4.5.x with themes
                 mastodon = prev.callPackage ./pkgs/mastodon {
                   inherit inputs;
-                  # can be reverted once 4.5.10 is in nixpkgs nixos-25.11 branch
-                  # https://tracker.nixos.c3d2.de/?pr=522259
-                  mastodon = nixpkgs-small.mastodon;
+                  mastodon = prev.mastodon;
                   themes = {
                     tangerine = {
                       paths = [

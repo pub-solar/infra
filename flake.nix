@@ -2,7 +2,6 @@
   inputs = {
     # Track channels with commits tested and built by hydra
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixpkgs-small.url = "github:nixos/nixpkgs/nixos-25.11-small";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     anubis-rollback.url = "github:nixos/nixpkgs/08dacfca559e1d7da38f3cf05f1f45ee9bfd213c";
 
