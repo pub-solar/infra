@@ -71,6 +71,8 @@ in
         public_instance = true;
       };
 
+      valkey.url = "valkey://localhost:6379/0";
+
       brand.custom.links = {
         About = "https://pub.solar/about";
       };
@@ -108,15 +110,18 @@ in
 
       engines = [
         {
+          name = "qwant";
           engine = "qwant";
           disabled = false;
         }
         {
+          name = "bing";
           engine = "bing";
           disabled = false;
         }
         {
-          engine = "startpage";
+          name = "wikidata";
+          engine = "wikidata";
           disabled = false;
         }
       ];
@@ -127,6 +132,31 @@ in
         query_in_title = false;
         # infinite_scroll: When true, automatically loads the next page when scrolling to bottom of the current page.
         infinite_scroll = true;
+      };
+    };
+  };
+
+  # Valkey uses uid and gid 999 internally
+  # https://github.com/valkey-io/valkey-container/blob/mainline/9.1/debian/Dockerfile#L86-L87
+  systemd.tmpfiles.rules = [ "d /var/lib/valkey/searx 0770 999 999 - -" ];
+
+  virtualisation = {
+    oci-containers = {
+      backend = "docker";
+
+      containers."valkey-searx" = {
+        image = "valkey/valkey:9.1.0";
+        autoStart = true;
+        ports = [ "127.0.0.1:6379:6379" ];
+
+        volumes = [
+          "/var/lib/valkey/searx:/data"
+        ];
+
+        cmd = [
+          "--save 60 1"
+          "--loglevel warning"
+        ];
       };
     };
   };
