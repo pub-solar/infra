@@ -33,7 +33,7 @@ in
         locations."/auth/sign_up" = {
           priority = 900;
           extraConfig = ''
-            return 302 /auth/sign_in;
+            return 302 https://pub.solar/register;
           '';
         };
 
