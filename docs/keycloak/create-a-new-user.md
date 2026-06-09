@@ -24,7 +24,7 @@ Settings that need to be adjusted:
 - **Username**: enter the requested username
 - **Email**: enter the provided email-address
 
-Click the `Save` button at the bottom.
+Click the `Create` button at the bottom.
 
 ## Set a temporary password
 
