@@ -52,6 +52,7 @@ lib.mapAttrsToList
 
     systemd_service_restart_loop = {
       condition = "rate( node_systemd_service_restart_total[10m] ) > 0";
+      time = "10m";
       description = "{{$labels.instance}} restarted systemd service {{$labels.name}} several times in the last 10 minutes. It might be crashlooping.";
     };
 
