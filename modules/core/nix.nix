@@ -25,14 +25,6 @@
   # Disable HTML documentation for NixOS modules, can cause issues with module overrides
   documentation.nixos.enable = false;
 
-  # Load kernel modules early required for nix remote builds, otherwise nix-daemon errors like
-  # Failed to set up tap device in namespace appear because we
-  # disable dynamically loading kernel modules after boot with
-  # momo-cloud.boot.enableKernelHardening and sysctl kernel.modules_disabled=1
-  boot.kernelModules = [
-    "tun"
-  ];
-
   nix = {
     # Use latest lix version alias
     package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
