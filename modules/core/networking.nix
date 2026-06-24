@@ -27,6 +27,36 @@
     # Don't expose SSH via public interfaces
     networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ 22 ];
 
+    # Load kernel modules early for docker, nix remote build otherwise it fails to start because we
+    # disable dynamically loading kernel modules after boot with
+    # pub-solar-os.boot.enableKernelHardening and sysctl kernel.modules_disabled=1
+    boot.kernelModules = [
+      "ip_set"
+      "ip_set_hash_net"
+      "ip6_tables"
+      "ip6table_filter"
+      "ip6table_nat"
+      "ip6t_REJECT"
+      "ipt_REJECT"
+      "iptable_filter"
+      "iptable_nat"
+      "nf_conntrack_netlink"
+      "nft_chain_nat"
+      "nft_compat"
+      "nft_log"
+      "nft_nat"
+      "nft_reject_inet"
+      "nft_reject_ipv4"
+      "nft_reject_ipv6"
+      "overlay"
+      "tun"
+      "xt_addrtype"
+      "xt_MASQUERADE"
+      "xt_multiport"
+      "xt_set"
+      "xt_tcpudp"
+    ];
+
     # Setting this value breaks Matrix -> NextPush integration because
     # matrix-synapse doesn't like it if nachtigall.pub.solar resolves to localhost.
     #networking.domain = config.pub-solar-os.networking.domain;
