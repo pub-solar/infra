@@ -115,11 +115,6 @@ in
           disabled = false;
         }
         {
-          name = "bing";
-          engine = "bing";
-          disabled = false;
-        }
-        {
           name = "wikidata";
           engine = "wikidata";
           disabled = false;
