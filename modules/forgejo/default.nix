@@ -45,6 +45,11 @@ in
         user_agent_regex = "pages-server";
         action = "ALLOW";
       }
+      {
+        name = "meta-webindexer";
+        user_agent_regex = "meta-webindexer";
+        action = "DENY";
+      }
     ];
   };
 
