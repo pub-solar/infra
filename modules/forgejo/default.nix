@@ -36,6 +36,17 @@ in
 
   # anubis to defend against LLM scrapers
   services.anubis.instances.default.settings.TARGET = "http://127.0.0.1:3000";
+  services.anubis.instances.default.botPolicy = {
+    bots = [
+      { import = "(data)/meta/default-config.yaml"; }
+      { import = "(data)/clients/docker-client.yaml"; }
+      {
+        name = "codeberg-pages";
+        user_agent_regex = "pages-server";
+        action = "ALLOW";
+      }
+    ];
+  };
 
   # required for unix socket permissions
   users.users.nginx.extraGroups = [ config.users.groups.anubis.name ];
