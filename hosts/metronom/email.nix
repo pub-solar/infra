@@ -11,7 +11,7 @@
   mailserver = {
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -R11 -m bcrypt'
-    loginAccounts = {
+    accounts = {
       "admins@${config.pub-solar-os.networking.domain}" = {
         hashedPasswordFile = config.age.secrets.mail-admins.path;
       };
