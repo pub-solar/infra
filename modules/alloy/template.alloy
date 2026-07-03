@@ -45,7 +45,7 @@ declare "logs_and_metrics" {
 
   prometheus.remote_write "default" {
     endpoint {
-      url = string.format("http://%s:%d/api/prom/push", argument.prometheus_host.value, argument.prometheus_port.value)
+      url = string.format("http://%s:%d/api/v1/write", argument.prometheus_host.value, argument.prometheus_port.value)
     }
   }
 }
