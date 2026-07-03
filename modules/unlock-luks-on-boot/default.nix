@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 {
   boot.initrd.network = {
     enable = true;
@@ -16,9 +16,9 @@
         ++ (if userConfig ? "sshPubKeys" then lib.attrsets.attrValues userConfig.sshPubKeys else [ ])
       ) [ ] (lib.attrsets.attrValues config.pub-solar-os.authentication.users);
     };
-    postCommands = ''
-      # Automatically ask for the password on SSH login
-      echo 'cryptsetup-askpass || echo "Unlock was successful; exiting SSH session" && exit 1' >> /root/.profile
-    '';
   };
+  boot.initrd.extraFiles."/root/.profile".source = pkgs.writeText "profile" ''
+    # Automatically ask for the password on SSH login
+    echo 'cryptsetup-askpass || echo "Unlock was successful; exiting SSH session" && exit 1' >> /root/.profile
+  '';
 }

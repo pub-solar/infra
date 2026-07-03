@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   # From https://wiki.nixos.org/wiki/ZFS#Remote_unlock
   boot.initrd.network = {
@@ -17,18 +22,16 @@
         ++ (if userConfig ? "sshPubKeys" then lib.attrsets.attrValues userConfig.sshPubKeys else [ ])
       ) [ ] (lib.attrsets.attrValues config.pub-solar-os.authentication.users);
     };
-    # this will automatically load the zfs password prompt on login
-    # and kill the other prompt so boot can continue
-    postCommands = ''
-      cat <<EOF > /root/.profile
-      if pgrep -x "zfs" > /dev/null
-      then
-        zfs load-key -a
-        killall zfs
-      else
-        echo "zfs not running -- maybe the pool is taking some time to load for some unforseen reason."
-      fi
-      EOF
-    '';
   };
+  # this will automatically load the zfs password prompt on login
+  # and kill the other prompt so boot can continue
+  boot.initrd.extraFiles."/root/.profile".source = pkgs.writeText "profile" ''
+    if pgrep -x "zfs" > /dev/null
+    then
+      zfs load-key -a
+      killall zfs
+    else
+      echo "zfs not running -- maybe the pool is taking some time to load for some unforseen reason."
+    fi
+  '';
 }
