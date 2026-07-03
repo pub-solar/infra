@@ -5,11 +5,19 @@
   ...
 }:
 {
+  # Enable ACME HTTP-01 challenge with nginx
+  services.nginx = {
+    enable = true;
+    virtualHosts.${config.mailserver.fqdn}.enableACME = true;
+  };
+
   mailserver = {
     enable = true;
     stateVersion = lib.mkDefault 3;
     fqdn = "mail.${config.pub-solar-os.networking.domain}";
     domains = [ config.pub-solar-os.networking.domain ];
+    # Reference the existing ACME configuration created by nginx
+    x509.useACMEHost = config.mailserver.fqdn;
 
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -R11 -m bcrypt'
@@ -34,17 +42,12 @@
       };
     };
 
-    # Use Let's Encrypt certificates. Note that this needs to set up a stripped
-    # down nginx and opens port 80.
-    certificateScheme = "acme-nginx";
-
     # Don't store indices along with emails
     indexDir = "/var/lib/dovecot/indices";
     fullTextSearch = {
       enable = true;
       # index new email as they arrive
       autoIndex = true;
-      enforced = "body";
     };
   };
 
