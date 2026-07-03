@@ -1,0 +1,51 @@
+declare "logs_and_metrics" {
+  argument "loki_host" {}
+  argument "loki_port" {}
+  argument "prometheus_host" {}
+  argument "prometheus_port" {}
+  argument "host" {}
+
+  discovery.relabel "journal" {
+  	targets = []
+
+  	rule {
+  		source_labels = ["__journal__systemd_unit", "__journal__systemd_user_unit"]
+  		target_label  = "service"
+  	}
+
+  	rule {
+  		source_labels = ["__journal_priority_keyword"]
+  		target_label  = "severity"
+  	}
+  }
+
+  loki.source.journal "journal" {
+  	max_age       = "24h"
+  	relabel_rules = discovery.relabel.journal.rules
+  	forward_to    = [loki.write.default.receiver]
+  	labels        = {
+  		host = argument.host.value,
+  		job  = "systemd-journal",
+  	}
+  }
+
+  loki.write "default" {
+  	endpoint {
+  		url = string.format("http://%s:%d/loki/api/v1/push", argument.loki_host.value, argument.loki_port.value)
+  	}
+  	external_labels = {}
+  }
+
+  prometheus.exporter.self "alloy" {}
+
+  prometheus.scrape "self" {
+    targets = prometheus.exporter.self.alloy.targets
+    forward_to = [prometheus.remote_write.default.receiver]
+  }
+
+  prometheus.remote_write "default" {
+    endpoint {
+      url = string.format("http://%s:%d/api/prom/push", argument.prometheus_host.value, argument.prometheus_port.value)
+    }
+  }
+}
