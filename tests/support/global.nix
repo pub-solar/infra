@@ -36,11 +36,14 @@
 
   security.pam.services.sshd.allowNullPassword = true;
 
-  services.resolved.extraConfig = lib.mkForce ''
-    DNS=192.168.1.254
-    Domains=~.
-    DNSOverTLS=no
-  '';
+  # These nameservers land in resolved.conf as 'DNS=<list>'
+  networking.nameservers = [
+    "192.168.1.254"
+  ];
+
+  services.resolved.settings.Resolve = {
+    DNSOverTLS = "no";
+  };
 
   environment.systemPackages = [
     pkgs.dig
