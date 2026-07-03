@@ -161,6 +161,7 @@ in
       security = {
         admin_email = "crew@pub.solar";
         admin_password = "\$__file{${config.age.secrets.grafana-admin-password.path}}";
+        secret_key = "SW2YcwTIb9zpOOhoPsMm";
       };
       "auth.generic_oauth" = {
         enabled = true;
