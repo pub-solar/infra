@@ -30,9 +30,11 @@ in
     };
   };
 
-  # Only expose alertmanager port via wireguard interface
+  # Expose alertmanager port for access to web ui and prometheus port for remote
+  # writes, only via wireguard interface
   networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [
     config.services.prometheus.alertmanager.port
+    config.services.prometheus.port
   ];
 
   services.prometheus = {
