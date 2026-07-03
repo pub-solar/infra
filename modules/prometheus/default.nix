@@ -40,6 +40,9 @@ in
   services.prometheus = {
     enable = true;
     port = 9001;
+    extraFlags = [
+      "--web.enable-remote-write-receiver"
+    ];
     globalConfig = {
       scrape_interval = "15s";
       scrape_timeout = "10s";
