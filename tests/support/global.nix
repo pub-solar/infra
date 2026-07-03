@@ -20,6 +20,9 @@
   pub-solar-os.networking.domain = "test.pub.solar";
   pub-solar-os.boot.enableKernelHardening = false;
 
+  # password is empty, to allow SSH access to test VMs via vsock
+  pub-solar-os.authentication.root.initialHashedPassword = null;
+
   security.acme.defaults.server = "https://ca.${config.pub-solar-os.networking.domain}/acme/acme/directory";
 
   security.pki.certificates = [ (builtins.readFile ./step/certs/root_ca.crt) ];
