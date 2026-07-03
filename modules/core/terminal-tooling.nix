@@ -25,6 +25,8 @@
             vimAlias = true;
             viAlias = true;
             defaultEditor = true;
+            withPython3 = false;
+            withRuby = false;
             # configure = {
             #   packages.myVimPackages = with pkgs.vimPlugins; {
             #     start = [vim-nix vim-surrund rainbow];
