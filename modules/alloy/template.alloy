@@ -25,7 +25,6 @@ declare "logs_and_metrics" {
   	forward_to    = [loki.write.default.receiver]
   	labels        = {
   		host = argument.host.value,
-  		job  = "systemd-journal",
   	}
   }
 
