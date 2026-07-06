@@ -9,6 +9,9 @@ jobs:
         uses: https://code.forgejo.org/actions/checkout@v4
 
       - name: Run flake checks
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
         run: |
           set -exuo pipefail
           # Prevent cache garbage collection by creating GC roots
@@ -20,6 +23,7 @@ jobs:
             --command nix-fast-build \
             --no-nom \
             --skip-cached \
+            --cachix-cache pub-solar \
             --systems "x86_64-linux" \
             --eval-workers 2 \
             --max-jobs 20 \
