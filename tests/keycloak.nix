@@ -77,7 +77,7 @@ in
       client.screenshot("register-filled-in")
 
       # Make sure the mail server is ready to send
-      mail_server.wait_for_unit("dovecot2.service")
+      mail_server.wait_for_unit("dovecot.service")
       mail_server.wait_for_unit("postfix.service")
 
       mail_server.wait_until_succeeds("curl http://mail.test.pub.solar/")
