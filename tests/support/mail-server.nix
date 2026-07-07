@@ -48,8 +48,8 @@
 
   mailserver = {
     stateVersion = 3;
-    dkimSigning = false;
-    loginAccounts = {
+    dkim.enable = false;
+    accounts = {
       "admins@${config.pub-solar-os.networking.domain}" = {
         hashedPasswordFile = "/tmp/emailpw";
       };
