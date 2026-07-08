@@ -19,7 +19,7 @@ in
     ./global.nix
   ];
 
-  virtualisation.cores = 4;
+  virtualisation.cores = 2;
   virtualisation.memorySize = 4096;
 
   systemd.tmpfiles.rules = [
