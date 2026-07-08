@@ -86,6 +86,7 @@
           self.nixosModules.unlock-zfs-on-boot
           self.nixosModules.backups
           self.nixosModules.mail
+          self.nixosModules.nginx
           self.nixosModules.prometheus-exporters
           self.nixosModules.alloy
 
