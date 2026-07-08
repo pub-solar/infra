@@ -30,14 +30,19 @@ in
     };
   };
 
-  # Only expose alertmanager port via wireguard interface
+  # Expose alertmanager port for access to web ui and prometheus port for remote
+  # writes, only via wireguard interface
   networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [
     config.services.prometheus.alertmanager.port
+    config.services.prometheus.port
   ];
 
   services.prometheus = {
     enable = true;
     port = 9001;
+    extraFlags = [
+      "--web.enable-remote-write-receiver"
+    ];
     globalConfig = {
       scrape_interval = "15s";
       scrape_timeout = "10s";
@@ -208,59 +213,6 @@ in
             ];
             labels = {
               instance = "trinkgenossin";
-            };
-          }
-        ];
-      }
-      {
-        job_name = "promtail";
-        static_configs = [
-          {
-            targets = [
-              "nachtigall.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
-            ];
-            labels = {
-              instance = "trinkgenossin";
-            };
-          }
-          {
-            targets = [
-              "metronom.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
-            ];
-            labels = {
-              instance = "metronom";
-            };
-          }
-          {
-            targets = [
-              "tankstelle.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
-            ];
-            labels = {
-              instance = "tankstelle";
-            };
-          }
-          {
-            targets = [
-              "trinkgenossin.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
-            ];
-            labels = {
-              instance = "trinkgenossin";
-            };
-          }
-          {
-            targets = [
-              "blue-shell.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
-            ];
-            labels = {
-              instance = "blue-shell";
-            };
-          }
-          {
-            targets = [
-              "delite.wg.${config.pub-solar-os.networking.domain}:${toString config.services.promtail.configuration.server.http_listen_port}"
-            ];
-            labels = {
-              instance = "delite";
             };
           }
         ];

@@ -57,7 +57,7 @@
           self.nixosModules.owncast
           self.nixosModules.postgresql
           self.nixosModules.prometheus-exporters
-          self.nixosModules.promtail
+          self.nixosModules.alloy
           self.nixosModules.searx
           self.nixosModules.tmate
           self.nixosModules.tt-rss
@@ -87,7 +87,7 @@
           self.nixosModules.backups
           self.nixosModules.mail
           self.nixosModules.prometheus-exporters
-          self.nixosModules.promtail
+          self.nixosModules.alloy
 
           self.inputs.simple-nixos-mailserver.nixosModule
         ];
@@ -107,7 +107,7 @@
           self.nixosModules.overlays
           self.nixosModules.backups
           self.nixosModules.prometheus-exporters
-          self.nixosModules.promtail
+          self.nixosModules.alloy
           self.nixosModules.forgejo-actions-runner
         ];
       };
@@ -137,7 +137,7 @@
           self.nixosModules.prometheus
           self.nixosModules.prometheus-exporters
           self.nixosModules.loki
-          self.nixosModules.promtail
+          self.nixosModules.alloy
           self.nixosModules.forgejo-actions-runner
         ];
       };
@@ -157,7 +157,7 @@
           self.nixosModules.overlays
           self.nixosModules.unlock-luks-on-boot
           self.nixosModules.prometheus-exporters
-          self.nixosModules.promtail
+          self.nixosModules.alloy
 
           self.nixosModules.garage
           self.nixosModules.nginx
@@ -179,7 +179,7 @@
           self.nixosModules.overlays
           self.nixosModules.unlock-luks-on-boot
           self.nixosModules.prometheus-exporters
-          self.nixosModules.promtail
+          self.nixosModules.alloy
 
           self.nixosModules.garage
           self.nixosModules.nginx
