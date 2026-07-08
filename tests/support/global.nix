@@ -15,6 +15,8 @@
   virtualisation.cores = lib.mkDefault 4;
   virtualisation.memorySize = lib.mkDefault 4096;
 
+  boot.consoleLogLevel = lib.mkForce 3;
+
   pub-solar-os.adminEmail = "admins@test.pub.solar";
   pub-solar-os.authentication.users.test-user = { };
   pub-solar-os.networking.domain = "test.pub.solar";
