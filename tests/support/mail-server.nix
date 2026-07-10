@@ -9,6 +9,7 @@
     flake.inputs.simple-nixos-mailserver.nixosModule
     flake.self.nixosModules.backups
     flake.self.nixosModules.mail
+    flake.self.nixosModules.nginx
     ./global.nix
   ];
 
@@ -46,10 +47,20 @@
     ];
   };
 
+  # Enable ACME HTTP-01 challenge with nginx
+  services.nginx = {
+    enable = true;
+    virtualHosts.${config.mailserver.fqdn}.enableACME = true;
+  };
+
   mailserver = {
     stateVersion = 3;
-    dkimSigning = false;
-    loginAccounts = {
+    fqdn = "mail.${config.pub-solar-os.networking.domain}";
+    domains = [ config.pub-solar-os.networking.domain ];
+    # Reference the existing ACME configuration created by nginx
+    x509.useACMEHost = config.mailserver.fqdn;
+    dkim.enable = false;
+    accounts = {
       "admins@${config.pub-solar-os.networking.domain}" = {
         hashedPasswordFile = "/tmp/emailpw";
       };

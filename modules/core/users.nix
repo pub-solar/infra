@@ -51,7 +51,7 @@
 
       root.initialHashedPassword = mkOption {
         description = "Hashed password of the root account";
-        type = types.str;
+        type = types.nullOr types.str;
         default = "$y$j9T$bIN6GjQkmPMllOcQsq52K0$q0Z5B5.KW/uxXK9fItB8H6HO79RYAcI/ZZdB0Djke32";
       };
 

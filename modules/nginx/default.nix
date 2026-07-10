@@ -54,7 +54,7 @@ in
       # clients to pick the most performant, per https://github.com/mozilla/server-side-tls/issues/260
       ssl_prefer_server_ciphers off;
       # https://ssl-config.mozilla.org/ffdhe2048.txt
-      ssl_dhparam ${flake.self.packages.${pkgs.system}.nginx-dhparam-ffdhe2048};
+      ssl_dhparam ${flake.self.packages.${pkgs.stdenv.hostPlatform.system}.nginx-dhparam-ffdhe2048};
     '';
     appendConfig = ''
       # Number of CPU cores

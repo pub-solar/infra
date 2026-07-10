@@ -15,10 +15,15 @@
   virtualisation.cores = lib.mkDefault 4;
   virtualisation.memorySize = lib.mkDefault 4096;
 
-  pub-solar-os.adminEmail = "admin@test.pub.solar";
+  boot.consoleLogLevel = lib.mkForce 3;
+
+  pub-solar-os.adminEmail = "admins@test.pub.solar";
   pub-solar-os.authentication.users.test-user = { };
   pub-solar-os.networking.domain = "test.pub.solar";
   pub-solar-os.boot.enableKernelHardening = false;
+
+  # password is empty, to allow SSH access to test VMs via vsock
+  pub-solar-os.authentication.root.initialHashedPassword = null;
 
   security.acme.defaults.server = "https://ca.${config.pub-solar-os.networking.domain}/acme/acme/directory";
 
@@ -36,11 +41,14 @@
 
   security.pam.services.sshd.allowNullPassword = true;
 
-  services.resolved.extraConfig = lib.mkForce ''
-    DNS=192.168.1.254
-    Domains=~.
-    DNSOverTLS=no
-  '';
+  # These nameservers land in resolved.conf as 'DNS=<list>'
+  networking.nameservers = [
+    "192.168.1.254"
+  ];
+
+  services.resolved.settings.Resolve = {
+    DNSOverTLS = "no";
+  };
 
   environment.systemPackages = [
     pkgs.dig

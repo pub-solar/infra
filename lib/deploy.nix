@@ -53,7 +53,7 @@ in
       hostname = getFqdn c;
       profiles.system =
         let
-          system = c.pkgs.system;
+          system = c.pkgs.stdenv.hostPlatform.system;
 
           # Unmodified nixpkgs
           pkgs = import inputs.nixpkgs { inherit system; };

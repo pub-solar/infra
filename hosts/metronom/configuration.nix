@@ -7,6 +7,8 @@
 {
   boot.loader.systemd-boot.enable = true;
   boot.supportedFilesystems = [ "zfs" ];
+  # keep this option disabled as it bypasses ZFS safeguard that protect ZFS pools
+  boot.zfs.forceImportRoot = false;
 
   boot.kernelParams = [
     "boot.shell_on_fail=1"

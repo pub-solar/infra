@@ -98,18 +98,20 @@
     ];
     services.resolved = {
       enable = true;
-      dnsovertls = "true";
-      # default value in nixos module
-      dnssec = "false";
-      domains = [
-        "~."
-      ];
-      fallbackDns = lib.mkDefault [
-        "5.1.66.255#dot.ffmuc.net"
-        "185.150.99.255#dot.ffmuc.net"
-        "2001:678:e68:f000::#dot.ffmuc.net"
-        "2001:678:ed0:f000::#dot.ffmuc.net"
-      ];
+      settings.Resolve = {
+        DNSOverTLS = lib.mkDefault "true";
+        # default value in nixos module
+        DNSSEC = lib.mkDefault "false";
+        Domains = lib.mkDefault [
+          "~."
+        ];
+        FallbackDNS = lib.mkDefault [
+          "5.1.66.255#dot.ffmuc.net"
+          "185.150.99.255#dot.ffmuc.net"
+          "2001:678:e68:f000::#dot.ffmuc.net"
+          "2001:678:ed0:f000::#dot.ffmuc.net"
+        ];
+      };
     };
   };
 }

@@ -1,16 +1,13 @@
 {
   inputs = {
     # Track channels with commits tested and built by hydra
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module-0.13.0";
     codeberg-pages.url = "github:nixos/nixpkgs/refs/pull/395725/head";
 
-    nix-darwin.url = "github:lnl7/nix-darwin/master";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -23,7 +20,6 @@
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    agenix.inputs.darwin.follows = "nix-darwin";
     agenix.inputs.home-manager.follows = "home-manager";
 
     keycloak-theme-pub-solar.url = "git+https://git.pub.solar/pub-solar/keycloak-theme?ref=main";
@@ -31,6 +27,7 @@
 
     keycloak-event-listener.url = "git+https://git.pub.solar/pub-solar/keycloak-event-listener?ref=main";
     keycloak-event-listener.inputs.nixpkgs.follows = "unstable";
+    keycloak-event-listener.inputs.flake-parts.follows = "flake-parts";
 
     element-themes.url = "github:aaronraimist/element-themes/master";
     element-themes.flake = false;
@@ -42,11 +39,11 @@
     element-stickers.inputs.maunium-stickerpicker.follows = "maunium-stickerpicker";
     element-stickers.inputs.nixpkgs.follows = "nixpkgs";
 
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-25.11";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-26.05";
     simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
 
     # NOTE: The ref needs to be compatible with mastodon version we have.
-    tangerine-ui.url = "github:nileane/TangerineUI-for-Mastodon?ref=v2.5.3";
+    tangerine-ui.url = "github:mattbirchler/Tangerine-Neue-for-Mastodon?ref=2.6.4";
     tangerine-ui.flake = false;
   };
 
@@ -124,7 +121,7 @@
               cachix
               editorconfig-checker
               nix-diff
-              nodePackages.prettier
+              prettier
               nvfetcher
               shellcheck
               shfmt
@@ -137,8 +134,8 @@
 
               # For the tests puppeteer-socket pkg
               nodejs
-              nodePackages.typescript
-              nodePackages.typescript-language-server
+              typescript
+              typescript-language-server
             ];
           };
 
