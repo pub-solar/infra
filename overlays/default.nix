@@ -36,7 +36,7 @@
                     recognize = prev.nextcloud33Packages.apps.recognize.overrideAttrs (oldAttrs: {
                       postPatch =
                         oldAttrs.postPatch
-                        + ''substituteInPlace recognize/lib/BackgroundJobs/ClusterFacesJob.php --replace-fail "BATCH_SIZE = 10000" "BATCH_SIZE = 7000"'';
+                        + ''substituteInPlace recognize/lib/BackgroundJobs/ClusterFacesJob.php --replace-fail "BATCH_SIZE = 10000" "BATCH_SIZE = 5000"'';
                     });
                     uppush = prev.nextcloud33Packages.apps.uppush.overrideAttrs (oldAtttrs: {
                       src = final.fetchFromGitea {
