@@ -33,6 +33,15 @@
                 # https://github.com/nextcloud/recognize/blob/v10.0.7/lib/BackgroundJobs/ClusterFacesJob.php#L23
                 nextcloud32Packages = prev.nextcloud32Packages // {
                   apps = prev.nextcloud32Packages.apps // {
+                    uppush = prev.nextcloud32Packages.apps.uppush.overrideAttrs (oldAtttrs: {
+                      src = final.fetchFromGitea {
+                        domain = "codeberg.org";
+                        owner = "NextPush";
+                        repo = "uppush";
+                        rev = "2.5.0";
+                        hash = "sha256-D/IysKFfZeBhh7tk04YcAj9Uy4VPmjnt9DzMoKl3Sgw=";
+                      };
+                    });
                     recognize = prev.nextcloud32Packages.apps.recognize.overrideAttrs (oldAttrs: {
                       postPatch =
                         oldAttrs.postPatch
