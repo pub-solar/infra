@@ -21,18 +21,19 @@ options = ["fmt"]
 includes = ["*.nix"]
 excludes = []
 
-[formatter.prettier]
-command = "prettier"
-options = ["--write"]
-includes = [
-  "*.json",
-  "*.yaml",
-  "*.yml",
-  "*.md",
-]
-excludes = [
-  "modules/grafana/grafana-dashboards/*"
-]
+# Commented out until https://tracker.nixos.c3d2.de/?pr=540892 reaches nixos-26.05
+#[formatter.prettier]
+#command = "prettier"
+#options = ["--write"]
+#includes = [
+#  "*.json",
+#  "*.yaml",
+#  "*.yml",
+#  "*.md",
+#]
+#excludes = [
+#  "modules/grafana/grafana-dashboards/*"
+#]
 
 [formatter.shell]
 command = "shfmt"

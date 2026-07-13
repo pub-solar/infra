@@ -121,7 +121,8 @@
               cachix
               editorconfig-checker
               nix-diff
-              prettier
+              # Commented out until https://tracker.nixos.c3d2.de/?pr=540892 reaches nixos-26.05
+              # prettier
               nvfetcher
               shellcheck
               shfmt
