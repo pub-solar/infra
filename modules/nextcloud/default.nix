@@ -118,9 +118,9 @@ in
       home = "/var/lib/nextcloud";
 
       enable = true;
-      # When updating package, remember to update nextcloud32Packages in
+      # When updating package, remember to update nextcloud33Packages in
       # services.nextcloud.extraApps
-      package = pkgs.nextcloud32;
+      package = pkgs.nextcloud33;
       https = true;
       secretFile = config.pub-solar-os.nextcloud.secretsFile;
       maxUploadSize = "1G";
@@ -244,7 +244,7 @@ in
       appstoreEnable = false;
       autoUpdateApps.enable = false;
       extraApps = {
-        inherit (pkgs.nextcloud32Packages.apps)
+        inherit (config.services.nextcloud.package.packages.apps)
           calendar
           contacts
           cospend
