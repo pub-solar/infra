@@ -28,8 +28,8 @@ in
 
   services.getty.autologinUser = "test-user";
 
-  virtualisation.cores = 8;
-  virtualisation.memorySize = 8192;
+  virtualisation.cores = 4;
+  virtualisation.memorySize = 4096;
   # virtualisation.qemu.options = [ "-vga std" ];
 
   home-manager.users.test-user = {

@@ -115,7 +115,7 @@
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs; [
               deploy-rs
-              nix-fast-build
+              inputs.unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.lixPackageSets.latest.nix-fast-build
               agenix
               age-plugin-yubikey
               cachix
