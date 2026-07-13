@@ -30,10 +30,15 @@
                 # Workaround nextcloud recognize face matching background job using too much memory
                 # nextcloud-cron-start[1750764]: PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 327680 bytes)
                 # https://github.com/nextcloud/recognize/issues/1268
-                # https://github.com/nextcloud/recognize/blob/v10.0.7/lib/BackgroundJobs/ClusterFacesJob.php#L23
-                nextcloud32Packages = prev.nextcloud32Packages // {
-                  apps = prev.nextcloud32Packages.apps // {
-                    uppush = prev.nextcloud32Packages.apps.uppush.overrideAttrs (oldAtttrs: {
+                # https://github.com/nextcloud/recognize/blob/v11.0.1/lib/BackgroundJobs/ClusterFacesJob.php#L22
+                nextcloud33Packages = prev.nextcloud33Packages // {
+                  apps = prev.nextcloud33Packages.apps // {
+                    recognize = prev.nextcloud33Packages.apps.recognize.overrideAttrs (oldAttrs: {
+                      postPatch =
+                        oldAttrs.postPatch
+                        + ''substituteInPlace recognize/lib/BackgroundJobs/ClusterFacesJob.php --replace-fail "BATCH_SIZE = 10000" "BATCH_SIZE = 5000"'';
+                    });
+                    uppush = prev.nextcloud33Packages.apps.uppush.overrideAttrs (oldAtttrs: {
                       src = final.fetchFromGitea {
                         domain = "codeberg.org";
                         owner = "NextPush";
@@ -42,15 +47,10 @@
                         hash = "sha256-D/IysKFfZeBhh7tk04YcAj9Uy4VPmjnt9DzMoKl3Sgw=";
                       };
                     });
-                    recognize = prev.nextcloud32Packages.apps.recognize.overrideAttrs (oldAttrs: {
-                      postPatch =
-                        oldAttrs.postPatch
-                        + ''substituteInPlace recognize/lib/BackgroundJobs/ClusterFacesJob.php --replace-fail "BATCH_SIZE = 10000" "BATCH_SIZE = 7000"'';
-                    });
                   };
                 };
 
-                # want mastodon 4.5.x with themes
+                # want mastodon 4.6.x with themes
                 mastodon = prev.callPackage ./pkgs/mastodon {
                   inherit inputs;
                   mastodon = prev.mastodon;
