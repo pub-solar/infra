@@ -156,6 +156,7 @@ in
       session = {
         PROVIDER = "db";
         COOKIE_SECURE = lib.mkForce true;
+        SESSION_LIFE_TIME = 2592000;
       };
 
       # https://forgejo.org/docs/latest/admin/config-cheat-sheet/#webhook-webhook
@@ -169,11 +170,6 @@ in
         # In an actions workflow, when uses: does not specify an absolute URL,
         # the value of DEFAULT_ACTIONS_URL is prepended to it.
         DEFAULT_ACTIONS_URL = "https://code.forgejo.org";
-      };
-
-      # https://forgejo.org/docs/next/admin/recommendations/#securitylogin_remember_days
-      security = {
-        LOGIN_REMEMBER_DAYS = 365;
       };
 
       # See https://docs.gitea.com/administration/config-cheat-sheet#migrations-migrations
