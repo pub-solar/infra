@@ -197,12 +197,12 @@ in
         "memories.vod.ffmpeg" = lib.getExe pkgs.ffmpeg;
         "memories.vod.ffprobe" = lib.getExe' pkgs.ffmpeg-headless "ffprobe";
 
-        # delete all files in the trash bin that are older than 7 days
-        # automatically, delete other files anytime if space needed
-        trashbin_retention_obligation = "auto,7";
+        # Keeps files and folders in the trash bin for at least 30 days
+        # Then, if space is needed, deletes trashed files anytime after that
+        trashbin_retention_obligation = "30,auto";
         skeletondirectory = "${pkgs.nextcloud-skeleton}/{lang}";
         defaultapp = "file";
-        activity_expire_days = "14";
+        activity_expire_days = "365";
         updatechecker = false;
         # Valid values are: 0 = Debug, 1 = Info, 2 = Warning, 3 = Error,
         # and 4 = Fatal. Defaults to 2
