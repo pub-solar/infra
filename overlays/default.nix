@@ -27,6 +27,17 @@
 
                 immich = unstable.immich;
 
+                # See: https://github.com/NixOS/nixpkgs/pull/541566
+                # TODO: can be removed after next flake update
+                matrix-appservice-irc = prev.matrix-appservice-irc.overrideAttrs (oldAttrs: {
+                  nativeBuildInputs = [
+                    final.fixup-yarn-lock
+                    final.nodejs-slim_22
+                    final.yarn
+                    final.node-gyp-build
+                  ];
+                });
+
                 # Workaround nextcloud recognize face matching background job using too much memory
                 # nextcloud-cron-start[1750764]: PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 327680 bytes)
                 # https://github.com/nextcloud/recognize/issues/1268
