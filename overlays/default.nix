@@ -10,6 +10,7 @@
               final: prev:
               let
                 unstable = import inputs.unstable { system = prev.system; };
+                nixpkgs-keycloak-pin = import inputs.nixpkgs-keycloak-pin { system = prev.system; };
               in
               {
                 # Patch to always use port 443 in redirects from http -> https
@@ -26,6 +27,8 @@
                 disable-loading-kernel-modules = prev.callPackage ./pkgs/disable-loading-kernel-modules { };
 
                 immich = unstable.immich;
+
+                keycloak = nixpkgs-keycloak-pin.keycloak;
 
                 # Workaround nextcloud recognize face matching background job using too much memory
                 # nextcloud-cron-start[1750764]: PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 327680 bytes)

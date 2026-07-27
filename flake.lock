@@ -454,6 +454,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-keycloak-pin": {
+      "locked": {
+        "lastModified": 1783856661,
+        "narHash": "sha256-ZGP04e+Q6WyQJGA9ZvI5CL6+heGQldbAG9U1T9NGvmU=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "569d578509928497eddc3fdbf94a799027050be4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "569d578509928497eddc3fdbf94a799027050be4",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1782614948,
@@ -500,6 +516,7 @@
         "keycloak-theme-pub-solar": "keycloak-theme-pub-solar",
         "maunium-stickerpicker": "maunium-stickerpicker",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-keycloak-pin": "nixpkgs-keycloak-pin",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "tangerine-ui": "tangerine-ui",
         "unstable": "unstable"
