@@ -4,6 +4,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-keycloak-pin.url = "github:nixos/nixpkgs?rev=569d578509928497eddc3fdbf94a799027050be4";
+    nixpkgs-release.url = "github:nixos/nixpkgs/release-26.05";
 
     fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module-0.13.0";
     codeberg-pages.url = "github:nixos/nixpkgs/refs/pull/395725/head";
