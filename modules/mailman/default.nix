@@ -71,6 +71,11 @@ in
     wantedBy = [ "multi-user.target" ];
   };
 
+  # Disable signup / registration because of spam
+  environment.etc."mailman3/settings.py".text = ''
+    ACCOUNT_ADAPTER = 'django_mailman3.views.user_adapter.DisableSignupAdapter'
+  '';
+
   services.mailman = {
     enable = true;
     serve.enable = true;
