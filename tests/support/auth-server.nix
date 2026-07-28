@@ -33,5 +33,7 @@ in
   services.keycloak.database.createLocally = true;
   services.keycloak.initialAdminPassword = "password";
   services.keycloak.settings.truststore-paths = "${ca-cert}";
+  services.keycloak.package =
+    flake.self.inputs.nixpkgs-keycloak-pin.legacyPackages.${pkgs.stdenv.hostPlatform.system}.keycloak;
   systemd.services.keycloak.serviceConfig.TimeoutSec = 900;
 }

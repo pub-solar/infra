@@ -10,6 +10,8 @@
               final: prev:
               let
                 unstable = import inputs.unstable { system = prev.system; };
+                nixpkgs-keycloak-pin = import inputs.nixpkgs-keycloak-pin { system = prev.system; };
+                nixpkgs-release = import inputs.nixpkgs-release { system = prev.system; };
               in
               {
                 # Patch to always use port 443 in redirects from http -> https
@@ -27,16 +29,7 @@
 
                 immich = unstable.immich;
 
-                # See: https://github.com/NixOS/nixpkgs/pull/541566
-                # TODO: can be removed after next flake update
-                matrix-appservice-irc = prev.matrix-appservice-irc.overrideAttrs (oldAttrs: {
-                  nativeBuildInputs = [
-                    final.fixup-yarn-lock
-                    final.nodejs-slim_22
-                    final.yarn
-                    final.node-gyp-build
-                  ];
-                });
+                keycloak = nixpkgs-keycloak-pin.keycloak;
 
                 # Workaround nextcloud recognize face matching background job using too much memory
                 # nextcloud-cron-start[1750764]: PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 327680 bytes)
@@ -64,7 +57,10 @@
                 # want mastodon 4.6.x with themes
                 mastodon = prev.callPackage ./pkgs/mastodon {
                   inherit inputs;
-                  mastodon = prev.mastodon;
+                  # override for security update 4.6.4, see: https://github.com/NixOS/nixpkgs/pull/546314
+                  # can be reverted once 4.6.4 is in nixpkgs nixos-25.11 branch
+                  # https://tracker.nixos.c3d2.de/?pr=546326
+                  mastodon = nixpkgs-release.mastodon;
                   themes = {
                     tangerine = {
                       paths = [
