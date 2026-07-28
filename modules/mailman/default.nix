@@ -33,7 +33,7 @@ in
     enable = true;
     # get TLS certs for list.pub.solar from acme
     settings.main = {
-      hostname = "list.${config.pub-solar-os.networking.domain}";
+      myhostname = "list.${config.pub-solar-os.networking.domain}";
       local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
       postmaster_alias = "admins@pub.solar";
       relay_domains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
