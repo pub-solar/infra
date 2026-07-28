@@ -33,7 +33,7 @@ in
     enable = true;
     # get TLS certs for list.pub.solar from acme
     settings.main = {
-      hostname = "list.${config.pub-solar-os.networking.domain}";
+      myhostname = "list.${config.pub-solar-os.networking.domain}";
       local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
       postmaster_alias = "admins@pub.solar";
       relay_domains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
@@ -70,6 +70,11 @@ in
     '';
     wantedBy = [ "multi-user.target" ];
   };
+
+  # Disable signup / registration because of spam
+  environment.etc."mailman3/settings.py".text = ''
+    ACCOUNT_ADAPTER = 'django_mailman3.views.user_adapter.DisableSignupAdapter'
+  '';
 
   services.mailman = {
     enable = true;
