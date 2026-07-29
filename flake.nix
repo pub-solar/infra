@@ -45,7 +45,7 @@
     simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
 
     # NOTE: The ref needs to be compatible with mastodon version we have.
-    tangerine-ui.url = "github:mattbirchler/Tangerine-Neue-for-Mastodon?ref=2.6.4";
+    tangerine-ui.url = "github:mattbirchler/Tangerine-Neue-for-Mastodon?ref=2.6.5";
     tangerine-ui.flake = false;
   };
 

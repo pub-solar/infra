@@ -626,16 +626,16 @@
     "tangerine-ui": {
       "flake": false,
       "locked": {
-        "lastModified": 1782841562,
-        "narHash": "sha256-yNzG7GWliWcXin1CbiQvu4euLAJ8x+r09zBWudey+84=",
+        "lastModified": 1784467796,
+        "narHash": "sha256-exooAB0vb1cai2lS99G3LnN2bGpHng5NlvNW7wfrYyM=",
         "owner": "mattbirchler",
         "repo": "Tangerine-Neue-for-Mastodon",
-        "rev": "71e31d45ccd065763971c0a5b51414080edd825e",
+        "rev": "d4ae3757755e7d471541ff654582b820fdf80b3f",
         "type": "github"
       },
       "original": {
         "owner": "mattbirchler",
-        "ref": "2.6.4",
+        "ref": "2.6.5",
         "repo": "Tangerine-Neue-for-Mastodon",
         "type": "github"
       }
