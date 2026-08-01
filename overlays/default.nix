@@ -11,7 +11,6 @@
               let
                 unstable = import inputs.unstable { system = prev.system; };
                 nixpkgs-keycloak-pin = import inputs.nixpkgs-keycloak-pin { system = prev.system; };
-                nixpkgs-release = import inputs.nixpkgs-release { system = prev.system; };
               in
               {
                 # Patch to always use port 443 in redirects from http -> https
@@ -60,7 +59,7 @@
                   # override for security update 4.6.4, see: https://github.com/NixOS/nixpkgs/pull/546314
                   # can be reverted once 4.6.4 is in nixpkgs nixos-25.11 branch
                   # https://tracker.nixos.c3d2.de/?pr=546326
-                  mastodon = nixpkgs-release.mastodon;
+                  mastodon = prev.mastodon;
                   themes = {
                     tangerine = {
                       paths = [

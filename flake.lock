@@ -485,22 +485,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-release": {
-      "locked": {
-        "lastModified": 1785550132,
-        "narHash": "sha256-mb9NYZewclFLUwzKZeh6UNYky2fJ36zjLESM8efyF18=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "ff0141dcf8adfe3496709fdbbf5d3a825ca8bfbc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "release-26.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1785491804,
@@ -533,7 +517,6 @@
         "maunium-stickerpicker": "maunium-stickerpicker",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-keycloak-pin": "nixpkgs-keycloak-pin",
-        "nixpkgs-release": "nixpkgs-release",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "tangerine-ui": "tangerine-ui",
         "unstable": "unstable"
