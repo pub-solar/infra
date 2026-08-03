@@ -29,8 +29,6 @@
 
                 immich = unstable.immich;
 
-                keycloak = nixpkgs-keycloak-pin.keycloak;
-
                 # Workaround nextcloud recognize face matching background job using too much memory
                 # nextcloud-cron-start[1750764]: PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 327680 bytes)
                 # https://github.com/nextcloud/recognize/issues/1268

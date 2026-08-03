@@ -72,8 +72,6 @@ in
       client.screenshot("register")
       puppeteer_succeed('page.locator("[name=username]").fill("test-user")')
       puppeteer_succeed('page.locator("[name=email]").fill("test-user@test.pub.solar")')
-      puppeteer_succeed('page.locator("[name=password]").fill("Password1234")')
-      puppeteer_succeed('page.locator("[name=password-confirm]").fill("Password1234")')
       client.screenshot("register-filled-in")
 
       # Make sure the mail server is ready to send
@@ -117,6 +115,14 @@ in
         sys.exit(1)
       puppeteer_succeed(f'page.goto("{url_match.group(1)}")')
       puppeteer_succeed('page.waitForNetworkIdle()')
+
+      client.screenshot("verify-email-initial")
+      puppeteer_succeed('page.locator("[name=password-new]").fill("Password1234")')
+      puppeteer_succeed('page.locator("[name=password-confirm]").fill("Password1234")')
+      client.screenshot("register-filled-in")
+      puppeteer_succeed('page.locator("input[type=submit][value=Submit]").click()')
+      puppeteer_succeed('page.waitForNetworkIdle()')
+
       client.screenshot("registration-complete")
 
       ####### Logout #######
