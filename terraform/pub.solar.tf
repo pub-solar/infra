@@ -332,6 +332,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "v=DKIM1;k=rsa;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDI333HhjmVmDYc5hYTtmB6o9KYb782xw+ewH1eQlpFcCMyJ1giYFeGKviNki9uSm52tk34zUIthsqJMRlz2WsKGgk4oq3MRtgPtogxbh1ipJlynXejPU5WVetjjMnwr6AtV1DP1Sv4n5Vz0EV8cTi3tRZdgYpG6hlriiHXbrvlIwIDAQAB"
   }
   record {
+    hostname = "mail-rsa-2048._domainkey"
+    type     = "TXT"
+    address  = "v=DKIM1;k=rsa;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2IOqNleB9jzhjZsL0wDShy4jxh5hycBKwoYgMPVcbMk9JqwLtTkfZjhldJDxK5U05ujaMFPoJu9ruPosrSSxMQiM2Z54zTkOOiiZJ22M8UGHf3+STpX/bX6G/PhaUm93yJU9Jz/puvtDEG+EYm6pw3qa337rREOw+Z8xQo7Awn6NrTHa9sffRYe+WDD40kFR6pJKuQSYc+0LufFfSABzgLjt3olvmn8Z0jDHOtPMiev0IcY+JR1ltu4dyh+MQwZle8lLs3TH1xLbIShmh2ryhhN+cBuVUN6wMRRc4Tu4eOknXIjPDJWtcEKBfKBDSjVinuhBK9/Un1KxavCSHY3+QQIDAQAB"
+  }
+  record {
     hostname = "@"
     type     = "MX"
     address  = "mail.pub.solar."
