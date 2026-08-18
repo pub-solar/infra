@@ -43,6 +43,11 @@
     };
   };
 
+  systemd.services.sshd = {
+    wants = [ "wireguard-wg-ssh.target" ];
+    after = [ "wireguard-wg-ssh.target" ];
+  };
+
   services.openssh.listenAddresses = [
     {
       addr = "10.7.6.3";
