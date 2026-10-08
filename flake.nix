@@ -86,6 +86,7 @@
                 x86_64-linux = [
                   "blue-shell"
                   "delite"
+                  "limes"
                   "nachtigall"
                   "tankstelle"
                   "trinkgenossin"
@@ -178,6 +179,9 @@
           };
           blue-shell = {
             hostname = "blue-shell.wg.pub.solar";
+          };
+          limes = {
+            hostname = "limes.wg.pub.solar";
           };
         };
       };

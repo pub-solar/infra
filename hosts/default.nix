@@ -187,6 +187,28 @@
         ];
       };
 
+      limes = self.inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          flake = {
+            inherit self inputs config;
+          };
+        };
+        modules = [
+          self.inputs.agenix.nixosModules.default
+          self.inputs.disko.nixosModules.disko
+          self.nixosModules.home-manager
+          self.nixosModules.core
+          ./limes
+          self.nixosModules.overlays
+          self.nixosModules.unlock-luks-on-boot
+          self.nixosModules.prometheus-exporters
+          self.nixosModules.alloy
+
+          self.nixosModules.garage
+          self.nixosModules.nginx
+        ];
+      };
+
       underground = self.inputs.nixpkgs.lib.nixosSystem {
         specialArgs = {
           flake = {

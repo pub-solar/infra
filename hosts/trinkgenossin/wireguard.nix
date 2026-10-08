@@ -69,6 +69,15 @@ in
             "fd00:fae:fae:fae:fae:7::/96"
           ];
         }
+        {
+          # limes.pub.solar
+          endpoint = "[2001:4d88:1ffa:26::15]:51820";
+          publicKey = "dowiINvz3l1rvKe8wq8lVzW4U6ue3+0NahXi4RHKxFI=";
+          allowedIPs = [
+            "10.7.6.8/32"
+            "fd00:fae:fae:fae:fae:8::/128"
+          ];
+        }
       ];
     };
   };
