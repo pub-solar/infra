@@ -35,6 +35,11 @@ resource "namecheap_domain_records" "pub-solar" {
     address  = "10.7.6.7"
   }
   record {
+    hostname = "limes.wg"
+    type     = "A"
+    address  = "10.7.6.8"
+  }
+  record {
     hostname = "nachtigall.wg"
     type     = "AAAA"
     address  = "fd00:fae:fae:fae:fae:1::"
@@ -63,6 +68,11 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "blue-shell.wg"
     type     = "AAAA"
     address  = "fd00:fae:fae:fae:fae:7::"
+  }
+  record {
+    hostname = "limes.wg"
+    type     = "AAAA"
+    address  = "fd00:fae:fae:fae:fae:8::"
   }
   record {
     hostname = "metronom"
@@ -113,6 +123,11 @@ resource "namecheap_domain_records" "pub-solar" {
     hostname = "blue-shell"
     type     = "AAAA"
     address  = "2a03:4000:43:24e::1"
+  }
+  record {
+    hostname = "limes"
+    type     = "AAAA"
+    address  = "2001:4d88:1ffa:26::15"
   }
   record {
     hostname = "auth"
