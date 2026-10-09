@@ -36,6 +36,29 @@
           };
         };
       };
+      data = {
+        type = "disk";
+        device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-1";
+        content = {
+          type = "gpt";
+          partitions = {
+            luks = {
+              size = "100%";
+              content = {
+                type = "luks";
+                name = "cryptmeta";
+                extraOpenArgs = [ ];
+                content = {
+                  type = "filesystem";
+                  format = "btrfs";
+                  mountpoint = "/var/lib/garage/meta";
+                  mountOptions = [ "defaults" ];
+                };
+              };
+            };
+          };
+        };
+      };
     };
     lvm_vg = {
       vg0 = {
@@ -66,15 +89,6 @@
               type = "filesystem";
               format = "xfs";
               mountpoint = "/var/lib/garage/data";
-              mountOptions = [ "defaults" ];
-            };
-          };
-          metadata = {
-            size = "50G";
-            content = {
-              type = "filesystem";
-              format = "btrfs";
-              mountpoint = "/var/lib/garage/meta";
               mountOptions = [ "defaults" ];
             };
           };
