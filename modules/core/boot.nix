@@ -21,6 +21,12 @@
     boot.loader.grub.configurationLimit = lib.mkDefault 15;
     boot.loader.systemd-boot.configurationLimit = lib.mkDefault 15;
 
+    # Use swap only when necessary
+    # https://wiki.nixos.org/wiki/Swap#Adjusting_swap_usage_behaviour
+    boot.kernel.sysctl = {
+      "vm.swappiness" = 10;
+    };
+
     # Prevent kernel vulnerabilities like CVE-2026-43284 CVE-2026-43500 pintheft
     systemd.services."disable-loading-kernel-modules" =
       lib.mkIf config.pub-solar-os.boot.enableKernelHardening
