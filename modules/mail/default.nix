@@ -17,7 +17,7 @@
     fqdn = "mail.${config.pub-solar-os.networking.domain}";
     domains = [ config.pub-solar-os.networking.domain ];
     dkim = {
-      enable = true;
+      enable = lib.mkDefault true;
       domains = {
         "${config.pub-solar-os.networking.domain}".selectors = {
           "mail-rsa-2048" = {
