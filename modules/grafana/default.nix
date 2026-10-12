@@ -145,7 +145,9 @@ in
         # Grafana needs to know on which domain and URL it's running
         domain = "grafana.${config.pub-solar-os.networking.domain}";
         root_url = "https://grafana.${config.pub-solar-os.networking.domain}";
-        enable_gzip = true;
+        # workaround for https://github.com/grafana/grafana/issues/123017#issuecomment-5191787074
+        # can be re-enabled after a fix has been released
+        enable_gzip = false;
       };
       # Disable internal grafana metrics to avoid exposing them
       metrics.enabled = false;
