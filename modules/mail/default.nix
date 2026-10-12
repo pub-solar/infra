@@ -16,6 +16,16 @@
     stateVersion = lib.mkDefault 3;
     fqdn = "mail.${config.pub-solar-os.networking.domain}";
     domains = [ config.pub-solar-os.networking.domain ];
+    dkim = {
+      enable = lib.mkDefault true;
+      domains = {
+        "${config.pub-solar-os.networking.domain}".selectors = {
+          "mail-rsa-2048" = {
+            keyFile = "${config.mailserver.dkim.keyDirectory}/pub.solar.mail-rsa-2048.key";
+          };
+        };
+      };
+    };
     # Reference the existing ACME configuration created by nginx
     x509.useACMEHost = config.mailserver.fqdn;
 
