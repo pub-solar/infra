@@ -9,8 +9,10 @@
             (
               final: prev:
               let
-                unstable = import inputs.unstable { system = prev.system; };
-                nixpkgs-keycloak-pin = import inputs.nixpkgs-keycloak-pin { system = prev.system; };
+                unstable = import inputs.unstable { system = prev.stdenv.hostPlatform.system; };
+                nixpkgs-keycloak-pin = import inputs.nixpkgs-keycloak-pin {
+                  system = prev.stdenv.hostPlatform.system;
+                };
                 nixpkgs-26-05-small = import inputs.nixpkgs-26-05-small {
                   system = prev.stdenv.hostPlatform.system;
                 };
@@ -62,9 +64,6 @@
                 # want mastodon 4.6.x with themes
                 mastodon = prev.callPackage ./pkgs/mastodon {
                   inherit inputs;
-                  # override for security update 4.6.4, see: https://github.com/NixOS/nixpkgs/pull/546314
-                  # can be reverted once 4.6.4 is in nixpkgs nixos-25.11 branch
-                  # https://tracker.nixos.c3d2.de/?pr=546326
                   mastodon = prev.mastodon;
                   themes = {
                     tangerine = {
