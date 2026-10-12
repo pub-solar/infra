@@ -37,6 +37,11 @@ in
     };
   };
 
+  systemd.services.sshd = {
+    wants = [ "wireguard-wg-ssh.target" ];
+    after = [ "wireguard-wg-ssh.target" ];
+  };
+
   services.openssh.listenAddresses = [
     {
       addr = wireguardIPv4;
