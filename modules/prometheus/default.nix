@@ -99,6 +99,14 @@ in
               instance = "blue-shell";
             };
           }
+          {
+            targets = [
+              "limes.wg.${config.pub-solar-os.networking.domain}:${toString config.services.prometheus.exporters.node.port}"
+            ];
+            labels = {
+              instance = "limes";
+            };
+          }
         ];
       }
       {
@@ -189,6 +197,12 @@ in
             targets = [ "blue-shell.wg.${config.pub-solar-os.networking.domain}:3903" ];
             labels = {
               instance = "blue-shell";
+            };
+          }
+          {
+            targets = [ "limes.wg.${config.pub-solar-os.networking.domain}:3903" ];
+            labels = {
+              instance = "limes";
             };
           }
         ];

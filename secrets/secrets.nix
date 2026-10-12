@@ -7,6 +7,7 @@ let
   trinkgenossin-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDZXRDpom/LtyoCxvRuoONARKxIT6wNUwEyUjzHRE7DG root@trinkgenossin";
   delite-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAKo7zlfQhcJ5/okFTOoOstZtmEL1iNlHxQ4q2baEcWT root@delite";
   blue-shell-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP9g9X0a/MaVtbh44IeLxcq+McuYec0GYAdLsseBpk5f root@blue-shell";
+  limes-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDpNx/0HPaPqKJv8y6vK2ZJGv3Lkkf2v7BTIUH4hq0NB root@limes";
   underground-host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGF3PtA89yhVkmN7aJI6gqXK8DW9L7kI71IgiK4TAEwI root@underground";
 
   adminKeys = builtins.foldl' (
@@ -25,12 +26,15 @@ let
 
   blueshellKeys = [ blue-shell-host ];
 
+  limesKeys = [ limes-host ];
+
   undergroundKeys = [ underground-host ];
 
   garageKeys = [
     trinkgenossin-host
     delite-host
     blue-shell-host
+    limes-host
   ];
 in
 {
@@ -45,6 +49,7 @@ in
   "trinkgenossin-wg-private-key.age".publicKeys = trinkgenossinKeys ++ adminKeys;
   "delite-wg-private-key.age".publicKeys = deliteKeys ++ adminKeys;
   "blue-shell-wg-private-key.age".publicKeys = blueshellKeys ++ adminKeys;
+  "limes/wg-private-key.age".publicKeys = limesKeys ++ adminKeys;
 
   "mastodon-active-record-encryption-deterministic-key.age".publicKeys = nachtigallKeys ++ adminKeys;
   "mastodon-active-record-encryption-key-derivation-salt.age".publicKeys =
