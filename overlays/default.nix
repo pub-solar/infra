@@ -10,9 +10,6 @@
               final: prev:
               let
                 unstable = import inputs.unstable { system = prev.stdenv.hostPlatform.system; };
-                nixpkgs-keycloak-pin = import inputs.nixpkgs-keycloak-pin {
-                  system = prev.stdenv.hostPlatform.system;
-                };
                 nixpkgs-26-05-small = import inputs.nixpkgs-26-05-small {
                   system = prev.stdenv.hostPlatform.system;
                 };
