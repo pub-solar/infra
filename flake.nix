@@ -2,6 +2,9 @@
   inputs = {
     # Track channels with commits tested and built by hydra
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+
+    nixpkgs-26-05-small.url = "github:nixos/nixpkgs/nixos-26.05-small";
+
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-keycloak-pin.url = "github:nixos/nixpkgs?rev=569d578509928497eddc3fdbf94a799027050be4";
 
