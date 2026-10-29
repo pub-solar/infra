@@ -12,6 +12,11 @@
     "ip=5.255.119.132::5.255.119.1:255.255.255.0:delite::off"
   ];
 
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 5;
+    "vm.vfs_cache_pressure" = 50;
+  };
+
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #
