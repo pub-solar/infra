@@ -4,6 +4,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
     nixpkgs-26-05-small.url = "github:nixos/nixpkgs/nixos-26.05-small";
+    nixpkgs-release.url = "github:nixos/nixpkgs/release-26.05";
 
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 

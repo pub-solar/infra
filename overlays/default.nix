@@ -13,6 +13,7 @@
                 nixpkgs-26-05-small = import inputs.nixpkgs-26-05-small {
                   system = prev.stdenv.hostPlatform.system;
                 };
+                nixpkgs-release = import inputs.nixpkgs-release { system = prev.stdenv.hostPlatform.system; };
               in
               {
                 php82 = nixpkgs-26-05-small.php82;
@@ -61,7 +62,10 @@
                 # want mastodon 4.6.x with themes
                 mastodon = prev.callPackage ./pkgs/mastodon {
                   inherit inputs;
-                  mastodon = prev.mastodon;
+                  # override for security update 4.6.10, see: https://github.com/NixOS/nixpkgs/pull/580593
+                  # can be reverted once 4.6.10 is in nixpkgs nixos-26.05 branch
+                  # https://tracker.nixos.c3d2.de/?pr=580593
+                  mastodon = nixpkgs-release.mastodon;
                   themes = {
                     tangerine = {
                       paths = [
