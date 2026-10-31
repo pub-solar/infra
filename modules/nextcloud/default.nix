@@ -270,6 +270,11 @@ in
           user_oidc
           whiteboard
           ;
+        classic_appmenu = pkgs.fetchNextcloudApp {
+          url = "https://github.com/moregeo-it/nextcloud-classic-menu/releases/download/v1.1.0/classic_appmenu-1.1.0.tar.gz";
+          hash = "sha256-UMJdKqj4TBkigF/3w6dIUnXNxY6thgD5w+zvikPOH6E=";
+          license = "agpl3Only";
+        };
       };
       database.createLocally = true;
     };
