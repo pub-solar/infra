@@ -52,7 +52,6 @@
               mountpoint = "/";
               mountOptions = [
                 "defaults"
-                "discard"
                 "x-systemd.device-timeout=infinity"
               ];
             };
