@@ -10,17 +10,9 @@
               final: prev:
               let
                 unstable = import inputs.unstable { system = prev.stdenv.hostPlatform.system; };
-                nixpkgs-26-05-small = import inputs.nixpkgs-26-05-small {
-                  system = prev.stdenv.hostPlatform.system;
-                };
                 nixpkgs-release = import inputs.nixpkgs-release { system = prev.stdenv.hostPlatform.system; };
               in
               {
-                php82 = nixpkgs-26-05-small.php82;
-                php83 = nixpkgs-26-05-small.php83;
-                php84 = nixpkgs-26-05-small.php84;
-                php85 = nixpkgs-26-05-small.php85;
-
                 # Patch to always use port 443 in redirects from http -> https
                 # instead of changing it to pages-server PORT
                 codeberg-pages = prev.codeberg-pages.overrideAttrs (oldAttrs: {
