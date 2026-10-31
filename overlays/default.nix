@@ -39,10 +39,10 @@
                 # Workaround nextcloud recognize face matching background job using too much memory
                 # nextcloud-cron-start[1750764]: PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 327680 bytes)
                 # https://github.com/nextcloud/recognize/issues/1268
-                # https://github.com/nextcloud/recognize/blob/v11.0.1/lib/BackgroundJobs/ClusterFacesJob.php#L22
-                nextcloud33Packages = prev.nextcloud33Packages // {
-                  apps = prev.nextcloud33Packages.apps // {
-                    recognize = prev.nextcloud33Packages.apps.recognize.overrideAttrs (oldAttrs: {
+                # https://github.com/nextcloud/recognize/blob/v12.0.0/lib/BackgroundJobs/ClusterFacesJob.php#L22
+                nextcloud34Packages = prev.nextcloud34Packages // {
+                  apps = prev.nextcloud34Packages.apps // {
+                    recognize = prev.nextcloud34Packages.apps.recognize.overrideAttrs (oldAttrs: {
                       postPatch =
                         oldAttrs.postPatch
                         + ''substituteInPlace recognize/lib/BackgroundJobs/ClusterFacesJob.php --replace-fail "BATCH_SIZE = 10000" "BATCH_SIZE = 5000"'';
