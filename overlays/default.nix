@@ -47,15 +47,6 @@
                         oldAttrs.postPatch
                         + ''substituteInPlace recognize/lib/BackgroundJobs/ClusterFacesJob.php --replace-fail "BATCH_SIZE = 10000" "BATCH_SIZE = 5000"'';
                     });
-                    uppush = prev.nextcloud33Packages.apps.uppush.overrideAttrs (oldAtttrs: {
-                      src = final.fetchFromGitea {
-                        domain = "codeberg.org";
-                        owner = "NextPush";
-                        repo = "uppush";
-                        rev = "2.5.0";
-                        hash = "sha256-D/IysKFfZeBhh7tk04YcAj9Uy4VPmjnt9DzMoKl3Sgw=";
-                      };
-                    });
                   };
                 };
 
