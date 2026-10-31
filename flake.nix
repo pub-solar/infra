@@ -3,8 +3,6 @@
     # Track channels with commits tested and built by hydra
     nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst";
 
-    nixpkgs-release.url = "github:nixos/nixpkgs/release-26.05";
-
     unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
 
     fork.url = "github:teutat3s/nixpkgs/init-matrix-authentication-service-module-0.13.0";
