@@ -118,9 +118,9 @@ in
       home = "/var/lib/nextcloud";
 
       enable = true;
-      # When updating package, remember to update nextcloud33Packages in
-      # services.nextcloud.extraApps
-      package = pkgs.nextcloud33;
+      # When updating package, remember to update nextcloud34Packages in
+      # overlays
+      package = pkgs.nextcloud34;
       https = true;
       secretFile = config.pub-solar-os.nextcloud.secretsFile;
       maxUploadSize = "1G";
