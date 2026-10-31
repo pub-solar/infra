@@ -275,6 +275,9 @@ in
         #experimental_features = {
         #  # MSC3266: Room summary API. Used for knocking over federation
         #  msc3266_enabled: true
+        #  # MSC4143: MatrixRTC. For historical reasons this flag enables the transports
+        #  # endpoint defined in MSC4519.
+        #  msc4143_enabled: true
         #  # MSC4222 needed for syncv2 state_after. This allow clients to
         #  # correctly track the state of the room.
         #  msc4222_enabled: true
@@ -371,6 +374,14 @@ in
         rc_registration = {
           burst_count = 3;
           per_second = 0.17;
+        };
+        matrix_rtc = {
+          transports = [
+            {
+              type = "livekit";
+              livekit_service_url = "https://livekit-jwt.call.matrix.org";
+            }
+          ];
         };
         redaction_retention_period = "7d";
         forgotten_room_retention_period = "7d";
