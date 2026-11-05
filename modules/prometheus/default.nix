@@ -21,15 +21,6 @@ in
     owner = "alertmanager";
   };
 
-  security.acme.certs = {
-    "alerts.${config.pub-solar-os.networking.domain}" = {
-      # disable http challenge
-      webroot = null;
-      # enable dns challenge
-      dnsProvider = "namecheap";
-    };
-  };
-
   # Expose alertmanager port for access to web ui and prometheus port for remote
   # writes, only via wireguard interface
   networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [
