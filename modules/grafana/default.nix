@@ -24,8 +24,8 @@ in
     mode = "440";
     owner = "grafana";
   };
-  age.secrets."acme-namecheap-env" = {
-    file = "${flake.self}/secrets/acme-namecheap-env.age";
+  age.secrets."acme-hostingde-api-key" = {
+    file = "${flake.self}/secrets/acme-hostingde-api-key.age";
     mode = "400";
   };
 
@@ -94,14 +94,16 @@ in
 
   security.acme = {
     defaults = {
-      environmentFile = config.age.secrets.acme-namecheap-env.path;
+      credentialFiles = {
+        "HOSTINGDE_API_KEY_FILE" = config.age.secrets.acme-hostingde-api-key.path;
+      };
     };
     certs = {
       "grafana.${config.pub-solar-os.networking.domain}" = {
         # disable http challenge
         webroot = null;
         # enable dns challenge
-        dnsProvider = "namecheap";
+        dnsProvider = "hostingde";
       };
     };
   };

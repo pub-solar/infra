@@ -16,8 +16,8 @@
     mode = "400";
   };
 
-  age.secrets."acme-namecheap-env" = {
-    file = "${flake.self}/secrets/acme-namecheap-env.age";
+  age.secrets."acme-hostingde-api-key" = {
+    file = "${flake.self}/secrets/acme-hostingde-api-key.age";
     mode = "400";
   };
 
@@ -31,9 +31,10 @@
 
   security.acme = {
     defaults = {
-      # LEGO_DISABLE_CNAME_SUPPORT=true set here to fix issues with CNAME
-      # detection, as we use wildcard DNS for garage
-      environmentFile = config.age.secrets.acme-namecheap-env.path;
+      credentialFiles = {
+        "HOSTINGDE_API_KEY_FILE" = config.age.secrets.acme-hostingde-api-key.path;
+      };
+      extraLegoFlags = [ "--dns.resolvers=ns1.hosting.de:53" ];
     };
     certs = {
       "buckets.${config.pub-solar-os.networking.domain}" = {
@@ -41,14 +42,14 @@
         # disable http challenge
         webroot = null;
         # enable dns challenge
-        dnsProvider = "namecheap";
+        dnsProvider = "hostingde";
       };
       "web.${config.pub-solar-os.networking.domain}" = {
         extraDomainNames = [ "*.web.${config.pub-solar-os.networking.domain}" ];
         # disable http challenge
         webroot = null;
         # enable dns challenge
-        dnsProvider = "namecheap";
+        dnsProvider = "hostingde";
       };
     };
   };
