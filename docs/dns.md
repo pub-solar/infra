@@ -1,20 +1,18 @@
 # Changing DNS entries
 
-Our current DNS provider is [namecheap](https://www.namecheap.com/).
+Our current DNS provider is [hosting.de](https://www.hosting.de/).
 We use [OpenTofu](https://opentofu.org) to declaratively manage our pub.solar DNS records.
 
 ### Initial setup
 
-You will need to setup the following [namecheap API credentials](https://www.namecheap.com/support/api/intro),
-look for "namecheap API key" in the pub.solar Keepass database.
+You will need to setup the following [hosting.de API credentials](https://secure.hosting.de/profile),
+look for "hosting.de API token" in the pub.solar Keepass database.
 
 ```
-NAMECHEAP_API_KEY
-NAMECHEAP_API_USER
-NAMECHEAP_USER_NAME
+HOSTINGDE_API_KEY
 ```
 
-You will probably also need to add your external IP to the [API allow list](https://ap.www.namecheap.com/settings/tools/apiaccess/whitelisted-ips).
+You will probably also need to add your external IP to the API key allow list.
 
 ```
 dig -4 ip @dns.toys
@@ -56,6 +54,6 @@ We use terraform-backend-git remote backend with opentofu state encryption for c
 - https://github.com/plumber-cd/terraform-backend-git
 - https://opentofu.org/docs/language/state/encryption
 
-Namecheap Terraform provider docs:
+Hosting.de Terraform provider docs:
 
-- https://registry.terraform.io/providers/namecheap/namecheap/latest/docs
+- https://registry.terraform.io/providers/pub-solar/hostingde/latest/docs
