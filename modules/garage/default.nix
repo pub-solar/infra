@@ -106,7 +106,8 @@
       metadata_dir = "/var/lib/garage/meta";
       db_engine = "lmdb";
       replication_factor = 3;
-      compression_level = 2;
+      compression_level = 15;
+      block_size = "10M";
       rpc_bind_addr = "[::]:3901";
       s3_api = {
         s3_region = "eu-central";
