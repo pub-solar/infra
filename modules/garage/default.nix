@@ -16,11 +16,6 @@
     mode = "400";
   };
 
-  age.secrets."acme-hostingde-api-key" = {
-    file = "${flake.self}/secrets/acme-hostingde-api-key.age";
-    mode = "400";
-  };
-
   networking.firewall.allowedTCPPorts = [
     3900
     3901
@@ -28,75 +23,6 @@
   ];
 
   networking.firewall.interfaces.wg-ssh.allowedTCPPorts = [ 3903 ];
-
-  security.acme = {
-    defaults = {
-      credentialFiles = {
-        "HOSTINGDE_API_KEY_FILE" = config.age.secrets.acme-hostingde-api-key.path;
-      };
-      extraLegoFlags = [ "--dns.resolvers=ns1.hosting.de:53" ];
-    };
-    certs = {
-      "buckets.${config.pub-solar-os.networking.domain}" = {
-        extraDomainNames = [ "*.buckets.${config.pub-solar-os.networking.domain}" ];
-        # disable http challenge
-        webroot = null;
-        # enable dns challenge
-        dnsProvider = "hostingde";
-      };
-      "web.${config.pub-solar-os.networking.domain}" = {
-        extraDomainNames = [ "*.web.${config.pub-solar-os.networking.domain}" ];
-        # disable http challenge
-        webroot = null;
-        # enable dns challenge
-        dnsProvider = "hostingde";
-      };
-    };
-  };
-  users.users.nginx.extraGroups = [ "acme" ];
-
-  services.nginx = {
-    upstreams.s3_backend.servers = {
-      "[::1]:3900" = { };
-    };
-    upstreams.web_backend.servers = {
-      "[::1]:3902" = { };
-    };
-    virtualHosts."buckets.${config.pub-solar-os.networking.domain}" = {
-      serverAliases = [ "*.buckets.${config.pub-solar-os.networking.domain}" ];
-
-      useACMEHost = "buckets.${config.pub-solar-os.networking.domain}";
-      forceSSL = true;
-
-      extraConfig = ''
-        access_log /var/log/nginx/buckets.${config.pub-solar-os.networking.domain}-access.log combined_host;
-        error_log /var/log/nginx/buckets.${config.pub-solar-os.networking.domain}-error.log;
-      '';
-
-      locations."/" = {
-        proxyPass = "http://s3_backend";
-        extraConfig = ''
-          client_max_body_size 64m;
-          proxy_max_temp_file_size 0;
-        '';
-      };
-    };
-    virtualHosts."web.${config.pub-solar-os.networking.domain}" = {
-      serverAliases = [ "*.web.${config.pub-solar-os.networking.domain}" ];
-
-      useACMEHost = "web.${config.pub-solar-os.networking.domain}";
-      forceSSL = true;
-
-      extraConfig = ''
-        access_log /var/log/nginx/web.${config.pub-solar-os.networking.domain}-access.log combined_host;
-        error_log /var/log/nginx/web.${config.pub-solar-os.networking.domain}-error.log;
-      '';
-
-      locations."/" = {
-        proxyPass = "http://web_backend";
-      };
-    };
-  };
 
   services.garage = {
     enable = true;
