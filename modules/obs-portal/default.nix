@@ -101,7 +101,7 @@ in
       backend = "docker";
 
       containers."obs-portal" = {
-        image = "git.pub.solar/pub-solar/obs-portal:latest";
+        image = "git.pub.solar/pub-solar/obs-portal:v0.9.2";
         autoStart = true;
         ports = [ "127.0.0.1:3001:${env.OBS_PORT}" ];
         dependsOn = [
@@ -122,7 +122,7 @@ in
       };
 
       containers."obs-portal-worker" = {
-        image = "git.pub.solar/pub-solar/obs-portal:latest";
+        image = "git.pub.solar/pub-solar/obs-portal:v0.9.2";
         autoStart = true;
 
         cmd = [
@@ -142,7 +142,7 @@ in
       };
 
       containers."obs-portal-db" = {
-        image = "openmaptiles/postgis:7.0";
+        image = "openmaptiles/postgis:7.1";
         autoStart = true;
 
         environmentFiles = [ config.age.secrets.obs-portal-database-env.path ];
