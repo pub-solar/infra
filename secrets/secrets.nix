@@ -154,7 +154,7 @@ in
   "garage-rpc-secret.age".publicKeys = garageKeys ++ adminKeys;
   "garage-admin-token.age".publicKeys = garageKeys ++ adminKeys;
 
-  "acme-hostingde-api-key.age".publicKeys = garageKeys ++ adminKeys;
+  "acme-hostingde-api-key.age".publicKeys = trinkgenossinKeys ++ adminKeys;
 
   # immich
   "immich-oauth-client-secret.age".publicKeys = nachtigallKeys ++ adminKeys;
