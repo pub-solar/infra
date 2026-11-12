@@ -12,6 +12,7 @@ let
     VERBOSE = DEBUG
     AUTO_RESTART = DEBUG
     LEAN_MODE = False
+    API_ROOT_DIR = "/opt/obs/api"
     FRONTEND_URL = None
     FRONTEND_HTTPS = True
     FRONTEND_DIR = "../frontend/build/"
