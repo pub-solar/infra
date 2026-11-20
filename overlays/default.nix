@@ -10,6 +10,7 @@
               final: prev:
               let
                 unstable = import inputs.unstable { system = prev.stdenv.hostPlatform.system; };
+                nixpkgs-small = import inputs.nixpkgs-small { system = prev.stdenv.hostPlatform.system; };
               in
               {
                 # Patch to always use port 443 in redirects from http -> https
@@ -27,24 +28,12 @@
 
                 immich = unstable.immich;
 
-                # Workaround nextcloud recognize face matching background job using too much memory
-                # nextcloud-cron-start[1750764]: PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 327680 bytes)
-                # https://github.com/nextcloud/recognize/issues/1268
-                # https://github.com/nextcloud/recognize/blob/v12.0.0/lib/BackgroundJobs/ClusterFacesJob.php#L22
-                nextcloud34Packages = prev.nextcloud34Packages // {
-                  apps = prev.nextcloud34Packages.apps // {
-                    recognize = prev.nextcloud34Packages.apps.recognize.overrideAttrs (oldAttrs: {
-                      postPatch =
-                        oldAttrs.postPatch
-                        + ''substituteInPlace recognize/lib/BackgroundJobs/ClusterFacesJob.php --replace-fail "BATCH_SIZE = 10000" "BATCH_SIZE = 5000"'';
-                    });
-                  };
-                };
+                php84 = nixpkgs-small.php84;
 
                 # want mastodon 4.6.x with themes
                 mastodon = prev.callPackage ./pkgs/mastodon {
                   inherit inputs;
-                  mastodon = prev.mastodon;
+                  mastodon = nixpkgs-small.mastodon;
                   themes = {
                     tangerine = {
                       paths = [
