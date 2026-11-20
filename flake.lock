@@ -357,11 +357,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793387708,
-        "narHash": "sha256-Yfx5Bd3nOABDJTWQXauu+ixbqqqCXIZUicsHP4fovq8=",
+        "lastModified": 1795143387,
+        "narHash": "sha256-ZJDoTO15+E+2/s4kdpJOrfP/cUacxdw8znXIOj4iH5U=",
         "ref": "main",
-        "rev": "266d89396186709ff94138dd9b879af721124045",
-        "revCount": 15,
+        "rev": "2bffc219f0bd6ff3ae437e971beb0b1d695b4991",
+        "revCount": 17,
         "type": "git",
         "url": "https://git.pub.solar/pub-solar/keycloak-event-listener"
       },
