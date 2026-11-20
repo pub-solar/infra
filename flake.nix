@@ -2,6 +2,7 @@
   inputs = {
     # Track channels with commits tested and built by hydra
     nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst";
+    nixpkgs-small.url = "github:nixos/nixpkgs/nixos-26.05-small";
 
     unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
 
